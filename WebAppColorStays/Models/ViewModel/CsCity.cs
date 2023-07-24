@@ -37,8 +37,6 @@ namespace WebAppColorStays.Models.ViewModel
         public string? NightLife { get; set; }
         public int? TelephoneCode { get; set; }
         public string? TopThingsToKnow { get; set; }
-        public string? Fk_Airport_Name { get; set; }
-        public string? Fk_Railway_Name { get; set; }
         public string? Itinerary { get; set; }
         public string? BestTimeToGo1 { get; set; }
         public string? BestTimeToGo2 { get; set; }

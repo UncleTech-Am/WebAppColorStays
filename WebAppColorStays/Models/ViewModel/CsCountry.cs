@@ -7,6 +7,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        public string? Fk_Continent_Name { get; set; }
         public string? URL { get; set; }
         public string Name { get; set; }
         public string? History { get; set; }
@@ -16,8 +17,6 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Area { get; set; }
         public int? Population { get; set; }
         public string? PopularReligion { get; set; }
-        public string? Fk_Airport_Name { get; set; }
-        public string? Fk_Railway_Name { get; set; }
         public int? Rating { get; set; }
         public int? InternationalAirportCount { get; set; }
         public int? DomesticAirportCount { get; set; }

@@ -12,7 +12,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationCurrency", "Currency", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
         [Required(ErrorMessage = "Please enter Country Name.")]
-        public string? Country { get; set; }
+        public string? Fk_Country_Name { get; set; }
         [Required(ErrorMessage = "Please enter Code.")]
         public string? Code { get; set; }
         [Required(ErrorMessage = "Please enter Symbol.")]
