@@ -1,0 +1,101 @@
+﻿@*Page Should Be Included in the layout page of the website to show spinner and Pop Up*@
+@{
+    Layout = null;
+}
+
+<style>
+
+</style>
+
+<div class="PopUp BrRs10  Br1_Cr CrBrTe SwBxIt1Dv-Vn1 " id="PopUp">
+
+    <div class="PopUpSuccess Ht100p Pg8" id="PopUpSuccessID">
+        @await Html.PartialAsync("_FormSuccessMsg")
+    </div>
+
+    <div class="PopUpError Pg8" id="PopUpErrorID">
+        <div class="Wh100p TtAnCr">
+            <div class="LineDiv"></div>
+            <h2>We Are Sorry!</h2>
+            <h3>Unfortunately An Error Occured ! </h3>
+        </div>
+        <div class="PopTopErrorDiv">
+            <div><button class="BnRd14 CrBdGy60 HrCrTe" onclick="CopyToClipboard('PopUpErrorContentID')"><i class="icofont-copy"></i> Copy </button>  </div>
+            <div><button class="BnRd14 CrBdGn40"><i class="icofont-architecture-alt"></i> Report </button></div>
+            <div><button class="BnRd14 CrBdRd40" onclick='HidePopUp()'><i class="UT-CrossLine"> </i>Close</button></div>
+        </div>
+
+        <div class="PopUpErrorContent  " id="PopUpErrorContentID">
+
+        </div>
+
+
+    </div>
+
+    <div id="PopUpDetailID" class="PopUpDetail Pg8 PnRe">
+        <div class="PopUpTopCloseButton">
+            <button class="BnCe35 HrTmRe360Se1o5 SwBxIt1Dv-Vn1" onclick='HidePopUp()'><i class="UT-CrossLine"></i></button>
+        </div>
+        <div class="LineDiv"></div>
+        <div id="PopUpDetailContentID" class="PgLtRt20 PgTp20">
+
+        </div>
+    </div>
+</div>
+
+<div class="PopUpTop BrRs10  Br1_Cr CrBrTe SwBxIt1Dv-Vn1 " id="PopUpTop">
+    <div class="Wh100p TtAnCr">
+        <div class="LineDiv"></div>
+        <h2 class="PgBm10">Are you Sure?</h2>
+        <h3 class="PgBm10">To Delete This Entry ! </h3>
+    </div>
+    <div id="DeleteUrl" style="display:none;"></div>@*Store the Path of the DeleteConfirmed Action*@
+    <div id="ListUrl" style="display:none;"></div>@*Store the Path of the List Action*@
+    <div class="DyFx FxJyCtCr Gp10 Wh100p PgTp20">
+        <div><button class="BnRd14 CrBdGy60 HrCrTe" onclick="DeleteConfirmed();"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>  </div>
+        <div><button class="BnRd14 CrBdRd40 HrCrTe" onclick='HidePopUpTop()'><i class="UT-CrossLine"></i>&nbsp;Cancel</button></div>
+    </div>
+</div>
+
+
+<div id="loader" style="display:none;">
+<div class="loader">
+    <span class="loader__element"></span>
+    <span class="loader__element"></span>
+    <span class="loader__element"></span>
+    <br />
+</div>
+</div>
+
+
+@*//PopUP*@
+<div class="PopUp BrRs10  Br1_Cr CrBrTe SwBxIt1Dv-Vn1 " id="ValPopUp" style="width:30%;min-height:22vh;left:42%;top:30%">
+    <div class="PopUpError Pg8" style="display:block;">
+        <div class="Wh100p TtAnCr">
+            <div class="LineDiv"></div>
+            <h3>Please fill all Star Mark Fields!</h3>
+        </div>
+        <div class="DyFx FxJyCtCr Gp10 Wh100p MnTp20">
+            <div><button class="BnRd14 CrBdRd40 HrCrTe" onclick='HideValidationPopUp()'>Ok</button></div>
+        </div>
+    </div>
+</div>
+
+
+@*PopUp to show from Script directly*@
+<div class="PopUp BrRs10  Br1_Cr CrBrTe SwBxIt1Dv-Vn1 " id="PopUpScript">
+    <div class="PopUpDetail Pg8 PnRe">
+        <div class="PopUpTopCloseButton">
+            <button class="BnCe35 HrTmRe360Se1o5 SwBxIt1Dv-Vn1" onclick='HidePopUpScript()'><i class="UT-CrossLine"></i></button>
+        </div>
+        <div class="LineDiv"></div>
+        <div  class="PgLtRt20 PgTp20">
+            <div class="Wh100p TtAnCr">
+                <h3 id="PopUpScriptDetailContentID"></h3>
+            </div>
+        </div>
+        <div class="DyFx FxJyCtCr Gp10 Wh100p PgTp20">
+        <div><button class="BnRd14 CrBdRd60 HrCrTe" id="PopUpOkBtn" onclick="HidePopUpScript();" style="font-size:22px;"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Ok</button>  </div>
+    </div>
+    </div>
+</div>

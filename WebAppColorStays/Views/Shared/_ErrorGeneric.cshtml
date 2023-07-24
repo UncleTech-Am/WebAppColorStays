@@ -1,0 +1,18 @@
+﻿@{
+    Layout = null;
+
+}
+<div style="display:none">responseformUT SuccessPop</div>
+<div class="Wh100p DyFx FxJyCtCr FtSz60 FxAnImCr"> <i class="UT-ErrorGhostLine"></i></div>
+
+@if (ViewData["ErrorMessage"] == null)
+{
+    <h2 class="TtAnCr"> We could not complete your request.</h2>
+    <h3 class="TtAnCr"> Kindly try again.</h3>
+}
+else
+{
+    <h2 class="TtAnCr"> @ViewData["ErrorMessage"]</h2>
+}
+
+

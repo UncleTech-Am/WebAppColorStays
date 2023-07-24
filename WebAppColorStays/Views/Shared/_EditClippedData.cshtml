@@ -1,0 +1,62 @@
+﻿@model LibCommon.Service.UserClippedData
+
+@{
+    Layout = null;
+}
+
+<div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
+    <h3 class="MnTp7 MnBm7 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
+        <i class="UT-DetailLine"></i>
+        Edit Data
+    </h3>
+    <div style="overflow:auto; width:100%;" class="PopUpDetailContent">
+        <form id="EditClippedData"
+              data-ajax="true"
+              data-ajax-url="/CommonMethods/EditClippedData"
+              data-ajax-method="post"
+              data-ajax-loading="#loader"
+              data-ajax-success="SuccessEditClippedData(data, status, xhr,'EditClippedData')"
+              data-ajax-failure="FormAjaxFail(xhr, status, error,'EditClippedData')">
+
+            @Html.AntiForgeryToken()
+
+            <div id="CreateOrEdit">
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="MnTp7 MnBm7">
+                    <div class="TtBxMeDiv TtBxMeDivRd ">
+                        <div class="TtBxFrSw Pg5 ">
+                            <i class="UT-KeySmallSolid" TtBxFrIn="Icon"></i>
+                        </div>
+                        <div class="FxGw1" TtBx="TtBxMe">
+                            <input class="TtBxMe17" readonly placeholder="@Html.DisplayNameFor(model => model.Title)" asp-for="Title" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="VnRd"><span asp-validation-for="Title"></span></div>
+                </div>
+
+                <div class="MnTp7 MnBm7">
+                    <div class="TtBxMeDiv TtBxMeDivRd ">
+                        <div class="TtBxFrSw Pg5 ">
+                            <i class="UT-KeySmallSolid" TtBxFrIn="Icon"></i>
+                        </div>
+                        <div class="FxGw1" TtBx="TtBxMe">
+                            <input class="TtBxMe17" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
+                </div>
+            </div>
+
+            <div class="MnTp7 MnBm7 FxRw">
+                <div class="FxGw1">
+                    <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-EditFile"></i>&nbsp;Edit</button>
+                </div>
+                <div>
+                    <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick='HidePopUp()'><i class="UT-CancelCircleLine"></i>&nbsp;Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

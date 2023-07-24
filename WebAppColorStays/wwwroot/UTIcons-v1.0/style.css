@@ -1,0 +1,776 @@
+@font-face {
+  font-family: 'UTIcons';
+  src:
+    url('fonts/UTIcons.ttf?jrkszb') format('truetype'),
+    url('fonts/UTIcons.woff?jrkszb') format('woff'),
+    url('fonts/UTIcons.svg?jrkszb#UTIcons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="UT-"], [class*=" UT-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'UTIcons' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.UT-AccountLine:before {
+  content: "\e900";
+}
+.UT-ActiveLine:before {
+  content: "\e901";
+}
+.UT-AddData:before {
+  content: "\e902";
+}
+.UT-AddFemaleUser:before {
+  content: "\e903";
+}
+.UT-AddFemaleUserSolid:before {
+  content: "\e904";
+}
+.UT-AddFile:before {
+  content: "\e905";
+}
+.UT-AddUsersSolid:before {
+  content: "\e906";
+}
+.UT-AdminBook:before {
+  content: "\e907";
+}
+.UT-AdminFemaleGear:before {
+  content: "\e908";
+}
+.UT-AdminGear:before {
+  content: "\e909";
+}
+.UT-AppsCalenderSolid:before {
+  content: "\e90a";
+}
+.UT-AppsCircleSolid:before {
+  content: "\e90b";
+}
+.UT-AppsCubesSolid:before {
+  content: "\e90c";
+}
+.UT-AppsLine:before {
+  content: "\e90d";
+}
+.UT-AppsMobileLine:before {
+  content: "\e90e";
+}
+.UT-AppsMultiSolid:before {
+  content: "\e90f";
+}
+.UT-AppsSolid:before {
+  content: "\e910";
+}
+.UT-ArrowDownCircleSolid:before {
+  content: "\e911";
+}
+.UT-ArrowDownOneLineCircleSolid:before {
+  content: "\e912";
+}
+.UT-ArrowDownOneLineSolid:before {
+  content: "\e913";
+}
+.UT-ArrowDownThreeLineCircleSolid:before {
+  content: "\e914";
+}
+.UT-ArrowDownThreeLineSolid:before {
+  content: "\e915";
+}
+.UT-ArrowDownThreeSolid:before {
+  content: "\e916";
+}
+.UT-ArrowDownTwoLineCircleSolid:before {
+  content: "\e917";
+}
+.UT-ArrowDownTwoLineSolid:before {
+  content: "\e918";
+}
+.UT-ArrowDownTwoSolid:before {
+  content: "\e919";
+}
+.UT-ArrowLeft:before {
+  content: "\e91a";
+}
+.UT-ArrowLeftCircleLine:before {
+  content: "\e91b";
+}
+.UT-ArrowLeftCircleSolid:before {
+  content: "\e91c";
+}
+.UT-ArrowRight:before {
+  content: "\e91d";
+}
+.UT-ArrowRightCircleLine:before {
+  content: "\e91e";
+}
+.UT-ArrowRightCircleSolid:before {
+  content: "\e91f";
+}
+.UT-ArrowUpCircleSolid:before {
+  content: "\e920";
+}
+.UT-ArrowUpOneLineCircleSolid:before {
+  content: "\e921";
+}
+.UT-ArrowUpOneLineSolid:before {
+  content: "\e922";
+}
+.UT-ArrowUpThreeLineCircleSolid:before {
+  content: "\e923";
+}
+.UT-ArrowUpThreeLineSolid:before {
+  content: "\e924";
+}
+.UT-ArrowUpThreeSolid:before {
+  content: "\e925";
+}
+.UT-ArrowUpTwoLineCircleSolid:before {
+  content: "\e926";
+}
+.UT-ArrowUpTwoLineSolid:before {
+  content: "\e927";
+}
+.UT-ArrowUpTwoSolid:before {
+  content: "\e928";
+}
+.UT-b-03:before {
+  content: "\e929";
+}
+.UT-BillBookLine:before {
+  content: "\e92a";
+}
+.UT-BillingLine:before {
+  content: "\e92b";
+}
+.UT-BillingPersonLine:before {
+  content: "\e92c";
+}
+.UT-BillLine:before {
+  content: "\e92d";
+}
+.UT-BillMultipleLine:before {
+  content: "\e92e";
+}
+.UT-BillSettingLine:before {
+  content: "\e92f";
+}
+.UT-BlogCircleLine:before {
+  content: "\e930";
+}
+.UT-BlogCircleSolid:before {
+  content: "\e931";
+}
+.UT-BlogLine:before {
+  content: "\e932";
+}
+.UT-BlogPencilSolid:before {
+  content: "\e933";
+}
+.UT-BookOpen:before {
+  content: "\e934";
+}
+.UT-BookRead:before {
+  content: "\e935";
+}
+.UT-BookWriteFurLine:before {
+  content: "\e936";
+}
+.UT-BookWriteLine:before {
+  content: "\e937";
+}
+.UT-BookWriteSolid:before {
+  content: "\e938";
+}
+.UT-BulbOff:before {
+  content: "\e939";
+}
+.UT-BulbOn:before {
+  content: "\e93a";
+}
+.UT-CalenderLine:before {
+  content: "\e93b";
+}
+.UT-CalenderSmallLine:before {
+  content: "\e93c";
+}
+.UT-CancelCircleLine:before {
+  content: "\e93d";
+}
+.UT-CancelCircleSolid:before {
+  content: "\e93e";
+}
+.UT-CategoryLine:before {
+  content: "\e93f";
+}
+.UT-ClearDocument:before {
+  content: "\e940";
+}
+.UT-ClippedLine:before {
+  content: "\e941";
+}
+.UT-CommentDoubleLine:before {
+  content: "\e942";
+}
+.UT-CommentLeftSolid:before {
+  content: "\e943";
+}
+.UT-CommentLine:before {
+  content: "\e944";
+}
+.UT-CommnetRightSolid:before {
+  content: "\e945";
+}
+.UT-CompanyBuilding:before {
+  content: "\e946";
+}
+.UT-CompanyPlote:before {
+  content: "\e947";
+}
+.UT-Cross:before {
+  content: "\e948";
+}
+.UT-CrossCircelSolid:before {
+  content: "\e949";
+}
+.UT-CrossLine:before {
+  content: "\e94a";
+}
+.UT-CursorHandLine:before {
+  content: "\e94b";
+}
+.UT-CustomerCareEnquire:before {
+  content: "\e94c";
+}
+.UT-CustomerCareFemale:before {
+  content: "\e94d";
+}
+.UT-Cycle:before {
+  content: "\e94e";
+}
+.UT-CycleBackTyre:before {
+  content: "\e94f";
+}
+.UT-CycleFrontTyre:before {
+  content: "\e950";
+}
+.UT-CyclePerson:before {
+  content: "\e951";
+}
+.UT-DataBaseSolid:before {
+  content: "\e952";
+}
+.UT-DataBaseThreeLineSolid:before {
+  content: "\e953";
+}
+.UT-DataBaseTwoLineSolid:before {
+  content: "\e954";
+}
+.UT-DeletePageSolid:before {
+  content: "\e955";
+}
+.UT-DetailLine:before {
+  content: "\e956";
+}
+.UT-DollarBag:before {
+  content: "\e957";
+}
+.UT-DollarCircleSolid:before {
+  content: "\e958";
+}
+.UT-EditFileLine:before {
+  content: "\e959";
+}
+.UT-Email:before {
+  content: "\e95a";
+}
+.UT-EmailOpenLine:before {
+  content: "\e95b";
+}
+.UT-ErrorCircleSolid:before {
+  content: "\e95c";
+}
+.UT-ErrorFaceLine:before {
+  content: "\e95d";
+}
+.UT-ErrorGhostLine:before {
+  content: "\e95e";
+}
+.UT-ErrorSquareSolid:before {
+  content: "\e95f";
+}
+.UT-ExcelSolid:before {
+  content: "\e960";
+}
+.UT-EyeClose:before {
+  content: "\e961";
+}
+.UT-EyeOpen:before {
+  content: "\e962";
+}
+.UT-FacebookSolid:before {
+  content: "\e963";
+}
+.UT-Filter:before {
+  content: "\e964";
+}
+.UT-FilterAlpha:before {
+  content: "\e965";
+}
+.UT-FilterDots:before {
+  content: "\e966";
+}
+.UT-FilterKip:before {
+  content: "\e967";
+}
+.UT-FilterLineArrow:before {
+  content: "\e968";
+}
+.UT-FilterSearch:before {
+  content: "\e969";
+}
+.UT-FilterSolid:before {
+  content: "\e96a";
+}
+.UT-FilterSolidF:before {
+  content: "\e96b";
+}
+.UT-FilterSolidLine:before {
+  content: "\e96c";
+}
+.UT-FilterTriangel:before {
+  content: "\e96d";
+}
+.UT-GearLine:before {
+  content: "\e96e";
+}
+.UT-GlobeLine:before {
+  content: "\e96f";
+}
+.UT-GlobeMap:before {
+  content: "\e970";
+}
+.UT-GlobeSolid:before {
+  content: "\e971";
+}
+.UT-HighPriortyColor:before {
+  content: "\e972";
+}
+.UT-Horse:before {
+  content: "\e973";
+}
+.UT-HotelBuilding:before {
+  content: "\e974";
+}
+.UT-HotelBuildingWithTree:before {
+  content: "\e975";
+}
+.UT-HotelwithMountain:before {
+  content: "\e976";
+}
+.UT-ImageAddLine:before {
+  content: "\e977";
+}
+.UT-ImageLeftSearch:before {
+  content: "\e978";
+}
+.UT-ImageLine:before {
+  content: "\e979";
+}
+.UT-ImageMiddelSearch:before {
+  content: "\e97a";
+}
+.UT-ImageMultiLine:before {
+  content: "\e97b";
+}
+.UT-ImageUpload:before {
+  content: "\e97c";
+}
+.UT-InstagramSolid:before {
+  content: "\e97d";
+}
+.UT-Inventory:before {
+  content: "\e97e";
+}
+.UT-InventoryBox:before {
+  content: "\e97f";
+}
+.UT-InvoiceLine:before {
+  content: "\e980";
+}
+.UT-IssueActionBrain:before {
+  content: "\e981";
+}
+.UT-IssueActionBulb:before {
+  content: "\e982";
+}
+.UT-IssueActionDocument:before {
+  content: "\e983";
+}
+.UT-IssueAssignUser:before {
+  content: "\e984";
+}
+.UT-IssueSearchLine:before {
+  content: "\e985";
+}
+.UT-IssueSolved:before {
+  content: "\e986";
+}
+.UT-IssueTrackerTriangle:before {
+  content: "\e987";
+}
+.UT-KeyLeftBigSolid:before {
+  content: "\e988";
+}
+.UT-KeyRightSolid:before {
+  content: "\e989";
+}
+.UT-KeySmallSolid:before {
+  content: "\e98a";
+}
+.UT-LedgerCalculateSolid:before {
+  content: "\e98b";
+}
+.UT-LedgerPersonSolid:before {
+  content: "\e98c";
+}
+.UT-ListCheckSolid:before {
+  content: "\e98d";
+}
+.UT-ListMultiLineSolid:before {
+  content: "\e98e";
+}
+.UT-List-OLine:before {
+  content: "\e98f";
+}
+.UT-LocationCity:before {
+  content: "\e990";
+}
+.UT-LocationCountry:before {
+  content: "\e991";
+}
+.UT-LocationGlobe:before {
+  content: "\e992";
+}
+.UT-LowPriortyColor:before {
+  content: "\e993";
+}
+.UT-MapLinkVertical:before {
+  content: "\e994";
+}
+.UT-MidPriortyColor:before {
+  content: "\e995";
+}
+.UT-MinuLine:before {
+  content: "\e996";
+}
+.UT-MinusCircleSolid:before {
+  content: "\e997";
+}
+.UT-MinuSolid:before {
+  content: "\e998";
+}
+.UT-MobileSolid:before {
+  content: "\e999";
+}
+.UT-MonthAlphaSolid:before {
+  content: "\e99a";
+}
+.UT-MonthCircleLine:before {
+  content: "\e99b";
+}
+.UT-MonthNumberLine:before {
+  content: "\e99c";
+}
+.UT-NotEditable:before {
+  content: "\e99d";
+}
+.UT-OutstandingCustomerLine:before {
+  content: "\e99e";
+}
+.UT-PaymentBagReceiveLine:before {
+  content: "\e99f";
+}
+.UT-PaymentCoinLine:before {
+  content: "\e9a0";
+}
+.UT-PaymentCustomerFemale:before {
+  content: "\e9a1";
+}
+.UT-PaymentPayVendor:before {
+  content: "\e9a2";
+}
+.UT-PaymentReceive:before {
+  content: "\e9a3";
+}
+.UT-PaymentRecevieCustomer:before {
+  content: "\e9a4";
+}
+.UT-PaymentVendorShopSolid:before {
+  content: "\e9a5";
+}
+.UT-PenNibSmall:before {
+  content: "\e9a6";
+}
+.UT-PenNibSolid:before {
+  content: "\e9a7";
+}
+.UT-PenNibTallSolid:before {
+  content: "\e9a8";
+}
+.UT-PhoneSolid:before {
+  content: "\e9a9";
+}
+.UT-PhoneSquareSolid:before {
+  content: "\e9aa";
+}
+.UT-Pinintrest:before {
+  content: "\e9ab";
+}
+.UT-PlusCircleLine:before {
+  content: "\e9ac";
+}
+.UT-PlusCircleSolid:before {
+  content: "\e9ad";
+}
+.UT-PlusLine:before {
+  content: "\e9ae";
+}
+.UT-PlusSolid:before {
+  content: "\e9af";
+}
+.UT-PointofSaleLine:before {
+  content: "\e9b0";
+}
+.UT-PopUpLine:before {
+  content: "\e9b1";
+}
+.UT-PopUpMultiLine:before {
+  content: "\e9b2";
+}
+.UT-PopUpSolid:before {
+  content: "\e9b3";
+}
+.UT-POSComputer:before {
+  content: "\e9b4";
+}
+.UT-PrintDocLine:before {
+  content: "\e9b5";
+}
+.UT-ProductSmily:before {
+  content: "\e9b6";
+}
+.UT-QualificationCap:before {
+  content: "\e9b7";
+}
+.UT-ReadLine:before {
+  content: "\e9b8";
+}
+.UT-RefreshArrowLine:before {
+  content: "\e9b9";
+}
+.UT-RefreshCircleLine:before {
+  content: "\e9ba";
+}
+.UT-ReportBook:before {
+  content: "\e9bb";
+}
+.UT-ReportChart:before {
+  content: "\e9bc";
+}
+.UT-ReportsHand:before {
+  content: "\e9bd";
+}
+.UT-RolesCircleLine:before {
+  content: "\e9be";
+}
+.UT-RupeeCircleLine:before {
+  content: "\e9bf";
+}
+.UT-RupeeCircleSolid:before {
+  content: "\e9c0";
+}
+.UT-Ruppe:before {
+  content: "\e9c1";
+}
+.UT-SearchLeftSolid:before {
+  content: "\e9c2";
+}
+.UT-SearchRightSolid:before {
+  content: "\e9c3";
+}
+.UT-SearchSolid:before {
+  content: "\e9c4";
+}
+.UT-SmileHeart:before {
+  content: "\e9c5";
+}
+.UT-SmileMsgSolid:before {
+  content: "\e9c6";
+}
+.UT-SmileSolid:before {
+  content: "\e9c7";
+}
+.UT-SmileSpecs:before {
+  content: "\e9c8";
+}
+.UT-SmileTagSolid:before {
+  content: "\e9c9";
+}
+.UT-SmileyThumbUp:before {
+  content: "\e9ca";
+}
+.UT-StarMarkSolid:before {
+  content: "\e9cb";
+}
+.UT-StarSolid:before {
+  content: "\e9cc";
+}
+.UT-StcokOutLine:before {
+  content: "\e9cd";
+}
+.UT-StockInBucketLine:before {
+  content: "\e9ce";
+}
+.UT-StockInLine:before {
+  content: "\e9cf";
+}
+.UT-StockInTrollyLine:before {
+  content: "\e9d0";
+}
+.UT-StopCircleLine:before {
+  content: "\e9d1";
+}
+.UT-SubscribeLine:before {
+  content: "\e9d2";
+}
+.UT-SuccessStarSolid:before {
+  content: "\e9d3";
+}
+.UT-SuccessUserAccount:before {
+  content: "\e9d4";
+}
+.UT-TagLine:before {
+  content: "\e9d5";
+}
+.UT-TaskAllot:before {
+  content: "\e9d6";
+}
+.UT-TaskLine:before {
+  content: "\e9d7";
+}
+.UT-TaskNotUrgentLine:before {
+  content: "\e9d8";
+}
+.UT-TaskNotUrgentSolid:before {
+  content: "\e9d9";
+}
+.UT-TaskRemind:before {
+  content: "\e9da";
+}
+.UT-TelephoneNumberSolid:before {
+  content: "\e9db";
+}
+.UT-TelephoneSolid:before {
+  content: "\e9dc";
+}
+.UT-Tiger:before {
+  content: "\e9dd";
+}
+.UT-TransactionSolid:before {
+  content: "\e9de";
+}
+.UT-TransactionSolid2:before {
+  content: "\e9df";
+}
+.UT-Twitter:before {
+  content: "\e9e0";
+}
+.UT-Unclipped:before {
+  content: "\e9e1";
+}
+.UT-UnstarSolid:before {
+  content: "\e9e2";
+}
+.UT-UrgentPriortyColor:before {
+  content: "\e9e3";
+}
+.UT-UserBald:before {
+  content: "\e9e4";
+}
+.UT-UserBeard:before {
+  content: "\e9e5";
+}
+.UT-UserCurlyHair:before {
+  content: "\e9e6";
+}
+.UT-UserMaleFemale:before {
+  content: "\e9e7";
+}
+.UT-UserMSolid:before {
+  content: "\e9e8";
+}
+.UT-UserMulti:before {
+  content: "\e9e9";
+}
+.UT-UserMultiple:before {
+  content: "\e9ea";
+}
+.UT-UsersSolid:before {
+  content: "\e9eb";
+}
+.UT-Vendor:before {
+  content: "\e9ec";
+}
+.UT-VerifyMail:before {
+  content: "\e9ed";
+}
+.UT-VerifyNotSolid:before {
+  content: "\e9ee";
+}
+.UT-VerifySolid:before {
+  content: "\e9ef";
+}
+.UT-VideoLine:before {
+  content: "\e9f0";
+}
+.UT-VideoUpload:before {
+  content: "\e9f1";
+}
+.UT-VideoUploadLine:before {
+  content: "\e9f2";
+}
+.UT-WalletLine:before {
+  content: "\e9f3";
+}
+.UT-WalletSolid:before {
+  content: "\e9f4";
+}
+.UT-Warehouse:before {
+  content: "\e9f5";
+}
+.UT-WhatsappSolid:before {
+  content: "\e9f6";
+}
+.UT-Year365DSolid:before {
+  content: "\e9f7";
+}
+.UT-YearAlphaSolid:before {
+  content: "\e9f8";
+}
+.UT-Youtube:before {
+  content: "\e9f9";
+}

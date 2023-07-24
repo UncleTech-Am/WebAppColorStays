@@ -1,0 +1,165 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System.Security.Claims
+@using UncleTech.Encryption
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Admin</title>
+    <link href="~/css/icomoon/style.css" rel="stylesheet" />
+    <link href="~/UTIcons-v1.0/style.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/SideNav.css" rel="stylesheet" />
+    <link href="~/multiselect/dist/css/select2.min.css" rel="stylesheet" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="~/UTScripts/UTFormScript.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive-main/jquery-ajax-unobtrusive-main/src/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/utscripts/sidenavut.js"></script>
+    <script src="~/multiselect/dist/js/select2.min.js"></script>
+
+    <style>
+        .CompanyDiv {
+            position: fixed;
+            top: var(--Pl50);
+            right: 19%;
+            background-color: var(--CrTePr);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--CrTeBr);
+            border-radius: var(--Pl3);
+            min-width: 135px;
+            display: none;
+            z-index:1000000;
+        }
+
+            .CompanyDiv > div {
+                width: 100%;
+                padding: var(--Pl8) var(--Pl5);
+                cursor: pointer;
+                transition: all ease-in-out .35s;
+                transition-property: background-color;
+            }
+
+                .CompanyDiv > div:hover {
+                    background-color: var( --CrTe);
+                    color: var(--CrTeHrTt);
+                }
+    </style>
+</head>
+<body>
+    <div class="NvTpBd"></div>
+    <div class="NvTp">
+        <div style="flex-grow:1"></div>
+        <div class="MnTp7 MnBm7 MnRt10">
+            <div class="FxGw1 FtWt500 FtSz18 Cr-uPr HrCrTe" id="CompName" onclick="ShowHide('CompDivID')">
+                <i class="UT-CompanyPlote FtWt800"></i>
+                <b class="PgLtRt3" id="CCyNe"> @Process.Decrypt(Context.Request.Cookies["CompanyID"])</b>
+            </div>
+        </div>
+        <div class="DyFx FxDnRw Gp10">
+            <div class="FtWt500 FtSz18 Cr-uPr HrTmSeo94 HrCrTe" onclick="ShowClippedData()"> <i class="UT-ClippedLine"></i>&nbsp;<span id="UrCdDa"></span></div>
+            <div class="FtWt500 FtSz18 Cr-uPr HrTmSeo94 HrCrTe FxRw" onclick="ShowHide('UserDivID')">
+                <i class="UT-UserMSolid FtWt800"></i> <b class="PgLtRt3"> Welcome @User.FindFirstValue(ClaimTypes.Name)
+                </b>
+                <div class="AnRn360 DyFx FxJyCtCr FxAnImCr"> <i class="UT-GearLine"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="FxRw FxAnImSh">
+        <div class="NavSide" id="NavSideID">
+            <partial name="_LeftSideCurveNav" />
+        </div>
+
+
+        <div class="NavSideContent BrRs15 PgLt10 PgRt5 TtAnLt" id="NavSideContentID" style="min-height:90vh;">
+
+            @RenderBody()
+
+        </div>
+
+    </div>
+
+    <div class="NavSideShowButtonMobile" id="NavSideShowButtonMobileID" onclick="ShowNavSideMe()">
+        M<br />
+        E<br />
+        N<br />
+        U<br />
+    </div>
+
+    <div class="NavSideShowButton" id="NavSideShowButtonID" onclick="ShowNavSide()">
+
+        N<br />
+        A<br />
+        V<br />
+    </div>
+
+
+    <div class=" SwBxIt1Dv-Vn1 DyFx  CrBdTe Pg8 FxWpNo CrTeTtLt FtSz16 FtWt600">
+        <div class="TtAnLt">Web Admin</div>
+        <div class="FxGw1 TtAnRt">
+            Uncle Tech © 2008 - @DateTime.Now.Year
+        </div>
+    </div>
+
+    <div class="UserDiv SwBxIt1Dv-Vn1" id="UserDivID" style="display:none;">
+        <div onclick="location.href='/Account/LogOut'"> <i class="UT-UserCurlyHair"></i>&nbsp; Logout &nbsp;</div>
+        <div onclick="ShowChangePassForm('@User.FindFirstValue(ClaimTypes.Email)')"> <i class="UT-KeyLeftBigSolid"></i>&nbsp; Change Password &nbsp;</div>
+        <div onclick="ShowPassVerifyForm('@User.FindFirstValue(ClaimTypes.Email)')"> <i class="UT-EmailOpenLine FtWt800"></i> &nbsp; Change Email &nbsp;</div>
+        @*<div> <i class="UT-MobileSolid"></i> &nbsp; Change Mobile &nbsp;</div>*@
+    </div>
+
+    <div class="CompanyDiv SwBxIt1Dv-Vn1" id="CompDivID" style="display:none;">
+    </div>
+
+    <div style="display:none;" id="EmailIdForChange">@User.FindFirstValue(ClaimTypes.NameIdentifier)</div>
+
+    <partial name="_MustLayoutPopLoader" />
+
+
+    @RenderSection("Scripts", required: false)
+    <script>
+        //User Change the Company and then change the Company Cookie
+        function ChangeCompany(compid) {
+            ShowLoader();
+            var logo = document.getElementById(compid);
+            var logourl = logo.getAttribute("complogo");
+            getUT('/AppsView/Index?CompId=' + compid, function (data) {
+                document.body.innerHTML = "";
+                document.body.innerHTML = data;
+                document.getElementById('CCyNe').innerHTML = compid;
+                if (logourl == "null") {
+                    document.getElementById('LogofmDe').style.display = "none";
+                    document.getElementById('UTIn').style.display = "block";
+                    UrCdDa();
+                    UrCyDpDn();
+                    HideLoader();
+                    window.location.href = '/AppsView/Index';
+                }
+                else {
+                    document.getElementById('UTIn').style.display = "none";
+                    document.getElementById('LogofmDe').style.display = "block";
+                    document.getElementById('LoCy').src = logourl;
+                    UrCdDa();
+                    UrCyDpDn();
+                    HideLoader();
+                    window.location.href = '/AppsView/Index';
+                }
+            });
+        }
+        //Ends
+
+        UrCdDa();
+        UrCyDpDn();        
+
+    </script>
+</body>
+</html>

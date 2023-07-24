@@ -1,0 +1,43 @@
+﻿@model LibAuthService.ModelView.User
+
+@{
+    Layout = null;
+    ViewData["Action"] = "ChangeEmail";
+}
+
+<div class="Wh100p DyFx FxJyCtCr CrTe Pg20">
+    <i class="UT-EmailOpenLine" style="font-size:5rem;"></i>
+</div>
+<div class="Pg20 TtAnCr">
+    <h3>Change Your Email-Id</h3>
+    <form id="ChangeEmailForm"
+          data-ajax="true"
+          data-ajax-url="/Account/ChangeEmail"
+          data-ajax-method="post"
+          data-ajax-loading="#loader"
+          data-ajax-success="ChangeESuccess(data, status, xhr,'ChangeEmailForm')"
+          data-ajax-failure="FormAjaxFail(xhr, status, error,'ChangeEmailForm')">
+
+        @Html.AntiForgeryToken()
+
+        <div id="CreateOrEditChangeEmail">
+            <input class="TtBxMe17" type="hidden" asp-for="Id" value="@ViewData["UserId"]" />
+
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxMeDiv TtBxMeDivRd ">
+                    <div class="TtBxFrSw Pg5 ">
+                        <i class="UT-KeySmallSolid" TtBxFrIn="Icon"></i>
+                        <span class="TtBxMeFr CrRd65 FtSz18" TtBxFr="Label"> NewEmail - 'Must'</span>
+                    </div>
+                    <div class="FxGw1" TtBx="TtBxMe"><input class="TtBxMe17" type="email" autocomplete="off" placeholder="New Email-Id" asp-for="Email" /></div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Email"></span></div>
+
+            </div>
+            </div>
+
+        <div class="MnTp7 MnBm7">
+            <button type="submit" class="BnRd17 CrBdTe CrTeTtLt BnWh100  SwBxIt2TtBx-Vn1 HrTmSeo94">Change Email</button>
+        </div>
+    </form>
+</div>

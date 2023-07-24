@@ -1,0 +1,49 @@
+﻿@model IEnumerable<LibCommon.Service.UserClippedData>
+
+@{
+    Layout = null;
+}
+
+<div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
+    <h3 class="MnTp7 MnBm7 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
+        <i class="UT-DetailLine"></i>
+        Your Clipped Data
+    </h3>
+    <div style="overflow:auto; width:100%;" class="PopUpDetailContent">
+        <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7">
+            <div class="FxRw FxAnImSh">
+                <div class="Fx100 Pg3">
+                    <div class="Wh100p OwAo Disable" style="height:70vh;">
+                        <table class="TeStrip TeBr TeFxCl1" id="TeUT">
+                            <thead class="TeFxHd">
+                                <tr>
+                                    <th> Functionalities </th>
+                                    <th> @Html.DisplayNameFor(model => model.Title) </th>
+                                    <th> @Html.DisplayNameFor(model => model.Remarks) </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="gradeX">
+                                        <td class="tooltip-demo">
+                                            <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('@item.Url')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i></a>
+                                            <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="EditClippedData('@item.Id')"><i class="UT-EditFileLine FtWt800"></i></a>
+                                            <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="DeleteClippedData('@item.Id')"><i class="UT-DeletePageSolid"></i></a>
+                                        </td>
+
+                                        <td>@item.Title</td>
+
+                                        <td>@item.Remarks</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+
+<div class="middle-box text-center animated fadeInDown">
+
+    <span style="font-size:64px">
+        <i class="UT-DeletePageSolid"></i>
+        <i class="UT-CrossLine"></i>
+    </span>
+
+
+    <h2>Delete Action Got Stopped</h2>
+
+    @if (ViewBag.TimeExceeded == "Yes")
+    {
+        <div class="error-desc">
+            <h4 class="text-danger">You cannot Delete the Record. You have to delete this record in 10 min of Creation.</h4>
+        </div>
+    }
+    else
+    {
+        <div class="error-desc">
+            <h4 class="text-danger">Before Deleting You Have To Delete All The Reference Pointing To Current Data Being Deleted.</h4>
+        </div>
+    }
+
+</div>

@@ -1,0 +1,114 @@
+﻿@model WebAppColorStays.Models.ViewModel.CsImage
+@{
+    Layout = "_Layout";
+    ViewData["Action"] = "MainNav";
+
+}
+
+<div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
+    <div class="CrTeTtLt FxGw1"> <h1> Website Area</h1></div>
+</div>
+
+<form action="/" enctype="multipart/form-data" method="POST">
+                            <div class="dropzone" id="myDropzone">
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple />
+                                </div>
+                            </div>
+    <div class="MnTp7 MnBm7 FxRw">
+        <div class="Fx25">
+            <button type="submit" id="submit-all" class="btn btn-success">Upload File</button>
+        </div>
+    </div>
+</form>
+
+@*<form asp-action="Create" asp-controller="Image" method="post" enctype="multipart/form-data">
+  
+<div class="fallback">
+            <input name="file" type="file" multiple />
+        <input name="file1" type="file" multiple />
+
+        </div>
+    <div class="MnTp7 MnBm7 FxRw">
+        <div class="Fx25">
+            <button type="submit" class="btn btn-success">Upload File</button>
+        </div>
+        <div class="FxGw1  DyFx FxJyCtEd">
+            <button type="button" onclick="ShowTab(2)" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94 MnLtRt3"><i class="UT-ArrowLeftCircleLine"></i>&nbsp;Back</button>
+            <button type="button" class="BnRd15 CrBdWe70 CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 " onclick="location.href='/PosAdmin/Item/Create'"><i class="UT-AddLine"></i>&nbsp;New Entry</button>
+        </div>
+    </div>
+</form>
+*@
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<link href="~/lib/dropzone/min/dropzone.min.css" rel="stylesheet" />
+<script src="~/lib/dropzone/min/dropzone.min.js"></script>
+<script>
+    //Upload the Images
+    Dropzone.options.myDropzone = {
+        url: '/ColorStays/Image/Create',
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        parallelUploads: 5,
+        maxFiles: 10,
+        acceptedFiles: 'image/*',
+        addRemoveLinks: true,
+        error: function (file, response) {
+            if ($.type(response) === "string")
+                var message = response; //dropzone sends it's own error messages in string
+            else
+                var message = response.message;
+            file.previewElement.classList.add("dz-error");
+            _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                node = _ref[_i];
+                _results.push(node.textContent = message);
+            }
+            HideLoader();
+            return _results;
+        },
+        init: function () {
+            dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
+            // for Dropzone to process the queue (instead of default form behavior):
+            document.getElementById("submit-all").addEventListener("click", function (e) {
+                // Make sure that the form isn't actually being sent.
+                e.preventDefault();
+                e.stopPropagation();
+                dzClosure.processQueue();
+            });
+
+            //send all the form data along with the files:
+            this.on("sendingmultiple", function (data, xhr, formData) {
+                ShowLoader();
+            });
+
+            this.on("success", function () {
+                ShowUploads();
+            });
+        }
+    }
+    //Ends
+
+    //Show the Uploaded Image in the Tab.......................
+    function ShowUploads() {
+        getUT('/PosAdmin/ItemImage/ImageList?ItemId=' + id, function (data) {
+            document.getElementById('Images').innerHTML = "";
+            document.getElementById('Images').innerHTML = data;
+            HideLoader();
+        });
+    };
+    //Ends..............................
+
+    //Delete the Image
+    function DeleteImg(id, itemid) {
+        ShowLoader();
+        getUT('/PosAdmin/ItemImage/DeleteConfirmed?id=' + id + '&ItemId=' + itemid, function (data) {
+            document.getElementById('Images').innerHTML = "";
+            document.getElementById('Images').innerHTML = data;
+            HideLoader();
+        });
+    };
+        //Ends
+</script>
+

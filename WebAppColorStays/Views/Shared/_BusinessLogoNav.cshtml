@@ -1,0 +1,20 @@
+﻿<div class="SideNavLogo">
+    <div class="TextCenter" id="UTIn" style="display:block;">
+        @{
+            var logo = Context.Request.Cookies["CompLogo"];
+        }
+        @if (logo == "NoLogo")
+        {
+            <i class="icon-UncleTech-Face UncleTechLogo"></i>
+            <i class="icon-UncleTech-Glasses UncleTechLogo UncleTechGlasses"></i>
+        }
+        else
+        {
+            <img src=@logo class="UncleTechLogo" style="width:90px; height:100px; left:28%;">
+        }
+    </div>
+
+    <div class="TextCenter" style="display:none;" id="LogofmDe">
+        <img id="LoCy" src="~/image/businesslogo/colorstayslogo.png" class="UncleTechLogo" style="width:90px; height:100px; left:28%;">
+    </div>
+</div>

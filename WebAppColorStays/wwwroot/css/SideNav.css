@@ -1,0 +1,314 @@
+﻿.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+    .tooltip:hover .tooltiptext {
+        opacity: 1;
+    }
+
+    .tooltip .tooltiptext {
+        opacity: 0;
+        transition: opacity .2s;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: max-content;
+        background-color: var(--CrTe);
+        color: var(--CrTeHrTt);
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 5px;
+        position: absolute;
+        z-index: 100000000000;
+        /* Position the tooltip */
+    }
+
+.ToolTRight {
+    top: -5px;
+    left: 105%;
+}
+
+    .ToolTRight::after {
+        content: " ";
+        position: absolute;
+        top: 50%;
+        right: 100%; /* To the left of the tooltip */
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent var(--CrTe) transparent transparent;
+    }
+
+.ToolTLeft {
+    top: -5px;
+    right: 105%;
+}
+
+    .ToolTLeft::after {
+        content: " ";
+        position: absolute;
+        top: 50%;
+        left: 100%; /* To the right of the tooltip */
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent transparent var(--CrTe);
+    }
+
+.ToolTTop {
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+    .ToolTTop::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: var(--CrTe) transparent transparent transparent;
+    }
+
+.ToolTBot {
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+    .ToolTBot::after {
+        content: " ";
+        position: absolute;
+        bottom: 100%; /* At the top of the tooltip */
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent var(--CrTe) transparent;
+    }
+
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+
+
+
+
+.NavSide, .NavSideContent, .SideNavSection {
+    transition: all ease-in-out .3s;
+}
+
+
+.NavSide {
+    border-top-right-radius: var(--Pl17);
+    border-bottom-right-radius:var(--Pl17);
+}
+
+.SideNavSection {
+    border-top-right-radius: var(--Pl25);
+}
+    .NavSide{
+       position :fixed;
+       top:2%;
+       left:-50%;
+       display:block;
+       width:17.5%;
+    }
+
+.NavSideContent {
+    width: 98%;
+    margin-left: 2%;
+}
+.NavSideShowButton, .NavSideShowButtonMobile {
+    position: fixed;
+    left: 0;
+    top: 30%;
+    width: 30px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    padding: 8px;
+    font-weight: 600;
+    text-align: center;
+    background-color: var(--CrTe);
+    color: var(--CrTeHrTt);
+    cursor: pointer;
+}
+
+ .NavSideShowButtonMobile {
+     display:block;
+}
+.NavSideShowButton {
+    display:none;
+}
+.SideNavHideBn, .SideNavMeHideBn {
+    position: absolute;
+    right: var(--Pl8);
+    top: 8px;
+    z-index: 1000000;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    border: 2px solid #eae8e6e3;
+    background-color: var(--CrTe);
+    cursor: pointer;
+    box-shadow: inset 0 0 var(--Pl6) var(--IeSwCr);
+    transition: all ease-in-out .35s;
+    transition-property: background-color,transform;
+}
+
+    .SideNavHideBn{display:none;}
+    .SideNavHideBn:hover, .SideNavMeHideBn :hover {
+        background-color: rgb(223 29 29 / 0.85);
+        transform: scale(1.1);
+    }
+
+
+.SideNavSection{
+    position:relative;
+}
+
+.SideNavSection > * {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+
+
+.SideNavLogo {
+    height: 110px;
+    position: relative;
+    border-top-right-radius: 18px;
+    background-color: rgb(252 252 252 / 0.94);
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid rgba(233, 229, 229, 0.7);
+}
+
+.UncleTechLogo {
+    font-size: 100px;
+    position: absolute;
+    top: 1%;
+    left: 35%;
+}
+.UncleTechGlasses {
+    color: var(--CrTe);
+}
+.SideNavContainer {
+    background-color: rgba(245, 246, 246, 0.53);
+}
+
+.SideNavLinkDiv {
+    border-bottom: 1px solid rgba(233, 229, 229, 0.7);
+    cursor: grabbing;
+}
+.SideNavLink, .SideNavSubLink {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    width: 100%;
+    box-shadow: inset 0 0 var(--Pl1) rgba(39, 59, 111, 0.09);
+}
+
+.SideNavActive, .SideNavActive > div > a, .SideNavActive > a {
+    transition: all ease-in .3s;
+    color: var(--CrTeHrTt);
+}
+.SideNavActive{
+    background-color: var(--CrTe);
+}
+
+.SideNavLinkDiv:hover {
+    background-color: var(--CrTe);
+}
+
+.SideNavLinkDiv > * :hover {
+    color: var(--CrTeHrTt);
+    transform: scale(1.01,1.01);
+}
+.SideSubNavContainer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+.SideSubNavActive {
+    display: block;
+    max-height: fit-content;
+}
+.SideSubLinkActive{
+    font-weight:800;
+}
+    .SideSubLinkActive:before {
+        content: "";
+        position: absolute;
+        left: 9px;
+        width: 15px;
+        height: 15px;
+        border: 2px solid #dfd4c9e8;
+        box-shadow: inset 0 0 var(--Pl6) var(--IeSwCr);
+        top: calc(31%);
+        z-index: 10;
+        background-color: var(--CrTe);
+        border-radius: 50%;
+    }
+.SideNavLink {
+    padding: 9px 9px;
+}
+
+.SideNavLinkText {
+    flex-grow: 3;
+    font-size: 1.1rem;
+}
+.SideNavSubLinkDiv {
+    padding: 0px 0px 0px 15px;
+    position:relative;
+}
+.SideNavSubLink {
+    border-left: 2px dashed rgb(92 83 83 / 0.8);
+    padding: 9px 9px 9px 19px;
+}
+
+
+
+/*Site Responsive Design*/
+/*document.getElementById('NavSideContentID').style.width = '98%';
+document.getElementById('NavSideContentID').style.marginLeft = '2%';*/
+
+@media (min-width:768px) {
+    .NavSideShowButton {
+        display: none;
+    }
+
+
+    .NavSideShowButtonMobile {
+        display: none;
+    }
+
+    .SideNavHideBn {
+        display: block;
+    }
+    .SideNavMeHideBn {
+        display: none;
+    }
+
+    .NavSide {
+        display: block;
+        width: 17.5%;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .NavSideContent {
+        width: 82.5%;
+        margin-left: 0%;
+    }
+}

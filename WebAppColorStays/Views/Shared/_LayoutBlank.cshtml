@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Admin</title>
+    <link href="~/css/icomoon/style.css" rel="stylesheet" />
+    <link href="~/UTIcons-v1.0/style.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/SideNav.css" rel="stylesheet" />
+</head>
+<body>
+
+    @RenderBody()
+
+
+    <partial name="_MustLayoutPopLoader" />
+
+    <script src="~/UTScripts/UTFormScript.js"></script>
+    <script defer src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script defer src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script defer src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script defer src="~/lib/jquery-ajax-unobtrusive-main/jquery-ajax-unobtrusive-main/src/jquery.unobtrusive-ajax.js"></script>
+
+
+    @RenderSection("Scripts", required: false)
+
+    <script>
+        function ConfirmationEmailAgain() {
+            ShowLoader();
+            var emailid = document.getElementById('Email').value;
+            var URL = '/Account/ConfirmationEmailAgain?EmailId=' + emailid;
+            getUT(URL, EmailSendSuccessFn);
+        }
+
+        function EmailSendSuccessFn(data, status, xhr) {
+            FormAjaxSuccess(data, "LoginFormID", "CreateOrEditLogin", "UpdatePopUp");
+            document.getElementById('ElCnAn').style.display="none";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\ColorStays\Views\Image\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Areas\ColorStays\Views\Continent\_IndexData.cshtml~RF7f36f4.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\ColorStays\Views\Country\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\Country\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Country\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\Country\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Country\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\Country\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Country\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\Country\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\Country\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Currency\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\Currency\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Currency\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\Currency\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Currency\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\Currency\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Currency\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\Currency\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\Currency\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\EnqCallBack\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\EnqCallBack\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\EnqCallBack\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\EnqCallBack\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\EnqCallBack\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\EnqCallBack\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\EnqCallBack\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\EnqCallBack\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\EnqCallBack\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Enquiry\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\Enquiry\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Enquiry\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\Enquiry\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Enquiry\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\Enquiry\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Enquiry\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\Enquiry\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\Enquiry\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Image\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\Home\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.20" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.15" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UncleTech.Emailer">
+      <HintPath>..\..\LibCommon\LibCommon\UncleTech\UncleTech.Emailer.dll</HintPath>
+    </Reference>
+    <Reference Include="UncleTech.Encryption">
+      <HintPath>..\..\LibCommon\LibCommon\UncleTech\UncleTech.Encryption.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

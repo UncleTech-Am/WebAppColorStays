@@ -1,0 +1,50 @@
+﻿@using LibCommon.Service
+@{
+    string Action = ViewData["Action"].ToString();
+    string MainNav = " ";
+    string CompanyNav = " ";
+
+    switch (Action)
+    {
+        case "MainNav": MainNav = "SideNavActive"; break;
+        case "CompanyNav": CompanyNav = "SideNavActive"; break;
+
+        default: break;
+    }
+}
+
+<div class="SideNavSection  SwBxIt1Dv-Vn1 Ht100p" id="SideNavSectionID">
+
+    <div class="SideNavHideBn" id="SideNavHideBnID"></div>
+    <div class="SideNavMeHideBn" id="SideNavMeHideBnID" style="background-color:aqua;" onclick="HideNavSideMe();"></div>
+
+    @await Html.PartialAsync("_BusinessLogoNav")
+
+    <div class="SideNavContainer">
+        <div class="SideNavLinkDiv">
+            <div class="SideNavLink @CompanyNav">
+                <i class="UT-AppsSolid FtSz26"></i>
+                <div class="SideNavLinkText">
+                    @{
+                        CsProjectName projectname = new CsProjectName();
+                        var projectdata = projectname.ReturnList();
+                    }
+                    <a href="~/Account/AppJump?Url=@projectdata.FirstOrDefault(x=>x.Id == "1").AppHost/Account/Confirm">All Apps</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="SideNavContainer">
+        <div class="SideNavLinkDiv">
+            <div class="SideNavLink @MainNav">
+                <i class="UT-AppsSolid FtSz26"></i>
+                <div class="SideNavLinkText">
+                    <a href="~/AppsView/Index">@projectdata.FirstOrDefault(x=>x.Id == "2").Name</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
