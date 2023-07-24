@@ -67,6 +67,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\LibAuthService\LibAuthService\LibAuthService.csproj" />
+    <ProjectReference Include="..\..\LibCommon\LibCommon\LibCommon.csproj" />
+    <ProjectReference Include="..\..\WebAppUT\LibCompanyService\LibCompanyService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="UncleTech.Emailer">
       <HintPath>..\..\LibCommon\LibCommon\UncleTech\UncleTech.Emailer.dll</HintPath>
     </Reference>
