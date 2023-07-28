@@ -37,7 +37,7 @@ namespace WebAppColorStays.Controllers
             {
                 return RedirectToAction("Login", "Account", new { Area = "", UserNoComp = "UserNoComp" });
             }
-            var ProjectId = "2";
+            var ProjectId = "5";
             if (CompID == "NoCompany" && UserType == "Owner")
             {
                 return RedirectToAction("Create", "MyBusiness", new { area = "Business" });

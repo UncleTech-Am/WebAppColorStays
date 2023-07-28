@@ -3,7 +3,6 @@
     Layout = null; 
     ViewData["Action"] = "Continent";
     var user = Convert.ToString(ViewData["UserId"]);
-
 }
 
 <div style="display:none">responseformUT ShowData</div>
@@ -134,9 +133,7 @@
         <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CompId)</td>
         <td>@Model.CompId</td>
         </tr>
-
-		      
-      
+  
         </table>
     </div>
 </div>
@@ -175,7 +172,8 @@
             }
 
         }
-        else{
+        else
+        {
             @if (User.IsInRole("Owner") || User.IsInRole("Administrator") || Model.FreezedBy == user)
             {
                 @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)

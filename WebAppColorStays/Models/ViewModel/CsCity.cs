@@ -7,13 +7,16 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        public string? SEOTitle { get; set; }
+        public string? SEODescription { get; set; }
+        public string? SEOKeywords { get; set; }
         public string? Fk_State_Name { get; set; }
         public string? URL { get; set; }
         public string Name { get; set; }
         public string? Area { get; set; }
         public string? History { get; set; }
         public string? Fact { get; set; }
-        public string? Stoories { get; set; }
+        public string? Stories { get; set; }
         public string? Longitude { get; set; }
         public string? Latitude { get; set; }
         public int? Rank { get; set; }
@@ -38,11 +41,7 @@ namespace WebAppColorStays.Models.ViewModel
         public int? TelephoneCode { get; set; }
         public string? TopThingsToKnow { get; set; }
         public string? Itinerary { get; set; }
-        public string? BestTimeToGo1 { get; set; }
-        public string? BestTimeToGo2 { get; set; }
-        public string? BestTimeToGo3 { get; set; }
-        public string? BestTimeToGo4 { get; set; }
-        public string? BestTimeToGo5 { get; set; }
+        public string? BestTimeToVisit { get; set; }
         public bool? FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }

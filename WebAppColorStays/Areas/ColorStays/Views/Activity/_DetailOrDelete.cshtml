@@ -1,4 +1,4 @@
-@model WebAppColorStays.Models.ViewModel.CsActivities
+@model WebAppColorStays.Models.ViewModel.CsActivity
 @{ 
     Layout = null; 
     ViewData["Action"] = "Activity";
@@ -17,6 +17,27 @@
 
         <table class="TeStrip TeBr">
       
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.SEOTitle)</td>
+        <td>@Model.SEOTitle</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.SEODescription)</td>
+        <td>@Model.SEODescription</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.SEOKeywords)</td>
+        <td>@Model.SEOKeywords</td>
+        </tr>
+
+		      
  
         <tr>
         <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_Place_Name)</td>
@@ -119,6 +140,13 @@
         <tr>
         <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.MustKnowBefore)</td>
         <td>@Model.MustKnowBefore</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.BestTimeToDo)</td>
+        <td>@Model.BestTimeToDo</td>
         </tr>
 
 		      
@@ -230,9 +258,7 @@
         <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CompId)</td>
         <td>@Model.CompId</td>
         </tr>
-
-		      
-      
+        
         </table>
     </div>
 </div>

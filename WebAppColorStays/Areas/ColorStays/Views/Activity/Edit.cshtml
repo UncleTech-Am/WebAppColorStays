@@ -1,4 +1,4 @@
-@model WebAppColorStays.Models.ViewModel.CsActivities
+@model WebAppColorStays.Models.ViewModel.CsActivity
 
 @{
     Layout = "_Layout";
@@ -56,7 +56,7 @@
         </div>
 
         <div class="Fx65 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
-            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsActivities>)ViewData["EnteredDetails"])
+            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsActivity>)ViewData["EnteredDetails"])
         </div>
     </div>
 </div>

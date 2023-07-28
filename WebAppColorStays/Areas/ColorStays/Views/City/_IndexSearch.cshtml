@@ -28,6 +28,18 @@
                     
                         
                         <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" name="SEOTitle" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" name="SEODescription" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" name="SEOKeywords" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_State_Name)" name="Fk_State_Name" autocomplete="off"/>
                         </td>
                         
@@ -52,7 +64,7 @@
                         </td>
                         
                         <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Stoories)" name="Stoories" autocomplete="off"/>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Stories)" name="Stories" autocomplete="off"/>
                         </td>
                         
                         <td>
@@ -147,29 +159,12 @@
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.TopThingsToKnow)" name="TopThingsToKnow" autocomplete="off"/>
                         </td>
                         
-                        
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Itinerary)" name="Itinerary" autocomplete="off"/>
                         </td>
                         
                         <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.BestTimeToGo1)" name="BestTimeToGo1" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.BestTimeToGo2)" name="BestTimeToGo2" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.BestTimeToGo3)" name="BestTimeToGo3" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.BestTimeToGo4)" name="BestTimeToGo4" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.BestTimeToGo5)" name="BestTimeToGo5" autocomplete="off"/>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.BestTimeToVisit)" name="BestTimeToVisit" autocomplete="off"/>
                         </td>
                         
                         <td>
@@ -231,6 +226,7 @@
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CompId)" name="CompId" autocomplete="off"/>
                         </td>
+                        
                                             </tr>
                 </form>
                 <tr>
@@ -241,13 +237,16 @@
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','','','/ColorStays/City')"><i class="UT-UnstarSolid"></i></a>
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark Star" onclick="MultiButtonFunc('Star','','','/ColorStays/City')"> <i class="UT-StarSolid"></i></a>
                     </th>
+                                        <th> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.SEODescription) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.SEOKeywords) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Fk_State_Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.URL) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Area) </th>       
                                         <th> @Html.DisplayNameFor(model => model.History) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Fact) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Stoories) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Stories) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Longitude) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Latitude) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Rank) </th>       
@@ -270,13 +269,9 @@
                                         <th> @Html.DisplayNameFor(model => model.OurTips5) </th>       
                                         <th> @Html.DisplayNameFor(model => model.NightLife) </th>       
                                         <th> @Html.DisplayNameFor(model => model.TelephoneCode) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.TopThingsToKnow) </th>      
+                                        <th> @Html.DisplayNameFor(model => model.TopThingsToKnow) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Itinerary) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.BestTimeToGo1) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.BestTimeToGo2) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.BestTimeToGo3) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.BestTimeToGo4) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.BestTimeToGo5) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.BestTimeToVisit) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Remarks) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezeStatus) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezedBy) </th>       
@@ -292,7 +287,7 @@
                                         <th> @Html.DisplayNameFor(model => model.ModifiedBy) </th>       
                                         <th> @Html.DisplayNameFor(model => model.ModificationFrequency) </th>       
                                         <th> @Html.DisplayNameFor(model => model.GCompId) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.CompId) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.CompId) </th>      
                                     </tr>
             </thead>
 

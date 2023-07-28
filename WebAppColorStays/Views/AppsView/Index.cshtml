@@ -43,10 +43,6 @@
                                             <div class="FtSz20">@item.Name
                                             </div>
                                         </a>
-                            @*                            @if (item.Name == "Issue Tracker")
-                            {
-                                <span id="IeSwDv">You have <b id="IeCount"></b> Issues</span>
-                            }*@
                                     </div>
                                 </div>
                 }
@@ -55,33 +51,3 @@
     </div>
 
 </div>
-
-
-@*<script>
-    $(document).ready(function(){
-        ShowLoader();
-        CtUrIeCt();
-    });
-    //Show the Current User's Assigned Issue Count in the Layout
-    function CtUrIeCt(){
-        getUT('/IssueTracker/Issue/AssignedIssueCount', function (data) {
-            if(data > 0) {
-                document.getElementById('PopUpScript').style.display = "block";
-                document.getElementById('PopUpScriptDetailContentID').innerHTML = '<i class="UT-IssueActionBulb" style="font-size: 20vh;"></i> <br/> <br/> You have ' + data +' Issues! <br/> <br/> Go in Issue Tracker & Take Action! <br/> <br/> Thank You!';
-                document.getElementById('PopUpOkBtn').removeAttribute('onclick', 'HidePopUpScript();');
-                document.getElementById('PopUpOkBtn').setAttribute('onclick', "location.href='/IssueTracker/IssueTracker/UserIssueTracker'");
-                HideLoader();
-            }
-            HideLoader();
-        });
-    }
-    //Ends
-
-    function HidePopUpScript(){
-        document.getElementById('PopUpScript').style.display = "none";
-        document.getElementById('PopUpScriptDetailContentID').innerHTML = "";
-        document.getElementById('PopUpOkBtn').removeAttribute('onclick', "location.href='/IssueTracker/IssueTracker/UserIssueTracker'");
-        document.getElementById('PopUpOkBtn').setAttribute('onclick', 'HidePopUpScript();');
-    }
-
-</script>*@

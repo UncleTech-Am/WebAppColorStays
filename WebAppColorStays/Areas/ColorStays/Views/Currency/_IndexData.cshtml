@@ -35,20 +35,19 @@
         </td>
          
 	    <td>@item.Name</td>
-
-        <td>@item.Fk_Country_Name</td>
+         
+	    <td>@item.Fk_Country_Name</td>
          
 	    <td>@item.Code</td>
-
-        <td>@item.Symbol</td>
+         
+	    <td>@item.Symbol</td>
          
 	    <td>@item.Remarks</td>
          
 	    <td>@item.FreezeStatus</td>
          
 	    <td>@item.FreezedBy</td>
-        
-        <td>@if(item.VerifiedStatus == true){<span>Verified</span>}else{ <span>Pending-Verify</span>}</td>              
+        	    <td>@if(item.VerifiedStatus == true){<span>Verified</span>}else{ <span>Pending-Verify</span>}</td>              
          
 	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.VerifiedOn)</td>
          

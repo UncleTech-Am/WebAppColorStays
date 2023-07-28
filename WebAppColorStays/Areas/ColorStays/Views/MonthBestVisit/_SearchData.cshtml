@@ -1,0 +1,88 @@
+@model LibCommon.Service.CIndexSearchFilter
+
+@{
+    Layout = null;
+    ViewData["Action"] = "MonthBestVisit";
+}
+
+<h2>Search Data!</h2>
+<div>
+    <div id="UTabs">
+        <div>Date Wise Search</div>
+        <div>Fields Wise Search</div>
+    </div>
+
+    <div id="UTabsContent">
+        <div>
+            <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg10">
+                <h3 class="MnTp7 MnBm7 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
+                    <i class="UT-SearchLeftSolid"></i>
+                    Search According to Dates
+                </h3>
+                <form id="DateSearchID">
+                    @Html.AntiForgeryToken()
+                    <div class="FxRw">
+                        <div class="Fx50 Pg10">
+                            <div class="MnTp7 MnBm7">
+                                <div class="TtBxFlStDiv">
+                                    <div class="TtBxFlSt">
+                                        <div class="TtBxFlStLl15">From Date</div>
+                                        <input class="TtBxTt15" placeholder="From Date" Name="FromDate" id="FromDate" type="text" autocomplete="off" UTDate="D-MM-YYYY" onclick="ShowCalender('FromDate','Date')" required readonly/>
+                                        <div class="PgRt5 Cr-uPr" onclick="Empty('FromDate')"><i class="UT-DeletePageSolid"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Fx50 Pg10">
+                            <div class="MnTp7 MnBm7">
+                                <div class="TtBxFlStDiv">
+                                    <div class="TtBxFlSt">
+                                        <div class="TtBxFlStLl15">To Date</div>
+                                        <input class="TtBxTt15" placeholder="To Date" Name="ToDate" id="ToDate" type="text" autocomplete="off" UTDate="D-MM-YYYY" onclick="ShowCalender('ToDate','Date')" required readonly/>
+                                        <div class="PgRt5 Cr-uPr" onclick="Empty('ToDate')"><i class="UT-DeletePageSolid"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="DyFx FxJyCtEd Gp10 Wh100p PgRt10">
+                    <div><button class="BnRd14 CrBdGy60 HrCrTe" type="button" onclick="FormSubmit('/ColorStays/MonthBestVisit/DateSearch','DateSearchID',DateSuccessFn)">Search</button></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg10">
+                <h3 class="MnTp7 MnBm7 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
+                    <i class="UT-SearchLeftSolid"></i>
+                    Search According to Multiple Fields
+                </h3>
+                <div class="Fx100" style="overflow:auto;height:35vh;">
+                    <div class="FxRw" style="margin-bottom:10px;">
+                        <div class=" FxGw1">
+                            <input type="hidden" id="SearchCounter" value=0 />
+                            <select count="" id="SearchInputOpt" asp-items="@ViewBag.List" name="selectList" class="TtBxRd17 Pg5 Fx40 Wh100p" style="height:39px;">
+                                <option value="">Select Field</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button class="BnRd17 SwBxIt1Dv-Vn1 CrBdBe40" type="button" onclick="AddSearchInput()">Add Search Input</button>
+                        </div>
+                    </div>
+
+                    <form id="FilterSearchID">
+                        @Html.AntiForgeryToken()
+                        <div class="PgLtRt20 PgTpBm5" id="SearchInputDiv"></div>
+                    </form>
+                 </div>
+                <div class="DyFx FxJyCtEd Gp10 Wh100p PgLtRt20">
+                    <div><button class="BnRd14 CrBdGy60 HrCrTe" type="button" onclick="FormSubmit('/ColorStays/MonthBestVisit/FilterSearch', 'FilterSearchID', FilterSuccessFn)">Search</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

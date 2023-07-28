@@ -1,4 +1,4 @@
-@model IEnumerable<WebAppColorStays.Models.ViewModel.CsActivities>
+@model IEnumerable<WebAppColorStays.Models.ViewModel.CsActivity>
 
 @{
     Layout = null;
@@ -34,6 +34,12 @@
             }
         </td>
          
+	    <td>@item.SEOTitle</td>
+         
+	    <td>@item.SEODescription</td>
+         
+	    <td>@item.SEOKeywords</td>
+         
 	    <td>@item.Fk_Place_Name</td>
          
 	    <td>@item.Fk_City_Name</td>
@@ -63,6 +69,8 @@
 	    <td>@item.MaxAge</td>
          
 	    <td>@item.MustKnowBefore</td>
+         
+	    <td>@item.BestTimeToDo</td>
          
 	    <td>@item.Remarks</td>
          

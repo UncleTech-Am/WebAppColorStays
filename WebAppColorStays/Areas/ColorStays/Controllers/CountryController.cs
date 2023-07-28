@@ -12,6 +12,7 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
+using WebAppColorStays.Areas.ColorStays.CommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -33,6 +34,21 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Title = "Country";
         }
         //Ends
+
+        //Drop Down
+        public async void DropDown(string CompId, string Token)
+        {
+            RyCrSsDropDown ry = new RyCrSsDropDown();
+            string URLContinent = "Continent/DropDown/" + CompId;
+            try
+            {
+                Task<List<SelectListItem>> Continent = ry.DDColorStaysAPI(URLContinent, Token);
+                Task.WaitAll(Continent);
+                ViewBag.Continent = Continent;
+            }
+            catch (Exception ex) { }
+
+        }
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -347,6 +363,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
+            DropDown(CompID, TokenKey);
             if (Id != null)
             {
                 bool Success = false;
@@ -385,7 +402,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            DropDown(CompID, TokenKey);
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
@@ -408,6 +425,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            DropDown(CompID, TokenKey);
             bool Success = false;
             CsCountry.CompId = CompID;
             CsCountry.CreatedBy = UserID;
@@ -458,7 +476,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            DropDown(CompID, TokenKey);
             if (id == null)
             {
                 ViewBag.Message = "Not Founded";
@@ -508,6 +526,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            DropDown(CompID, TokenKey);
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
             CsCountry.CompId = CompID;

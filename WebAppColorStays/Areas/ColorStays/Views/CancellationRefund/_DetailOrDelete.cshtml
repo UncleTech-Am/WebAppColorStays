@@ -34,7 +34,7 @@
  
         <tr>
         <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Refund)</td>
-        <td>@Model.Refund</td>
+        <td>@String.Format("{0:F}", Model.Refund)</td>
         </tr>
 
 		      
@@ -146,9 +146,7 @@
         <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CompId)</td>
         <td>@Model.CompId</td>
         </tr>
-
-		      
-      
+   
         </table>
     </div>
 </div>

@@ -20,6 +20,39 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOTitle)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" asp-for="SEOTitle" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEOTitle"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEODescription)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" asp-for="SEODescription" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEODescription"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOKeywords)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" asp-for="SEOKeywords" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEOKeywords"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_State_Name)</div>
             <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Fk_State_Name)" asp-for="Fk_State_Name" autocomplete="off" />
         </div>
@@ -86,11 +119,11 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Stoories)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Stoories)" asp-for="Stoories" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Stories)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Stories)" asp-for="Stories" autocomplete="off" />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Stoories"></span></div>
+    <div class="VnRd"><span asp-validation-for="Stories"></span></div>
 </div>
 
 
@@ -361,55 +394,11 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BestTimeToGo1)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.BestTimeToGo1)" asp-for="BestTimeToGo1" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BestTimeToVisit)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.BestTimeToVisit)" asp-for="BestTimeToVisit" autocomplete="off" />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="BestTimeToGo1"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BestTimeToGo2)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.BestTimeToGo2)" asp-for="BestTimeToGo2" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="BestTimeToGo2"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BestTimeToGo3)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.BestTimeToGo3)" asp-for="BestTimeToGo3" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="BestTimeToGo3"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BestTimeToGo4)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.BestTimeToGo4)" asp-for="BestTimeToGo4" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="BestTimeToGo4"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BestTimeToGo5)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.BestTimeToGo5)" asp-for="BestTimeToGo5" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="BestTimeToGo5"></span></div>
+    <div class="VnRd"><span asp-validation-for="BestTimeToVisit"></span></div>
 </div>
 
 
@@ -422,4 +411,3 @@
     </div>
     <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
 </div>
-
