@@ -16,6 +16,12 @@
 @Html.HiddenFor(model => model.CreatedOn)
 @Html.HiddenFor(model => model.CompId)
 
+@*<textarea hidden="hidden" name="History" id="HistoryH">
+    @if (Model != null)
+    {
+        @Model.History
+    }
+</textarea>*@
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -53,7 +59,7 @@
 </div>
 
 
-<div class="MnTp7 MnBm7">
+@*<div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.History)</div>
@@ -72,7 +78,7 @@
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fact"></span></div>
-</div>
+</div>*@
 
 <div class="FxRw">
     <div class="Fx50 Pg2 MnTp7 MnBm7">
@@ -97,38 +103,26 @@
     </div>
 </div>
 
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Area)</div>
-            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.Area)" asp-for="Area" autocomplete="off"></textarea>
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Area)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Area)" asp-for="Area" autocomplete="off" />
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="Area"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Area"></span></div>
-</div>
 
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Population)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Population)" asp-for="Population" autocomplete="off" />
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Population)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Population)" asp-for="Population" autocomplete="off" />
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="Population"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Population"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PopularReligion)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PopularReligion)" asp-for="PopularReligion" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="PopularReligion"></span></div>
 </div>
 
 <div class="FxRw">
@@ -178,6 +172,15 @@
     </div>
 </diV>
 
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PopularReligion)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PopularReligion)" asp-for="PopularReligion" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="PopularReligion"></span></div>
+</div>
 
 
 <div class="MnTp7 MnBm7">

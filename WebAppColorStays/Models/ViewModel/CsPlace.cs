@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -21,6 +22,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_PlaceType_Name { get; set; }
         public int? PinCode { get; set; }
         public string? Fk_City_Name { get; set; }
+        [NotMapped]
+        public string? City { get; set; }
         public string? Fk_State_Name { get; set; }
         public string? Fk_Country_Name { get; set; }
         public string? TopThingsToKnow { get; set; }

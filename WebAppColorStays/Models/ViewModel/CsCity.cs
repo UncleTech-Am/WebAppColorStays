@@ -15,8 +15,6 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? State { get; set; }
         public string? Fk_Country_Name { get; set; }
-        [NotMapped]
-        public string? Country { get; set; }
         public string? URL { get; set; }
         public string Name { get; set; }
         public string? Area { get; set; }

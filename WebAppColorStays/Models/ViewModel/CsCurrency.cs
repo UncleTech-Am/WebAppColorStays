@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -13,6 +14,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Name { get; set; }
         [Required(ErrorMessage = "Please enter Country Name.")]
         public string? Fk_Country_Name { get; set; }
+        [NotMapped]
+        public string? Country { get; set; }
         [Required(ErrorMessage = "Please enter Code.")]
         public string? Code { get; set; }
         [Required(ErrorMessage = "Please enter Symbol.")]

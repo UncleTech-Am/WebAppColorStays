@@ -15,7 +15,7 @@
 
 <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
     <div class="FxRw FxAnImSh">
-        <div class="Fx35 Pg3">
+        <div class="Fx45 Pg3">
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
                 <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
                     <i class="UT-PenNibSmall"></i>
@@ -35,6 +35,20 @@
 
                     <div id="CreateOrEdit">@await Html.PartialAsync("_CreateOrEdit", Model)</div>
 
+                    <div class="MnTp7 MnBm7" style="height:66vh;">
+                        <div>
+                            <div class="MaxMinDv">
+                                <textarea asp-for="History" autocomplete="off"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="MnTp7 MnBm7" style="height:66vh;">
+                        <div>
+                            <div class="MaxMinDv">
+                                <textarea asp-for="Fact" autocomplete="off"></textarea>
+                            </div>
+                        </div>
+                    </div>
                     <div class="MnTp7 MnBm7 FxRw">
                         <div class="FxGw1">
                             <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
@@ -46,22 +60,69 @@
                 </form>
             </div>
         </div>
-        <div class="Fx65 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
+        <div class="Fx55 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
             @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsCity>)ViewData["EnteredDetails"])
         </div>
     </div>
 </div>
 
+<script src="~/js/tinymce_6.2.0/tinymce/js/tinymce/tinymce.min.js"></script>
+
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
+        MaxMin();
+    });
+
+
+    tinymce.init({
+        selector: '#History, #Fact',
+        plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
+        toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
+        a11ychecker_level: 'aaa',
+        style_formats: [
+            { title: 'Heading 1', block: 'h1' },
+            { title: 'Heading 2', block: 'h2' },
+            { title: 'Paragraph', block: 'p' },
+            { title: 'Blockquote', block: 'blockquote' },
+            { title: 'Image formats' },
+            { title: 'Medium', selector: 'img', classes: 'medium' },
+        ],
+        object_resizing: true,
+        valid_classes: {
+            'img': 'medium',
+            'div': 'related-content'
+        },
+        image_caption: true,
+        templates: [
+            {
+                title: 'Related content',
+                description: 'This template inserts a related content block',
+                content: '<div class="related-content"><h3>Related content</h3><p><strong>{$rel_lede}</strong> {$rel_body}</p></div>'
+            }
+        ],
+        content_langs: [
+            { title: 'English (US)', code: 'en_US' },
+        ],
+        content_style: `
+                        img {
+                            height: auto;
+                        margin: auto;
+                        padding: 10px;
+                        display: block;
+                                            }
+                        img.medium {
+                            max - width: 25%;
+                                            }
+                        `
     });
 
     //Clear Autocompete data
-    function ClearData(UrNe, UrId) {
+    function ClearData(UrNe, UrId, Test1) {
         document.getElementById(UrNe).value = '';
         document.getElementById(UrId).value = '';
+        document.getElementById(Test1).value = '';
     }
 
     //Autocomplete Item

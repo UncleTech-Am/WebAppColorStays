@@ -19,7 +19,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_State_Name)<span style="color:red;"> *</span></div>
-            <input class="TtBxTt14" placeholder="State Name" type="text" id="SearchState" asp-for="State" autocomplete="off" required onchange="ClearData('SearchState','Fk_State_Name')" />
+            <input class="TtBxTt14" placeholder="State Name" type="text" id="SearchState" asp-for="State" autocomplete="off" required onchange="ClearData('SearchState','Fk_State_Name','Fk_Country_Name')" />
             <input type="hidden" asp-for="Fk_State_Name" required />
             <input type="hidden" asp-for="Fk_Country_Name" required />
         </div>
@@ -30,7 +30,7 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Terrain_Name)</div>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Terrain_Name)<span style="color:red;"> *</span></div>
             <select asp-for="Fk_Terrain_Name" asp-items="@await ViewBag.Terrain" class="TtBxTt15" required>
                 <option value="">Select Terrain</option>
             </select>  
@@ -61,25 +61,6 @@
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
 </div>
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.History)</div>
-                <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.History)" asp-for="History" autocomplete="off"></textarea>
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="History"></span></div>
-</div>
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fact)</div>
-            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.Fact)" asp-for="Fact" autocomplete="off"></textarea>
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Fact"></span></div>
-</div>
 
 <div class="FxRw">
     <div class="Fx50 Pg2 MnTp7 MnBm7">

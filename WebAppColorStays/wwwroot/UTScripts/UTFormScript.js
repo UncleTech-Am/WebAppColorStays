@@ -1,4 +1,35 @@
-﻿//DropDownlist select data on the bases of text
+﻿//MaxMin the Div
+function MaxMin() {
+    var maxdivs = document.getElementsByClassName('MaxMinDv');
+    for (var i = 0; i < maxdivs.length; i++) {
+        maxdivs[i].classList.add('PnRe');
+        var divid = 'PtDnDv' + i;
+        maxdivs[i].setAttribute('id', divid);
+        var btndv = document.createElement('div');
+        btndv.classList.add('MaxMinBtn');
+        btndv.classList.add('MaxContent');
+        btndv.setAttribute('btndvid', divid);
+        btndv.addEventListener("click", function (ev) {
+            var element = document.getElementById(ev.target.getAttribute('btndvid'));
+            if (element.classList.contains("MaximizeDv")) {
+                element.parentElement.classList.remove('MaxMinPopUpBackground');
+                element.classList.remove("MaximizeDv");
+                btndv.classList.remove('MinContent');
+                btndv.classList.add('MaxContent');
+            }
+            else {
+                element.parentElement.classList.add('MaxMinPopUpBackground');
+                element.classList.add("MaximizeDv");
+                btndv.classList.remove('MaxContent');
+                btndv.classList.add('MinContent');
+            }
+        });
+        maxdivs[i].appendChild(btndv);
+    }
+}
+//Ends
+
+//DropDownlist select data on the bases of text
 function DnTextSelect(DnIdStg, TtStg) {
     var DD = document.getElementById(DnIdStg);
     for (var i = 0; i < DD.length; i++) {
@@ -62,21 +93,6 @@ function UrCdDa() {
 }
 //Ends
 
-////Create div to show User Mapped Company
-//function UrCyDpDn() {
-//    getUT("/CommonMethods/UserCompanies", function (data) {
-//        StOnCy = document.getElementById('CompDivID');
-//        document.getElementById('CompDivID').innerHTML = "";
-//        var json = JSON.parse(data);
-//        for (var i = 0; i < json.length; i++) {
-//            var obj = json[i];
-//            const AddCompanyDiv = document.createElement('div');
-//            AddCompanyDiv.setAttribute('onclick', "ChangeCompany('" + obj.Value + "')");
-//            StOnCy.appendChild(AddCompanyDiv);
-//            AddCompanyDiv.innerHTML = '<i class="UT-CompanyBuilding" >&nbsp;' + obj.Text;
-//        }
-//    })
-//}
 
 //Create div to show User Mapped Company
 function UrCyDpDn() {
