@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -11,6 +12,11 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SEODescription { get; set; }
         public string? SEOKeywords { get; set; }
         public string? Fk_State_Name { get; set; }
+        [NotMapped]
+        public string? State { get; set; }
+        public string? Fk_Country_Name { get; set; }
+        [NotMapped]
+        public string? Country { get; set; }
         public string? URL { get; set; }
         public string Name { get; set; }
         public string? Area { get; set; }
@@ -37,12 +43,11 @@ namespace WebAppColorStays.Models.ViewModel
         public string? OurTips3 { get; set; }
         public string? OutTips4 { get; set; }
         public string? OurTips5 { get; set; }
-        public string? NightLife { get; set; }
         public int? TelephoneCode { get; set; }
         public string? TopThingsToKnow { get; set; }
         public string? Itinerary { get; set; }
         public string? BestTimeToVisit { get; set; }
-        public bool? FreezeStatus { get; set; }
+        public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }

@@ -26,7 +26,7 @@ namespace WebAppColorStays.Models.ViewModel
         public int? MaxAge { get; set; }
         public string? MustKnowBefore { get; set; }
         public string? BestTimeToDo { get; set; }
-        public bool? FreezeStatus { get; set; }
+        public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]
         public string? Remarks { get; set; }

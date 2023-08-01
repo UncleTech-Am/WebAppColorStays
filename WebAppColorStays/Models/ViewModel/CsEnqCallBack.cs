@@ -11,7 +11,7 @@ namespace WebAppColorStays.Models.ViewModel
         public int? PhoneNo { get; set; }
         public string? Time { get; set; }
         public DateTime? Date { get; set; }
-        public bool? FreezeStatus { get; set; }
+        public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]
         public string? Remarks { get; set; }

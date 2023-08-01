@@ -9,7 +9,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Id { get; set; }
         public string? Fk_Place_Name { get; set; }
         public string? Fk_City_Name { get; set; }
-        public bool? FreezeStatus { get; set; }
+        public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]
         public string? Remarks { get; set; }

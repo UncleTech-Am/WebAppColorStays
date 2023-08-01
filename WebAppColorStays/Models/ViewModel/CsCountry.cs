@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -12,6 +13,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SEOKeywords { get; set; }
         public string? Fk_Continent_Name { get; set; }
         public string? URL { get; set; }
+        [Required(ErrorMessage = "Please enter Name.")]
+        [Remote("CheckDuplicationCountry", "Country", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
         public string? History { get; set; }
         public string? Fact { get; set; }
@@ -25,7 +28,7 @@ namespace WebAppColorStays.Models.ViewModel
         public int? DomesticAirportCount { get; set; }
         public int? RailwayStationCount { get; set; }
         public string? BestTimeToVisit { get; set; }
-        public bool? FreezeStatus { get; set; }
+        public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]
         public string? Remarks { get; set; }

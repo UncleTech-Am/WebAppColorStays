@@ -10,7 +10,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_CancellationPolicy_Name { get; set; }
         public int? NoOfDays { get; set; }
         public int? Refund { get; set; }
-        public bool? FreezeStatus { get; set; }
+        public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }

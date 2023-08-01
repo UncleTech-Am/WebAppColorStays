@@ -36,7 +36,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Video4 { get; set; }
         public string? Video5 { get; set; }
         public string? OutTransportation { get; set; }
-        public bool? FreezeStatus { get; set; }
+        public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }

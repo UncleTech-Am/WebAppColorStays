@@ -12,6 +12,7 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
+using WebAppColorStays.Areas.ColorStays.CommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -33,6 +34,52 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Title = "City";
         }
         //Ends
+
+        //Drop Down
+        public async void DropDown(string CompId, string Token)
+        {
+            RyCrSsDropDown ry = new RyCrSsDropDown();
+            string URLTerrain = "Terrain/DropDown/" + CompId;
+            try
+            {
+                Task<List<SelectListItem>> Terrain = ry.DDColorStaysAPI(URLTerrain, Token);
+                Task.WaitAll(Terrain);
+                ViewBag.Terrain = Terrain;
+            }
+            catch (Exception ex) { }
+
+        }
+
+        //ItemAutoComplete
+        [HttpGet]
+        public async Task<JsonResult> SuggestCity(string term)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+            var UserID = Request.Cookies["UserID"];
+            List<CsAutocomplete> list = new List<CsAutocomplete>();
+            var CompId = Process.Decrypt(Request.Cookies["CompanyID"]);
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                HttpResponseMessage res = await client.GetAsync("City/SuggestCity/" + term + "/" + CompId, HttpCompletionOption.ResponseHeadersRead);
+                if (res.IsSuccessStatusCode)
+                {
+                    var results = res.Content.ReadAsStreamAsync().Result;
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsAutocomplete>>(results, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    var data = list.Select(x => new
+                    {
+                        id = Base64UrlEncoder.Encode(Process.Encrypt(x.Id)),
+                        value = x.Value,
+                        label = x.Label,
+                    }).ToList();
+                    return Json(data);
+                }
+            }
+            return null;
+        }
+        //Ends
+
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -346,6 +393,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            DropDown(CompID, TokenKey);
             ViewData["ResponseName"] = "ShowValidation";
             if (Id != null)
             {
@@ -385,10 +433,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
+            DropDown(CompID, TokenKey);
 
             Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
             Task<Tuple<int, List<CsCity>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
@@ -408,6 +456,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            DropDown(CompID, TokenKey);
+
             bool Success = false;
             CsCity.CompId = CompID;
             CsCity.CreatedBy = UserID;
@@ -458,6 +508,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            DropDown(CompID, TokenKey);
 
             if (id == null)
             {
@@ -509,6 +560,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
+            DropDown(CompID, TokenKey);
+
             ViewData["ResponseName"] = "ShowValidation";
             CsCity.CompId = CompID;
             CsCity.ModifiedBy = UserID;   

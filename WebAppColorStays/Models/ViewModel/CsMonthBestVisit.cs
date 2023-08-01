@@ -14,7 +14,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_Country_Name { get; set; }
         public string? Description { get; set; }
         public int? Rank { get; set; }
-        public bool? FreezeStatus { get; set; }
+        public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]
         public string? Remarks { get; set; }

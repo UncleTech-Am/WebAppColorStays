@@ -10,14 +10,14 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Id { get; set; }
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationCurrency", "Currency", AdditionalFields = ("NameAction, Id"))]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [Required(ErrorMessage = "Please enter Country Name.")]
         public string? Fk_Country_Name { get; set; }
         [Required(ErrorMessage = "Please enter Code.")]
         public string? Code { get; set; }
         [Required(ErrorMessage = "Please enter Symbol.")]
         public string? Symbol { get; set; }
-        public bool? FreezeStatus { get; set; }
+        public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]
         public string? Remarks { get; set; }

@@ -95,20 +95,29 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Tuple<int, List<CsContinent>> list;
-            using (HttpClient client = APIColorStays.Initial())
+            try
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Continent/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
+                using (HttpClient client = APIColorStays.Initial())
                 {
-                    if (response.IsSuccessStatusCode)
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    using (var response = await client.GetAsync("Continent/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
                     {
-                        var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsContinent>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsContinent>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        }
+                        else { list = null; }
                     }
-                    else{ list = null; }
                 }
+                return list;
             }
-            return list;
+            catch (Exception e)
+            {
+
+                throw;
+            }
+            
         }
         //Ends
 
@@ -390,11 +399,19 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
+            try
+            {
+                Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
+                Task<Tuple<int, List<CsContinent>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
+                ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
 
-            Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-            Task<Tuple<int, List<CsContinent>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
-            PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-            ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
             return View();
         } 
         
