@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
@@ -8,27 +10,36 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
         public string? SEOTitle { get; set; }
+        [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]
         public string? SEODescription { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
         public string? URL { get; set; }
+        [Remote("CheckDuplicationPlace", "Place", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
         public string? History { get; set; }
         public string? Fact { get; set; }
         public string? Stories { get; set; }
         public string? Longitude { get; set; }
         public string? Latitude { get; set; }
+        [Remote("CheckDuplicationPlaceRank", "Place", AdditionalFields = ("NameAction, Fk_City_Name, Id"))]
         public int? Rank { get; set; }
+        [DisplayName("PlaceType")]
         public string? Fk_PlaceType_Name { get; set; }
         public int? PinCode { get; set; }
+        [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
         [NotMapped]
         public string? City { get; set; }
+        [DisplayName("State")]
         public string? Fk_State_Name { get; set; }
+        [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
         public string? TopThingsToKnow { get; set; }
         public int? Rating { get; set; }
-        public string? StateAttraction { get; set; }
+        public bool StateAttraction { get; set; }
         public string? BestTimeToVisit { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }

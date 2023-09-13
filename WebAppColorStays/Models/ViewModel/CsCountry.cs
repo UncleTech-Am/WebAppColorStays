@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebAppColorStays.Models.ViewModel
@@ -8,9 +9,13 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
         public string? SEOTitle { get; set; }
+        [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]
         public string? SEODescription { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
+        [DisplayName("Continent")]
         public string? Fk_Continent_Name { get; set; }
         public string? URL { get; set; }
         [Required(ErrorMessage = "Please enter Name.")]
@@ -21,7 +26,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Longitude { get; set; }
         public string? Latitude { get; set; }
         public string? Area { get; set; }
-        public int? Population { get; set; }
+        public string? Population { get; set; }
         public string? PopularReligion { get; set; }
         public int? Rating { get; set; }
         public int? InternationalAirportCount { get; set; }

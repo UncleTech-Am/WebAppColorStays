@@ -27,17 +27,7 @@
                         </td>
                     
                         
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" name="SEOTitle" autocomplete="off"/>
-                        </td>
                         
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" name="SEODescription" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" name="SEOKeywords" autocomplete="off"/>
-                        </td>
                         
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_State_Name)" name="Fk_State_Name" autocomplete="off"/>
@@ -162,7 +152,19 @@
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.BestTimeToVisit)" name="BestTimeToVisit" autocomplete="off"/>
                         </td>
-                        
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" name="SEOTitle" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" name="SEODescription" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" name="SEOKeywords" autocomplete="off" />
+                    </td>
+
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Remarks)" name="Remarks" autocomplete="off"/>
                         </td>
@@ -233,9 +235,7 @@
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','','','/ColorStays/City')"><i class="UT-UnstarSolid"></i></a>
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark Star" onclick="MultiButtonFunc('Star','','','/ColorStays/City')"> <i class="UT-StarSolid"></i></a>
                     </th>
-                                        <th> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEODescription) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEOKeywords) </th>       
+                                             
                                         <th> @Html.DisplayNameFor(model => model.Fk_State_Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.URL) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Name) </th>       
@@ -266,7 +266,10 @@
                                         <th> @Html.DisplayNameFor(model => model.TelephoneCode) </th>       
                                         <th> @Html.DisplayNameFor(model => model.TopThingsToKnow) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Itinerary) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.BestTimeToVisit) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.BestTimeToVisit) </th>
+                                        <th> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.SEODescription) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.SEOKeywords) </th> 
                                         <th> @Html.DisplayNameFor(model => model.Remarks) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezeStatus) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezedBy) </th>       

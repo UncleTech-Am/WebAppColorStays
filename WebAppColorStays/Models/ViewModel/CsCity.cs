@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
@@ -8,12 +9,17 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
         public string? SEOTitle { get; set; }
+        [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]
         public string? SEODescription { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
+        [DisplayName("State")]
         public string? Fk_State_Name { get; set; }
         [NotMapped]
         public string? State { get; set; }
+        [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
         public string? URL { get; set; }
         public string Name { get; set; }
@@ -29,6 +35,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? MonthTemperature { get; set; }
         public string? ClothingToCarry { get; set; }
         public string? Footwear { get; set; }
+        [DisplayName("Terrain")]
         public string? Fk_Terrain_Name { get; set; }
         public string? PeakSeason { get; set; }
         public string? OffSeason { get; set; }

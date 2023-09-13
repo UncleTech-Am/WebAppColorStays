@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -7,14 +10,24 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
         public string? SEOTitle { get; set; }
+        [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]
         public string? SEODescription { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
+        [DisplayName("Place")]
         public string? Fk_Place_Name { get; set; }
+        [NotMapped]
+        public string? Place { get; set; }
+        [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
+        [DisplayName("State")]
         public string? Fk_State_Name { get; set; }
+        [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
         public string? URL { get; set; }
+        [Remote("CheckDuplicationActivity", "Activity", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
         public string? Description { get; set; }
         public string? CoverImage { get; set; }

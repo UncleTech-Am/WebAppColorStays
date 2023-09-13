@@ -51,6 +51,39 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         }
 
+        //PlaceAutoComplete
+        [HttpGet]
+        public async Task<JsonResult> SuggestPlace(string term)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+            var UserID = Request.Cookies["UserID"];
+            List<CsAutocomplete> list = new List<CsAutocomplete>();
+            var CompId = Process.Decrypt(Request.Cookies["CompanyID"]);
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                HttpResponseMessage res = await client.GetAsync("Place/SuggestPlace/" + term + "/" + CompId, HttpCompletionOption.ResponseHeadersRead);
+                if (res.IsSuccessStatusCode)
+                {
+                    var results = res.Content.ReadAsStreamAsync().Result;
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsAutocomplete>>(results, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    var data = list.Select(x => new
+                    {
+                        id = Base64UrlEncoder.Encode(Process.Encrypt(x.Id)),
+                        value = x.Value,
+                        text1 = Base64UrlEncoder.Encode(Process.Encrypt(x.Text1)),
+                        text2 = Base64UrlEncoder.Encode(Process.Encrypt(x.Text2)),
+                        text3 = Base64UrlEncoder.Encode(Process.Encrypt(x.Text3)),
+                        label = x.Label,
+                    }).ToList();
+                    return Json(data);
+                }
+            }
+            return null;
+        }
+        //Ends
+
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
         {
@@ -716,5 +749,33 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
+
+        //This method is to check duplicate values for specific columns......
+        public async Task<JsonResult> CheckDuplicationPlaceRank(int Rank, string NameAction, string Fk_City_Name, string Id)
+        {
+            bool Success = false;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            if (Fk_City_Name == null) { Fk_City_Name = "No"; }
+            if (Id == null) { Id = "No"; }
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Place/CheckDuplicationPlaceRank/" + Rank + "/" + NameAction + "/" + Fk_City_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Success = true;
+                    }
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        return Json("Sorry, this " + Rank + " already exists");
+                    }
+                }
+            }
+            if (Success == true) { return Json(true); }
+            else { return Json("Some Error!"); }
+        }
+
     }
 }
