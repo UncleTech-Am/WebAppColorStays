@@ -673,16 +673,17 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationAnPlace(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationAnPlace(string AccordianHeading, string NameAction, string Fk_Place_Name, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             if (Id == null) { Id = "No"; }
+            if (Fk_Place_Name == null) { Fk_Place_Name = "No"; }
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("AnPlace/CheckDuplicationAnPlace/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("AnPlace/CheckDuplicationAnPlace/" + AccordianHeading + "/" + NameAction + "/" + Fk_Place_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
@@ -690,7 +691,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                     if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
-                        return Json("Sorry, this " + Name + " already exists");
+                        return Json("Sorry, this " + AccordianHeading + " already exists");
                     }
                 }
             }

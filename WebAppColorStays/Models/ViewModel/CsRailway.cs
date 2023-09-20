@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -7,7 +9,10 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [Remote("CheckDuplicationRailway", "Railway", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
+        [NotMapped]
+        public string? Place { get; set; }
         public string? Fk_Place_Name { get; set; }
         public string? Fk_City_Name { get; set; }
         public string? Fk_State_Name { get; set; }

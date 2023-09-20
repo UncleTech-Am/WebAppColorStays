@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -7,7 +8,11 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [Required(ErrorMessage = "Please enter Question.")]
         public string? Fk_QuestionPlace_Name { get; set; }
+        [NotMapped]
+        public string? Question { get; set; }
+        [Required(ErrorMessage = "Please enter Answer.")]
         public string? Answer { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }

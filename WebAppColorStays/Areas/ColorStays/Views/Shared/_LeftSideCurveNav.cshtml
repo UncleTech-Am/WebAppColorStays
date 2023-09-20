@@ -27,6 +27,7 @@
     string CancellationPolicy = " ";
     string CancellationRefund = " ";
     string Category = " ";
+    string SubCategory = " ";
     string City = " ";
     string EnqCallBack = " ";
     string Enquiry = " ";
@@ -52,6 +53,16 @@
     string QuestionPlace = " ";
     string Railway = " ";
     string Terrain = " ";
+    string MainLink5 = " ";
+    string DrownLink5 = " ";
+    string Restaurant = " ";
+    string RestaurantFoodType = " ";
+    string RestaurantImage = " ";
+    string RestaurantReview = " ";
+    string RestaurantVideo = " ";
+    string RTFoodTypeMap = " ";
+    string TravelAgent = " ";
+
 
     switch (Action)
     {
@@ -63,24 +74,23 @@
         case "Currency": Currency = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "Activity": Activity = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "Airport": Airport = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
-        case "Category": Category = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "City": City = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
-        case "EnqCallBack": EnqCallBack = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
-        case "Enquiry": Enquiry = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "State": State = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "Place": Place = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "PlaceType": PlaceType = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "Railway": Railway = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "Terrain": Terrain = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
 
-        case "AnActivity": AnActivity = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
-        case "AnCity": AnCity = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
         case "AnCountry": AnCountry = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
-        case "AnPackage": AnPackage = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
-        case "AnPlace": AnPlace = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
-        case "AnRestaurant": AnRestaurant = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
         case "AnState": AnState = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
+        case "AnCity": AnCity = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
+        case "AnPlace": AnPlace = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
+        case "AnActivity": AnActivity = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
+        case "AnPackage": AnPackage = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
+        case "AnRestaurant": AnRestaurant = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
         
+        case "Category": Category = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "SubCategory": SubCategory = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "AnswerPlace": AnswerPlace = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "CancellationPolicy": CancellationPolicy = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "CancellationRefund": CancellationRefund = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
@@ -92,13 +102,24 @@
         case "News": News = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "Photo": Photo = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "QuestionPlace": QuestionPlace = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
-        
+        case "TravelAgent": TravelAgent = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "EnqCallBack": EnqCallBack = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "Enquiry": Enquiry = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+
+
         case "PackageCityMap": PackageCityMap = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "Package": Package = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageExclusion": PackageExclusion = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageInclusion": PackageInclusion = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageItinerary": PackageItinerary = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
 
+        case "Restaurant": Restaurant = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
+        case "RestaurantFoodType": RestaurantFoodType = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
+        case "RestaurantImage": RestaurantImage = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
+        case "RestaurantReview": RestaurantReview = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
+        case "RestaurantVideo": RestaurantVideo = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
+        case "RTFoodTypeMap": RTFoodTypeMap = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
+        
         default: break;
     }
 }
@@ -274,16 +295,6 @@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @AnActivity">
-                        <a href="~/ColorStays/AnActivity/Create">AnActivity</a>
-                    </div>
-                    <a href="~/ColorStays/AnActivity/Create"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/AnActivity/Index"><i class="UT-List-OLine"></i></a>
-                </div>
-            </div>
-
-            <div class="SideNavSubLinkDiv">
-                <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @AnCountry">
                         <a href="~/ColorStays/AnCountry/Create">AnCountry</a>
                     </div>
@@ -294,11 +305,41 @@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @AnState">
+                        <a href="~/ColorStays/AnState/Create">AnState</a>
+                    </div>
+                    <a href="~/ColorStays/AnState/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/AnState/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+             <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @AnCity">
                         <a href="~/ColorStays/AnCity/Create">AnCity</a>
                     </div>
                     <a href="~/ColorStays/AnCity/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/AnCity/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @AnPlace">
+                        <a href="~/ColorStays/AnPlace/Create">AnPlace</a>
+                    </div>
+                    <a href="~/ColorStays/AnPlace/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/AnPlace/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @AnActivity">
+                        <a href="~/ColorStays/AnActivity/Create">AnActivity</a>
+                    </div>
+                    <a href="~/ColorStays/AnActivity/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/AnActivity/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
 
@@ -314,29 +355,11 @@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @AnPlace">
-                        <a href="~/ColorStays/AnPlace/Create">AnPlace</a>
-                    </div>
-                    <a href="~/ColorStays/AnPlace/Create"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/AnPlace/Index"><i class="UT-List-OLine"></i></a>
-                </div>
-            </div>
-            <div class="SideNavSubLinkDiv">
-                <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @AnRestaurant">
                         <a href="~/ColorStays/AnRestaurant/Create">AnRestaurant</a>
                     </div>
                     <a href="~/ColorStays/AnRestaurant/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/AnRestaurant/Index"><i class="UT-List-OLine"></i></a>
-                </div>
-            </div>
-            <div class="SideNavSubLinkDiv">
-                <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @AnState">
-                        <a href="~/ColorStays/AnState/Create">AnState</a>
-                    </div>
-                    <a href="~/ColorStays/AnState/Create"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/AnState/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
         </div>
@@ -423,6 +446,28 @@
                     <a href="~/ColorStays/CancellationRefund/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
+
+             <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @Category">
+                        <a href="~/ColorStays/Category/Create">Category</a>
+                    </div>
+                    <a href="~/ColorStays/Category/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Category/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+                         <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @SubCategory">
+                        <a href="~/ColorStays/SubCategory/Create">SubCategory</a>
+                    </div>
+                    <a href="~/ColorStays/SubCategory/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/SubCategory/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @Photo">
@@ -459,6 +504,33 @@
                     <a href="~/ColorStays/QuestionPlace/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @TravelAgent">
+                        <a href="~/ColorStays/TravelAgent/Create">TravelAgent</a>
+                    </div>
+                    <a href="~/ColorStays/TravelAgent/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/TravelAgent/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @Enquiry">
+                        <a href="~/ColorStays/Enquiry/Create">Enquiry</a>
+                    </div>
+                    <a href="~/ColorStays/Enquiry/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Enquiry/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @EnqCallBack">
+                        <a href="~/ColorStays/EnqCallBack/Create">EnqCallBack</a>
+                    </div>
+                    <a href="~/ColorStays/EnqCallBack/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/EnqCallBack/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -478,7 +550,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @Package">
-                        <a href="~/Package/FAQ/Create">Package</a>
+                        <a href="~/ColorStays/Package/Create">Package</a>
                     </div>
                     <a href="~/ColorStays/Package/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/Package/Index"><i class="UT-List-OLine"></i></a>
@@ -527,6 +599,80 @@
         </div>
     </div>
 
+    <div class="SideNavContainer">
+        <div class="SideNavLinkDiv">
+            <div class="SideNavLink @MainLink5">
+                <i class="UT-CategoryLine  FtSz20"></i>
+                <div class="SideNavLinkText">
+                    <a href=#>Restaurant</a>
+                </div>
+                <a href=#><i class="UT-ArrowDownCircleSolid"></i></a>
+
+            </div>
+        </div>
+        <div class="SideSubNavContainer @DrownLink5">
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @Restaurant">
+                        <a href="~/ColorStays/Restaurant/Create">Restaurant</a>
+                    </div>
+                    <a href="~/ColorStays/Restaurant/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Restaurant/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @RestaurantFoodType">
+                        <a href="~/ColorStays/RestaurantFoodType/Create">RestaurantFoodType</a>
+                    </div>
+                    <a href="~/ColorStays/RestaurantFoodType/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/RestaurantFoodType/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @RestaurantImage">
+                        <a href="~/ColorStays/RestaurantImage/Create">RestaurantImage</a>
+                    </div>
+                    <a href="~/ColorStays/RestaurantImage/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/RestaurantImage/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @RestaurantReview">
+                        <a href="~/ColorStays/RestaurantReview/Create">RestaurantReview</a>
+                    </div>
+                    <a href="~/ColorStays/RestaurantReview/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/RestaurantReview/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @RestaurantVideo">
+                        <a href="~/ColorStays/RestaurantVideo/Create">RestaurantVideo</a>
+                    </div>
+                    <a href="~/ColorStays/RestaurantVideo/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/RestaurantVideo/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+             <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @RTFoodTypeMap">
+                        <a href="~/ColorStays/RTFoodTypeMap/Create">RTFoodTypeMap</a>
+                    </div>
+                    <a href="~/ColorStays/RTFoodTypeMap/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/RTFoodTypeMap/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+         </div>
+    </div>
 
 
 </div>

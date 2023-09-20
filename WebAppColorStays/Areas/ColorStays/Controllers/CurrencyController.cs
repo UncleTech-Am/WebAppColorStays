@@ -34,6 +34,37 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
         //Ends
 
+        //AutoComplete
+        [HttpGet]
+        public async Task<JsonResult> SuggestCurrency(string term)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+            var UserID = Request.Cookies["UserID"];
+            List<CsAutocomplete> list = new List<CsAutocomplete>();
+            var CompId = Process.Decrypt(Request.Cookies["CompanyID"]);
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                HttpResponseMessage res = await client.GetAsync("Currency/SuggestCurrency/" + term + "/" + CompId, HttpCompletionOption.ResponseHeadersRead);
+                if (res.IsSuccessStatusCode)
+                {
+                    var results = res.Content.ReadAsStreamAsync().Result;
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsAutocomplete>>(results, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    var data = list.Select(x => new
+                    {
+                        id = Base64UrlEncoder.Encode(Process.Encrypt(x.Id)),
+                        value = x.Value,
+                        label = x.Label,
+
+                    }).ToList();
+                    return Json(data);
+                }
+            }
+            return null;
+        }
+        //Ends
+
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
         {

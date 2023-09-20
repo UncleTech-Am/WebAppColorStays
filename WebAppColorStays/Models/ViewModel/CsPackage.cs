@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -7,12 +10,20 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
         public string? SEOTitle { get; set; }
+        [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]
         public string? SEODescription { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
-        public string? Fk_TravelAgent_Name { get; set; }
+        [DisplayName("Currency")]
+        public string? Fk_Currency_Name { get; set; }
+        [NotMapped]
+        public string? Currency { get; set; }
+        [Required(ErrorMessage = "Please enter Name.")]
+        [Remote("CheckDuplicationPackage", "Package", AdditionalFields = ("NameAction, Id"))]
+        public string? Name { get; set; }
         public string? Transport { get; set; }
-        public double? Commission { get; set; }
         public string? Stay { get; set; }
         public string? Sightseeing { get; set; }
         public string? PackageHighlight { get; set; }
@@ -24,7 +35,6 @@ namespace WebAppColorStays.Models.ViewModel
         public int? LocationDuration { get; set; }
         public string? StartingFrom { get; set; }
         public double? Price { get; set; }
-        public string? Fk_Currency_Name { get; set; }
         public string? Photo1 { get; set; }
         public string? Photo2 { get; set; }
         public string? Photo3 { get; set; }

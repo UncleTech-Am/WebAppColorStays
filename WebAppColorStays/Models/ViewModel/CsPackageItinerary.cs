@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -7,23 +10,27 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [DisplayName("Package")]
         public string? Fk_Package_Name { get; set; }
+        [NotMapped]
+        public string? Package { get; set; }
         public string? DayNo { get; set; }
+        [Remote("CheckDuplicationPackageItinerary", "PackageItinerary", AdditionalFields = ("NameAction, Fk_Package_Name, Id"))]
         public string? DayTitle { get; set; }
         public string? DayActivity { get; set; }
-        public bool? Sightseen { get; set; }
+        public bool Sightseen { get; set; }
         public string? Photo1 { get; set; }
         public string? Photo2 { get; set; }
         public string? Photo3 { get; set; }
         public string? Photo4 { get; set; }
         public string? Photo5 { get; set; }
         public string? Video { get; set; }
-        public bool? Stay { get; set; }
+        public bool Stay { get; set; }
         public string? Longitude { get; set; }
         public string? Latitude { get; set; }
-        public bool? Breakfast { get; set; }
-        public bool? Lunch { get; set; }
-        public bool? Dinner { get; set; }
+        public bool Breakfast { get; set; }
+        public bool Lunch { get; set; }
+        public bool Dinner { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }

@@ -21,7 +21,8 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_QuestionPlace_Name)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Fk_QuestionPlace_Name)" asp-for="Fk_QuestionPlace_Name" autocomplete="off" />
+            <input class="TtBxTt14" placeholder="Question Place" type="text" id="SearchQuestionPlace" asp-for="Question" autocomplete="off" required onchange="ClearData('SearchQuestionPlace','Fk_QuestionPlace_Name')" />
+            <input type="hidden" asp-for="Fk_QuestionPlace_Name" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_QuestionPlace_Name"></span></div>
@@ -32,7 +33,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Answer)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Answer)" asp-for="Answer" autocomplete="off" />
+            <textarea  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Answer)" asp-for="Answer" autocomplete="off" ></textarea>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Answer"></span></div>

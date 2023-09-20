@@ -20,8 +20,9 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_State_Name)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Fk_State_Name)" asp-for="Fk_State_Name" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_State_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="State Name" type="text" id="SearchState" asp-for="State" autocomplete="off" required onchange="ClearData('SearchState','Fk_State_Name')" />
+            <input type="hidden" asp-for="Fk_State_Name" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_State_Name"></span></div>
@@ -31,8 +32,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AnNo)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AnNo)" asp-for="AnNo" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AnNo)<span style="color:red;"> *</span></div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AnNo)" asp-for="AnNo" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="AnNo"></span></div>
@@ -42,22 +43,11 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AccordianHeading)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AccordianHeading)" asp-for="AccordianHeading" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AccordianHeading)<span style="color:red;"> *</span></div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AccordianHeading)" asp-for="AccordianHeading" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="AccordianHeading"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Description)" asp-for="Description" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Description"></span></div>
 </div>
 
 

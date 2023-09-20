@@ -1,0 +1,314 @@
+@model WebAppColorStays.Models.ViewModel.CsRentalProperty
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "RentalProperty";
+}
+
+<div style="display:none">responseformUT ShowData</div>
+
+<div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
+    <h3 class="MnTp7 MnBm7 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
+        <i class="UT-DetailLine"></i>
+        @ViewBag.Title Detail
+    </h3>
+    <div style="overflow:auto; width:100%;" class="PopUpDetailContent">
+        @if (ViewBag.Message != null)
+        {<h3><span style="color:red">@ViewBag.Message</span></h3>}
+
+        <table class="TeStrip TeBr">
+      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Name)</td>
+        <td>@Model.Name</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Address)</td>
+        <td>@Model.Address</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_City_Name)</td>
+        <td>@Model.Fk_City_Name</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_State_Name)</td>
+        <td>@Model.Fk_State_Name</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_Country_Name)</td>
+        <td>@Model.Fk_Country_Name</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.EmailOwner)</td>
+        <td>@Model.EmailOwner</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.EmailContactPerson1)</td>
+        <td>@Model.EmailContactPerson1</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.PhoneNoOwner)</td>
+        <td>@Model.PhoneNoOwner</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.PhoneNoContactPerson1)</td>
+        <td>@Model.PhoneNoContactPerson1</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.MountainView)</td>
+        <td>@Model.MountainView</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CityView)</td>
+        <td>@Model.CityView</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.LakeView)</td>
+        <td>@Model.LakeView</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.AttachedWashroom)</td>
+        <td>@Model.AttachedWashroom</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Kitchen)</td>
+        <td>@Model.Kitchen</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.NoOfRooms)</td>
+        <td>@Model.NoOfRooms</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CarParking)</td>
+        <td>@Model.CarParking</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.BikeParking)</td>
+        <td>@Model.BikeParking</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Balcony)</td>
+        <td>@Model.Balcony</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.SeaView)</td>
+        <td>@Model.SeaView</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ForestView)</td>
+        <td>@Model.ForestView</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Commission)</td>
+        <td>@Model.Commission</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Remarks)</td>
+        <td>@Model.Remarks</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.FreezeStatus)</td>
+        <td>@Model.FreezeStatus</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.FreezedBy)</td>
+        <td>@Model.FreezedBy</td>
+        </tr>
+
+		      
+      
+      
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.VerifiedStatus)</td>
+        <td><div class="display-field">@if(Model.VerifiedStatus==true){<span>Verified</span>}else{ <span>Pending-Verify</span>}</div></td>
+        </tr>
+      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.VerifiedOn)</td>
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", Model.VerifiedOn)</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.VerifiedBy)</td>
+        <td>@Model.VerifiedBy</td>
+        </tr>
+
+		      
+        <tr>
+        <td class="FtWt600 Pg8"><h4> @Html.DisplayNameFor(model => model.ActiveStatus)</h4></td>
+        <td><div class="display-field">@if(Model.ActiveStatus==true){<span>Active</span>}else{ <span>Inactive</span>}</div></td>
+        </tr>    
+      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ActivatedOn)</td>
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", Model.ActivatedOn)</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ActivatedBy)</td>
+        <td>@Model.ActivatedBy</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CreatedOn)</td>
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", Model.CreatedOn)</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CreatedBy)</td>
+        <td>@Model.CreatedBy</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ModifiedOn)</td>
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", Model.ModifiedOn)</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ModifiedBy)</td>
+        <td>@Model.ModifiedBy</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ModificationFrequency)</td>
+        <td>@Model.ModificationFrequency</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.GCompId)</td>
+        <td>@Model.GCompId</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CompId)</td>
+        <td>@Model.CompId</td>
+        </tr>
+
+		      
+
+		      
+        </table>
+    </div>
+</div>
+  
+<div class="MnTp7 MnBm7 FxRw">
+    <div class="DyFx FxJyCtSt Gp10 Wh100p">
+        @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
+        {
+            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/RentalProperty/DeleteConfirmed?Id=@Model.Id','/ColorStays/RentalProperty');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+        }
+
+        @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
+        {
+            //  Checks which Button to Show For the Verification
+            if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
+            {
+                <button type="button" onclick="VerifyData('/ColorStays/RentalProperty/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/RentalProperty')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+            }
+            if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
+            {
+                <button type="button" onclick="VerifyData('/ColorStays/RentalProperty/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/RentalProperty')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
+            }
+            //  Checks which Button to Show For the Activation
+            if (Model.ActiveStatus == false && Model.GlobalStatus == false)
+            {
+                <button type="button" onclick="VerifyData('/ColorStays/RentalProperty/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/RentalProperty')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+            }
+            if (Model.ActiveStatus == true && Model.GlobalStatus == false)
+            {
+                <button type="button" onclick="VerifyData('/ColorStays/RentalProperty/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/RentalProperty')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
+            }
+        }
+    </div>
+</div>
+
+

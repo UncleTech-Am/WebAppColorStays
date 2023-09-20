@@ -35,6 +35,14 @@
 
                     <div id="CreateOrEdit">@await Html.PartialAsync("_CreateOrEdit", Model)</div>
 
+                    <div class="MnTp7 MnBm7" style="height:66vh;">
+                        <div>
+                            <div class="MaxMinDv">
+                                <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.Description)" asp-for="Description" autocomplete="off"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="MnTp7 MnBm7 FxRw">
                         <div class="FxGw1">
                             <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
@@ -52,10 +60,68 @@
     </div>
 </div>
 
+<script src="~/js/tinymce_6.2.0/tinymce/js/tinymce/tinymce.min.js"></script>
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
+        StartSuggestionBox(2, 'SearchRestaurant', '/ColorStays/Restaurant/SuggestRestaurant', '', '', AoCeRestaurant);
+        MaxMin();
     });
+
+    tinymce.init({
+        selector: '#Description',
+        plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
+        toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
+        a11ychecker_level: 'aaa',
+        style_formats: [
+            { title: 'Heading 1', block: 'h1' },
+            { title: 'Heading 2', block: 'h2' },
+            { title: 'Paragraph', block: 'p' },
+            { title: 'Blockquote', block: 'blockquote' },
+            { title: 'Image formats' },
+            { title: 'Medium', selector: 'img', classes: 'medium' },
+        ],
+        object_resizing: true,
+        valid_classes: {
+            'img': 'medium',
+            'div': 'related-content'
+        },
+        image_caption: true,
+        templates: [
+            {
+                title: 'Related content',
+                description: 'This template inserts a related content block',
+                content: '<div class="related-content"><h3>Related content</h3><p><strong>{$rel_lede}</strong> {$rel_body}</p></div>'
+            }
+        ],
+        content_langs: [
+            { title: 'English (US)', code: 'en_US' },
+        ],
+        content_style: `
+                                    img {
+                                        height: auto;
+                                    margin: auto;
+                                    padding: 10px;
+                                    display: block;
+                                                        }
+                                    img.medium {
+                                        max - width: 25%;
+                                                        }
+                                    `
+    });
+
+    //Clear Autocompete data
+    function ClearData(UrNe, UrId) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+    }
+    //Autocomplete Restaurant
+    function AoCeRestaurant(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Restaurant_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
 
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");

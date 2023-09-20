@@ -1,0 +1,187 @@
+@model WebAppColorStays.Models.ViewModel.CsRestaurantVideo
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "RestauratVideo";
+}
+
+<div style="display:none">responseformUT ShowData</div>
+
+<div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
+    <h3 class="MnTp7 MnBm7 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
+        <i class="UT-DetailLine"></i>
+        @ViewBag.Title Detail
+    </h3>
+    <div style="overflow:auto; width:100%;" class="PopUpDetailContent">
+        @if (ViewBag.Message != null)
+        {<h3><span style="color:red">@ViewBag.Message</span></h3>}
+
+        <table class="TeStrip TeBr">
+      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.URL)</td>
+        <td>@Model.URL</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Food)</td>
+        <td>@Model.Food</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Infra)</td>
+        <td>@Model.Infra</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Remarks)</td>
+        <td>@Model.Remarks</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.FreezeStatus)</td>
+        <td>@Model.FreezeStatus</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.FreezedBy)</td>
+        <td>@Model.FreezedBy</td>
+        </tr>
+
+		      
+      
+      
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.VerifiedStatus)</td>
+        <td><div class="display-field">@if(Model.VerifiedStatus==true){<span>Verified</span>}else{ <span>Pending-Verify</span>}</div></td>
+        </tr>
+      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.VerifiedOn)</td>
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", Model.VerifiedOn)</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.VerifiedBy)</td>
+        <td>@Model.VerifiedBy</td>
+        </tr>
+
+		      
+        <tr>
+        <td class="FtWt600 Pg8"><h4> @Html.DisplayNameFor(model => model.ActiveStatus)</h4></td>
+        <td><div class="display-field">@if(Model.ActiveStatus==true){<span>Active</span>}else{ <span>Inactive</span>}</div></td>
+        </tr>    
+      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ActivatedOn)</td>
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", Model.ActivatedOn)</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ActivatedBy)</td>
+        <td>@Model.ActivatedBy</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CreatedOn)</td>
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", Model.CreatedOn)</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CreatedBy)</td>
+        <td>@Model.CreatedBy</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ModifiedOn)</td>
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", Model.ModifiedOn)</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ModifiedBy)</td>
+        <td>@Model.ModifiedBy</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ModificationFrequency)</td>
+        <td>@Model.ModificationFrequency</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.GCompId)</td>
+        <td>@Model.GCompId</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CompId)</td>
+        <td>@Model.CompId</td>
+        </tr>
+
+		      
+      
+        </table>
+    </div>
+</div>
+  
+<div class="MnTp7 MnBm7 FxRw">
+    <div class="DyFx FxJyCtSt Gp10 Wh100p">
+        @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
+        {
+            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/RestauratVideo/DeleteConfirmed?Id=@Model.Id','/ColorStays/RestauratVideo');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+        }
+
+        @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
+        {
+            //  Checks which Button to Show For the Verification
+            if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
+            {
+                <button type="button" onclick="VerifyData('/ColorStays/RestauratVideo/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/RestauratVideo')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+            }
+            if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
+            {
+                <button type="button" onclick="VerifyData('/ColorStays/RestauratVideo/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/RestauratVideo')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
+            }
+            //  Checks which Button to Show For the Activation
+            if (Model.ActiveStatus == false && Model.GlobalStatus == false)
+            {
+                <button type="button" onclick="VerifyData('/ColorStays/RestauratVideo/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/RestauratVideo')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+            }
+            if (Model.ActiveStatus == true && Model.GlobalStatus == false)
+            {
+                <button type="button" onclick="VerifyData('/ColorStays/RestauratVideo/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/RestauratVideo')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
+            }
+        }
+    </div>
+</div>
+
+

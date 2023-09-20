@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -7,9 +9,15 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [DisplayName("CancellationPolicy")]
+        [Required(ErrorMessage = "Please enter CancellationPolicy.")]
         public string? Fk_CancellationPolicy_Name { get; set; }
+        [NotMapped]
+        public string? CancellationPolicy { get; set; }
+        [Required(ErrorMessage = "Please enter NoOfDays.")]
         public int? NoOfDays { get; set; }
-        public int? Refund { get; set; }
+        [Required(ErrorMessage = "Please enter Refund.")]
+        public double? Refund { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }

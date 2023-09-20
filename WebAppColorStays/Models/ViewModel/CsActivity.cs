@@ -27,13 +27,15 @@ namespace WebAppColorStays.Models.ViewModel
         [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
         public string? URL { get; set; }
-        [Remote("CheckDuplicationActivity", "Activity", AdditionalFields = ("NameAction, Id"))]
+        [Required(ErrorMessage = "Please enter Activity Name.")]
+        [Remote("CheckDuplicationActivity", "Activity", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]
         public string Name { get; set; }
         public string? Description { get; set; }
         public string? CoverImage { get; set; }
         public double? StartingPrice { get; set; }
         public int? Duration { get; set; }
-        public int? Ranking { get; set; }
+        [Remote("CheckDuplicationActivityRank", "Activity", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]
+        public int? Rank { get; set; }
         public double? Price { get; set; }
         public int? MinAge { get; set; }
         public int? MaxAge { get; set; }

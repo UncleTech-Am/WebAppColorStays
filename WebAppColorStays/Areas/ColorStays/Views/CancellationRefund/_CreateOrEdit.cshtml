@@ -20,8 +20,9 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_CancellationPolicy_Name)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Fk_CancellationPolicy_Name)" asp-for="Fk_CancellationPolicy_Name" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_CancellationPolicy_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Cancellation Policy" type="text" id="SearchCancellationPolicy" asp-for="CancellationPolicy" autocomplete="off" required onchange="ClearData('SearchCancellationPolicy', 'Fk_CancellationPolicy_Name')" />
+            <input type="hidden" asp-for="Fk_CancellationPolicy_Name" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_CancellationPolicy_Name"></span></div>
@@ -31,8 +32,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.NoOfDays)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.NoOfDays)" asp-for="NoOfDays" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.NoOfDays)<span style="color:red;"> *</span></div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.NoOfDays)" asp-for="NoOfDays" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="NoOfDays"></span></div>
@@ -42,8 +43,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Refund)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Refund)" asp-for="Refund" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Refund)<span style="color:red;"> *</span></div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Refund)" asp-for="Refund" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Refund"></span></div>

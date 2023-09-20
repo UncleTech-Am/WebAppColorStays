@@ -20,8 +20,9 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Package_Name)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Fk_Package_Name)" asp-for="Fk_Package_Name" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Package_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Package Name" type="text" id="SearchPackage" asp-for="Package" autocomplete="off" required onchange="ClearData('SearchPackage','Fk_Package_Name')" />
+            <input type="hidden" asp-for="Fk_Package_Name" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_Package_Name"></span></div>
@@ -31,8 +32,9 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_City_Name)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Fk_City_Name)" asp-for="Fk_City_Name" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_City_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="City Name" type="text" id="SearchCity" asp-for="City" autocomplete="off" required onchange="ClearData('SearchCity','Fk_City_Name')" />
+            <input type="hidden" asp-for="Fk_City_Name" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_City_Name"></span></div>

@@ -20,46 +20,23 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOTitle)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" asp-for="SEOTitle" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Currency_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Currency Name" type="text" id="SearchCurrency" asp-for="Currency" autocomplete="off" required onchange="ClearData('SearchCurrency', 'Fk_Currency_Name')" />
+            <input type="hidden" asp-for="Fk_Currency_Name" required />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="SEOTitle"></span></div>
+    <div class="VnRd"><span asp-validation-for="Fk_Currency_Name"></span></div>
 </div>
-
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEODescription)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" asp-for="SEODescription" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="SEODescription"></span></div>
+    <div class="VnRd"><span asp-validation-for="Name"></span></div>
 </div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOKeywords)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" asp-for="SEOKeywords" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="SEOKeywords"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_TravelAgent_Name)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Fk_TravelAgent_Name)" asp-for="Fk_TravelAgent_Name" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Fk_TravelAgent_Name"></span></div>
-</div>
-
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -69,17 +46,6 @@
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Transport"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Commission)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Commission)" asp-for="Commission" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Commission"></span></div>
 </div>
 
 
@@ -116,16 +82,6 @@
 </div>
 
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Overview)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Overview)" asp-for="Overview" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Overview"></span></div>
-</div>
-
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -135,39 +91,6 @@
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Duration"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Breakfast)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Breakfast)" asp-for="Breakfast" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Breakfast"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Lunch)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Lunch)" asp-for="Lunch" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Lunch"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Dinner)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Dinner)" asp-for="Dinner" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Dinner"></span></div>
 </div>
 
 
@@ -204,18 +127,8 @@
 </div>
 
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Currency_Name)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Fk_Currency_Name)" asp-for="Fk_Currency_Name" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Fk_Currency_Name"></span></div>
-</div>
 
-
-<div class="MnTp7 MnBm7">
+@*<div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo1)</div>
@@ -333,8 +246,78 @@
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Video"></span></div>
+</div>*@
+
+
+<div class="FxRw">
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Breakfast)</div>*@
+                <input class="SeIt1o15" type="checkbox" asp-for="Breakfast" />
+                &nbsp;Breakfast
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Breakfast"></span></div>
+    </div>
+
+
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Lunch)</div>*@
+                <input class="SeIt1o15" type="checkbox" asp-for="Lunch" />
+                &nbsp;Lunch
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Lunch"></span></div>
+    </div>
+
+
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Dinner)</div>*@
+                <input class="SeIt1o15" type="checkbox" asp-for="Dinner" />
+                &nbsp;Dinner
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Dinner"></span></div>
+    </div>
 </div>
 
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOTitle) &nbsp;<span> Max Char 70 </span> <span id="SeotitleSID" class="CrBdRd70 CrWe BrRs3"></span><span style="color:red;"> *</span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" asp-for="SEOTitle" autocomplete="off" required onkeyup="CrCtIt('SEOTitle','SeotitleSID',70)"></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEOTitle"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEODescription) &nbsp;<span> Max Char 170 </span> <span id="SeoDescSID" class="CrBdRd70 CrWe BrRs3"></span><span style="color:red;"> *</span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" asp-for="SEODescription" autocomplete="off" required onkeyup="CrCtIt('SEODescription','SeoDescSID',170)"></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEODescription"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOKeywords)<span style="color:red;"> *</span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" asp-for="SEOKeywords" autocomplete="off" required></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEOKeywords"></span></div>
+</div>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">

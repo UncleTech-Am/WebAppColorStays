@@ -1,0 +1,118 @@
+@model WebAppColorStays.Models.ViewModel.CsRestaurantReview
+
+
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "RestaurantReview";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.RowVersion)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedOn)
+@Html.HiddenFor(model => model.CompId)
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Restaurant_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Restaurant Name" type="text" id="SearchRestaurant" asp-for="Restaurant" autocomplete="off" required onchange="ClearData('SearchRestaurant', 'Fk_Restaurant_Name')" />
+            <input type="hidden" asp-for="Fk_Restaurant_Name" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_Restaurant_Name"></span></div>
+</div>
+
+
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rating)<span style="color:red;"> *</span></div>
+                <select asp-for="Rating" class="TtBxTt15" required>
+                    <option value="">Select Rating</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Rating"></span></div>
+    </div>
+
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Hygienic)</div>
+                <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Hygienic)" asp-for="Hygienic" autocomplete="off" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Hygienic"></span></div>
+    </div>
+</div>
+
+
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Variety)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Variety)" asp-for="Variety" autocomplete="off" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Variety"></span></div>
+    </div>
+
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ServingSpeed)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ServingSpeed)" asp-for="ServingSpeed" autocomplete="off" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="ServingSpeed"></span></div>
+    </div>
+</div>
+
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Hospitality)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Hospitality)" asp-for="Hospitality" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Hospitality"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ReviewReply)<span style="color:red;"> *</span></div>
+            <textarea  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ReviewReply)" asp-for="ReviewReply" autocomplete="off" required></textarea> 
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="ReviewReply"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
+</div>

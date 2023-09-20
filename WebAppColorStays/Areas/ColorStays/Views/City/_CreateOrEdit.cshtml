@@ -85,16 +85,29 @@
     </div>
 </div>
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
+
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">
                     @Html.DisplayNameFor(model => model.Area) &nbsp;<span>Km &sup2 </span>
-                </div>     
-                <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Area)" asp-for="Area" autocomplete="off" />
+                </div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Area)" asp-for="Area" autocomplete="off" />
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="Area"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Area"></span></div>
+
+    <div class=" Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.MonthTemperature)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.MonthTemperature)" asp-for="MonthTemperature" autocomplete="off" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="MonthTemperature"></span></div>
+    </div>
 </div>
 
 
@@ -150,23 +163,11 @@
 </div>
 
 
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.MonthTemperature)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.MonthTemperature)" asp-for="MonthTemperature" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="MonthTemperature"></span></div>
-</div>
-
-
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ClothingToCarry)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ClothingToCarry)" asp-for="ClothingToCarry" autocomplete="off" />
+            <textarea  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ClothingToCarry)" asp-for="ClothingToCarry" autocomplete="off"></textarea>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="ClothingToCarry"></span></div>
@@ -184,51 +185,51 @@
 </div>
 
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PeakSeason)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PeakSeason)" asp-for="PeakSeason" autocomplete="off" />
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PeakSeason)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PeakSeason)" asp-for="PeakSeason" autocomplete="off" />
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="PeakSeason"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="PeakSeason"></span></div>
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.OffSeason)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.OffSeason)" asp-for="OffSeason" autocomplete="off" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="OffSeason"></span></div>
+    </div>
 </div>
 
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.OffSeason)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.OffSeason)" asp-for="OffSeason" autocomplete="off" />
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.MidSeason)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.MidSeason)" asp-for="MidSeason" autocomplete="off" />
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="MidSeason"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="OffSeason"></span></div>
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.LowestPackage)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.LowestPackage)" asp-for="LowestPackage" autocomplete="off" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="LowestPackage"></span></div>
+    </div>
 </div>
 
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.MidSeason)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.MidSeason)" asp-for="MidSeason" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="MidSeason"></span></div>
-</div>
-
-
-
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.LowestPackage)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.LowestPackage)" asp-for="LowestPackage" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="LowestPackage"></span></div>
-</div>
 
 <div class="FxRw">
     <div class="Fx50 Pg2 MnTp7 MnBm7">

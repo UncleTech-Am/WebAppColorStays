@@ -6,7 +6,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using LibCommon.DataTransfer;
-using LibCompanyService.Models.ViewCompany;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
@@ -21,10 +20,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class ActivityController : Controller
     {
         private readonly Paging paging;
+        private IWebHostEnvironment Environment;
 
-        public ActivityController()
+        public ActivityController(IWebHostEnvironment environment)
         {
             paging = new Paging();
+            Environment = environment;  
         }
 
         //Show the Title in View
@@ -33,6 +34,132 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Title = "Activity";
         }
         //Ends
+
+        //ItemAutoComplete
+        [HttpGet]
+        public async Task<JsonResult> SuggestActivity(string term)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+            var UserID = Request.Cookies["UserID"];
+            List<CsAutocomplete> list = new List<CsAutocomplete>();
+            var CompId = Process.Decrypt(Request.Cookies["CompanyID"]);
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                HttpResponseMessage res = await client.GetAsync("Activity/SuggestActivity/" + term + "/" + CompId, HttpCompletionOption.ResponseHeadersRead);
+                if (res.IsSuccessStatusCode)
+                {
+                    var results = res.Content.ReadAsStreamAsync().Result;
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsAutocomplete>>(results, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    var data = list.Select(x => new
+                    {
+                        id = Base64UrlEncoder.Encode(Process.Encrypt(x.Id)),
+                        value = x.Value,
+                        label = x.Label,
+
+                    }).ToList();
+                    return Json(data);
+                }
+            }
+            return null;
+        }
+        //Ends
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveActivityImage(string Id)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            CsActivity csActivity = new CsActivity();
+            var files = HttpContext.Request.Form.Files;
+            var uploads = Path.Combine(Environment.WebRootPath, "Image\\CompUsers");
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                foreach (var file in files)
+                {
+                    var fileName = "Activity-" + Id.Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+
+                    using (var response = await client.GetAsync("Activity/SaveActivityImage/" + Id + "/" + CompID + "/" + UserID + "/" + fileName, HttpCompletionOption.ResponseHeadersRead))
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            return View("Error");
+                        }
+                    }
+
+                    //if (file.Length > 0)
+                    //{
+                    //    //Save the Images in the Folder
+                    //    Task<string> TImgUpload = ryImage.UploadImages(file, fileName, TokenKey, "CompUser");
+                    //    Task.WaitAll(TImgUpload);
+                    //    if (TImgUpload.Result == "Error")
+                    //    {
+                    //        return View("Error");
+                    //    }
+                    //}
+                }
+            }
+            return Json(new { Message = "Saved" });
+        }
+
+
+        //show upload the image
+        [HttpGet]
+        public async Task<IActionResult> UploadedImage(string UserId, string ShowBtn)
+        {
+
+            var TokenKey = Request.Cookies["JWToken"];
+            List<CsActivity> csActivityList = new List<CsActivity>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Activity/UploadedImage/" + UserId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csActivityList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsActivity>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            if (ShowBtn == "false")
+            {
+                ViewBag.ShowBtn = "false";
+            }
+            return PartialView("UploadedImage", csActivityList);
+        }
+        //ends
+
+        //Delete the upload image
+        public async Task<IActionResult> ImageDelete(string ImageID, string UserId, string ImgName)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            List<CsActivity> userimage = new List<CsActivity>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Account/ImageDelete/" + ImageID + "/" + UserId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    userimage = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsActivity>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+
+                    //Delete the Images from the folder
+                    //Task<string> TDeleteImage = ryImage.DeleteImage(ImgName, TokenKey, "CompUser");
+                    //Task.WaitAll(TDeleteImage);
+                }
+            }
+            return PartialView("UploadedImage", userimage);
+        }
+        //ends
+
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -137,6 +264,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
 
+                if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
 
                 return View(ReturnDataList.Result.Item2);
@@ -441,7 +569,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
                 if (Success == true)
-                { return RedirectToAction("Index", new { PageCall = "Show" }); }
+                {
+                    ViewData["AId"] = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh" });
+                }
                 else { return View("_CreateOrEdit", CsActivity); }
             }
             return View("_CreateorEdit",CsActivity);                
@@ -672,16 +803,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationActivity(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationActivity(string Name, string NameAction, string Fk_Place_Name, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             if (Id == null) { Id = "No"; }
+            if (Fk_Place_Name == null)
+            {
+                Fk_Place_Name = "No";
+            }
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Activity/CheckDuplicationActivity/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Activity/CheckDuplicationActivity/" + Name + "/" + NameAction + "/" + Fk_Place_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
@@ -690,6 +825,35 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
                         return Json("Sorry, this " + Name + " already exists");
+                    }
+                }
+            }
+            if (Success == true) { return Json(true); }
+            else { return Json("Some Error!"); }
+        }
+
+        public async Task<JsonResult> CheckDuplicationActivityRank(int Rank, string NameAction, string Fk_Place_Name, string Id)
+        {
+            bool Success = false;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            if (Id == null) { Id = "No"; }
+            if (Fk_Place_Name == null)
+            {
+                Fk_Place_Name = "No";
+            }
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Activity/CheckDuplicationActivityRank/" + Rank + "/" + NameAction + "/" + Fk_Place_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Success = true;
+                    }
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        return Json("Sorry, this " + Rank + " already exists");
                     }
                 }
             }
