@@ -55,7 +55,29 @@
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
+        StartSuggestionBox(2, 'SearchPlace', '/ColorStays/Place/SuggestPlace', '', '', AoCePlace);
     });
+
+
+    //Clear Autocompete data
+    function ClearData(UrNe, UrId, Text1, Text2, Text3) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+        document.getElementById(Text1).value = '';
+        document.getElementById(Text2).value = '';
+        document.getElementById(Text3).value = '';
+    }
+
+    //Autocomplete Item
+    function AoCePlace(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Place_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+        document.getElementById('Fk_City_Name').value = event.target.Text1;
+        document.getElementById('Fk_State_Name').value = event.target.Text2;
+        document.getElementById('Fk_Country_Name').value = event.target.Text3;
+    }
 
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");

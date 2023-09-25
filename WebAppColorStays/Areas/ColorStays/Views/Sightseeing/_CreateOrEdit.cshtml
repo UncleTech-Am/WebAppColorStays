@@ -1,9 +1,9 @@
-@model WebAppColorStays.Models.ViewModel.CsNearByPlace
+@model WebAppColorStays.Models.ViewModel.CsSightseeing
 
 
 @{ 
     Layout = null; 
-    ViewData["Action"] = "NearByPlace";
+    ViewData["Action"] = "Sightseeing";
 }
 
 <div style="display:none">responseformUT @ViewData["ResponseName"]</div>
@@ -20,23 +20,22 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_City_Name)<span style="color:red;"> *</span></div>
-            <input class="TtBxTt14" placeholder="City Name" type="text" id="SearchCity" asp-for="City" autocomplete="off" required onchange="ClearData('SearchCity','Fk_City_Name')" />
-            <input type="hidden" asp-for="Fk_City_Name" required />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required/>
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Fk_City_Name"></span></div>
+    <div class="VnRd"><span asp-validation-for="Name"></span></div>
 </div>
+
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Place_Name)<span style="color:red;"> *</span></div>
-            <input class="TtBxTt14" placeholder="Place Name" type="text" id="SearchPlace" asp-for="Place" autocomplete="off" required onchange="ClearData('SearchPlace', 'Fk_Place_Name')" />
-            <input type="hidden" asp-for="Fk_Place_Name" required />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description)<span style="color:red;"> *</span></div>
+            <textarea  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Description)" asp-for="Description" autocomplete="off" required></textarea>
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Fk_Place_Name"></span></div>
+    <div class="VnRd"><span asp-validation-for="Description"></span></div>
 </div>
 
 

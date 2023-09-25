@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -7,7 +9,11 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [DisplayName("Place")]
         public string? Fk_Place_Name { get; set; }
+        [NotMapped]
+        public string? Place { get; set; }
+        [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
         public string? Name { get; set; }
         public double? Distance { get; set; }

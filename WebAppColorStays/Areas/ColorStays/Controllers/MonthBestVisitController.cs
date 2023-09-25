@@ -672,16 +672,17 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationMonthBestVisit(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationMonthBestVisit(string Name, string NameAction, string Fk_Place_Name, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             if (Id == null) { Id = "No"; }
+            if (Fk_Place_Name == null) { Fk_Place_Name = "No"; }
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("MonthBestVisit/CheckDuplicationMonthBestVisit/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("MonthBestVisit/CheckDuplicationMonthBestVisit/" + Name + "/" + NameAction + "/" + Fk_Place_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
@@ -696,5 +697,34 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
+
+        //This method is to check duplicate values for specific columns......
+        public async Task<JsonResult> CheckDuplicationMonthBestVisitRank(int Rank, string NameAction, string Fk_Place_Name, string Id)
+        {
+            bool Success = false;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            if (Id == null) { Id = "No"; }
+            if (Fk_Place_Name == null) { Fk_Place_Name = "No"; }
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("MonthBestVisit/CheckDuplicationMonthBestVisitRank/" + Rank + "/" + NameAction + "/" + Fk_Place_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Success = true;
+                    }
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        return Json("Sorry, this " + Rank + " already exists");
+                    }
+                }
+            }
+            if (Success == true) { return Json(true); }
+            else { return Json("Some Error!"); }
+        }
+
+
     }
 }

@@ -16,6 +16,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter Restaurant Name.")]
         public string? Restaurant { get; set; }
         [Required(ErrorMessage = "Please enter An No.")]
+        [Remote("CheckDuplicationAnRestaurantAnNo", "AnRestaurant", AdditionalFields = ("NameAction, Fk_Restaurant_Name, Id"))]
         public int? AnNo { get; set; }
         [Required(ErrorMessage = "Please enter AccordianHeading.")]
         [Remote("CheckDuplicationAnRestaurant", "AnRestaurant", AdditionalFields = ("NameAction, Fk_Restaurant_Name, Id"))]

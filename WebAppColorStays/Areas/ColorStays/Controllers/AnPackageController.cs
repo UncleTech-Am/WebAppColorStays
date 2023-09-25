@@ -673,7 +673,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationAnPackage(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationAnPackage(string AccordianHeading, string NameAction, string Fk_Package_Name, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
@@ -682,7 +682,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("AnPackage/CheckDuplicationAnPackage/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("AnPackage/CheckDuplicationAnPackage/" + AccordianHeading + "/" + NameAction + "/" + Fk_Package_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
@@ -690,12 +690,38 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                     if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
-                        return Json("Sorry, this " + Name + " already exists");
+                        return Json("Sorry, this " + AccordianHeading + " already exists");
                     }
                 }
             }
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
+
+        public async Task<JsonResult> CheckDuplicationAnPackageAnNo(int AnNo, string NameAction, string Fk_Package_Name, string Id)
+        {
+            bool Success = false;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            if (Id == null) { Id = "No"; }
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("AnPackage/CheckDuplicationAnPackageAnNo/" + AnNo + "/" + NameAction + "/" + Fk_Package_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Success = true;
+                    }
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        return Json("Sorry, this " + AnNo + " already exists");
+                    }
+                }
+            }
+            if (Success == true) { return Json(true); }
+            else { return Json("Some Error!"); }
+        }
+
     }
 }

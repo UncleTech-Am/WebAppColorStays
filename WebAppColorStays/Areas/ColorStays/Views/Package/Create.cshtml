@@ -66,6 +66,7 @@
     $(document).ready(function () {
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchCurrency', '/ColorStays/Currency/SuggestCurrency', '', '', AoCeCurrency);
+        StartSuggestionBox(2, 'SearchSightseeing', '/ColorStays/Sightseeing/SuggestSightseeing', '', '', AoCeSightseeing);
         MaxMin();
     });
 
@@ -117,13 +118,22 @@
         document.getElementById(UrId).value = '';
     }
 
-    //Autocomplete Item
+    //Autocomplete 
+    function AoCeSightseeing(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Sightseeing_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
+    //Autocomplete
     function AoCeCurrency(event) {
         var InputId = event.target.InputID;
         SuggestionClose(InputId);
         document.getElementById('Fk_Currency_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
     }
+
 
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");

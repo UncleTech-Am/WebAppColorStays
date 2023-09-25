@@ -20,12 +20,15 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_Currency_Name { get; set; }
         [NotMapped]
         public string? Currency { get; set; }
+        [DisplayName("Sightseeing")]
+        public string? Fk_Sightseeing_Name { get; set; }
+        [NotMapped]
+        public string? Sightseeing { get; set; }
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationPackage", "Package", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
         public string? Transport { get; set; }
         public string? Stay { get; set; }
-        public string? Sightseeing { get; set; }
         public string? PackageHighlight { get; set; }
         public string? Overview { get; set; }
         public int? Duration { get; set; }

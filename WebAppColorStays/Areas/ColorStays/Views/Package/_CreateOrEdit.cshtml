@@ -31,6 +31,18 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Sightseeing_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Sightseeing Name" type="text" id="SearchSightseeing" asp-for="Sightseeing" autocomplete="off" required onchange="ClearData('SearchSightseeing', 'Fk_Sightseeing_Name')" />
+            <input type="hidden" asp-for="Fk_Sightseeing_Name" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_Sightseeing_Name"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
             <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required />
         </div>

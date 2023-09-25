@@ -1,15 +1,15 @@
-@model WebAppColorStays.Models.ViewModel.CsFAQ
+@model WebAppColorStays.Models.ViewModel.CsSightseeing
 
 @{
     Layout = "_Layout";
-    ViewData["Action"] = "FAQ";
+    ViewData["Action"] = "Sightseeing";
 }
 
 
 <div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
     <div class="CrTeTtLt FxGw1"> <h1>Add @ViewBag.Title</h1></div>
     <div>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1"><i class="UT-List-OLine FtSz18" onclick="location.href='/ColorStays/FAQ/Index'"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1"><i class="UT-List-OLine FtSz18" onclick="location.href='/ColorStays/Sightseeing/Index'"></i></button>
     </div>
 </div>
 
@@ -23,7 +23,7 @@
                 </h3>
                  <form id="Create"
                     data-ajax="true"
-                    data-ajax-url="/ColorStays/FAQ/Create"
+                    data-ajax-url="/ColorStays/Sightseeing/Create"
                     data-ajax-method="POST"
                     data-ajax-loading="#loader"
                     data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
@@ -40,14 +40,14 @@
                             <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/FAQ/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Sightseeing/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
         <div class="Fx65 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
-            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsFAQ>)ViewData["EnteredDetails"])
+            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsSightseeing>)ViewData["EnteredDetails"])
         </div>
     </div>
 </div>
@@ -55,49 +55,7 @@
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
-        StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
-        StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
-        StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
-        StartSuggestionBox(2, 'SearchPlace', '/ColorStays/Place/SuggestPlace', '', '', AoCePlace);
     });
-
-    //Clear Autocompete data
-    function ClearData(UrNe, UrId) {
-        document.getElementById(UrNe).value = '';
-        document.getElementById(UrId).value = '';
-    }
-
-    //Autocomplete country
-    function AoCeCountry(event) {
-        var InputId = event.target.InputID;
-        SuggestionClose(InputId);
-        document.getElementById('Fk_Country_Name').value = event.target.Id;
-        document.getElementById(InputId).value = event.target.Value;
-
-    }
-    //Autocomplete state
-    function AoCeState(event) {
-        var InputId = event.target.InputID;
-        SuggestionClose(InputId);
-        document.getElementById('Fk_State_Name').value = event.target.Id;
-        document.getElementById(InputId).value = event.target.Value;
-    }
-
-    //Autocomplete City
-    function AoCeCity(event) {
-        var InputId = event.target.InputID;
-        SuggestionClose(InputId);
-        document.getElementById('Fk_City_Name').value = event.target.Id;
-        document.getElementById(InputId).value = event.target.Value;
-    }
-
-    //Autocomplete Item
-    function AoCePlace(event) {
-        var InputId = event.target.InputID;
-        SuggestionClose(InputId);
-        document.getElementById('Fk_Place_Name').value = event.target.Id;
-        document.getElementById(InputId).value = event.target.Value;
-    }
 
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
@@ -108,7 +66,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/FAQ/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/Sightseeing/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
     }
 
     //Table Search Success Function
@@ -122,7 +80,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/FAQ/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/Sightseeing/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
     }
 
     function IntializeTableSearch() {

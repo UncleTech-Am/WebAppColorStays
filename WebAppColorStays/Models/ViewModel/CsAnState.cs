@@ -16,6 +16,7 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? State { get; set; }
         [Required(ErrorMessage = "Please enter An No.")]
+        [Remote("CheckDuplicationAnStateAnNo", "AnState", AdditionalFields = ("NameAction, Fk_State_Name, Id"))]
         public int? AnNo { get; set; }
         [Required(ErrorMessage = "Please enter AccordianHeading.")]
         [Remote("CheckDuplicationAnState", "AnState", AdditionalFields = ("NameAction, Fk_State_Name, Id"))]

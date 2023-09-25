@@ -16,54 +16,103 @@
 <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
     <div class="FxRw FxAnImSh">
         <div class="Fx35 Pg3">
+            <div id="UTabs1">
+                <div> Package Itinerary Detail</div>
+                <div>Package Itinerary Image</div>
+            </div>
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
-                <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
-                    <i class="UT-PenNibSmall"></i>
-                    Enter Detail
-                </h3>
-                 <form id="Create"
-                    data-ajax="true"
-                    data-ajax-url="/ColorStays/PackageItinerary/Create"
-                    data-ajax-method="POST"
-                    data-ajax-loading="#loader"
-                    data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
-                    data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
+                <div id="UTabs1Cont0">
+                    <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
+                        <i class="UT-PenNibSmall"></i>
+                        Enter Detail
+                    </h3>
+                     <form id="Create"
+                        data-ajax="true"
+                        data-ajax-url="/ColorStays/PackageItinerary/Create"
+                        data-ajax-method="POST"
+                        data-ajax-loading="#loader"
+                        data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
+                        data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
 
-                    @Html.AntiForgeryToken()
+                        @Html.AntiForgeryToken()
 
-                    <input type="hidden" name="NameAction" value="C" />
+                        <input type="hidden" name="NameAction" value="C" />
 
-                    <div id="CreateOrEdit">@await Html.PartialAsync("_CreateOrEdit", Model)</div>
+                        <div id="CreateOrEdit">@await Html.PartialAsync("_CreateOrEdit", Model)</div>
 
-                    <div class="MnTp7 MnBm7" style="height:66vh;">
-                        <div>
-                            <div class="MaxMinDv">
-                                <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.DayActivity)" asp-for="DayActivity" autocomplete="off"></textarea>
+                        <div class="MnTp7 MnBm7" style="height:66vh;">
+                            <div>
+                                <div class="MaxMinDv">
+                                    <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.DayActivity)" asp-for="DayActivity" autocomplete="off"></textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="MnTp7 MnBm7 FxRw">
-                        <div class="FxGw1">
-                            <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                        <div class="MnTp7 MnBm7 FxRw">
+                            <div class="FxGw1">
+                                <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                            </div>
+                            <div>
+                                <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/PackageItinerary/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                            </div>
                         </div>
-                        <div>
-                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/PackageItinerary/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
-                        </div>
+                    </form>
+                </div>
+                 <div id="UTabs1Cont1">
+                    <div class="Pg12">
+                        <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
+                            <i class="UT-ImageLine"></i>
+                            Upload Image
+                        </h3>
+                        <form action="/" enctype="multipart/form-data" method="POST">
+                            <input type="hidden" name="PeIyId" id="PeIyId"/>
+                            <div class="dropzone" id="myDropzone">
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple />
+                                </div>
+                            </div>
+                            <div class="MnTp7 MnBm7 FxRw">
+                                <div class="FxGw1">
+                                    <button type="button" id="submit-all" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-ImageLine"></i>&nbsp;Upload</button>
+                                </div>
+                                <div>
+                                    <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/PackageItinerary/Create'"><i class="UT-AddLine"></i>&nbsp;New Entry</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
         <div class="Fx65 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
-            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsPackageItinerary>)ViewData["EnteredDetails"])
+            <div id="UTabs2">
+                <div>All Package Itinerary </div>
+                <div>Image</div>
+            </div>
+            <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
+                <div id="UTabs2Cont0">
+                    <div id="Def">
+                        @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsPackageItinerary>)ViewData["EnteredDetails"])
+                    </div>
+                </div>
+                <div id="UTabs2Cont1">
+                    <div id="Images"></div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
 
 <script src="~/js/tinymce_6.2.0/tinymce/js/tinymce/tinymce.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<link href="~/lib/dropzone/min/dropzone.min.css" rel="stylesheet" />
+<script src="~/lib/dropzone/min/dropzone.min.js"></script>
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
+        TabsUT('UTabs1', 0, null, [1]);
+        TabsUT('UTabs2', 0, null, [1]);
         StartSuggestionBox(2, 'SearchPackage', '/ColorStays/Package/SuggestPackage', '', '', AoCePackage);
         MaxMin();
     });
@@ -128,14 +177,17 @@
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
         //Here we get the pageno,pagesize and listcount
-        var doc = new DOMParser().parseFromString(data, "text/html");
-        var pageinfo = doc.getElementById("PaginationAt");
-        var netrecord = pageinfo.getAttribute("netrecord");
-        var pageno = pageinfo.getAttribute("pagenumber");
-        var pagesize = pageinfo.getAttribute("PageSize");
-        //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/PackageItinerary/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
-    }
+        //var doc = new DOMParser().parseFromString(data, "text/html");
+        //var pageinfo = doc.getElementById("PaginationAt");
+        //var netrecord = pageinfo.getAttribute("netrecord");
+        //var pageno = pageinfo.getAttribute("pagenumber");
+        //var pagesize = pageinfo.getAttribute("PageSize");
+        ////Refresh the Pagination Div with new Values
+        //RefreshPagination('/ColorStays/PackageItinerary/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
+        ActiveTabUt('UTabs2', 0);
+        ActiveTabUt('UTabs1', 1);
+        //document.getElementById('PeIyId').value = @ViewData["PgIyId"];
+        }
 
     //Table Search Success Function
     function TableSuccessFn(data, status, xhr, FormID) {
@@ -156,5 +208,77 @@
         var SkipCol = [0];
         StartTableSearch('TeUT', SkipRow, SkipCol);
     }
+
+    //Upload the Images
+    Dropzone.options.myDropzone = {
+        url: '/Activity/SaveActivityImage',
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        parallelUploads: 5,
+        maxFiles: 5,
+        acceptedFiles: 'image/*',
+        addRemoveLinks: true,
+        error: function (file, response) {
+            if ($.type(response) === "string")
+                var message = response; //dropzone sends it's own error messages in string
+            else
+                var message = response.message;
+            file.previewElement.classList.add("dz-error");
+            _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                node = _ref[_i];
+                _results.push(node.textContent = message);
+            }
+            HideLoader();
+            return _results;
+        },
+        init: function () {
+            dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
+            // for Dropzone to process the queue (instead of default form behavior):
+            document.getElementById("submit-all").addEventListener("click", function (e) {
+                // Make sure that the form isn't actually being sent.
+                e.preventDefault();
+                e.stopPropagation();
+                dzClosure.processQueue();
+            });
+
+            //send all the form data along with the files:
+            this.on("sendingmultiple", function (data, xhr, formData) {
+                formData.append("Id", jQuery("#AId").html());
+                ShowLoader();
+            });
+
+            this.on("success", function () {
+                ShowUploads();
+            });
+        }
+    }
+    //Ends
+
+    //Show the Uploaded Image in the Tab.......................
+    function ShowUploads() {
+        var userid = $("#UId").html();
+        getUT('/Account/UploadedImage?UserId=' + userid, function (data) {
+            document.getElementById('Images').innerHTML = "";
+            document.getElementById('Images').innerHTML = data;
+            ActiveTabUt('UTabs2', 1);
+            HideLoader();
+        });
+    };
+    //Ends.............................
+
+    //Delete the Image
+    function DeleteImg(id, userid, imgname) {
+        ShowLoader();
+        getUT('/Account/ImageDelete?ImageID=' + id + '&UserId=' + userid + '&ImgName=' + imgname, function (data) {
+            document.getElementById('Images').innerHTML = "";
+            document.getElementById('Images').innerHTML = data;
+            ActiveTabUt('UTabs2', 1);
+            HideLoader();
+        });
+    };
+                //Ends
+
 </script>
 

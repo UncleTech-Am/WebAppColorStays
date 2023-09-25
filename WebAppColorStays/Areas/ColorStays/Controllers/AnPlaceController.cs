@@ -698,5 +698,32 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
+
+        public async Task<JsonResult> CheckDuplicationAnPlaceAnNo(int AnNo, string NameAction, string Fk_Place_Name, string Id)
+        {
+            bool Success = false;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            if (Id == null) { Id = "No"; }
+            if (Fk_Place_Name == null) { Fk_Place_Name = "No"; }
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("AnPlace/CheckDuplicationAnPlaceAnNo/" + AnNo + "/" + NameAction + "/" + Fk_Place_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Success = true;
+                    }
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        return Json("Sorry, this " + AnNo + " already exists");
+                    }
+                }
+            }
+            if (Success == true) { return Json(true); }
+            else { return Json("Some Error!"); }
+        }
+
     }
 }

@@ -21,10 +21,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class PackageItineraryController : Controller
     {
         private readonly Paging paging;
-
-        public PackageItineraryController()
+        private IWebHostEnvironment Environment;
+        public PackageItineraryController(IWebHostEnvironment Environment)
         {
             paging = new Paging();
+            Environment = Environment;
         }
 
         //Show the Title in View
@@ -33,6 +34,100 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Title = "PackageItinerary";
         }
         //Ends
+
+
+        [HttpPost]
+        public async Task<IActionResult> SavePackageItineraryImage(string Id)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            CsPackageItinerary csPackageItinerary = new CsPackageItinerary();
+            var files = HttpContext.Request.Form.Files;
+            var uploads = Path.Combine(Environment.WebRootPath, "Image\\PackageItinerary");
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                foreach (var file in files)
+                {
+                    var fileName = "Itinerary-" + Id.Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+
+                    using (var response = await client.GetAsync("PackageItinerary/SavePackageItineraryImage/" + Id + "/" + CompID + "/" + UserID + "/" + fileName, HttpCompletionOption.ResponseHeadersRead))
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            return View("Error");
+                        }
+                    }
+
+                    //if (file.Length > 0)
+                    //{
+                    //    //Save the Images in the Folder
+                    //    Task<string> TImgUpload = ryImage.UploadImages(file, fileName, TokenKey, "CompUser");
+                    //    Task.WaitAll(TImgUpload);
+                    //    if (TImgUpload.Result == "Error")
+                    //    {
+                    //        return View("Error");
+                    //    }
+                    //}
+                }
+            }
+            return Json(new { Message = "Saved" });
+        }
+
+
+        //show upload the image
+        [HttpGet]
+        public async Task<IActionResult> UploadedImage(string UserId, string ShowBtn)
+        {
+
+            var TokenKey = Request.Cookies["JWToken"];
+            List<CsActivity> csActivityList = new List<CsActivity>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageItinerary/UploadedImage/" + UserId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csActivityList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsActivity>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            if (ShowBtn == "false")
+            {
+                ViewBag.ShowBtn = "false";
+            }
+            return PartialView("UploadedImage", csActivityList);
+        }
+        //ends
+
+        //Delete the upload image
+        public async Task<IActionResult> ImageDelete(string ImageID, string UserId, string ImgName)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            List<CsActivity> userimage = new List<CsActivity>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageItinerary/ImageDelete/" + ImageID + "/" + UserId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    userimage = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsActivity>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+
+                    //Delete the Images from the folder
+                    //Task<string> TDeleteImage = ryImage.DeleteImage(ImgName, TokenKey, "CompUser");
+                    //Task.WaitAll(TDeleteImage);
+                }
+            }
+            return PartialView("UploadedImage", userimage);
+        }
+        //ends
+
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -136,6 +231,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
+
+                if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
 
@@ -441,7 +538,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
                 if (Success == true)
-                { return RedirectToAction("Index", new { PageCall = "Show" }); }
+                {
+                    ViewData["PgIyId"] = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh" });
+                }
                 else { return View("_CreateOrEdit", CsPackageItinerary); }
             }
             return View("_CreateorEdit",CsPackageItinerary);                

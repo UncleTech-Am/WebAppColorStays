@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -7,13 +9,31 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
+        [NotMapped]
+        public string? City { get; set; }
+        [DisplayName("State")]
         public string? Fk_State_Name { get; set; }
+        [NotMapped]
+        public string? State { get; set; }
+        [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
+        [NotMapped]
+        public string? Country { get; set; }
+        [DisplayName("Activity")]
         public string? Fk_Activity_Name { get; set; }
+        [NotMapped]
+        public string? Activity { get; set; }
+        [DisplayName("NewsCategory")]
         public string? Fk_NewsCategory_Name { get; set; }
+        [NotMapped]
+        public string? NewsCategory { get; set; }
+        [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
         public string? SEOTitle { get; set; }
+        [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]
         public string? SEODescription { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
         public string? Title { get; set; }
         public string? Summary { get; set; }

@@ -1,7 +1,7 @@
-@model WebAppColorStays.Models.ViewModel.CsPackageItinerary
+@model WebAppColorStays.Models.ViewModel.CsSightseeing
 @{ 
     Layout = null; 
-    ViewData["Action"] = "PackageItinerary";
+    ViewData["Action"] = "Sightseeing";
 }
 
 <div style="display:none">responseformUT ShowData</div>
@@ -19,117 +19,15 @@
       
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_Package_Name)</td>
-        <td>@Model.Fk_Package_Name</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Name)</td>
+        <td>@Model.Name</td>
         </tr>
 
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.DayNo)</td>
-        <td>@Model.DayNo</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.DayTitle)</td>
-        <td>@Model.DayTitle</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.DayActivity)</td>
-        <td>@Model.DayActivity</td>
-        </tr>
-
-		      
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Sightseen)</td>
-        <td>@Model.Sightseen</td>
-        </tr>
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Photo1)</td>
-        <td>@Model.Photo1</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Photo2)</td>
-        <td>@Model.Photo2</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Photo3)</td>
-        <td>@Model.Photo3</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Photo4)</td>
-        <td>@Model.Photo4</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Photo5)</td>
-        <td>@Model.Photo5</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Video)</td>
-        <td>@Model.Video</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Stay)</td>
-        <td>@Model.Stay</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Longitude)</td>
-        <td>@Model.Longitude</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Latitude)</td>
-        <td>@Model.Latitude</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Breakfast)</td>
-        <td>@Model.Breakfast</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Lunch)</td>
-        <td>@Model.Lunch</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Dinner)</td>
-        <td>@Model.Dinner</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Description)</td>
+        <td>@Model.Description</td>
         </tr>
 
 		      
@@ -243,6 +141,7 @@
         </tr>
 
 		      
+      
         </table>
     </div>
 </div>
@@ -251,7 +150,7 @@
     <div class="DyFx FxJyCtSt Gp10 Wh100p">
         @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
         {
-            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/PackageItinerary/DeleteConfirmed?Id=@Model.Id','/ColorStays/PackageItinerary');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/Sightseeing/DeleteConfirmed?Id=@Model.Id','/ColorStays/Sightseeing');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
         }
 
         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
@@ -259,20 +158,20 @@
             //  Checks which Button to Show For the Verification
             if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/PackageItinerary/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/PackageItinerary')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/Sightseeing/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/Sightseeing')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
             }
             if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/PackageItinerary/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/PackageItinerary')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/Sightseeing/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/Sightseeing')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
             }
             //  Checks which Button to Show For the Activation
             if (Model.ActiveStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/PackageItinerary/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/PackageItinerary')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                <button type="button" onclick="VerifyData('/ColorStays/Sightseeing/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/Sightseeing')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
             }
             if (Model.ActiveStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/PackageItinerary/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/PackageItinerary')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
+                <button type="button" onclick="VerifyData('/ColorStays/Sightseeing/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/Sightseeing')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
             }
         }
     </div>

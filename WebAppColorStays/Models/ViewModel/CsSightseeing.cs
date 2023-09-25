@@ -1,30 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsAnCity
+    public class CsSightseeing
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        [DisplayName("City")]
-        [Required(ErrorMessage = "Please enter City Name.")]
-        public string? Fk_City_Name { get; set; }
-        [NotMapped]
-        public string? City { get; set; }
-        [Required(ErrorMessage = "Please enter An No.")]
-        [Remote("CheckDuplicationAnCityAnNo", "AnCity", AdditionalFields = ("NameAction, Fk_City_Name, Id"))]
-        public int? AnNo { get; set; }
-        [Required(ErrorMessage = "Please enter AccordianHeading.")]
-        [Remote("CheckDuplicationAnCity", "AnCity", AdditionalFields = ("NameAction, Fk_City_Name, Id"))]
-        public string? AccordianHeading { get; set; }
+        [Required(ErrorMessage = "Please enter Activity Name.")]
+        [Remote("CheckDuplicationSightseeing", "Sightseeing", AdditionalFields = ("NameAction, Id"))]
+        public string Name { get; set; }
         public string? Description { get; set; }
-        public string? Icon { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
+        [StringLength(450)]
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
         public bool? SelectStatus { get; set; }

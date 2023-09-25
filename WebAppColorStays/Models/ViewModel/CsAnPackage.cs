@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -7,8 +10,16 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [DisplayName("Package")]
         public string? Fk_Package_Name { get; set; }
+        [NotMapped]
+        [Required(ErrorMessage = "Please enter Restaurant Name.")]
+        public string? Package { get; set; }
+        [Required(ErrorMessage = "Please enter An No.")]
+        [Remote("CheckDuplicationAnPackageAnNo", "AnPackage", AdditionalFields = ("NameAction, Fk_Package_Name, Id"))]
         public int? AnNo { get; set; }
+        [Required(ErrorMessage = "Please enter AccordianHeading.")]
+        [Remote("CheckDuplicationAnPackage", "AnPackage", AdditionalFields = ("NameAction, Fk_Package_Name, Id"))]
         public string? AccordianHeading { get; set; }
         public string? Description { get; set; }
         public string? Icon { get; set; }

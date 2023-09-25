@@ -697,5 +697,32 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
+        //This method is to check duplicate values for specific columns......
+        public async Task<JsonResult> CheckDuplicationAnCountryAnNo(int AnNo, string NameAction, string Fk_Country_Name, string Id)
+        {
+            bool Success = false;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            if (Id == null) { Id = "No"; }
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("AnCountry/CheckDuplicationAnCountryAnNo/" + AnNo + "/" + NameAction + "/" + Fk_Country_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Success = true;
+                    }
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        return Json("Sorry, this " + AnNo + " already exists");
+                    }
+                }
+            }
+            if (Success == true) { return Json(true); }
+            else { return Json("Some Error!"); }
+        }
+
     }
 }

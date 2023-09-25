@@ -62,7 +62,7 @@
     string RestaurantVideo = " ";
     string RTFoodTypeMap = " ";
     string TravelAgent = " ";
-
+    string Sightseeing = " ";
 
     switch (Action)
     {
@@ -106,7 +106,7 @@
         case "EnqCallBack": EnqCallBack = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "Enquiry": Enquiry = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
 
-
+        case "Sightseeing": Sightseeing = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageCityMap": PackageCityMap = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "Package": Package = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageExclusion": PackageExclusion = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
@@ -546,6 +546,16 @@
             </div>
         </div>
         <div class="SideSubNavContainer @DrownLink4">
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @Sightseeing">
+                        <a href="~/ColorStays/Sightseeing/Create">Sightseeing</a>
+                    </div>
+                    <a href="~/ColorStays/Sightseeing/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Sightseeing/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">

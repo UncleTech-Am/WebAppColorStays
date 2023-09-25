@@ -55,7 +55,58 @@
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
+        StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
+        StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
+        StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
+        StartSuggestionBox(2, 'SearchActivity', '/ColorStays/Activity/SuggestActivity', '', '', AoCeActivity);
+        StartSuggestionBox(2, 'SearchNewsCategory', '/ColorStays/NewsCategory/SuggestNewsCategory', '', '', AoCeNewsCategory);
     });
+
+    //Clear Autocompete data
+    function ClearData(UrNe, UrId) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+    }
+
+    //Autocomplete country
+    function AoCeCountry(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Country_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+
+    }
+    //Autocomplete state
+    function AoCeState(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_State_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
+    //Autocomplete City
+    function AoCeCity(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_City_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
+    //Autocomplete Item
+    function AoCeActivity(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Activity_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
+    //Autocomplete Item
+    function AoCeNewsCategory(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_NewsCategory_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
 
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");

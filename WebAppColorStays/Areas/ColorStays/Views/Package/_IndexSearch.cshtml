@@ -26,7 +26,9 @@
                             <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="FormSubmit('/ColorStays/Package/TableSearch','TableSearchID',TableSuccessFn)"><i class="UT-SearchRightSolid"></i></button>
                         </td>
                     
-                      
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Name)" name="Name" autocomplete="off"/>
+                        </td>
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Transport)" name="Transport" autocomplete="off"/>
                         </td>
@@ -206,6 +208,7 @@
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','','','/ColorStays/Package')"><i class="UT-UnstarSolid"></i></a>
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark Star" onclick="MultiButtonFunc('Star','','','/ColorStays/Package')"> <i class="UT-StarSolid"></i></a>
                     </th>
+                                        <th> @Html.DisplayNameFor(model => model.Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Transport) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Stay) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Sightseeing) </th>       

@@ -434,7 +434,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             if (responsemsg != null && responsemsg.Message == "Duplicate")
                             {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
-                                ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
+                                ModelState.AddModelError("Fk_Place_Name", "Duplicate Value, Already Exists !");
                             }
                             Success = false;
                         }
@@ -529,7 +529,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                                 {
                                     if (data.Item2.Message == "Duplicate")
                                     {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
-                                        ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
+                                        ModelState.AddModelError("Fk_Place_Name", "Duplicate Value, Already Exists !");
                                     }
                                     if (data.Item2.Message == "GlobalItem")
                                     {
@@ -672,16 +672,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationNearByPlace(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationNearByPlace(string Fk_Place_Name, string NameAction, string Fk_City_Name, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             if (Id == null) { Id = "No"; }
+            if (Fk_Place_Name == null) { Fk_Place_Name = "No"; }
+            if (Fk_City_Name == null) { Fk_City_Name = "No"; }
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("NearByPlace/CheckDuplicationNearByPlace/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("NearByPlace/CheckDuplicationNearByPlace/" + Fk_Place_Name + "/" + NameAction + "/" + Fk_City_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
@@ -689,7 +691,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                     if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
-                        return Json("Sorry, this " + Name + " already exists");
+                        return Json("Sorry, this " + Fk_Place_Name + " already exists");
                     }
                 }
             }
