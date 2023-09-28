@@ -1,18 +1,16 @@
 @model IEnumerable<WebAppColorStays.Models.ViewModel.CsCountry>
 
-
 @{
     Layout = null;
     ViewData["Action"] = "Country";
 }
 
 <div style="color:red; font-weight:bold; font-size:15px;"> @ViewBag.Message</div>
-
+<input type="hidden" name="CyId" id="CyId" value="@ViewData["CId"]" />
 <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
     <div id="PagenationShow">
         @await Html.PartialAsync("_Pagination")
     </div>
-
     <div class="Wh100p OwAo" style="height:70vh;">
         <table class="TeStrip TeBr TeFxCl1" id="TeUT">
             <thead class="TeFxHd">

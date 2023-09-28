@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -12,13 +13,15 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_State_Name { get; set; }
         public string? Fk_Country_Name { get; set; }
         public string? Title { get; set; }
+        [NotMapped]
+        public string? ImageUrl { get; set; }
         public string? AltTag { get; set; }
         public string? Description { get; set; }
-        public bool? ArchiveStatus { get; set; }
-        public bool? ShowPlaceGallery { get; set; }
-        public bool? ShowCityGallery { get; set; }
-        public bool? ShowStateGallery { get; set; }
-        public bool? ShowCountryGallery { get; set; }
+        public bool ArchiveStatus { get; set; }
+        public bool ShowPlaceGallery { get; set; }
+        public bool ShowCityGallery { get; set; }
+        public bool ShowStateGallery { get; set; }
+        public bool ShowCountryGallery { get; set; }
         public string? Fk_Category_Name { get; set; }
         public string? Fk_SubCategory_Name { get; set; }
         public bool FreezeStatus { get; set; }

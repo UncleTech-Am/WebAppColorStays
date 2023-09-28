@@ -112,195 +112,96 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
         //Ends
 
-
-        //GET:/Photo/
+        //show upload the image
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
-        {         
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Title();
-
-            //Display the Dropdown of the Table fields in Search Data Popup
-            GetClassMember<CsPhoto> getClassMember = new GetClassMember<CsPhoto>();
-            CsPhoto CsPhoto = new CsPhoto();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsPhoto), "Value", "DisplayName");
-            //Ends
-
-            try //Pagination and List of data Code
-            {
-                Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<CsPhoto>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
-                PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-
-                ViewData["ActionName"] = "Index";
-                ViewData["FormID"] = "NoSearchID";
-                ViewData["SearchType"] = "NoSearch";
-
-                if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
-
-                return View(ReturnDataList.Result.Item2);
-            }
-            catch(Exception ex)
-            { 
-                return View("Error");
-            }
-        }
-
-
-        //This standard method used in index page for getting data between 2 dates
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DateSearch(IFormCollection fc)
+        public async Task<IActionResult> Index(string CountryId, string? UpdateDetail, string? ShowBtn)
         {
-            bool Success = false;
-            int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
-            int PgSize = Convert.ToInt32(fc["PageSize"]);
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            List<CsPhoto> photosList = new List<CsPhoto>();
 
-            try //Pagination and List of data Code
+            using (HttpClient client = APIColorStays.Initial())
             {
-                Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                CIndexSearchDates cIndex = new CIndexSearchDates();
-                cIndex.FromDate = Convert.ToDateTime(fc["FromDate"]);
-                cIndex.ToDate = Convert.ToDateTime(fc["ToDate"]);
-                cIndex.CurrentUserId = UserID;
-                cIndex.PageSize = pagedata.Item1;
-                cIndex.PageSelectedNum = pagedata.Item2;
-                cIndex.CompId = CompID;
-                Tuple<int, List<CsPhoto>> list;
-                using (HttpClient client = APIColorStays.Initial())
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Photo/Index/" + CountryId))
                 {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    //Get the List of data
-                    using (var response = await client.PostAsJsonAsync("Photo/DateSearch/", cIndex))
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            if (ShowBtn == "false")
+            {
+                ViewBag.ShowBtn = "false";
+            }
+            if (UpdateDetail == "Yes") { return PartialView("_AddImageDetail", photosList); }
+            return PartialView("UploadedImage", photosList);
+        }
+        //ends
+
+
+        //show upload the image
+        [HttpGet]
+        public async Task<IActionResult> UploadedImage(string CountryId, string ShowBtn)
+        {
+
+            var TokenKey = Request.Cookies["JWToken"];
+            List<CsPhoto> csPhotos = new List<CsPhoto>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Country/UploadedImage/" + CountryId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csPhotos = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            if (ShowBtn == "false")
+            {
+                ViewBag.ShowBtn = "false";
+            }
+            return PartialView("UploadedImage", csPhotos);
+        }
+        //ends
+
+        //Delete the upload image
+        public async Task<IActionResult> ImageDelete(string ImageID, string CountryId, string ImgName)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            List<CsPhoto> csPhotos = new List<CsPhoto>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Country/ImageDelete/" + ImageID + "/" + CountryId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csPhotos = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+
+                }
+                using (HttpClient client1 = APICSImages.Initial())
+                {
+                    client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+
+                    using (var response = await client1.GetAsync("Images/DeleteWebImage/" + "Country" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsPhoto>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        if (response.IsSuccessStatusCode)
-                        { Success = true; }
-                        else{ Success = false; }
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            return View("Error");
+                        }
                     }
                 }
-                if (Success == true)
-                {
-                    PaginationViewData(pagedata.Item2, list.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-                    ViewData["ActionName"] = "DateSearch";
-                    ViewData["FormID"] = "DateSearchID";
-                    ViewData["SearchType"] = "DateSearch";
-                    return View("_IndexData", list.Item2);
-                }
-                else { return View("Errors"); }
+                //Delete the Images from the folder
+                //Task<string> TDeleteImage = ryImage.DeleteImage(ImgName, TokenKey, "CompUser");
+                //Task.WaitAll(TDeleteImage);
             }
-            catch
-            {
-                return View("Error");
-            }
+            return PartialView("UploadedImage", csPhotos);
         }
-        //Ends
+        //ends
 
 
-        //Search the Data according to the table fileds in the Index
-        [HttpPost]
-        public async Task<IActionResult> TableSearch(CsPhoto CsPhoto, IFormCollection fc)
-        {
-            bool Success = false;
-            int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
-            int PgSize = Convert.ToInt32(fc["PageSize"]);
-            int ListCount = 0;
-            var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Title();
 
-            Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-
-            Tuple<int, List<CsPhoto>> list;
-
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                CsPhoto.CreatedBy = UserID;
-                CsPhoto.CompId = CompID;
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(CsPhoto), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Photo/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
-                {
-                    var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsPhoto>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                    if (response.IsSuccessStatusCode)
-                    { Success = true; }
-                    else { Success = false; }
-                }
-
-                //Pagination Code
-                PaginationViewData(PgSelectedNum, list.Item1, PgSize);//Give the ViewData value for Pagination
-                ViewData["ActionName"] = "TableSearch";
-                ViewData["FormID"] = "TableSearchID";
-                ViewData["SearchType"] = "TableSearch";
-                if (Success == true)
-                { return View("_IndexData", list.Item2); }
-                else { return View("Errors"); }
-            }
-        }
-        //Ends
-
-        
-        //Search the Data according to the Fields Selected in Search Data View
-        [HttpPost]
-        public async Task<IActionResult> FilterSearch(CIndexSearchFilter indexsearchfilter, IFormCollection fc)
-        {
-            GetClassMember<CsPhoto> getClassMember = new GetClassMember<CsPhoto>();
-            CsPhoto CsPhoto = new CsPhoto();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsPhoto), "Value", "DisplayName");
-            //Creating Search Filter List with class member Property Name
-            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsPhoto);
-            foreach (var item in indexsearchfilter.IndexSearchList)
-            { item.Name = fields[item.Name]; }
-            //Ends
-            
-            bool Success = false;
-            int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
-            int PgSize = Convert.ToInt32(fc["PageSize"]);
-            int ListCount = 0;
-
-            var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Title();
-            Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-
-            Tuple<int, List<CsPhoto>> list;
-            using (HttpClient client = APIColorStays.Initial())
-            {
-               indexsearchfilter.CurrentUserId = UserID;
-                indexsearchfilter.CompId = CompID;
-                indexsearchfilter.PageSelectedNum = pagedata.Item2;
-                indexsearchfilter.PageSize = pagedata.Item1;
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(indexsearchfilter), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Photo/FilterSearch", content))
-                {
-                    var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsPhoto>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                    if (response.IsSuccessStatusCode)
-                    { Success = true; }
-                    else { Success = false; }
-                }
-
-                //Pagination Code
-                PaginationViewData(PgSelectedNum, list.Item1, PgSize);//Give the ViewData value for Pagination
-
-                ViewData["ActionName"] = "FilterSearch";
-                ViewData["FormID"] = "FilterSearchID";
-                ViewData["SearchType"] = "FilterSearch";
-                if (Success == true)
-                { return View("_IndexData", list.Item2); }
-                else { return View("Errors"); }
-            }
-        }
-        //Ends
 
 
         //GET: /Photo/Details/5
@@ -497,65 +398,56 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             return View(CsPhoto);
         }
 
-                
+
         //POST: /Photo/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CsPhoto CsPhoto)
+        public async Task<IActionResult> Edit(CsPhoto csPhoto)
         {
             Title();
             ViewData["AnName"] = "Edit";
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
-            CsPhoto.CompId = CompID;
-            CsPhoto.ModifiedBy = UserID;   
+            csPhoto.CompId = CompID;
+            csPhoto.ModifiedBy = UserID;
             if (ModelState.IsValid)
             {
-                try
+                using (HttpClient client = APIColorStays.Initial())
                 {
-                    using (HttpClient client = APIColorStays.Initial())
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    using (var response = await client.PostAsJsonAsync<CsPhoto>("Photo/edit", csPhoto))
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsPhoto>("Photo/edit", CsPhoto))
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        if (!response.IsSuccessStatusCode)
                         {
-                            var apiResponse = await response.Content.ReadAsStreamAsync();
-                            if (!response.IsSuccessStatusCode)
+                            Tuple<CsPhoto, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsPhoto, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            if (data.Item2 != null)
                             {
-                                Tuple<CsPhoto, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsPhoto,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                                if (data.Item2 != null)
-                                {
-                                    if (data.Item2.Message == "Duplicate")
-                                    {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
-                                        ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
-                                    }
-                                    if (data.Item2.Message == "GlobalItem")
-                                    {
-                                        ViewBag.Message = "Sytem Entry, Can't Change !";
-                                    }
-                                    if (data.Item2.Message == "Verified")
-                                    {
-                                        ViewBag.Message = "You can not Edit Verified Entry !";
-                                    }
+                                if (data.Item2.Message == "Duplicate")
+                                {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                    ModelState.AddModelError("ImageName", "Duplicate Value, Already Exists !");
                                 }
-                                return View("_CreateorEdit", data.Item1);
+                                if (data.Item2.Message == "GlobalItem")
+                                {
+                                    ViewBag.Message = "Sytem Entry, Can't Change !";
+                                }
+                                if (data.Item2.Message == "Verified")
+                                {
+                                    ViewBag.Message = "You can not Edit Verified Entry !";
+                                }
                             }
+                            return View("_CreateorEdit", data.Item1);
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "Show" });
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    ViewBag.Message = "Not Found";
-                    return View("_CreateorEdit");
                 }
             }
-            return View("_CreateorEdit",CsPhoto);
+            return RedirectToAction("Index", new { CountryId = Base64UrlEncoder.Encode(Process.Encrypt(csPhoto.Fk_Country_Name)) });
         }
-        
-       
+
+
         //POST: /Photo/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)

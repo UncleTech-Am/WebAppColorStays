@@ -17,6 +17,7 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
         public string? URL { get; set; }
+        [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationPlace", "Place", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
         public string? History { get; set; }

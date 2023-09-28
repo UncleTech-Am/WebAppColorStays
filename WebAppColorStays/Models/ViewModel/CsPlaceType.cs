@@ -8,6 +8,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationPlaceType", "PlaceType", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
         public bool FreezeStatus { get; set; }

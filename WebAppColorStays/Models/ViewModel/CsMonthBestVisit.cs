@@ -10,6 +10,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationMonthBestVisit", "MonthBestVisit", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]
         public string Name { get; set; }
         [DisplayName("Place")]

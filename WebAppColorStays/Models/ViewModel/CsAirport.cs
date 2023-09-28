@@ -9,6 +9,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationAirport", "Airport", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
         [NotMapped]
@@ -17,8 +18,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_City_Name { get; set; }
         public string? Fk_State_Name { get; set; }
         public string? Fk_Country_Name { get; set; }
-        public bool? International { get; set; }
-        public bool? Domestic { get; set; }
+        public bool International { get; set; }
+        public bool Domestic { get; set; }
         public int? PinCode { get; set; }
         public string? Address { get; set; }
         public int? ContactNumber1 { get; set; }
