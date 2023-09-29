@@ -16,6 +16,15 @@
 
   <ItemGroup>
     <Content Remove="Areas\ColorStays\Views\Image\Index.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\PackageImage\Create.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\PackageImage\Edit.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\PackageImage\Index.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\PackageImage\_CreateOrEdit.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\PackageImage\_DetailOrDelete.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\PackageImage\_IndexData.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\PackageImage\_IndexSearch.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\PackageImage\_Pagination.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\PackageImage\_SearchData.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -291,6 +300,15 @@
     <None Include="Areas\ColorStays\Views\PackageItinerary\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageItinerary\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageItinerary\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageImage\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageImage\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageImage\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageImage\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageImage\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageImage\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageImage\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageImage\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageImage\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\Photo\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\Photo\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\Photo\Index.cshtml" />

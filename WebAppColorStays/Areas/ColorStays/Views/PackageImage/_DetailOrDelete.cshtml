@@ -1,7 +1,7 @@
-@model WebAppColorStays.Models.ViewModel.CsPackage
+@model WebAppColorStays.Models.ViewModel.CsPackageImage
 @{ 
     Layout = null; 
-    ViewData["Action"] = "Package";
+    ViewData["Action"] = "PackageImage";
 }
 
 <div style="display:none">responseformUT ShowData</div>
@@ -19,128 +19,38 @@
       
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Name)</td>
-        <td>@Model.Name</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_Package_Name)</td>
+        <td>@Model.Fk_Package_Name</td>
         </tr>
 
+		
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.SEOTitle)</td>
-        <td>@Model.SEOTitle</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Title)</td>
+        <td>@Model.Title</td>
         </tr>
 
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.SEODescription)</td>
-        <td>@Model.SEODescription</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.AltTag)</td>
+        <td>@Model.AltTag</td>
         </tr>
 
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.SEOKeywords)</td>
-        <td>@Model.SEOKeywords</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Description)</td>
+        <td>@Model.Description</td>
         </tr>
 
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Transport)</td>
-        <td>@Model.Transport</td>
-        </tr>
-
-		     
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Stay)</td>
-        <td>@Model.Stay</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Sightseeing)</td>
-        <td>@Model.Sightseeing</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.PackageHighlight)</td>
-        <td>@Model.PackageHighlight</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Overview)</td>
-        <td>@Model.Overview</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Duration)</td>
-        <td>@Model.Duration</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Breakfast)</td>
-        <td>@Model.Breakfast</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Lunch)</td>
-        <td>@Model.Lunch</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Dinner)</td>
-        <td>@Model.Dinner</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.LocationDuration)</td>
-        <td>@Model.LocationDuration</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.StartingFrom)</td>
-        <td>@Model.StartingFrom</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Price)</td>
-        <td>@String.Format("{0:F}", Model.Price)</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_Currency_Name)</td>
-        <td>@Model.Fk_Currency_Name</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ImageUrl)</td>
+        <td>@Model.ImageUrl</td>
         </tr>
 
 
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Video)</td>
-        <td>@Model.Video</td>
-        </tr>
-
-		      
  
         <tr>
         <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Remarks)</td>
@@ -250,7 +160,7 @@
         <td>@Model.CompId</td>
         </tr>
 
-		      
+		  
         </table>
     </div>
 </div>
@@ -259,7 +169,7 @@
     <div class="DyFx FxJyCtSt Gp10 Wh100p">
         @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
         {
-            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/Package/DeleteConfirmed?Id=@Model.Id','/ColorStays/Package');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/Photo/DeleteConfirmed?Id=@Model.Id','/ColorStays/Photo');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
         }
 
         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
@@ -267,20 +177,20 @@
             //  Checks which Button to Show For the Verification
             if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Package/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/Package')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/Photo/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/Photo')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
             }
             if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Package/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/Package')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/Photo/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/Photo')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
             }
             //  Checks which Button to Show For the Activation
             if (Model.ActiveStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Package/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/Package')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                <button type="button" onclick="VerifyData('/ColorStays/Photo/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/Photo')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
             }
             if (Model.ActiveStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Package/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/Package')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
+                <button type="button" onclick="VerifyData('/ColorStays/Photo/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/Photo')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
             }
         }
     </div>

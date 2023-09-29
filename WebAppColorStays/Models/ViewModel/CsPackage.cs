@@ -38,16 +38,6 @@ namespace WebAppColorStays.Models.ViewModel
         public int? LocationDuration { get; set; }
         public string? StartingFrom { get; set; }
         public double? Price { get; set; }
-        public string? Photo1 { get; set; }
-        public string? Photo2 { get; set; }
-        public string? Photo3 { get; set; }
-        public string? Photo4 { get; set; }
-        public string? Photo5 { get; set; }
-        public string? Photo6 { get; set; }
-        public string? Photo7 { get; set; }
-        public string? Photo8 { get; set; }
-        public string? Photo9 { get; set; }
-        public string? Photo10 { get; set; }
         public string? Video { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }

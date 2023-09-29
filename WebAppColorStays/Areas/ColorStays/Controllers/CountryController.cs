@@ -149,99 +149,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             return Json(new { Message = "Saved" });
         }
 
-        ////show upload the image
-        //[HttpGet]
-        //public async Task<IActionResult> UploadedImage(string CountryId, string ShowBtn)
-        //{
-
-        //    var TokenKey = Request.Cookies["JWToken"];
-        //    List<CsPhoto> csPhotos = new List<CsPhoto>();
-
-        //    using (HttpClient client = APIColorStays.Initial())
-        //    {
-        //        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-        //        using (var response = await client.GetAsync("Country/UploadedImage/" + CountryId, HttpCompletionOption.ResponseHeadersRead))
-        //        {
-        //            var apiResponse = await response.Content.ReadAsStreamAsync();
-        //            csPhotos = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-        //        }
-        //    }
-        //    if (ShowBtn == "false")
-        //    {
-        //        ViewBag.ShowBtn = "false";
-        //    }
-        //    return PartialView("_Images", csPhotos);
-        //}
-        ////ends
-
-        ////Delete the upload image
-        //public async Task<IActionResult> ImageDelete(string ImageID, string CountryId, string ImgName)
-        //{
-        //    var TokenKey = Request.Cookies["JWToken"];
-
-        //    List<CsPhoto> csPhotos = new List<CsPhoto>();
-
-        //    using (HttpClient client = APIColorStays.Initial())
-        //    {
-        //        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-        //        using (var response = await client.GetAsync("Country/ImageDelete/" + ImageID + "/" + CountryId, HttpCompletionOption.ResponseHeadersRead))
-        //        {
-        //            var apiResponse = await response.Content.ReadAsStreamAsync();
-        //            csPhotos = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-
-        //        }
-        //        using (HttpClient client1 = APICSImages.Initial())
-        //        {
-        //            client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-
-        //            using (var response = await client1.GetAsync("Images/DeleteWebImage/"+ "Country" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
-        //            {
-        //                var apiResponse = await response.Content.ReadAsStreamAsync();
-        //                if (!response.IsSuccessStatusCode)
-        //                {
-        //                    return View("Error");
-        //                }
-        //            }
-        //        }
-        //        //Delete the Images from the folder
-        //        //Task<string> TDeleteImage = ryImage.DeleteImage(ImgName, TokenKey, "CompUser");
-        //        //Task.WaitAll(TDeleteImage);
-        //    }
-        //    return PartialView("_Images", csPhotos);
-        //}
-        ////ends
-
-        //Delete the upload image
-        public async Task<IActionResult> SaveChanges(string ImageID, string CountryId, string AltTag, bool Show, string Description)
-        {
-            var TokenKey = Request.Cookies["JWToken"];
-
-            CsPhoto csPhotos = new CsPhoto();
-            csPhotos.AltTag = AltTag;
-            csPhotos.ShowCountryGallery = Show;
-            csPhotos.Description = Description;
-            csPhotos.Id = Base64UrlEncoder.Encode(Process.Encrypt(ImageID));
-            csPhotos.Fk_Country_Name = CountryId;
-            csPhotos.CompId = Process.Decrypt(Request.Cookies["CompanyID"]);
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(csPhotos), Encoding.UTF8, "application/json");
-
-                using (var response = await client.PostAsync("Photo/Edit", content))
-                {
-                    var apiResponse = await response.Content.ReadAsStreamAsync();
-                    csPhotos = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPhoto>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-
-                }
-            }
-            return PartialView("_Images", csPhotos);
-        }
-        //ends
-
-
-
-
+       
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
         {
@@ -344,7 +252,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
-                ViewData["CId"] = Base64UrlEncoder.Encode(Process.Encrypt(Id));
+                ViewData["CId"] = Id;
 
                 if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
@@ -655,7 +563,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 {
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id });
+                    data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh",  data.Id});
                 }
                 else { return View("_CreateOrEdit", CsCountry); }
             }

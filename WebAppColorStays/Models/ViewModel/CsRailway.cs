@@ -18,7 +18,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_City_Name { get; set; }
         public string? Fk_State_Name { get; set; }
         public string? Fk_Country_Name { get; set; }
-        public boo? International { get; set; }
+        public bool International { get; set; }
         public bool Domestic { get; set; }
         public int? PinCode { get; set; }
         public string? Address { get; set; }
