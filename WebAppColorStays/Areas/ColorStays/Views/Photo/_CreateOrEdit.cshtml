@@ -25,6 +25,9 @@
         @Html.HiddenFor(model => model.CreatedOn)
         @Html.HiddenFor(model => model.CompId)
         @Html.HiddenFor(model => model.Fk_Country_Name)
+        @Html.HiddenFor(model => model.Fk_State_Name)
+        @Html.HiddenFor(model => model.Fk_City_Name)
+        @Html.HiddenFor(model => model.Fk_Place_Name)
         @Html.HiddenFor(model => model.ImageUrl)
 
         <div class="MnTp7 MnBm7">
@@ -56,16 +59,62 @@
             </div>
             <div class="VnRd"><span asp-validation-for="Description"></span></div>
         </div>
-
-        <div class="MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ShowCountryGallery)</div>
-                    @Html.CheckBoxFor(x => x.ShowCountryGallery, htmlAttributes : new { id = "ShowCountryGallery", @Class = "TtBxTt15"})
+        @if (Model.Fk_Country_Name != null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ShowCountryGallery)</div>
+                        @Html.CheckBoxFor(x => x.ShowCountryGallery, htmlAttributes : new { id = "ShowCountryGallery", @Class = "TtBxTt15"})
+                    </div>
                 </div>
+                <div class="VnRd"><span asp-validation-for="ShowCountryGallery"></span></div>
             </div>
-            <div class="VnRd"><span asp-validation-for="ShowCountryGallery"></span></div>
-        </div>
+
+        }
+
+        @if (Model.Fk_State_Name != null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ShowStateGallery)</div>
+                        @Html.CheckBoxFor(x => x.ShowStateGallery, htmlAttributes : new { id = "ShowStateGallery", @Class = "TtBxTt15"})
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="ShowStateGallery"></span></div>
+            </div>
+
+        }
+
+        @if (Model.Fk_City_Name != null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ShowCityGallery)</div>
+                        @Html.CheckBoxFor(x => x.ShowCityGallery, htmlAttributes : new { id = "ShowCityGallery", @Class = "TtBxTt15"})
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="ShowCityGallery"></span></div>
+            </div>
+
+        }
+
+        @if (Model.Fk_Place_Name != null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ShowPlaceGallery)</div>
+                        @Html.CheckBoxFor(x => x.ShowPlaceGallery, htmlAttributes : new { id = "ShowPlaceGallery", @Class = "TtBxTt15"})
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="ShowPlaceGallery"></span></div>
+            </div>
+
+        }
+
     </div>
     <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
         <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />

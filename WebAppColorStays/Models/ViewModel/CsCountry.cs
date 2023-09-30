@@ -25,6 +25,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fact { get; set; }
         public string? Longitude { get; set; }
         public string? Latitude { get; set; }
+        public string? Video { get; set; }
         public string? Area { get; set; }
         public string? Population { get; set; }
         public string? PopularReligion { get; set; }

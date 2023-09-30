@@ -114,7 +114,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //show upload the image
         [HttpGet]
-        public async Task<IActionResult> Index(string CountryId, string? UpdateDetail, string? ShowBtn)
+        public async Task<IActionResult> Index(string? CountryId, string? StateId, string? CityId, string? PlaceId, string? UpdateDetail, string? ShowBtn)
         {
             var TokenKey = Request.Cookies["JWToken"];
             List<CsPhoto> photosList = new List<CsPhoto>();
@@ -122,7 +122,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Photo/Index/" + CountryId))
+                using (var response = await client.GetAsync("Photo/Index/" + CountryId + "/" + StateId + "/" + CityId + "/" + PlaceId))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -140,7 +140,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //show upload the image
         [HttpGet]
-        public async Task<IActionResult> UploadedImage(string CountryId, string ShowBtn)
+        public async Task<IActionResult> UploadedImage(string? CountryId, string? StateId, string? CityId, string? PlaceId, string ShowBtn)
         {
 
             var TokenKey = Request.Cookies["JWToken"];
@@ -149,7 +149,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Country/UploadedImage/" + CountryId, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Photo/UploadedImage/" + CountryId + "/" + StateId + "/" + CityId + "/" + PlaceId, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     csPhotos = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -164,7 +164,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //ends
 
         //Delete the upload image
-        public async Task<IActionResult> ImageDelete(string ImageID, string CountryId, string ImgName)
+        public async Task<IActionResult> ImageDelete(string ImageID, string? CountryId, string? StateId, string? CityId, string  PlaceId, string ImgName)
         {
             var TokenKey = Request.Cookies["JWToken"];
 
@@ -173,7 +173,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Country/ImageDelete/" + ImageID + "/" + CountryId, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Photo/ImageDelete/" + ImageID + "/" + CountryId +"/"+StateId +"/"+ CityId + "/"+ PlaceId, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     csPhotos = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -183,12 +183,49 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
 
-                    using (var response = await client1.GetAsync("Images/DeleteWebImage/" + "Country" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
+                    if (CountryId != null)
                     {
-                        var apiResponse = await response.Content.ReadAsStreamAsync();
-                        if (!response.IsSuccessStatusCode)
+                        using (var response = await client1.GetAsync("Images/DeleteWebImage/" + "Country" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
                         {
-                            return View("Error");
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+
+                    if (StateId != null)
+                    {
+                        using (var response = await client1.GetAsync("Images/DeleteWebImage/" + "State" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+                    if (CityId != null)
+                    {
+                        using (var response = await client1.GetAsync("Images/DeleteWebImage/" + "City" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+                    if (PlaceId != null)
+                    {
+                        using (var response = await client1.GetAsync("Images/DeleteWebImage/" + "Place" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                return View("Error");
+                            }
                         }
                     }
                 }
@@ -444,7 +481,25 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
             }
-            return RedirectToAction("Index", new { CountryId = Base64UrlEncoder.Encode(Process.Encrypt(csPhoto.Fk_Country_Name)) });
+            if (csPhoto.Fk_Country_Name != null)
+            {
+
+                return RedirectToAction("Index", new { CountryId = Base64UrlEncoder.Encode(Process.Encrypt(csPhoto.Fk_Country_Name)), StateId ="null", CityId = "null", PlaceId = "null" });
+
+            }
+            if (csPhoto.Fk_State_Name != null)
+            {
+                return RedirectToAction("Index", new {CountryId = "null", StateId = Base64UrlEncoder.Encode(Process.Encrypt(csPhoto.Fk_State_Name)), CityId = "null", PlaceId = "null" });
+            }
+            if (csPhoto.Fk_City_Name != null)
+            {
+                return RedirectToAction("Index", new { CountryId = "null", StateId = "null", CityId = Base64UrlEncoder.Encode(Process.Encrypt(csPhoto.Fk_City_Name)), PlaceId = "null" });
+            }
+            if (csPhoto.Fk_Place_Name != null)
+            {
+                return RedirectToAction("Index", new { CountryId = "null", StateId = "null", CityId = "null", PlaceId = Base64UrlEncoder.Encode(Process.Encrypt(csPhoto.Fk_Place_Name)) });
+            }
+            return NotFound();
         }
 
 

@@ -18,11 +18,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     [Area("ColorStays")]
     [SessionCheck]
     [Authorize]
-    public class PackageImageController : Controller
+    public class ActivityImageController : Controller
     {
         private readonly Paging paging;
 
-        public PackageImageController()
+        public ActivityImageController()
         {
             paging = new Paging();
         }
@@ -30,7 +30,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "PackageImage";
+            ViewBag.Title = "ActivityImage";
         }
         //Ends
 
@@ -89,21 +89,21 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
         //Give the list of the data
-        public async Task<Tuple<int, List<CsPackageImage>>> AllDataList(int? PgSize, int? PgSelectedNum)
+        public async Task<Tuple<int, List<CsActivityImage>>> AllDataList(int? PgSize, int? PgSelectedNum)
         {
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Tuple<int, List<CsPackageImage>> list;
+            Tuple<int, List<CsActivityImage>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("PackageImage/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("ActivityImage/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsPackageImage>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsActivityImage>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else{ list = null; }
                 }
@@ -114,18 +114,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //show upload the image
         [HttpGet]
-        public async Task<IActionResult> Index(string PackageId, string? UpdateDetail, string? ShowBtn)
+        public async Task<IActionResult> Index(string ActivityId, string? UpdateDetail, string? ShowBtn)
         {
             var TokenKey = Request.Cookies["JWToken"];
-            List<CsPackageImage> photosList = new List<CsPackageImage>();
+            List<CsActivityImage> photosList = new List<CsActivityImage>();
 
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("PackageImage/Index/" + PackageId))
+                using (var response = await client.GetAsync("ActivityImage/Index/" + ActivityId))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPackageImage>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsActivityImage>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                 }
             }
             if (ShowBtn == "false")
@@ -140,50 +140,50 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //show upload the image
         [HttpGet]
-        public async Task<IActionResult> UploadedImage(string PackageId, string ShowBtn)
+        public async Task<IActionResult> UploadedImage(string ActivityId, string ShowBtn)
         {
 
             var TokenKey = Request.Cookies["JWToken"];
-            List<CsPackageImage> CsPackageImages = new List<CsPackageImage>();
+            List<CsActivityImage> CsActivityImages = new List<CsActivityImage>();
 
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Package/UploadedImage/" + PackageId, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Activity/UploadedImage/" + ActivityId, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    CsPackageImages = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPackageImage>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    CsActivityImages = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsActivityImage>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                 }
             }
             if (ShowBtn == "false")
             {
                 ViewBag.ShowBtn = "false";
             }
-            return PartialView("UploadedImage", CsPackageImages);
+            return PartialView("UploadedImage", CsActivityImages);
         }
         //ends
 
         //Delete the upload image
-        public async Task<IActionResult> ImageDelete(string ImageID, string PackageId, string ImgName)
+        public async Task<IActionResult> ImageDelete(string ImageID, string ActivityId, string ImgName)
         {
             var TokenKey = Request.Cookies["JWToken"];
 
-            List<CsPackageImage> CsPackageImages = new List<CsPackageImage>();
+            List<CsActivityImage> CsActivityImages = new List<CsActivityImage>();
 
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Package/ImageDelete/" + ImageID + "/" + PackageId, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Activity/ImageDelete/" + ImageID + "/" + ActivityId, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    CsPackageImages = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPackageImage>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    CsActivityImages = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsActivityImage>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
 
                 }
                 using (HttpClient client1 = APICSImages.Initial())
                 {
                     client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
 
-                    using (var response = await client1.GetAsync("Images/DeleteWebImage/" + "Package" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client1.GetAsync("Images/DeleteWebImage/" + "Activity" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (!response.IsSuccessStatusCode)
@@ -196,7 +196,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 //Task<string> TDeleteImage = ryImage.DeleteImage(ImgName, TokenKey, "CompUser");
                 //Task.WaitAll(TDeleteImage);
             }
-            return PartialView("UploadedImage", CsPackageImages);
+            return PartialView("UploadedImage", CsActivityImages);
         }
         //ends
 
@@ -204,28 +204,28 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
 
 
-        //GET: /PackageImage/Details/5
+        //GET: /ActivityImage/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
-            CsPackageImage CsPackageImage = new CsPackageImage();
+            CsActivityImage CsActivityImage = new CsActivityImage();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("PackageImage/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("ActivityImage/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        CsPackageImage = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackageImage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        return View("_DetailOrDelete",CsPackageImage);
+                        CsActivityImage = await System.Text.Json.JsonSerializer.DeserializeAsync<CsActivityImage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        return View("_DetailOrDelete",CsActivityImage);
                     }
                     else
                     {
-                        Tuple<CsPackageImage, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsPackageImage, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Tuple<CsActivityImage, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsActivityImage, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (data.Item2 != null && data.Item2.Message == "GlobalItem")
                         {
                             ViewBag.Message = "Sytem Entry, Can't be Changed !";
@@ -239,7 +239,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-        //GET: /PackageImage/CreateOrEdit
+        //GET: /ActivityImage/CreateOrEdit
         [HttpGet]
         [ResponseCache(Duration = 0)]
         public async Task<IActionResult> CreateOrEdit(string Id)
@@ -251,14 +251,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Id != null)
             {
                 bool Success = false;
-                var data = new CsPackageImage();
+                var data = new CsActivityImage();
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("PackageImage/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync("ActivityImage/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackageImage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsActivityImage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else { Success = false; }
@@ -277,7 +277,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
         }
         
-        //GET: /PackageImage/Create
+        //GET: /ActivityImage/Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -292,17 +292,17 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["SearchType"] = "NoSearch";
 
             Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-            Task<Tuple<int, List<CsPackageImage>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+            Task<Tuple<int, List<CsActivityImage>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
             PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
             ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
             return View();
         } 
         
 
-        //POST: /PackageImage/Create
+        //POST: /ActivityImage/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create(CsPackageImage CsPackageImage)
+		public async Task<IActionResult> Create(CsActivityImage CsActivityImage)
         {       
             Title();
             ViewData["AnName"] = "Create";
@@ -310,24 +310,24 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            CsPackageImage.CompId = CompID;
-            CsPackageImage.CreatedBy = UserID;
-            CsPackageImage.ModifiedBy = UserID;
-            CsPackageImage.Id = Guid.NewGuid().ToString();
+            CsActivityImage.CompId = CompID;
+            CsActivityImage.CreatedBy = UserID;
+            CsActivityImage.ModifiedBy = UserID;
+            CsActivityImage.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
-            CsPackageImage data = new CsPackageImage();
+            CsActivityImage data = new CsActivityImage();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
 				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    StringContent content = new StringContent(JsonSerializer.Serialize(CsPackageImage), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("PackageImage/create", content))
+                    StringContent content = new StringContent(JsonSerializer.Serialize(CsActivityImage), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("ActivityImage/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
                         {
-                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackageImage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsActivityImage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             Success = true;
                         }
                         else
@@ -343,13 +343,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 { return RedirectToAction("Index", new { PageCall = "Show" }); }
-                else { return View("_CreateOrEdit", CsPackageImage); }
+                else { return View("_CreateOrEdit", CsActivityImage); }
             }
-            return View("_CreateorEdit",CsPackageImage);                
+            return View("_CreateorEdit",CsActivityImage);                
          }
 
 
-        //GET: /PackageImage/Edit/5
+        //GET: /ActivityImage/Edit/5
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
@@ -370,20 +370,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
-            CsPackageImage CsPackageImage = new CsPackageImage();
+            CsActivityImage CsActivityImage = new CsActivityImage();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("PackageImage/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("ActivityImage/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsPackageImage>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                    Task<Tuple<int, List<CsActivityImage>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                     PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
                     ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;                   
                     if (response.IsSuccessStatusCode)
                     {
-                        CsPackageImage = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackageImage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsActivityImage = await System.Text.Json.JsonSerializer.DeserializeAsync<CsActivityImage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else
                     {
@@ -395,14 +395,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
             }
-            return View(CsPackageImage);
+            return View(CsActivityImage);
         }
 
 
-        //POST: /PackageImage/Edit/5
+        //POST: /ActivityImage/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CsPackageImage CsPackageImage)
+        public async Task<IActionResult> Edit(CsActivityImage CsActivityImage)
         {
             Title();
             ViewData["AnName"] = "Edit";
@@ -411,19 +411,19 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
-            CsPackageImage.CompId = CompID;
-            CsPackageImage.ModifiedBy = UserID;
+            CsActivityImage.CompId = CompID;
+            CsActivityImage.ModifiedBy = UserID;
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.PostAsJsonAsync<CsPackageImage>("PackageImage/edit", CsPackageImage))
+                    using (var response = await client.PostAsJsonAsync<CsActivityImage>("ActivityImage/edit", CsActivityImage))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (!response.IsSuccessStatusCode)
                         {
-                            Tuple<CsPackageImage, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsPackageImage, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            Tuple<CsActivityImage, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsActivityImage, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             if (data.Item2 != null)
                             {
                                 if (data.Item2.Message == "Duplicate")
@@ -444,11 +444,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
             }
-            return RedirectToAction("Index", new { PackageId = Base64UrlEncoder.Encode(Process.Encrypt(CsPackageImage.Fk_Package_Name)) });
+            return RedirectToAction("Index", new { ActivityId = Base64UrlEncoder.Encode(Process.Encrypt(CsActivityImage.Fk_Activity_Name)) });
         }
 
 
-        //POST: /PackageImage/Delete/5
+        //POST: /ActivityImage/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
@@ -458,7 +458,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("PackageImage/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("ActivityImage/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
@@ -489,12 +489,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             model.CompId = CompID;
             if (model.ActionName == "Verify" || model.ActionName == "UnVerify") { model.VerifiedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
             if (model.ActionName == "Activate" || model.ActionName == "Inactivate") { model.ActivatedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
-			CsPackageImage CsPackageImage = new CsPackageImage();
+			CsActivityImage CsActivityImage = new CsActivityImage();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
 				StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("PackageImage/verifydata/" , content))
+                using (var response = await client.PostAsync("ActivityImage/verifydata/" , content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
@@ -522,7 +522,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             starUnstar.Id = Id;
             starUnstar.Host = Request.Scheme + "://" + Request.Host;
             starUnstar.AreaName = "ColorStays";
-            starUnstar.ControllerName = "PackageImage";
+            starUnstar.ControllerName = "ActivityImage";
             starUnstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
@@ -573,7 +573,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("PackageImage/CheckDuplicationPhoto/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("ActivityImage/CheckDuplicationPhoto/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {

@@ -84,6 +84,62 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
         //Ends
 
+        [HttpPost]
+        public async Task<IActionResult> SaveImage(string PId)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var files = HttpContext.Request.Form.Files;
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                foreach (var file in files)
+                {
+                    MultipartFormDataContent multiContent = new MultipartFormDataContent();
+
+                    var fileName = "Place-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                    //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("Place/SaveImage/?PId=" + PId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            return View("Error");
+                        }
+                    }
+
+                    if (file.Length > 0)
+                    {
+                        using (HttpClient client1 = APICSImages.Initial())
+                        {
+                            //StringContent content1 = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
+
+                            byte[] data;
+                            using (var br = new BinaryReader(file.OpenReadStream()))
+                                data = br.ReadBytes((int)file.OpenReadStream().Length);
+
+                            ByteArrayContent bytes = new ByteArrayContent(data);
+                            multiContent.Add(bytes, "file", file.FileName);
+                            client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                            //Save the Images in the Folder
+                            using (var response = await client1.PostAsync("Images/UploadWebImages/?FileName=" + fileName + "&FolderName=Place", multiContent))
+                            {
+                                var apiResponse = await response.Content.ReadAsStreamAsync();
+                                if (!response.IsSuccessStatusCode)
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return Json(new { Message = "Saved" });
+        }
+
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
         {
@@ -165,7 +221,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //GET:/Place/
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
+        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string? Id)
         {         
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -186,6 +242,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
+                ViewData["PId"] = Id;
+
+                if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
 
@@ -493,7 +552,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
                 if (Success == true)
-                { return RedirectToAction("Index", new { PageCall = "Show" }); }
+                {
+                    data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id });
+                }
                 else { return View("_CreateOrEdit", CsPlace); }
             }
             return View("_CreateorEdit",CsPlace);                
@@ -597,7 +659,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "Show" });
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", CsPlace.Id });
                 }
                 catch (DbUpdateConcurrencyException)
                 {

@@ -26,6 +26,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationCity", "City", AdditionalFields = ("NameAction, Id"))]
         [Required(ErrorMessage = "Please enter Name.")]
         public string Name { get; set; }
+        public string? Video { get; set; }
         public string? Area { get; set; }
         public string? History { get; set; }
         public string? Fact { get; set; }

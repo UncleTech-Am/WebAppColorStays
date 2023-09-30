@@ -7,6 +7,7 @@
 }
 
 <div style="color:red; font-weight:bold; font-size:15px;"> @ViewBag.Message</div>
+<input type="hidden" name="PeId" id="PeId" value="@ViewData["PId"]" />
 
 <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
     <div id="PagenationShow">
@@ -93,6 +94,10 @@
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.StateAttraction)" name="StateAttraction" autocomplete="off"/>
                         </td>
                         
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Video)" name="Video" autocomplete="off"/>
+                        </td>
+
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.BestTimeToVisit)" name="BestTimeToVisit" autocomplete="off"/>
                         </td>
@@ -196,7 +201,8 @@
                                         <th> @Html.DisplayNameFor(model => model.Fk_Country_Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.TopThingsToKnow) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Rating) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.StateAttraction) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.StateAttraction) </th>
+                                        <th> @Html.DisplayNameFor(model => model.Video) </th>
                                         <th> @Html.DisplayNameFor(model => model.BestTimeToVisit) </th>
                                         <th> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
                                         <th> @Html.DisplayNameFor(model => model.SEODescription) </th>       

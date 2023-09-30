@@ -31,7 +31,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationActivity", "Activity", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]
         public string Name { get; set; }
         public string? Description { get; set; }
-        public string? CoverImage { get; set; }
+        public string? Video { get; set; }
         public double? StartingPrice { get; set; }
         public int? Duration { get; set; }
         [Remote("CheckDuplicationActivityRank", "Activity", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]

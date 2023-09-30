@@ -15,14 +15,15 @@
 
 <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
     <div class="FxRw FxAnImSh">
-        <div class="Fx35 Pg3">
+        <div class="Fx55 Pg3">
             <div id="UTabs1">
-                <div> Activity Detail</div>
-                <div> Activity Image</div>
+                <div> City Detail</div>
+                <div> City Image</div>
+                <div>Set Up</div>
             </div>
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
-               <div id="UTabs1Cont0">
-                   <div class="Pg12">
+                <div id="UTabs1Cont0">
+                    <div class="Pg12">
                         <form id="Create"
                               data-ajax="true"
                               data-ajax-url="/ColorStays/Activity/Create"
@@ -58,6 +59,7 @@
                         </h3>
                         <form action="/" enctype="multipart/form-data" method="POST">
                             <input type="hidden" name="AId" id="AId" />
+
                             <div class="dropzone" id="myDropzone">
                                 <div class="fallback">
                                     <input name="file" type="file" multiple />
@@ -68,16 +70,28 @@
                                     <button type="button" id="submit-all" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-ImageLine"></i>&nbsp;Upload</button>
                                 </div>
                                 <div>
-                                    <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/Account/AddUser'"><i class="UT-AddLine"></i>&nbsp;New Entry</button>
+                                    <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 2)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
                                 </div>
+
                             </div>
                         </form>
                     </div>
                 </div>
 
+                <div id="UTabs1Cont2">
+                    <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
+                    <div class="Pg10 FxRw">
+                        <div class="FxGw1">
+                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Activity/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
+                        </div>
+                        <div>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="Fx65 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
+        <div class="Fx55 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
             <div id="UTabs2">
                 <div>All Activities</div>
                 <div>Image</div>
@@ -103,7 +117,7 @@
 
 <script>
     $(document).ready(function () {
-        TabsUT('UTabs1', 0, null, [1]);
+        TabsUT('UTabs1', 0, null, [1, 2]);
         TabsUT('UTabs2', 0, null, [1]);
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchPlace', '/ColorStays/Place/SuggestPlace', '', '', AoCePlace);
@@ -130,10 +144,16 @@
     }
 
     function Success(data, status, xhr, FormID, FormFieldID) {
-        //FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
-        
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
+        //Show the Image Tab
         ActiveTabUt('UTabs1', 1);
         ActiveTabUt('UTabs2', 0);
+        document.getElementById('AId').value = document.getElementById('AyId').value;
+    }
+
+    function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "Images");
+        ActiveTabUt('UTabs2', 1);
     }
 
     //Table Search Success Function
@@ -159,11 +179,11 @@
 
     //Upload the Images
     Dropzone.options.myDropzone = {
-        url: '/Activity/SaveActivityImage',
+        url: '/ColorStays/Activity/SaveImage',
         autoProcessQueue: false,
         uploadMultiple: true,
-        parallelUploads: 1,
-        maxFiles: 1,
+        parallelUploads: 5,
+        maxFiles: 10,
         acceptedFiles: 'image/*',
         addRemoveLinks: true,
         error: function (file, response) {
@@ -193,7 +213,7 @@
 
             //send all the form data along with the files:
             this.on("sendingmultiple", function (data, xhr, formData) {
-                formData.append("Id", jQuery("#AId").html());
+                formData.append("AId", jQuery("#AId").val());
                 ShowLoader();
             });
 
@@ -206,24 +226,35 @@
 
     //Show the Uploaded Image in the Tab.......................
     function ShowUploads() {
-        var userid = $("#UId").html();
-        getUT('/Account/UploadedImage?UserId=' + userid, function (data) {
+        var ActivityId = $("#AId").val();
+        getUT('/ColorStays/ActivityImage/UploadedImage?ActivityId=' + ActivityId + '&ShowBtn=' + true, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 1);
+            document.getElementById('SwTb3').style.display = "block";
             HideLoader();
+        });
+        //Show the Images in LHS for Update
+        getUT('/ColorStays/ActivityImage/Index?ActivityId=' + ActivityId + '&UpdateDetail=Yes', function (data) {
+            document.getElementById('AddImgDetail').innerHTML = "";
+            document.getElementById('AddImgDetail').innerHTML = data;
         });
     };
     //Ends.............................
 
     //Delete the Image
-    function DeleteImg(id, userid, imgname) {
+    function DeleteImg(id, ActivityId, imgname) {
         ShowLoader();
-        getUT('/Account/ImageDelete?ImageID=' + id + '&UserId=' + userid + '&ImgName=' + imgname, function (data) {
+        getUT('/ColorStays/ActivityImage/ImageDelete?ImageID=' + id + '&ActivityId=' + ActivityId + '&ImgName=' + imgname, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 1);
             HideLoader();
+        });
+        //Show the Images in LHS for Update
+        getUT('/ColorStays/ActivityImage/Index?ActivityId=' + ActivityId + '&UpdateDetail=Yes', function (data) {
+            document.getElementById('AddImgDetail').innerHTML = "";
+            document.getElementById('AddImgDetail').innerHTML = data;
         });
     };
             //Ends

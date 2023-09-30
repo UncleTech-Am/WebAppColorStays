@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsPackageImage
+    public class CsActivityImage
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        public string? Fk_Package_Name { get; set; }
+        public string? Fk_Activity_Name { get; set; }
         public string? Title { get; set; }
         [NotMapped]
         public string? ImageUrl { get; set; }

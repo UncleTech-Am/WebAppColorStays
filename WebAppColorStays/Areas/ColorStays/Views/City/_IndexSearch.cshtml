@@ -7,6 +7,7 @@
 }
 
 <div style="color:red; font-weight:bold; font-size:15px;"> @ViewBag.Message</div>
+<input type="hidden" name="CyId" id="CyId" value="@ViewData["CId"]" />
 
 <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
     <div id="PagenationShow">
@@ -57,6 +58,10 @@
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Stories)" name="Stories" autocomplete="off"/>
                         </td>
                         
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Video)" name="Video" autocomplete="off"/>
+                        </td>
+
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Longitude)" name="Longitude" autocomplete="off"/>
                         </td>
@@ -242,7 +247,8 @@
                                         <th> @Html.DisplayNameFor(model => model.Area) </th>       
                                         <th> @Html.DisplayNameFor(model => model.History) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Fact) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Stories) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Stories) </th> 
+                                        <th> @Html.DisplayNameFor(model => model.Video) </th>
                                         <th> @Html.DisplayNameFor(model => model.Longitude) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Latitude) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Rank) </th>       

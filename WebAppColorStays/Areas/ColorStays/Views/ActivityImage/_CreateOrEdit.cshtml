@@ -1,0 +1,75 @@
+@model WebAppColorStays.Models.ViewModel.CsActivityImage
+
+@{
+    Layout = null;
+    ViewData["Action"] = "ActivityImage";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+<form id="Edit"
+      data-ajax="true"
+      data-ajax-url="/ColorStays/ActivityImage/Edit"
+      data-ajax-method="POST"
+      data-ajax-loading="#loader"
+      data-ajax-success="SuccessIeDl(data, status, xhr,'Edit','CreateOrEdit')"
+      data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')">
+
+    @Html.AntiForgeryToken()
+    <div class="TtAnCr Pg7">
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.RowVersion)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.CreatedOn)
+        @Html.HiddenFor(model => model.CompId)
+        @Html.HiddenFor(model => model.Fk_Activity_Name)
+        @Html.HiddenFor(model => model.ImageUrl)
+
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Title)</div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Title)" asp-for="Title" autocomplete="off" readonly />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="Title"></span></div>
+        </div>
+
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag)</div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag)" asp-for="AltTag" autocomplete="off" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="AltTag"></span></div>
+        </div>
+
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description)</div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Description)" asp-for="Description" autocomplete="off" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="Description"></span></div>
+        </div>
+
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverImage)</div>
+                    @Html.CheckBoxFor(x => x.CoverImage, htmlAttributes : new { id = "CoverImage", @Class = "TtBxTt15"})
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="CoverImage"></span></div>
+        </div>
+    </div>
+    <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+        <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+
+        <input type="button" onclick="DeleteImg('@Model.Id','@Model.Fk_Activity_Name','@Model.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+    </div>
+</form>

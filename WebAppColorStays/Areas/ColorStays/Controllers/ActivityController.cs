@@ -67,26 +67,25 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-
         [HttpPost]
-        public async Task<IActionResult> SaveActivityImage(string Id)
+        public async Task<IActionResult> SaveImage(string AId)
         {
             var TokenKey = Request.Cookies["JWToken"];
 
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            CsActivity csActivity = new CsActivity();
             var files = HttpContext.Request.Form.Files;
-            var uploads = Path.Combine(Environment.WebRootPath, "Image\\CompUsers");
 
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 foreach (var file in files)
                 {
-                    var fileName = "Activity-" + Id.Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                    MultipartFormDataContent multiContent = new MultipartFormDataContent();
 
-                    using (var response = await client.GetAsync("Activity/SaveActivityImage/" + Id + "/" + CompID + "/" + UserID + "/" + fileName, HttpCompletionOption.ResponseHeadersRead))
+                    var fileName = "Activity-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                    //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("Activity/SaveImage/?AId=" + AId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (!response.IsSuccessStatusCode)
@@ -95,71 +94,35 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                         }
                     }
 
-                    //if (file.Length > 0)
-                    //{
-                    //    //Save the Images in the Folder
-                    //    Task<string> TImgUpload = ryImage.UploadImages(file, fileName, TokenKey, "CompUser");
-                    //    Task.WaitAll(TImgUpload);
-                    //    if (TImgUpload.Result == "Error")
-                    //    {
-                    //        return View("Error");
-                    //    }
-                    //}
+                    if (file.Length > 0)
+                    {
+                        using (HttpClient client1 = APICSImages.Initial())
+                        {
+                            //StringContent content1 = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
+
+                            byte[] data;
+                            using (var br = new BinaryReader(file.OpenReadStream()))
+                                data = br.ReadBytes((int)file.OpenReadStream().Length);
+
+                            ByteArrayContent bytes = new ByteArrayContent(data);
+                            multiContent.Add(bytes, "file", file.FileName);
+                            client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                            //Save the Images in the Folder
+                            using (var response = await client1.PostAsync("Images/UploadWebImages/?FileName=" + fileName + "&FolderName=Activity", multiContent))
+                            {
+                                var apiResponse = await response.Content.ReadAsStreamAsync();
+                                if (!response.IsSuccessStatusCode)
+                                {
+                                    return View("Error");
+                                }
+                            }
+
+                        }
+                    }
                 }
             }
             return Json(new { Message = "Saved" });
         }
-
-
-        //show upload the image
-        [HttpGet]
-        public async Task<IActionResult> UploadedImage(string UserId, string ShowBtn)
-        {
-
-            var TokenKey = Request.Cookies["JWToken"];
-            List<CsActivity> csActivityList = new List<CsActivity>();
-
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Activity/UploadedImage/" + UserId, HttpCompletionOption.ResponseHeadersRead))
-                {
-                    var apiResponse = await response.Content.ReadAsStreamAsync();
-                    csActivityList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsActivity>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                }
-            }
-            if (ShowBtn == "false")
-            {
-                ViewBag.ShowBtn = "false";
-            }
-            return PartialView("UploadedImage", csActivityList);
-        }
-        //ends
-
-        //Delete the upload image
-        public async Task<IActionResult> ImageDelete(string ImageID, string UserId, string ImgName)
-        {
-            var TokenKey = Request.Cookies["JWToken"];
-
-            List<CsActivity> userimage = new List<CsActivity>();
-
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Account/ImageDelete/" + ImageID + "/" + UserId, HttpCompletionOption.ResponseHeadersRead))
-                {
-                    var apiResponse = await response.Content.ReadAsStreamAsync();
-                    userimage = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsActivity>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-
-                    //Delete the Images from the folder
-                    //Task<string> TDeleteImage = ryImage.DeleteImage(ImgName, TokenKey, "CompUser");
-                    //Task.WaitAll(TDeleteImage);
-                }
-            }
-            return PartialView("UploadedImage", userimage);
-        }
-        //ends
-
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -242,7 +205,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //GET:/Activity/
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
+        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string? Id)
         {         
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -263,6 +226,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
+                ViewData["AId"] = Id;
 
                 if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
@@ -570,8 +534,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 {
-                    ViewData["AId"] = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh" });
+                    data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id });
                 }
                 else { return View("_CreateOrEdit", CsActivity); }
             }
@@ -675,7 +639,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "Show" });
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", CsActivity.Id });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
