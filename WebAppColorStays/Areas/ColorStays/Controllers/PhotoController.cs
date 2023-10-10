@@ -12,6 +12,7 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
+using LibCommon.APICommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -21,10 +22,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class PhotoController : Controller
     {
         private readonly Paging paging;
-
+        private readonly RyCSImage ryCsImage;
         public PhotoController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -176,64 +178,35 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 using (var response = await client.GetAsync("Photo/ImageDelete/" + ImageID + "/" + CountryId +"/"+StateId +"/"+ CityId + "/"+ PlaceId, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    csPhotos = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-
-                }
-                using (HttpClient client1 = APICSImages.Initial())
-                {
-                    client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-
-                    if (CountryId != null)
+                   
+                    //Delete the Images from the folder
+                    if (CountryId != "null")
                     {
-                        using (var response = await client1.GetAsync("Images/DeleteWebImage/" + "Country" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
-                        {
-                            var apiResponse = await response.Content.ReadAsStreamAsync();
-                            if (!response.IsSuccessStatusCode)
-                            {
-                                return View("Error");
-                            }
-                        }
+                        Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Country");
+                        Task.WaitAll(TDeleteImage);
                     }
-
-                    if (StateId != null)
+                    //Delete the Images from the folder
+                    if (StateId != "null")
                     {
-                        using (var response = await client1.GetAsync("Images/DeleteWebImage/" + "State" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
-                        {
-                            var apiResponse = await response.Content.ReadAsStreamAsync();
-                            if (!response.IsSuccessStatusCode)
-                            {
-                                return View("Error");
-                            }
-                        }
+                        Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "State");
+                        Task.WaitAll(TDeleteImage);
                     }
-                    if (CityId != null)
+                    if (CityId != "null")
                     {
-                        using (var response = await client1.GetAsync("Images/DeleteWebImage/" + "City" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
-                        {
-                            var apiResponse = await response.Content.ReadAsStreamAsync();
-                            if (!response.IsSuccessStatusCode)
-                            {
-                                return View("Error");
-                            }
-                        }
+                        //Delete the Images from the folder
+                        Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "City");
+                        Task.WaitAll(TDeleteImage);
                     }
-                    if (PlaceId != null)
+                    //Delete the Images from the folder
+                    if (PlaceId != "null")
                     {
-                        using (var response = await client1.GetAsync("Images/DeleteWebImage/" + "Place" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
-                        {
-                            var apiResponse = await response.Content.ReadAsStreamAsync();
-                            if (!response.IsSuccessStatusCode)
-                            {
-                                return View("Error");
-                            }
-                        }
+                        Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Place");
+                        Task.WaitAll(TDeleteImage);
                     }
                 }
-                //Delete the Images from the folder
-                //Task<string> TDeleteImage = ryImage.DeleteImage(ImgName, TokenKey, "CompUser");
-                //Task.WaitAll(TDeleteImage);
             }
-            return PartialView("UploadedImage", csPhotos);
+
+            return RedirectToAction("UploadedImage", new { CountryId, StateId, CityId, PlaceId });
         }
         //ends
 
@@ -484,20 +457,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (csPhoto.Fk_Country_Name != null)
             {
 
-                return RedirectToAction("Index", new { CountryId = Base64UrlEncoder.Encode(Process.Encrypt(csPhoto.Fk_Country_Name)), StateId ="null", CityId = "null", PlaceId = "null" });
+                return RedirectToAction("Index", new { CountryId = csPhoto.Fk_Country_Name, StateId ="null", CityId = "null", PlaceId = "null" });
 
             }
             if (csPhoto.Fk_State_Name != null)
             {
-                return RedirectToAction("Index", new {CountryId = "null", StateId = Base64UrlEncoder.Encode(Process.Encrypt(csPhoto.Fk_State_Name)), CityId = "null", PlaceId = "null" });
+                return RedirectToAction("Index", new {CountryId = "null", StateId =csPhoto.Fk_State_Name, CityId = "null", PlaceId = "null" });
             }
             if (csPhoto.Fk_City_Name != null)
             {
-                return RedirectToAction("Index", new { CountryId = "null", StateId = "null", CityId = Base64UrlEncoder.Encode(Process.Encrypt(csPhoto.Fk_City_Name)), PlaceId = "null" });
+                return RedirectToAction("Index", new { CountryId = "null", StateId = "null", CityId = csPhoto.Fk_City_Name, PlaceId = "null" });
             }
             if (csPhoto.Fk_Place_Name != null)
             {
-                return RedirectToAction("Index", new { CountryId = "null", StateId = "null", CityId = "null", PlaceId = Base64UrlEncoder.Encode(Process.Encrypt(csPhoto.Fk_Place_Name)) });
+                return RedirectToAction("Index", new { CountryId = "null", StateId = "null", CityId = "null", PlaceId = csPhoto.Fk_Place_Name });
             }
             return NotFound();
         }

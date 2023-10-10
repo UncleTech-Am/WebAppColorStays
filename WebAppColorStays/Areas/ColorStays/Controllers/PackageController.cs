@@ -13,6 +13,7 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
+using LibCommon.APICommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -22,10 +23,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class PackageController : Controller
     {
         private readonly Paging paging;
-
+        private readonly RyCSImage ryCsImage;
         public PackageController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -73,7 +75,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            CsCountry csCountry = new CsCountry();
             var files = HttpContext.Request.Form.Files;
             //var uploads = Path.Combine(Environment.WebRootPath, "Image\\Country");
 
@@ -82,8 +83,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 foreach (var file in files)
                 {
-                    MultipartFormDataContent multiContent = new MultipartFormDataContent();
-
                     var fileName = "Package-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
                     //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("Package/SaveImage/?PId=" + PId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
@@ -97,26 +96,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                     if (file.Length > 0)
                     {
-                        using (HttpClient client1 = APICSImages.Initial())
+                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Package");
+                        Task.WaitAll(TImgUpload);
+                        if (TImgUpload.Result == "Error")
                         {
-                            //StringContent content1 = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
-
-                            byte[] data;
-                            using (var br = new BinaryReader(file.OpenReadStream()))
-                                data = br.ReadBytes((int)file.OpenReadStream().Length);
-
-                            ByteArrayContent bytes = new ByteArrayContent(data);
-                            multiContent.Add(bytes, "file", file.FileName);
-                            client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                            //Save the Images in the Folder
-                            using (var response = await client1.PostAsync("Images/UploadWebImages/?FileName=" + fileName + "&FolderName=Package", multiContent))
-                            {
-                                var apiResponse = await response.Content.ReadAsStreamAsync();
-                                if (!response.IsSuccessStatusCode)
-                                {
-                                    return View("Error");
-                                }
-                            }
+                            return View("Error");
                         }
                     }
                 }
@@ -667,7 +651,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index", new { PageCall="Show"});
+                        return RedirectToAction("Index", new { PageCall= "Show" });
                     }
                     else
                     {

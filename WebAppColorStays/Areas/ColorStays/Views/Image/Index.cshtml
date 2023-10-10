@@ -9,7 +9,7 @@
     <div class="CrTeTtLt FxGw1"> <h1> Website Area</h1></div>
 </div>
 
-<form action="/" enctype="multipart/form-data" method="POST">
+@*<form action="/" enctype="multipart/form-data" method="POST">
                             <div class="dropzone" id="myDropzone">
                                 <div class="fallback">
                                     <input name="file" type="file" multiple />
@@ -20,13 +20,12 @@
             <button type="submit" id="submit-all" class="btn btn-success">Upload File</button>
         </div>
     </div>
-</form>
+</form>*@
 
-@*<form asp-action="Create" asp-controller="Image" method="post" enctype="multipart/form-data">
+<form asp-action="Create" asp-controller="Image" method="post" enctype="multipart/form-data">
   
 <div class="fallback">
-            <input name="file" type="file" multiple />
-        <input name="file1" type="file" multiple />
+            <input name="file" type="file" />
 
         </div>
     <div class="MnTp7 MnBm7 FxRw">
@@ -39,7 +38,7 @@
         </div>
     </div>
 </form>
-*@
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <link href="~/lib/dropzone/min/dropzone.min.css" rel="stylesheet" />
 <script src="~/lib/dropzone/min/dropzone.min.js"></script>

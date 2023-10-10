@@ -1,0 +1,251 @@
+@model WebAppColorStays.Models.ViewModel.CsRailway
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "Railway";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+<form id="Edit1"
+      data-ajax="true"
+      data-ajax-url="/ColorStays/Railway/EditImageDetail"
+      data-ajax-method="POST"
+      data-ajax-loading="#loader"
+      data-ajax-success="SuccessIeDl(data, status, xhr,'Edit1','CreateOrEdit2')"
+      data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit1')">
+
+    @Html.AntiForgeryToken()
+    <div class="TtAnCr Pg7">
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.RowVersion)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.CreatedOn)
+        @Html.HiddenFor(model => model.CompId)
+        @Html.HiddenFor(model => model.Fk_Place_Name)
+        @Html.HiddenFor(model => model.Fk_City_Name)
+        @Html.HiddenFor(model => model.Fk_State_Name)
+        @Html.HiddenFor(model => model.Fk_Country_Name)
+        @Html.HiddenFor(model => model.Name)
+        @Html.HiddenFor(model => model.International)
+        @Html.HiddenFor(model => model.Domestic)
+        @Html.HiddenFor(model => model.Address)
+        @Html.HiddenFor(model => model.Remarks)
+        @Html.HiddenFor(model => model.PinCode)
+        @Html.HiddenFor(model => model.LocationDescription)
+        @Html.HiddenFor(model => model.ConnectivityDescription)
+        @Html.HiddenFor(model => model.RunWayDescription)
+        @Html.HiddenFor(model => model.HowToReach)
+        @Html.HiddenFor(model => model.Upcoming)
+        @Html.HiddenFor(model => model.OutTransportation)
+        @Html.HiddenFor(model => model.ContactNumber1)
+        @Html.HiddenFor(model => model.ContactNumber2)
+        @Html.HiddenFor(model => model.ContactNumber3)
+        @Html.HiddenFor(model => model.Photo1)
+        @Html.HiddenFor(model => model.Photo2)
+        @Html.HiddenFor(model => model.Photo3)
+        @Html.HiddenFor(model => model.Photo4)
+        @Html.HiddenFor(model => model.Photo5)
+        @Html.HiddenFor(model => model.Video1)
+        @Html.HiddenFor(model => model.Video2)
+        @Html.HiddenFor(model => model.Video3)
+        @Html.HiddenFor(model => model.Video4)
+        @Html.HiddenFor(model => model.Video5)
+       
+
+    @if (Model.Photo1 != null)
+    {
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo1)</div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo1)" asp-for="Photo1" autocomplete="off" readonly />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="Photo1"></span></div>
+        </div>
+
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag1)</div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag1)" asp-for="AltTag1" autocomplete="off" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="AltTag1"></span></div>
+        </div>
+
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description1)</div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Description1)" asp-for="Description1" autocomplete="off" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="Description1"></span></div>
+        </div>
+        <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+            <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+
+                <input type="button" onclick="DeleteImg('@Model.Id', 'Photo1','@Model.Photo1')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+        </div>
+    }
+
+    @if (Model.Photo2 != null)
+   {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo2)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo2)" asp-for="Photo2" autocomplete="off" readonly />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Photo2"></span></div>
+            </div>
+
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag2)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag2)" asp-for="AltTag2" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="AltTag2"></span></div>
+            </div>
+
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description2)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Description2)" asp-for="Description2" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Description2"></span></div>
+            </div>
+        <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+            <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+
+            <input type="button" onclick="DeleteImg('@Model.Id','Photo2','@Model.Photo2')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+        </div>
+
+    }
+
+    @if (Model.Photo3 != null)
+   {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo3)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo3)" asp-for="Photo3" autocomplete="off" readonly />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Photo3"></span></div>
+            </div>
+
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag3)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag3)" asp-for="AltTag3" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="AltTag3"></span></div>
+            </div>
+
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description3)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Description3)" asp-for="Description3" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Description3"></span></div>
+            </div>
+        <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+            <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+
+            <input type="button" onclick="DeleteImg('@Model.Id','Photo3','@Model.Photo3')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+        </div>
+
+    }
+
+    @if (Model.Photo4 != null)
+   {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo4)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo4)" asp-for="Photo4" autocomplete="off" readonly />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Photo4"></span></div>
+            </div>
+
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag4)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag4)" asp-for="AltTag4" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="AltTag4"></span></div>
+            </div>
+
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description4)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Description4)" asp-for="Description4" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Description4"></span></div>
+            </div>
+        <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+            <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+
+            <input type="button" onclick="DeleteImg('@Model.Id','Photo4','@Model.Photo4')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+        </div>
+
+    }
+
+    @if (Model.Photo5 != null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo5)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo5)" asp-for="Photo5" autocomplete="off" readonly />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Photo5"></span></div>
+            </div>
+
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag5)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag5)" asp-for="AltTag5" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="AltTag5"></span></div>
+            </div>
+
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description5)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Description5)" asp-for="Description5" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Description5"></span></div>
+            </div>
+            <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+                <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+
+                <input type="button" onclick="DeleteImg('@Model.Id','Photo5','@Model.Photo5')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            </div>
+
+        }
+
+    </div>
+</form>

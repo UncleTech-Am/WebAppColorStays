@@ -15,10 +15,10 @@
 
 <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
     <div class="FxRw FxAnImSh">
-        <div class="Fx55 Pg3">
+        <div class="Fx50 Pg3">
             <div id="UTabs1">
-                <div> City Detail</div>
-                <div> City Image</div>
+                <div> Detail</div>
+                <div> Image</div>
                 <div>Set Up</div>
             </div>
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
@@ -91,14 +91,14 @@
                 </div>
             </div>
         </div>
-        <div class="Fx55 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
+        <div class="Fx50 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
             <div id="UTabs2">
                 <div>All Activities</div>
                 <div>Image</div>
             </div>
             <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
                 <div id="UTabs2Cont0">
-                    <div id="Def">
+                    <div id="Detail">
                         @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsActivity>)ViewData["EnteredDetails"])
                     </div>
                 </div>
@@ -144,7 +144,7 @@
     }
 
     function Success(data, status, xhr, FormID, FormFieldID) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
         //Show the Image Tab
         ActiveTabUt('UTabs1', 1);
         ActiveTabUt('UTabs2', 0);
@@ -153,6 +153,7 @@
 
     function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "Images");
+        ShowUploads();
         ActiveTabUt('UTabs2', 1);
     }
 
@@ -249,13 +250,14 @@
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 1);
+            //Show the Images in LHS for Update
+            getUT('/ColorStays/ActivityImage/Index?ActivityId=' + ActivityId + '&UpdateDetail=Yes', function (data) {
+                document.getElementById('AddImgDetail').innerHTML = "";
+                document.getElementById('AddImgDetail').innerHTML = data;
+            });
             HideLoader();
         });
-        //Show the Images in LHS for Update
-        getUT('/ColorStays/ActivityImage/Index?ActivityId=' + ActivityId + '&UpdateDetail=Yes', function (data) {
-            document.getElementById('AddImgDetail').innerHTML = "";
-            document.getElementById('AddImgDetail').innerHTML = data;
-        });
+       
     };
             //Ends
 

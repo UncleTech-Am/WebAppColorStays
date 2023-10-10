@@ -7,6 +7,8 @@
 }
 
 <div style="color:red; font-weight:bold; font-size:15px;"> @ViewBag.Message</div>
+<input type="hidden" name="PgIyId" id="PgIyId" value="@ViewData["PgIyId"]" />
+
 
 <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
     <div id="PagenationShow">
@@ -168,7 +170,7 @@
                                         <th> @Html.DisplayNameFor(model => model.Fk_Package_Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.DayNo) </th>       
                                         <th> @Html.DisplayNameFor(model => model.DayTitle) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.DayActivity) </th>
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.DayActivity) </th>
                                         <th> @Html.DisplayNameFor(model => model.Sightseen) </th>
                                         <th> @Html.DisplayNameFor(model => model.Photo1) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Photo2) </th>       
@@ -208,3 +210,16 @@
     </div>
 </div>
 
+<script>
+    function ShowData(element) {
+        var popup = document.getElementById('PopUpScript');
+        popup.style.minHeight = "50%";
+        popup.style.left = "25%";
+        popup.style.top = "18%";
+        popup.style.width = "50%";
+        popup.style.overflowX = "auto";
+        document.getElementById('PopUpScript').style.display = 'block';
+        document.getElementById('PopUpScriptDetailContentID').innerHTML = element.innerHTML;
+    }
+
+</script>

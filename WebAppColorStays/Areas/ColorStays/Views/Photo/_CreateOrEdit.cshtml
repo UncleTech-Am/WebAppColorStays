@@ -118,7 +118,21 @@
     </div>
     <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
         <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
-
-        <input type="button" onclick="DeleteImg('@Model.Id','@Model.Fk_Country_Name','@Model.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+        @if (Model.Fk_Country_Name != null)
+        {
+            <input type="button" onclick="DeleteImg('@Model.Id','@Model.Fk_Country_Name','@Model.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+        }
+         @if (Model.Fk_State_Name != null)
+        {
+            <input type="button" onclick="DeleteImg('@Model.Id','@Model.Fk_State_Name','@Model.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+        }
+         @if (Model.Fk_City_Name != null)
+        {
+            <input type="button" onclick="DeleteImg('@Model.Id','@Model.Fk_City_Name','@Model.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+        }
+        @if (Model.Fk_Place_Name != null)
+        {
+            <input type="button" onclick="DeleteImg('@Model.Id','@Model.Fk_Place_Name','@Model.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+        }
     </div>
 </form>

@@ -27,6 +27,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationPackage", "Package", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
+        public string? URL { get; set; }
         public string? Transport { get; set; }
         public string? Stay { get; set; }
         public string? PackageHighlight { get; set; }
@@ -38,6 +39,7 @@ namespace WebAppColorStays.Models.ViewModel
         public int? LocationDuration { get; set; }
         public string? StartingFrom { get; set; }
         public double? Price { get; set; }
+        [DisplayName("Video Link")]
         public string? Video { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }

@@ -38,12 +38,58 @@
 	    <td>@item.URL</td>
          
 	    <td>@item.Name</td>
-         
-	    <td>@item.History</td>
-         
-	    <td>@item.Fact</td>
-         
-	    <td>@item.Stories</td>
+
+        <td>
+            @if (item.History != null && item.History.Length > 50)
+            {
+                @Html.Raw(item.History.Substring(0,50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.History)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.History
+            }
+        </td>
+
+        <td>
+            @if (item.Fact != null && item.Fact.Length > 50)
+            {
+                @Html.Raw(item.Fact.Substring(0,50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @Html.Raw(item.Fact)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.Fact
+            }
+        </td>
+
+        <td>
+            @if (item.Stories != null && item.Stories.Length > 50)
+            {
+                @Html.Raw(item.Stories.Substring(0,50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @Html.Raw(item.Stories)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.Stories
+            }
+        </td>
          
 	    <td>@item.Longitude</td>
          
@@ -60,16 +106,45 @@
 	    <td>@item.Fk_State_Name</td>
          
 	    <td>@item.Fk_Country_Name</td>
-         
-	    <td>@item.TopThingsToKnow</td>
-         
-	    <td>@item.Rating</td>
+
+        <td>
+            @if (item.TopThingsToKnow != null && item.TopThingsToKnow.Length > 50)
+            {
+                @item.TopThingsToKnow.Substring(0,50)
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @item.TopThingsToKnow
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.TopThingsToKnow
+            }
+        </td>
+        <td>@item.Rating</td>
          
 	    <td>@item.StateAttraction</td>
 
         <td>@item.Video</td>
          
-	    <td>@item.BestTimeToVisit</td>
+	     <td>
+            @if (item.BestTimeToVisit != null && item.BestTimeToVisit.Length > 50)
+            {
+                @item.BestTimeToVisit.Substring(0,50)
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @item.BestTimeToVisit
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.BestTimeToVisit
+            }
+        </td>
 
         <td>@item.SEOTitle</td>
 
@@ -109,5 +184,16 @@
 	    <td>@item.CompId</td>
         </tr>
 }
-
+<script>
+    function ShowData(element) {
+        var popup = document.getElementById('PopUpScript');
+        popup.style.minHeight = "50%";
+        popup.style.left = "25%";
+        popup.style.top = "18%";
+        popup.style.width = "50%";
+        popup.style.overflowX = "auto";
+        document.getElementById('PopUpScript').style.display = 'block';
+        document.getElementById('PopUpScriptDetailContentID').innerHTML = element.innerHTML;
+    }
+</script>
 

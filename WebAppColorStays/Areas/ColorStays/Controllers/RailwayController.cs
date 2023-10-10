@@ -13,6 +13,7 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
+using LibCommon.APICommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -22,10 +23,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class RailwayController : Controller
     {
         private readonly Paging paging;
-
+        private readonly RyCSImage ryCsImage;
         public RailwayController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -34,6 +36,232 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Title = "Railway";
         }
         //Ends
+
+
+        //GET: /Railway/Add image in Railway
+        [HttpGet]
+        public async Task<ActionResult> AddImage(string Id)
+        {
+            Title();
+            ViewData["AnName"] = "Edit";
+            ViewData["Id"] = Id;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (Id == null)
+            {
+                ViewBag.Message = "Not Founded";
+                return View();
+            }
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+
+            CsRailway CsRailway = new CsRailway();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Railway/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
+                    Task<Tuple<int, List<CsRailway>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                    PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
+                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        CsRailway = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRailway>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    }
+                    else
+                    {
+                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        if (responsemsg.Message == "NotFound")
+                        { ViewBag.Message = "Entry Not Exits!"; }
+                        if (responsemsg.Message == "GlobalItem")
+                        { ViewBag.Message = "Sytem Entry, Can't Change !"; }
+                    }
+                }
+            }
+            return PartialView("_AddImage", CsRailway);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveImage(CsRailway CsRailway)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var files = HttpContext.Request.Form.Files;
+            //var uploads = Path.Combine(Environment.WebRootPath, "Image\\Railway");
+            CsRailway.CompId = CompID;
+            CsRailway.ModifiedBy = UserID;
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                foreach (var file in files)
+                {
+                    var fileName = "Railway-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                    if ("Photo1" == file.Name)
+                    {
+                        CsRailway.Photo1 = fileName;
+                    }
+                    if ("Photo2" == file.Name)
+                    {
+                        CsRailway.Photo2 = fileName;
+                    }
+                    if ("Photo3" == file.Name)
+                    {
+                        CsRailway.Photo3 = fileName;
+                    }
+                    if ("Photo4" == file.Name)
+                    {
+                        CsRailway.Photo4 = fileName;
+                    }
+                    if ("Photo5" == file.Name)
+                    {
+                        CsRailway.Photo5 = fileName;
+                    }
+
+                    if (file.Length > 0)
+                    {
+                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Railway");
+                        Task.WaitAll(TImgUpload);
+                        if (TImgUpload.Result == "Error")
+                        {
+                            return View("Error");
+                        }
+                    }
+                }
+                using (var response = await client.PostAsJsonAsync<CsRailway>("Railway/edit", CsRailway))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return View("Error");
+                    }
+                }
+            }
+            return Json(new { Message = "Saved" });
+        }
+
+
+        //Edit Image Detail like AltTag and Description
+        //POST: /Railway/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditImageDetail(CsRailway CsRailway)
+        {
+            Title();
+            ViewData["AnName"] = "Edit";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            bool Success = false;
+            ViewData["ResponseName"] = "ShowValidation";
+            CsRailway.CompId = CompID;
+            CsRailway.ModifiedBy = UserID;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (HttpClient client = APIColorStays.Initial())
+                    {
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        using (var response = await client.PostAsJsonAsync<CsRailway>("Railway/edit", CsRailway))
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                Tuple<CsRailway, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsRailway, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                if (data.Item2 != null)
+                                {
+                                    if (data.Item2.Message == "Duplicate")
+                                    {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                        ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
+                                    }
+                                    if (data.Item2.Message == "GlobalItem")
+                                    {
+                                        ViewBag.Message = "Sytem Entry, Can't Change !";
+                                    }
+                                    if (data.Item2.Message == "Verified")
+                                    {
+                                        ViewBag.Message = "You can not Edit Verified Entry !";
+                                    }
+                                }
+                                return View("_CreatePhoto", data.Item1);
+                            }
+                        }
+                    }
+                    return RedirectToAction("UploadedImage", new { Id = CsRailway.Id });
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    ViewBag.Message = "Not Found";
+                    return View("_CreatePhoto");
+                }
+            }
+            return View("_CreatePhoto", CsRailway);
+        }
+
+
+        //show upload the image
+        [HttpGet]
+        public async Task<IActionResult> UploadedImage(string Id, string? UpdateDetail, string? ShowBtn)
+        {
+
+            var TokenKey = Request.Cookies["JWToken"];
+            CsRailway CsActivityImages = new CsRailway();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Railway/UploadedImage/" + Id, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    CsActivityImages = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRailway>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            if (ShowBtn == "false")
+            {
+                ViewBag.ShowBtn = "false";
+            }
+            if (UpdateDetail == "Yes") { return PartialView("_AddImageDetail", CsActivityImages); }
+            return PartialView("UploadedImage", CsActivityImages);
+        }
+        //ends
+
+        //Delete the upload image
+        public async Task<IActionResult> ImageDelete(string Id, string Field, string ImgName)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            CsRailway CsActivityImages = new CsRailway();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Railway/ImageDelete/" + Id + "/" + Field, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return View("Error");
+                    }
+                    //Delete the Images from the folder
+                    Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Railway");
+                    Task.WaitAll(TDeleteImage);
+                }
+
+
+            }
+            return RedirectToAction("UploadedImage", new { Id });
+        }
+        //ends
+
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -116,7 +344,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //GET:/Railway/
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
+        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string? Id)
         {         
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -137,6 +365,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
+                ViewData["RyId"] = Id;
+
+                if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
 
@@ -442,7 +673,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
                 if (Success == true)
-                { return RedirectToAction("Index", new { PageCall = "Show" }); }
+                {
+                    data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id });
+                }
                 else { return View("_CreateOrEdit", CsRailway); }
             }
             return View("_CreateorEdit",CsRailway);                
@@ -545,7 +779,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "Show" });
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", CsRailway.Id });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -572,7 +806,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index", new { PageCall="Show"});
+                        return RedirectToAction("Index", new { PageCall= "Show" });
                     }
                     else
                     {
@@ -672,23 +906,26 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             else { return View("Error"); }
         }
 
-         //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationRailway(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationRailway(string Name, string NameAction, string Fk_Place_Name, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             if (Id == null) { Id = "No"; }
+            if (Fk_Place_Name == null)
+            {
+                Fk_Place_Name = "No";
+            }
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Railway/CheckDuplicationRailway/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Railway/CheckDuplicationRailway/" + Name + "/" + NameAction + "/" + Fk_Place_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         Success = true;
                     }
-                    if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
                         return Json("Sorry, this " + Name + " already exists");
                     }
@@ -697,5 +934,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
+
     }
 }

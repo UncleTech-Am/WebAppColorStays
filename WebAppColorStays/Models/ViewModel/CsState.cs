@@ -25,9 +25,11 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationState", "State", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
         public string? History { get; set; }
+        public string? Quote { get; set; }
         public string? Fact { get; set; }
         public string? Longitude { get; set; }
         public string? Latitude { get; set; }
+        [DisplayName("Video Link")]
         public string? Video { get; set; }
         public string? Area { get; set; }
         public string? Population { get; set; }

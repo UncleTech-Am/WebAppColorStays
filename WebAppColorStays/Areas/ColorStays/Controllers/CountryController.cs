@@ -15,6 +15,7 @@ using WebAppColorStays.Models.ViewModel;
 using WebAppColorStays.Areas.ColorStays.CommonMethods;
 using System.Diagnostics.Metrics;
 using System.Net.Http;
+using LibCommon.APICommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -25,10 +26,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     {
         private readonly Paging paging;
         private IWebHostEnvironment Environment;
+        private readonly RyCSImage ryCsImage;
         public CountryController(IWebHostEnvironment environment)
         {
             paging = new Paging();
-            Environment = Environment;
+            Environment = environment;
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -100,7 +103,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 foreach (var file in files)
                 {
-                    MultipartFormDataContent multiContent = new MultipartFormDataContent();
 
                     var fileName = "Country-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
                     //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
@@ -115,33 +117,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                     if (file.Length > 0)
                     {
-                        using (HttpClient client1 = APICSImages.Initial())
+                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Country");
+                        Task.WaitAll(TImgUpload);
+                        if (TImgUpload.Result == "Error")
                         {
-                            //StringContent content1 = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
-
-                            byte[] data;
-                            using (var br = new BinaryReader(file.OpenReadStream()))
-                                data = br.ReadBytes((int)file.OpenReadStream().Length);
-
-                            ByteArrayContent bytes = new ByteArrayContent(data);
-                            multiContent.Add(bytes, "file", file.FileName);
-                            client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                            //Save the Images in the Folder
-                            using (var response = await client1.PostAsync("Images/UploadWebImages/?FileName=" + fileName + "&FolderName=Country", multiContent))
-                            {
-                                var apiResponse = await response.Content.ReadAsStreamAsync();
-                                if (!response.IsSuccessStatusCode)
-                                {
-                                    return View("Error");
-                                }
-                            }
-
-                            //Task<string> TImgUpload = ryImage.UploadImages(file, fileName, TokenKey, "CompUser");
-                            //Task.WaitAll(TImgUpload);
-                            //if (TImgUpload.Result == "Error")
-                            //{
-                            //    return View("Error");
-                            //}
+                            return View("Error");
                         }
                     }
                 }
@@ -439,6 +419,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         CsCountry = await System.Text.Json.JsonSerializer.DeserializeAsync<CsCountry>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        
                         return View("_DetailOrDelete",CsCountry);
                     }
                     else
@@ -564,7 +545,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 if (Success == true)
                 {
                     data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh",  data.Id});
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id }); 
                 }
                 else { return View("_CreateOrEdit", CsCountry); }
             }

@@ -15,7 +15,21 @@
 @Html.HiddenFor(model => model.CreatedBy)
 @Html.HiddenFor(model => model.CreatedOn)
 @Html.HiddenFor(model => model.CompId)
-
+@Html.HiddenFor(model => model.Photo1)
+@Html.HiddenFor(model => model.Photo2)
+@Html.HiddenFor(model => model.Photo3)
+@Html.HiddenFor(model => model.Photo4)
+@Html.HiddenFor(model => model.Photo5)
+@Html.HiddenFor(model => model.AltTag1)
+@Html.HiddenFor(model => model.AltTag2)
+@Html.HiddenFor(model => model.AltTag3)
+@Html.HiddenFor(model => model.AltTag4)
+@Html.HiddenFor(model => model.AltTag5)
+@Html.HiddenFor(model => model.Description1)
+@Html.HiddenFor(model => model.Description2)
+@Html.HiddenFor(model => model.Description3)
+@Html.HiddenFor(model => model.Description4)
+@Html.HiddenFor(model => model.Description5)
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -32,8 +46,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DayNo)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DayNo)" asp-for="DayNo" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DayNo)<span style="color:red;"> *</span></div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DayNo)" asp-for="DayNo" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="DayNo"></span></div>
@@ -43,66 +57,11 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DayTitle)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DayTitle)" asp-for="DayTitle" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DayTitle)<span style="color:red;"> *</span></div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DayTitle)" asp-for="DayTitle" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="DayTitle"></span></div>
-</div>
-
-
-@*<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo1)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo1)" asp-for="Photo1" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Photo1"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo2)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo2)" asp-for="Photo2" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Photo2"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo3)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo3)" asp-for="Photo3" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Photo3"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo4)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo4)" asp-for="Photo4" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Photo4"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo5)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo5)" asp-for="Photo5" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Photo5"></span></div>
 </div>
 
 
@@ -114,7 +73,7 @@
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Video"></span></div>
-</div>*@
+</div>
 
 
 @*<div class="FxRw">

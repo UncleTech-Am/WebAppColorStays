@@ -14,6 +14,7 @@ using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
 using WebAppColorStays.Areas.ColorStays.CommonMethods;
+using LibCommon.APICommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -23,10 +24,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class PlaceController : Controller
     {
         private readonly Paging paging;
-
+        private readonly RyCSImage ryCsImage;
         public PlaceController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -98,8 +100,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 foreach (var file in files)
                 {
-                    MultipartFormDataContent multiContent = new MultipartFormDataContent();
-
                     var fileName = "Place-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
                     //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("Place/SaveImage/?PId=" + PId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
@@ -113,26 +113,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                     if (file.Length > 0)
                     {
-                        using (HttpClient client1 = APICSImages.Initial())
+                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Place");
+                        Task.WaitAll(TImgUpload);
+                        if (TImgUpload.Result == "Error")
                         {
-                            //StringContent content1 = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
-
-                            byte[] data;
-                            using (var br = new BinaryReader(file.OpenReadStream()))
-                                data = br.ReadBytes((int)file.OpenReadStream().Length);
-
-                            ByteArrayContent bytes = new ByteArrayContent(data);
-                            multiContent.Add(bytes, "file", file.FileName);
-                            client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                            //Save the Images in the Folder
-                            using (var response = await client1.PostAsync("Images/UploadWebImages/?FileName=" + fileName + "&FolderName=Place", multiContent))
-                            {
-                                var apiResponse = await response.Content.ReadAsStreamAsync();
-                                if (!response.IsSuccessStatusCode)
-                                {
-                                    return View("Error");
-                                }
-                            }
+                            return View("Error");
                         }
                     }
                 }
@@ -686,7 +671,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index", new { PageCall="Show"});
+                        return RedirectToAction("Index", new { PageCall= "Show" });
                     }
                     else
                     {

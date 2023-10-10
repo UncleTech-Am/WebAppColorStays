@@ -7,7 +7,7 @@
 }
 
 <div style="color:red; font-weight:bold; font-size:15px;"> @ViewBag.Message</div>
-
+<input type="hidden" name="ATId" id="ATId" value="@ViewData["ATId"]" />
 <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
     <div id="PagenationShow">
         @await Html.PartialAsync("_Pagination")
@@ -93,10 +93,6 @@
                         
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Upcoming)" name="Upcoming" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.PhotoCover)" name="PhotoCover" autocomplete="off"/>
                         </td>
                         
                         <td>
@@ -230,7 +226,6 @@
                                         <th> @Html.DisplayNameFor(model => model.RunWayDescription) </th>       
                                         <th> @Html.DisplayNameFor(model => model.HowToReach) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Upcoming) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.PhotoCover) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Photo1) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Photo2) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Photo3) </th>       

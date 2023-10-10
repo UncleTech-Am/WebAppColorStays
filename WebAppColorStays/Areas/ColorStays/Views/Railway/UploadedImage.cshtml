@@ -1,0 +1,105 @@
+﻿@model WebAppColorStays.Models.ViewModel.CsRailway
+@{
+    Layout = null;
+}
+
+<div style="display:none">responseformUT SuccessPop</div>
+
+
+    <div>
+    @if (Model.Photo1 != null)
+    {
+        <div class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
+
+            <b>AltTag:- </b><span>@Model.AltTag1</span><br />
+            <b>Name:- </b><span>@Model.Photo1</span><br />
+        </div>
+        <div class="MnTp10 MnBm18 TtAnCr Pg7">
+            <img src="@Model.ImageUrl1" class="img-responsive" style="width:200px; height:200px;">
+        </div>
+        @if (ViewBag.ShowBtn != "false")
+        {
+            <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+                <input type="button" onclick="DeleteImg('@Model.Id','Photo1' ,'@Model.Photo1')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            </div>
+        }
+    }
+
+    @if (Model.Photo2 != null)
+    {
+        <div class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
+            <b>AltTag:- </b><span>@Model.AltTag2</span><br />
+            <b>Name:- </b><span>@Model.Photo2</span><br />
+        </div>
+        <div class="MnTp10 MnBm18 TtAnCr Pg7">
+            <img src="@Model.ImageUrl2" class="img-responsive" style="width:200px; height:200px;">
+        </div>
+        @if (ViewBag.ShowBtn != "false")
+        {
+            <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+                <input type="button" onclick="DeleteImg('@Model.Id', 'Photo2','@Model.Photo2')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            </div>
+        }
+    }
+    @if (Model.Photo3 != null)
+    {
+        <div class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
+            <b>AltTag:- </b><span>@Model.AltTag3</span><br />
+            <b>Name:- </b><span>@Model.Photo3</span><br />
+        </div>
+        <div class="MnTp10 MnBm18 TtAnCr Pg7">
+            <img src="@Model.ImageUrl3" class="img-responsive" style="width:200px; height:200px;">
+        </div>
+        @if (ViewBag.ShowBtn != "false")
+        {
+            <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+                <input type="button" onclick="DeleteImg('@Model.Id','Photo3', '@Model.Photo3')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            </div>
+        }
+    }
+
+    @if (Model.Photo4 != null)
+    {
+        <div class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
+            <b>AltTag:- </b><span>@Model.AltTag4</span><br />
+            <b>Name:- </b><span>@Model.Photo4</span><br />
+        </div>
+        <div class="MnTp10 MnBm18 TtAnCr Pg7">
+            <img src="@Model.ImageUrl4" class="img-responsive" style="width:200px; height:200px;">
+        </div>
+        @if (ViewBag.ShowBtn != "false")
+        {
+            <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+                <input type="button" onclick="DeleteImg('@Model.Id', 'Photo4','@Model.Photo4')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            </div>
+        }
+    }
+    @if (Model.Photo5 != null)
+    {
+        <div class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
+            <b>AltTag:- </b><span>@Model.AltTag5</span><br />
+            <b>Name:- </b><span>@Model.Photo5</span><br />
+        </div>
+        <div class="MnTp10 MnBm18 TtAnCr Pg7">
+            <img src="@Model.ImageUrl5" class="img-responsive" style="width:200px; height:200px;">
+        </div>
+        @if (ViewBag.ShowBtn != "false")
+        {
+            <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+                <input type="button" onclick="DeleteImg('@Model.Id', 'Photo1','@Model.Photo5')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            </div>
+        }
+    }
+
+    </div>
+   @if (Model.Photo1 == null && Model.Photo2 == null && Model.Photo3 == null && Model.Photo4 == null && Model.Photo5 == null)
+   {
+        <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
+            Image not Exists!
+        </h3>
+   }
+
+
+
+
+

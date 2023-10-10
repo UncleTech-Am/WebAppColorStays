@@ -20,7 +20,7 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Restaurant_Name)</div>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Restaurant_Name)<span style="color:red;"> *</span></div>
             <input class="TtBxTt14" placeholder="Restaurant Name" type="text" id="SearchRestaurant" asp-for="Restaurant" autocomplete="off" required onchange="ClearData('SearchRestaurant', 'Fk_Restaurant_Name')" />
             <input type="hidden" asp-for="Fk_Restaurant_Name" required />
         </div>
@@ -31,7 +31,7 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_RestaurantFoodType_Name)</div>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_RestaurantFoodType_Name)<span style="color:red;"> *</span></div>
             <input class="TtBxTt14" placeholder="Restaurant Food Type" type="text" id="SearchFoodType" asp-for="RestaurantFoodType" autocomplete="off" required onchange="ClearData('SearchFoodType', 'Fk_RestaurantFoodType_Name')" />
             <input type="hidden" asp-for="Fk_RestaurantFoodType_Name" required />
         </div>

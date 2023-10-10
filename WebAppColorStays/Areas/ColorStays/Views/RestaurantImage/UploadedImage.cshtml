@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebAppColorStays.Models.ViewModel.CsRestaurantImage>
+@{
+    Layout = null;
+}
+
+<div style="display:none">responseformUT SuccessPop</div>
+
+
+@if (Model.Count() > 0)
+{
+    <div>
+        @foreach (var item in Model)
+        {
+            <div class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
+                
+                <b>AltTag:- </b><span>@item.AltTag</span><br />
+                <b>Name:- </b><span>@item.Title</span><br />
+            </div>
+            <div class="MnTp10 MnBm18 TtAnCr Pg7">
+                <img src="@item.ImageUrl" class="img-responsive" style="width:200px; height:200px;">
+            </div>
+            @if (ViewBag.ShowBtn != "false")
+            {
+                <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+                    @if (item.Fk_Restaurant_Name != null)
+                    {
+                        <input type="button" onclick="DeleteImg('@item.Id','@item.Fk_Restaurant_Name','@item.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+                    }
+
+                </div>
+            }
+        }
+    </div>
+}
+else
+{
+    <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
+        Image not Exists!
+    </h3>
+}
+

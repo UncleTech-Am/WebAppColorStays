@@ -1,0 +1,179 @@
+@model WebAppColorStays.Models.ViewModel.CsAirport
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "Airport";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+
+    @*@Html.HiddenFor(model => model.Id)*@
+    <input type="hidden" id="AId" asp-for="Id"/>
+    @Html.HiddenFor(model => model.RowVersion)
+    @Html.HiddenFor(model => model.CreatedBy)
+    @Html.HiddenFor(model => model.CreatedOn)
+    @Html.HiddenFor(model => model.CompId)
+    @Html.HiddenFor(model => model.Fk_Place_Name)
+    @Html.HiddenFor(model => model.Fk_City_Name)
+    @Html.HiddenFor(model => model.Fk_State_Name)
+    @Html.HiddenFor(model => model.Fk_Country_Name)
+    @Html.HiddenFor(model => model.Name)
+    @Html.HiddenFor(model => model.International)
+    @Html.HiddenFor(model => model.Domestic)
+    @Html.HiddenFor(model => model.Address)
+    @Html.HiddenFor(model => model.Remarks)
+    @Html.HiddenFor(model => model.PinCode)
+    @Html.HiddenFor(model => model.LocationDescription)
+    @Html.HiddenFor(model => model.ConnectivityDescription)
+    @Html.HiddenFor(model => model.RunWayDescription)
+    @Html.HiddenFor(model => model.HowToReach)
+    @Html.HiddenFor(model => model.Upcoming)
+    @Html.HiddenFor(model => model.OutTransportation)
+    @Html.HiddenFor(model => model.ContactNumber1)
+    @Html.HiddenFor(model => model.ContactNumber2)
+    @Html.HiddenFor(model => model.ContactNumber3)
+    @Html.HiddenFor(model => model.Photo1)
+    @Html.HiddenFor(model => model.Photo2)
+    @Html.HiddenFor(model => model.Photo3)
+    @Html.HiddenFor(model => model.Photo4)
+    @Html.HiddenFor(model => model.Photo5)
+    @Html.HiddenFor(model => model.AltTag1)
+    @Html.HiddenFor(model => model.AltTag2)
+    @Html.HiddenFor(model => model.AltTag3)
+    @Html.HiddenFor(model => model.AltTag4)
+    @Html.HiddenFor(model => model.AltTag5)
+    @Html.HiddenFor(model => model.Description1)
+    @Html.HiddenFor(model => model.Description2)
+    @Html.HiddenFor(model => model.Description3)
+    @Html.HiddenFor(model => model.Description4)
+    @Html.HiddenFor(model => model.Description5)
+    @Html.HiddenFor(model => model.Video1)
+    @Html.HiddenFor(model => model.Video2)
+    @Html.HiddenFor(model => model.Video3)
+    @Html.HiddenFor(model => model.Video4)
+    @Html.HiddenFor(model => model.Video5)
+
+
+    @if (Model != null)
+    {
+        @if (Model.Photo1 == null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo1)</div>
+                        <input asp-for="Photo1" type="file" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Photo1"></span></div>
+            </div>
+        }
+
+        @if (Model.Photo2 == null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo2)</div>
+                        <input asp-for="Photo2" type="file" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Photo2"></span></div>
+            </div>
+        }
+
+        @if (Model.Photo3 == null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo3)</div>
+                        <input asp-for="Photo3" type="file" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Photo3"></span></div>
+            </div>
+        }
+
+        @if (Model.Photo4 == null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo4)</div>
+                        <input asp-for="Photo4" type="file" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Photo4"></span></div>
+            </div>
+        }
+
+        @if (Model.Photo5 == null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo5)</div>
+                        <input asp-for="Photo5" type="file" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Photo5"></span></div>
+            </div>
+        }
+    }
+
+    else
+    {
+
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo1)</div>
+                    <input asp-for="Photo1" type="file" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="Photo1"></span></div>
+        </div>
+
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo2)</div>
+                    <input asp-for="Photo2" type="file" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="Photo2"></span></div>
+        </div>
+
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo3)</div>
+                    <input asp-for="Photo3" type="file" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="Photo3"></span></div>
+        </div>
+
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo4)</div>
+                    <input asp-for="Photo4" type="file" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="Photo4"></span></div>
+        </div>
+
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo5)</div>
+                    <input asp-for="Photo5" type="file" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="Photo5"></span></div>
+        </div>
+    }

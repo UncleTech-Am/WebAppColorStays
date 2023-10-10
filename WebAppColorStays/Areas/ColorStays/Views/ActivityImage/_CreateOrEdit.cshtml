@@ -19,7 +19,7 @@
 
     @Html.AntiForgeryToken()
     <div class="TtAnCr Pg7">
-        @Html.HiddenFor(model => model.Id)
+        <input type="hidden" id="AIId" asp-for="Id" />
         @Html.HiddenFor(model => model.RowVersion)
         @Html.HiddenFor(model => model.CreatedBy)
         @Html.HiddenFor(model => model.CreatedOn)

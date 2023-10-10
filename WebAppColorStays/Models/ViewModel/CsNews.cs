@@ -38,20 +38,39 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Title { get; set; }
         public string? Summary { get; set; }
         public string? News { get; set; }
-        public string? CoverPicture { get; set; }
         public int? LikeCount { get; set; }
         public int? ShareCount { get; set; }
         public int? DislikeCount { get; set; }
+        [DisplayName("Video Link1")]
         public string? Video1 { get; set; }
+        [DisplayName("Video Link2")]
         public string? Video2 { get; set; }
+        [DisplayName("Video Link3")]
         public string? Video3 { get; set; }
+        [DisplayName("Video Link4")]
         public string? Video4 { get; set; }
+        [DisplayName("Video Link5")]
         public string? Video5 { get; set; }
         public string? Photo1 { get; set; }
+        public string? AltTag1 { get; set; }
+        [NotMapped]
+        public string? ImageUrl1 { get; set; }
+        [NotMapped]
+        public string? ImageUrl2 { get; set; }
+        [NotMapped]
+        public string? ImageUrl3 { get; set; }
+        [NotMapped]
+        public string? ImageUrl4 { get; set; }
+        [NotMapped]
+        public string? ImageUrl5 { get; set; }
         public string? Photo2 { get; set; }
+        public string? AltTag2 { get; set; }
         public string? Photo3 { get; set; }
+        public string? AltTag3 { get; set; }
         public string? Photo4 { get; set; }
+        public string? AltTag4 { get; set; }
         public string? Photo5 { get; set; }
+        public string? AltTag5 { get; set; }
         public string? PhotoDesc1 { get; set; }
         public string? PhotoDesc2 { get; set; }
         public string? PhotoDesc3 { get; set; }

@@ -15,7 +15,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? AltTag { get; set; }
         public string? Description { get; set; }
         public bool CoverImage { get; set; }
-        public bool? FreezeStatus { get; set; }
+        public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }

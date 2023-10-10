@@ -29,7 +29,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "RestauratVideo";
+            ViewBag.Title = "RestaurantVideo";
         }
         //Ends
 
@@ -97,7 +97,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("RestauratVideo/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("RestaurantVideo/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
@@ -112,7 +112,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET:/RestauratVideo/
+        //GET:/RestaurantVideo/
         [HttpGet]
         public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
         {         
@@ -174,7 +174,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     //Get the List of data
-                    using (var response = await client.PostAsJsonAsync("RestauratVideo/DateSearch/", cIndex))
+                    using (var response = await client.PostAsJsonAsync("RestaurantVideo/DateSearch/", cIndex))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRestaurantVideo>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -224,7 +224,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 CsRestaurantVideo.CompId = CompID;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(CsRestaurantVideo), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("RestauratVideo/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
+                using (var response = await client.PostAsync("RestaurantVideo/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRestaurantVideo>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -279,7 +279,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 indexsearchfilter.PageSize = pagedata.Item1;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(indexsearchfilter), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("RestauratVideo/FilterSearch", content))
+                using (var response = await client.PostAsync("RestaurantVideo/FilterSearch", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRestaurantVideo>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -302,7 +302,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET: /RestauratVideo/Details/5
+        //GET: /RestaurantVideo/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
@@ -313,7 +313,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("RestauratVideo/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("RestaurantVideo/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
@@ -337,7 +337,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-        //GET: /RestauratVideo/CreateOrEdit
+        //GET: /RestaurantVideo/CreateOrEdit
         [HttpGet]
         [ResponseCache(Duration = 0)]
         public async Task<IActionResult> CreateOrEdit(string Id)
@@ -353,7 +353,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("RestauratVideo/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync("RestaurantVideo/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRestaurantVideo>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -375,7 +375,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
         }
         
-        //GET: /RestauratVideo/Create
+        //GET: /RestaurantVideo/Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -397,7 +397,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         } 
         
 
-        //POST: /RestauratVideo/Create
+        //POST: /RestaurantVideo/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(CsRestaurantVideo CsRestaurantVideo)
@@ -420,7 +420,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
 				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsRestaurantVideo), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("RestauratVideo/create", content))
+                    using (var response = await client.PostAsync("RestaurantVideo/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
@@ -447,7 +447,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
          }
 
 
-        //GET: /RestauratVideo/Edit/5
+        //GET: /RestaurantVideo/Edit/5
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
@@ -472,7 +472,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("RestauratVideo/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("RestaurantVideo/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
@@ -497,7 +497,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
                 
-        //POST: /RestauratVideo/Edit/5
+        //POST: /RestaurantVideo/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CsRestaurantVideo CsRestaurantVideo)
@@ -518,7 +518,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     using (HttpClient client = APIColorStays.Initial())
                     {
 						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsRestaurantVideo>("RestauratVideo/edit", CsRestaurantVideo))
+                        using (var response = await client.PostAsJsonAsync<CsRestaurantVideo>("RestaurantVideo/edit", CsRestaurantVideo))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)
@@ -555,7 +555,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
         
        
-        //POST: /RestauratVideo/Delete/5
+        //POST: /RestaurantVideo/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
@@ -565,7 +565,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("RestauratVideo/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("RestaurantVideo/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
@@ -601,7 +601,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
 				StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("RestauratVideo/verifydata/" , content))
+                using (var response = await client.PostAsync("RestaurantVideo/verifydata/" , content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
@@ -629,7 +629,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             starUnstar.Id = Id;
             starUnstar.Host = Request.Scheme + "://" + Request.Host;
             starUnstar.AreaName = "ColorStays";
-            starUnstar.ControllerName = "RestauratVideo";
+            starUnstar.ControllerName = "RestaurantVideo";
             starUnstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
@@ -671,7 +671,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationRestauratVideo(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationRestaurantVideo(string Name, string NameAction, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
@@ -680,7 +680,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("RestauratVideo/CheckDuplicationRestauratVideo/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("RestaurantVideo/CheckDuplicationRestaurantVideo/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {

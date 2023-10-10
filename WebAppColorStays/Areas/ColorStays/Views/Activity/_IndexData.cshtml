@@ -64,8 +64,23 @@
 	    <td>@item.MaxAge</td>
          
 	    <td>@item.MustKnowBefore</td>
-         
-	    <td>@item.BestTimeToDo</td>
+
+        <td>
+            @if (item.BestTimeToDo != null && item.BestTimeToDo.Length > 50)
+            {
+                @item.BestTimeToDo.Substring(0,50)
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @item.BestTimeToDo
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.BestTimeToDo
+            }
+        </td>
 
         <td>@item.SEOTitle</td>
          

@@ -2,14 +2,14 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Action"] = "RestauratVideo";
+    ViewData["Action"] = "RestaurantVideo";
 }
 
 
 <div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
     <div class="CrTeTtLt FxGw1"> <h1>Add @ViewBag.Title</h1></div>
     <div>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1"><i class="UT-List-OLine FtSz18" onclick="location.href='/ColorStays/RestauratVideo/Index'"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1"><i class="UT-List-OLine FtSz18" onclick="location.href='/ColorStays/RestaurantVideo/Index'"></i></button>
     </div>
 </div>
 
@@ -23,7 +23,7 @@
                 </h3>
                  <form id="Create"
                     data-ajax="true"
-                    data-ajax-url="/ColorStays/RestauratVideo/Create"
+                      data-ajax-url="/ColorStays/RestaurantVideo/Create"
                     data-ajax-method="POST"
                     data-ajax-loading="#loader"
                     data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
@@ -40,7 +40,7 @@
                             <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/RestauratVideo/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/RestaurantVideo/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
                         </div>
                     </div>
                 </form>
@@ -55,7 +55,22 @@
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
+        StartSuggestionBox(2, 'SearchRestaurant', '/ColorStays/Restaurant/SuggestRestaurant', '', '', AoCeRestaurant);
     });
+
+
+    //Clear Autocompete data
+    function ClearData(UrNe, UrId) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+    }
+    //Autocomplete Restaurant
+    function AoCeRestaurant(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Restaurant_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
 
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
@@ -66,7 +81,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/RestauratVideo/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/RestaurantVideo/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
     }
 
     //Table Search Success Function
@@ -80,7 +95,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/RestauratVideo/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/RestaurantVideo/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
     }
 
     function IntializeTableSearch() {

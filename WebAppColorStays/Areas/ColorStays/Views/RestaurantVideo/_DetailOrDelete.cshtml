@@ -1,7 +1,7 @@
 @model WebAppColorStays.Models.ViewModel.CsRestaurantVideo
 @{ 
     Layout = null; 
-    ViewData["Action"] = "RestauratVideo";
+    ViewData["Action"] = "RestaurantVideo";
 }
 
 <div style="display:none">responseformUT ShowData</div>
@@ -19,8 +19,13 @@
       
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.URL)</td>
-        <td>@Model.URL</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_Restaurant_Name)</td>
+        <td>@Model.Fk_Restaurant_Name</td>
+        </tr>
+
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Name)</td>
+        <td>@Model.Name</td>
         </tr>
 
 		      
@@ -33,8 +38,8 @@
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Infra)</td>
-        <td>@Model.Infra</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Infrastructure)</td>
+        <td>@Model.Infrastructure</td>
         </tr>
 
 		      
@@ -157,7 +162,7 @@
     <div class="DyFx FxJyCtSt Gp10 Wh100p">
         @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
         {
-            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/RestauratVideo/DeleteConfirmed?Id=@Model.Id','/ColorStays/RestauratVideo');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/RestaurantVideo/DeleteConfirmed?Id=@Model.Id','/ColorStays/RestaurantVideo');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
         }
 
         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
@@ -165,20 +170,20 @@
             //  Checks which Button to Show For the Verification
             if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/RestauratVideo/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/RestauratVideo')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/RestaurantVideo/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/RestaurantVideo')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
             }
             if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/RestauratVideo/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/RestauratVideo')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/RestaurantVideo/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/RestaurantVideo')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
             }
             //  Checks which Button to Show For the Activation
             if (Model.ActiveStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/RestauratVideo/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/RestauratVideo')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                <button type="button" onclick="VerifyData('/ColorStays/RestaurantVideo/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/RestaurantVideo')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
             }
             if (Model.ActiveStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/RestauratVideo/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/RestauratVideo')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
+                <button type="button" onclick="VerifyData('/ColorStays/RestaurantVideo/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/RestaurantVideo')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
             }
         }
     </div>

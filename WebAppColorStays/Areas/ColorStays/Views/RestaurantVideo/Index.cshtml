@@ -2,13 +2,13 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Action"] = "RestauratVideo";
+    ViewData["Action"] = "RestaurantVideo";
 }
 
 <div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
     <div class="CrTeTtLt FxGw1"> <h1>Entered @ViewBag.Title</h1></div>
     <div>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/RestauratVideo/Create'"><i class="UT-AddFile FtSz18"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/RestaurantVideo/Create'"><i class="UT-AddFile FtSz18"></i></button>
         <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="ShowHide('PopUpSearch');"><i class="UT-SearchLeftSolid FtSz18"></i></button>
     </div>
 
@@ -57,7 +57,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/RestauratVideo/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/RestaurantVideo/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
     }
 
     //Date Search Success Function
@@ -73,7 +73,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/RestauratVideo/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=DateSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/RestaurantVideo/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=DateSearch&NetRecords=' + netrecord);
     }
 
     //Filter Search Success Function
@@ -89,7 +89,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/RestauratVideo/Pagination?PgSelectedNum=' + pageno + 'PgSize=' + pagesize + '&SearchType=FilterSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/RestaurantVideo/Pagination?PgSelectedNum=' + pageno + 'PgSize=' + pagesize + '&SearchType=FilterSearch&NetRecords=' + netrecord);
     }
 </script>
 

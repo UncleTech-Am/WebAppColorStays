@@ -1,0 +1,50 @@
+﻿@model WebAppColorStays.Models.ViewModel.CsRailway
+
+
+@{
+    Layout = null;
+    ViewData["Action"] = "Railway";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<div>
+
+
+        <div class="FxRw FxAnImSh">
+            <div class="Fx50">
+                <div class="MnTp10 MnBm18 TtAnCr Pg7">
+                <br /> 
+                @if (Model.Photo1 != null)
+                {
+                    <img src="@Model.ImageUrl1" class="img-responsive" style="width:200px; height:200px;">
+                }
+                <br /> <br/>
+                @if (Model.Photo2 != null)
+                {
+                    <img src="@Model.ImageUrl2" class="img-responsive" style="width:200px; height:200px;">
+                }
+                <br /> <br /> <br />
+                 @if (Model.Photo3 != null)
+                {
+                    <img src="@Model.ImageUrl3" class="img-responsive" style="width:200px; height:200px;">
+                }
+                <br /> <br /><br />
+                 @if (Model.Photo4 != null)
+                {
+                    <img src="@Model.ImageUrl4" class="img-responsive" style="width:200px; height:200px;">
+                }
+                <br /> <br /><br />
+                 @if (Model.Photo5 != null)
+                {
+                    <img src="@Model.ImageUrl5" class="img-responsive" style="width:200px; height:200px;">
+                }
+            </div>
+            </div>
+        <div class="Fx50" id="CreateOrEdit2">
+            @await Html.PartialAsync("_CreatePhoto", Model)
+        </div>
+        </div>
+</div>
+
+

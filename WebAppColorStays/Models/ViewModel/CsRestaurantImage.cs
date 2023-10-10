@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -7,7 +8,12 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        public string? URL { get; set; }
+        public string? Fk_Restaurant_Name { get; set; }
+        public string? Title { get; set; }
+        [NotMapped]
+        public string? ImageUrl { get; set; }
+        public string? AltTag { get; set; }
+        public string? Description { get; set; }
         public bool Food { get; set; }
         public bool Infrastructure { get; set; }
         public bool FreezeStatus { get; set; }

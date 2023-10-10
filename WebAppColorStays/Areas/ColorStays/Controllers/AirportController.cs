@@ -12,6 +12,7 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
+using LibCommon.APICommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -21,10 +22,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class AirportController : Controller
     {
         private readonly Paging paging;
+        private readonly RyCSImage ryCsImage;
 
         public AirportController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -33,6 +36,231 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Title = "Airport";
         }
         //Ends
+
+        //GET: /Airport/Add image in Airport
+        [HttpGet]
+        public async Task<ActionResult> AddImage(string Id)
+        {
+            Title();
+            ViewData["AnName"] = "Edit";
+            ViewData["Id"] = Id;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (Id == null)
+            {
+                ViewBag.Message = "Not Founded";
+                return View();
+            }
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+
+            CsAirport CsAirport = new CsAirport();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Airport/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
+                    Task<Tuple<int, List<CsAirport>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                    PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
+                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        CsAirport = await System.Text.Json.JsonSerializer.DeserializeAsync<CsAirport>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    }
+                    else
+                    {
+                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        if (responsemsg.Message == "NotFound")
+                        { ViewBag.Message = "Entry Not Exits!"; }
+                        if (responsemsg.Message == "GlobalItem")
+                        { ViewBag.Message = "Sytem Entry, Can't Change !"; }
+                    }
+                }
+            }
+            return PartialView("_AddImage", CsAirport);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveImage(CsAirport CsAirport)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var files = HttpContext.Request.Form.Files;
+            //var uploads = Path.Combine(Environment.WebRootPath, "Image\\Airport");
+            CsAirport.CompId = CompID;
+            CsAirport.ModifiedBy = UserID;
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                foreach (var file in files)
+                {
+                    var fileName = "Airport-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                    if ("Photo1" == file.Name)
+                    {
+                        CsAirport.Photo1 = fileName;
+                    }
+                    if ("Photo2" == file.Name)
+                    {
+                        CsAirport.Photo2 = fileName;
+                    }
+                    if ("Photo3" == file.Name)
+                    {
+                        CsAirport.Photo3 = fileName;
+                    }
+                    if ("Photo4" == file.Name)
+                    {
+                        CsAirport.Photo4 = fileName;
+                    }
+                    if ("Photo5" == file.Name)
+                    {
+                        CsAirport.Photo5 = fileName;
+                    }
+
+                    if (file.Length > 0)
+                    {
+                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Airport");
+                        Task.WaitAll(TImgUpload);
+                        if (TImgUpload.Result == "Error")
+                        {
+                            return View("Error");
+                        }
+                    }
+                }
+                using (var response = await client.PostAsJsonAsync<CsAirport>("Airport/edit", CsAirport))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return View("Error");
+                    }
+                }
+            }
+            return Json(new { Message = "Saved" });
+        }
+
+
+        //Edit Image Detail like AltTag and Description
+        //POST: /Airport/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditImageDetail(CsAirport CsAirport)
+        {
+            Title();
+            ViewData["AnName"] = "Edit";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            bool Success = false;
+            ViewData["ResponseName"] = "ShowValidation";
+            CsAirport.CompId = CompID;
+            CsAirport.ModifiedBy = UserID;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (HttpClient client = APIColorStays.Initial())
+                    {
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        using (var response = await client.PostAsJsonAsync<CsAirport>("Airport/edit", CsAirport))
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                Tuple<CsAirport, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsAirport, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                if (data.Item2 != null)
+                                {
+                                    if (data.Item2.Message == "Duplicate")
+                                    {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                        ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
+                                    }
+                                    if (data.Item2.Message == "GlobalItem")
+                                    {
+                                        ViewBag.Message = "Sytem Entry, Can't Change !";
+                                    }
+                                    if (data.Item2.Message == "Verified")
+                                    {
+                                        ViewBag.Message = "You can not Edit Verified Entry !";
+                                    }
+                                }
+                                return View("_CreatePhoto", data.Item1);
+                            }
+                        }
+                    }
+                    return RedirectToAction("UploadedImage", new { Id = CsAirport.Id });
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    ViewBag.Message = "Not Found";
+                    return View("_CreatePhoto");
+                }
+            }
+            return View("_CreatePhoto", CsAirport);
+        }
+
+
+        //show upload the image
+        [HttpGet]
+        public async Task<IActionResult> UploadedImage(string Id, string? UpdateDetail, string? ShowBtn)
+        {
+
+            var TokenKey = Request.Cookies["JWToken"];
+            CsAirport CsActivityImages = new CsAirport();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Airport/UploadedImage/" + Id, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    CsActivityImages = await System.Text.Json.JsonSerializer.DeserializeAsync<CsAirport>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            if (ShowBtn == "false")
+            {
+                ViewBag.ShowBtn = "false";
+            }
+            if (UpdateDetail == "Yes") { return PartialView("_AddImageDetail", CsActivityImages); }
+            return PartialView("UploadedImage", CsActivityImages);
+        }
+        //ends
+
+        //Delete the upload image
+        public async Task<IActionResult> ImageDelete(string Id, string Field, string ImgName)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            CsAirport CsActivityImages = new CsAirport();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Airport/ImageDelete/" + Id +"/" + Field, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return View("Error");
+                    }
+                    //Delete the Images from the folder
+                    Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Airport");
+                    Task.WaitAll(TDeleteImage);
+                }
+
+
+            }
+            return RedirectToAction("UploadedImage", new { Id });
+        }
+        //ends
+
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -115,7 +343,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //GET:/Airport/
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
+        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string? Id)
         {         
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -136,6 +364,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
+                ViewData["ATId"] = Id;
+
+                if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
 
@@ -441,7 +672,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
                 if (Success == true)
-                { return RedirectToAction("Index", new { PageCall = "Show" }); }
+                {
+                    data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id });
+                }
                 else { return View("_CreateOrEdit", CsAirport); }
             }
             return View("_CreateorEdit",CsAirport);                
@@ -544,7 +778,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "Show" });
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", CsAirport.Id });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -571,7 +805,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index", new { PageCall="Show"});
+                        return RedirectToAction("Index", new { PageCall= "Show" });
                     }
                     else
                     {
@@ -671,23 +905,27 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             else { return View("Error"); }
         }
 
-         //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationAirport(string Name, string NameAction, string Id)
+        //This method is to check duplicate values for specific columns......
+        public async Task<JsonResult> CheckDuplicationAirport(string Name, string NameAction, string Fk_Place_Name, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             if (Id == null) { Id = "No"; }
+            if (Fk_Place_Name == null)
+            {
+                Fk_Place_Name = "No";
+            }
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Airport/CheckDuplicationAirport/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Airport/CheckDuplicationAirport/" + Name + "/" + NameAction + "/" + Fk_Place_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         Success = true;
                     }
-                    if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
                         return Json("Sorry, this " + Name + " already exists");
                     }

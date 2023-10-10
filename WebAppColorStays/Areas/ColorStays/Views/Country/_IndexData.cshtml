@@ -39,10 +39,39 @@
 	    <td>@item.URL</td>
          
 	    <td>@item.Name</td>
-         
-	    <td>@item.History</td>
-         
-	    <td>@item.Fact</td>
+
+        <td>
+            @if (item.History != null && item.History.Length > 50)
+            {
+                @Html.Raw(item.History.Substring(0,50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.History)
+                    </div>
+                </div>
+            }
+            else{
+                @item.History
+            }
+        </td>
+
+        <td>
+            @if (item.Fact != null && item.Fact.Length > 50)
+            {
+                @Html.Raw(item.Fact.Substring(0,50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @Html.Raw(item.Fact)
+                    </div>
+                </div>
+            }
+            else{
+                @item.Fact
+            }
+        </td>
          
 	    <td>@item.Longitude</td>
          
@@ -53,6 +82,8 @@
         <td>@item.Population</td>
 
 	    <td>@item.Video</td>
+
+        <td>@item.Quote</td>
          
 	    <td>@item.PopularReligion</td>
          
@@ -64,7 +95,20 @@
          
 	    <td>@item.RailwayStationCount</td>
          
-	    <td>@item.BestTimeToVisit</td>
+	    <td>@if (item.BestTimeToVisit != null && item.BestTimeToVisit.Length > 50)
+            {
+                @item.BestTimeToVisit.Substring(0,50)
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @item.BestTimeToVisit
+                    </div>
+                </div>
+            }
+            else{
+                @item.BestTimeToVisit
+            }
+        </td>
 
         <td>@item.SEOTitle</td>
 
@@ -77,7 +121,8 @@
 	    <td>@item.FreezeStatus</td>
          
 	    <td>@item.FreezedBy</td>
-        	    <td>@if(item.VerifiedStatus == true){<span>Verified</span>}else{ <span>Pending-Verify</span>}</td>              
+
+        <td>@if(item.VerifiedStatus == true){<span>Verified</span>}else{ <span>Pending-Verify</span>}</td>              
          
 	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.VerifiedOn)</td>
          
@@ -102,7 +147,8 @@
 	    <td>@item.GCompId</td>
          
 	    <td>@item.CompId</td>
-            </tr>
+
+    </tr>
 }
 
 

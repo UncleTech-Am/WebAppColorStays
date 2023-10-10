@@ -25,6 +25,13 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter Restaurant Name.")]
         [Remote("CheckDuplicationRestaurant", "Restaurant", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]
         public string Name { get; set; }
+        public string? URL { get; set; }
+        [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
+        public string? SEOTitle { get; set; }
+        [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]
+        public string? SEODescription { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
+        public string? SEOKeywords { get; set; }
         public bool Chinese { get; set; }
         public bool SouthIndian { get; set; }
         public bool Italion { get; set; }
@@ -34,7 +41,6 @@ namespace WebAppColorStays.Models.ViewModel
         public bool Sweets { get; set; }
         public int? ContactNumber { get; set; }
         public string? About { get; set; }
-        public string? CoverPicture { get; set; }
         public bool Alcohal { get; set; }
         public bool WashRoom { get; set; }
         public string? Address { get; set; }

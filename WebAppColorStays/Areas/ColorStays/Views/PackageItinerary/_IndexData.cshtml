@@ -39,8 +39,24 @@
 	    <td>@item.DayNo</td>
          
 	    <td>@item.DayTitle</td>
-         
-	    <td>@item.DayActivity</td>
+
+        <td>
+            @if (item.DayActivity != null && item.DayActivity.Length > 50)
+            {
+                @item.DayActivity.Substring(0,50)
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @item.DayActivity
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.DayActivity
+            }
+        </td>
+
         <td>@item.Sightseen</td>
                   
 	    <td>@item.Photo1</td>

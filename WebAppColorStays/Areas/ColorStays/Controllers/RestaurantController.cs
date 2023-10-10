@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
+using LibCommon.APICommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -20,10 +21,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class RestaurantController : Controller
     {
         private readonly Paging paging;
+        private readonly RyCSImage ryCsImage;
 
         public RestaurantController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -63,6 +66,46 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             return null;
         }
         //Ends
+
+        [HttpPost]
+        public async Task<IActionResult> SaveImage(string RId)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var files = HttpContext.Request.Form.Files;
+            //var uploads = Path.Combine(Environment.WebRootPath, "Image\\Country");
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                foreach (var file in files)
+                {
+                    var fileName = "Restaurant-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                    //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("Restaurant/SaveImage/?RId=" + RId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            return View("Error");
+                        }
+                    }
+
+                    if (file.Length > 0)
+                    {
+                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Restaurant");
+                        Task.WaitAll(TImgUpload);
+                        if (TImgUpload.Result == "Error")
+                        {
+                            return View("Error");
+                        }
+                    }
+                }
+            }
+            return Json(new { Message = "Saved" });
+        }
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -145,7 +188,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //GET:/Restaurant/
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
+        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string Id)
         {         
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -166,6 +209,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
+                ViewData["RId"] = Id;
+                if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
 
@@ -471,7 +516,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
                 if (Success == true)
-                { return RedirectToAction("Index", new { PageCall = "Show" }); }
+                {
+                    data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id });
+                }
                 else { return View("_CreateOrEdit", CsRestaurant); }
             }
             return View("_CreateorEdit",CsRestaurant);                
@@ -574,7 +622,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "Show" });
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", CsRestaurant.Id });
                 }
                 catch (DbUpdateConcurrencyException)
                 {

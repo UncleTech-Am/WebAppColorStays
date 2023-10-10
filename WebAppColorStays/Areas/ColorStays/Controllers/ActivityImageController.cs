@@ -12,6 +12,7 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
+using LibCommon.APICommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -21,10 +22,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class ActivityImageController : Controller
     {
         private readonly Paging paging;
-
+        private readonly RyCSImage ryCsImage;
         public ActivityImageController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -140,7 +142,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //show upload the image
         [HttpGet]
-        public async Task<IActionResult> UploadedImage(string ActivityId, string ShowBtn)
+        public async Task<IActionResult> UploadedImage(string ActivityId, string? ShowBtn)
         {
 
             var TokenKey = Request.Cookies["JWToken"];
@@ -176,27 +178,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 using (var response = await client.GetAsync("Activity/ImageDelete/" + ImageID + "/" + ActivityId, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    CsActivityImages = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsActivityImage>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-
+                    //Delete the Images from the folder
+                    Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Activity");
+                    Task.WaitAll(TDeleteImage);
                 }
-                using (HttpClient client1 = APICSImages.Initial())
-                {
-                    client1.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-
-                    using (var response = await client1.GetAsync("Images/DeleteWebImage/" + "Activity" + "/" + ImgName, HttpCompletionOption.ResponseHeadersRead))
-                    {
-                        var apiResponse = await response.Content.ReadAsStreamAsync();
-                        if (!response.IsSuccessStatusCode)
-                        {
-                            return View("Error");
-                        }
-                    }
-                }
-                //Delete the Images from the folder
-                //Task<string> TDeleteImage = ryImage.DeleteImage(ImgName, TokenKey, "CompUser");
-                //Task.WaitAll(TDeleteImage);
             }
-            return PartialView("UploadedImage", CsActivityImages);
+            return RedirectToAction("UploadedImage", new {ActivityId });
         }
         //ends
 

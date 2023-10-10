@@ -6,8 +6,8 @@ namespace WebAppColorStays.Models.ViewModel
     {
         public string? Id { get; set; }
         public string? FileName { get; set; }
-        [NotMapped]
-        public IFormFile? File { get; set; }
+        //[NotMapped]
+        //public IFormFile? File { get; set; }
         public string? ImageURL { get; set; }
     }
 }

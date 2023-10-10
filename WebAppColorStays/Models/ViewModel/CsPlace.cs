@@ -30,6 +30,7 @@ namespace WebAppColorStays.Models.ViewModel
         [DisplayName("PlaceType")]
         public string? Fk_PlaceType_Name { get; set; }
         public int? PinCode { get; set; }
+        [DisplayName("Video Link")]
         public string? Video { get; set; }
         [DisplayName("City")]
         public string? Fk_City_Name { get; set; }

@@ -7,10 +7,11 @@
 <div style="display:none">responseformUT ShowData</div>
 
 <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
-    <h3 class="MnTp7 MnBm7 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
-        <i class="UT-DetailLine"></i>
-        @ViewBag.Title Detail
-    </h3>
+
+        <h3 class="MnTp7 MnBm7 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
+            <i class="UT-DetailLine"></i>
+            @ViewBag.Title Detail
+        </h3>
     <div style="overflow:auto; width:100%;" class="PopUpDetailContent">
         @if (ViewBag.Message != null)
         {<h3><span style="color:red">@ViewBag.Message</span></h3>}
@@ -259,7 +260,7 @@
         </table>
     </div>
 </div>
-  
+
 <div class="MnTp7 MnBm7 FxRw">
     <div class="DyFx FxJyCtSt Gp10 Wh100p">
         @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
@@ -290,5 +291,3 @@
         }
     </div>
 </div>
-
-

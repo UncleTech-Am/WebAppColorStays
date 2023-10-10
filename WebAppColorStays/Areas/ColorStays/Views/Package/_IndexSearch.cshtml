@@ -30,6 +30,11 @@
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Name)" name="Name" autocomplete="off"/>
                         </td>
+
+                         <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.URL)" name="URL" autocomplete="off"/>
+                        </td>
+
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Transport)" name="Transport" autocomplete="off"/>
                         </td>
@@ -170,6 +175,7 @@
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark Star" onclick="MultiButtonFunc('Star','','','/ColorStays/Package')"> <i class="UT-StarSolid"></i></a>
                     </th>
                                         <th> @Html.DisplayNameFor(model => model.Name) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.URL) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Transport) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Stay) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Sightseeing) </th>       
@@ -183,9 +189,9 @@
                                         <th> @Html.DisplayNameFor(model => model.StartingFrom) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Price) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Fk_Currency_Name) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEODescription) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEOKeywords) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEODescription) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOKeywords) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Video) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Remarks) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezeStatus) </th>       

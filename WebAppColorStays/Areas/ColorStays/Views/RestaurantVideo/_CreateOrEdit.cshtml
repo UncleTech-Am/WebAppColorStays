@@ -3,7 +3,7 @@
 
 @{ 
     Layout = null; 
-    ViewData["Action"] = "RestauratVideo";
+    ViewData["Action"] = "RestaurantVideo";
 }
 
 <div style="display:none">responseformUT @ViewData["ResponseName"]</div>
@@ -20,33 +20,45 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.URL)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.URL)" asp-for="URL" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Restaurant_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Restaurant Name" type="text" id="SearchRestaurant" asp-for="Restaurant" autocomplete="off" required onchange="ClearData('SearchRestaurant', 'Fk_Restaurant_Name')" />
+            <input type="hidden" asp-for="Fk_Restaurant_Name" required />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="URL"></span></div>
+    <div class="VnRd"><span asp-validation-for="Fk_Restaurant_Name"></span></div>
 </div>
-
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Food)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Food)" asp-for="Food" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required/>
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Food"></span></div>
+    <div class="VnRd"><span asp-validation-for="Name"></span></div>
 </div>
 
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Infra)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Infra)" asp-for="Infra" autocomplete="off" />
+<div class="FxRw">
+    <div class="Fx50 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Food)</div>
+                @Html.CheckBoxFor(x => x.Food, htmlAttributes : new { id = "Food", @Class = "TtBxTt15"})
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="Food"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Infra"></span></div>
+
+    <div class="Fx50 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Infrastructure)</div>
+                @Html.CheckBoxFor(x => x.Infrastructure, htmlAttributes : new { id = "Infrastructure", @Class = "TtBxTt15"})
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Infrastructure"></span></div>
+    </div>
 </div>
 
 

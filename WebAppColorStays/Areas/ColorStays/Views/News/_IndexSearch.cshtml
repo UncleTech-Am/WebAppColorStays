@@ -7,6 +7,7 @@
 }
 
 <div style="color:red; font-weight:bold; font-size:15px;"> @ViewBag.Message</div>
+<input type="hidden" name="NId" id="NId" value="@ViewData["NId"]" />
 
 <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
     <div id="PagenationShow">
@@ -69,10 +70,6 @@
                         
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.News)" name="News" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CoverPicture)" name="CoverPicture" autocomplete="off"/>
                         </td>
                         
                         <td>
@@ -227,9 +224,8 @@
                                         <th> @Html.DisplayNameFor(model => model.SEODescription) </th>       
                                         <th> @Html.DisplayNameFor(model => model.SEOKeywords) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Title) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Summary) </th>       
+                                        <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.Summary) </th>       
                                         <th> @Html.DisplayNameFor(model => model.News) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.CoverPicture) </th>       
                                         <th> @Html.DisplayNameFor(model => model.LikeCount) </th>       
                                         <th> @Html.DisplayNameFor(model => model.ShareCount) </th>       
                                         <th> @Html.DisplayNameFor(model => model.DislikeCount) </th>       

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
+using LibCommon.APICommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -20,10 +21,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class RestaurantImageController : Controller
     {
         private readonly Paging paging;
+        private readonly RyCSImage ryCsImage;
 
         public RestaurantImageController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -112,40 +115,80 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET:/RestaurantImage/
+        //show upload the image
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
-        {         
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Title();
+        public async Task<IActionResult> Index(string RestaurantId, string? UpdateDetail, string? ShowBtn)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+            List<CsRestaurantImage> photosList = new List<CsRestaurantImage>();
 
-            //Display the Dropdown of the Table fields in Search Data Popup
-            GetClassMember<CsRestaurantImage> getClassMember = new GetClassMember<CsRestaurantImage>();
-            CsRestaurantImage CsRestaurantImage = new CsRestaurantImage();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsRestaurantImage), "Value", "DisplayName");
-            //Ends
-
-            try //Pagination and List of data Code
+            using (HttpClient client = APIColorStays.Initial())
             {
-                Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<CsRestaurantImage>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
-                PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-
-                ViewData["ActionName"] = "Index";
-                ViewData["FormID"] = "NoSearchID";
-                ViewData["SearchType"] = "NoSearch";
-
-                if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
-
-                return View(ReturnDataList.Result.Item2);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("RestaurantImage/Index/" + RestaurantId))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsRestaurantImage>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
             }
-            catch(Exception ex)
-            { 
-                return View("Error");
+            if (ShowBtn == "false")
+            {
+                ViewBag.ShowBtn = "false";
             }
+            if (UpdateDetail == "Yes") { return PartialView("_AddImageDetail", photosList); }
+            return PartialView("UploadedImage", photosList);
         }
+        //ends
 
+
+        //show upload the image
+        [HttpGet]
+        public async Task<IActionResult> UploadedImage(string RestaurantId, string ShowBtn)
+        {
+
+            var TokenKey = Request.Cookies["JWToken"];
+            List<CsRestaurantImage> CsRestaurantImage = new List<CsRestaurantImage>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Restaurant/UploadedImage/" + RestaurantId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    CsRestaurantImage = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsRestaurantImage>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            if (ShowBtn == "false")
+            {
+                ViewBag.ShowBtn = "false";
+            }
+            return PartialView("UploadedImage", CsRestaurantImage);
+        }
+        //ends
+
+        //Delete the upload image
+        public async Task<IActionResult> ImageDelete(string ImageID, string RestaurantId, string ImgName)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            List<CsRestaurantImage> CsRestaurantImage = new List<CsRestaurantImage>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Restaurant/ImageDelete/" + ImageID + "/" + RestaurantId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    //Delete the Images from the folder
+                    Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Restaurant");
+                    Task.WaitAll(TDeleteImage);
+                }
+
+
+            }
+            return RedirectToAction("UploadedImage", new { RestaurantId });
+        }
+        //ends
 
         //This standard method used in index page for getting data between 2 dates
         [HttpPost]
@@ -513,8 +556,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsRestaurantImage.ModifiedBy = UserID;   
             if (ModelState.IsValid)
             {
-                try
-                {
                     using (HttpClient client = APIColorStays.Initial())
                     {
 						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
@@ -543,18 +584,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "Show" });
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    ViewBag.Message = "Not Found";
-                    return View("_CreateorEdit");
-                }
             }
-            return View("_CreateorEdit",CsRestaurantImage);
+            return RedirectToAction("Index", new { RestaurantId = Base64UrlEncoder.Encode(Process.Encrypt(CsRestaurantImage.Fk_Restaurant_Name)) });
         }
-        
-       
+
+
         //POST: /RestaurantImage/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)

@@ -15,7 +15,21 @@
 @Html.HiddenFor(model => model.CreatedBy)
 @Html.HiddenFor(model => model.CreatedOn)
 @Html.HiddenFor(model => model.CompId)
-
+@Html.HiddenFor(model => model.Photo1)
+@Html.HiddenFor(model => model.Photo2)
+@Html.HiddenFor(model => model.Photo3)
+@Html.HiddenFor(model => model.Photo4)
+@Html.HiddenFor(model => model.Photo5)
+@Html.HiddenFor(model => model.AltTag1)
+@Html.HiddenFor(model => model.AltTag2)
+@Html.HiddenFor(model => model.AltTag3)
+@Html.HiddenFor(model => model.AltTag4)
+@Html.HiddenFor(model => model.AltTag5)
+@Html.HiddenFor(model => model.PhotoDesc1)
+@Html.HiddenFor(model => model.PhotoDesc2)
+@Html.HiddenFor(model => model.PhotoDesc3)
+@Html.HiddenFor(model => model.PhotoDesc4)
+@Html.HiddenFor(model => model.PhotoDesc5)
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -109,17 +123,6 @@
     <div class="VnRd"><span asp-validation-for="News"></span></div>
 </div>
 
-
-@*<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverPicture)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.CoverPicture)" asp-for="CoverPicture" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="CoverPicture"></span></div>
-</div>*@
-
 <div class="FxRw">
     <div class="Fx33 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
@@ -189,7 +192,7 @@
     <div class="VnRd"><span asp-validation-for="SEOKeywords"></span></div>
 </div>
 
-@*<div class="MnTp7 MnBm7">
+<div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Video1)</div>
@@ -238,107 +241,6 @@
     </div>
     <div class="VnRd"><span asp-validation-for="Video5"></span></div>
 </div>
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo1)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo1)" asp-for="Photo1" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Photo1"></span></div>
-</div>
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo2)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo2)" asp-for="Photo2" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Photo2"></span></div>
-</div>
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo3)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo3)" asp-for="Photo3" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Photo3"></span></div>
-</div>
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo4)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo4)" asp-for="Photo4" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Photo4"></span></div>
-</div>
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo5)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo5)" asp-for="Photo5" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Photo5"></span></div>
-</div>
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PhotoDesc1)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc1)" asp-for="PhotoDesc1" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="PhotoDesc1"></span></div>
-</div>
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PhotoDesc2)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc2)" asp-for="PhotoDesc2" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="PhotoDesc2"></span></div>
-</div>
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PhotoDesc3)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc3)" asp-for="PhotoDesc3" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="PhotoDesc3"></span></div>
-</div>
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PhotoDesc4)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc4)" asp-for="PhotoDesc4" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="PhotoDesc4"></span></div>
-</div>
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PhotoDesc5)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc5)" asp-for="PhotoDesc5" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="PhotoDesc5"></span></div>
-</div>
-*@
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">

@@ -90,6 +90,10 @@
                         </td>
 
                         <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Quote)" name="Quote" autocomplete="off"/>
+                        </td>
+
+                        <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.BestTimeToVisit)" name="BestTimeToVisit" autocomplete="off"/>
                         </td>
 
@@ -180,8 +184,8 @@
                                         <th> @Html.DisplayNameFor(model => model.Fk_Country_Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.URL) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Name) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.History) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Fact) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.History) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.Fact) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Longitude) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Latitude) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Area) </th>       
@@ -192,10 +196,11 @@
                                         <th> @Html.DisplayNameFor(model => model.DomesticAirportCount) </th>       
                                         <th> @Html.DisplayNameFor(model => model.RailwayStationCount) </th>
                                         <th> @Html.DisplayNameFor(model => model.Video) </th>
-                                        <th> @Html.DisplayNameFor(model => model.BestTimeToVisit) </th>
-                                         <th> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEODescription) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEOKeywords) </th>
+                                        <th> @Html.DisplayNameFor(model => model.Quote) </th>
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.BestTimeToVisit) </th>
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEODescription) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOKeywords) </th>
                                         <th> @Html.DisplayNameFor(model => model.Remarks) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezeStatus) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezedBy) </th>       
@@ -221,4 +226,18 @@
         </table>
     </div>
 </div>
+
+<script>
+    function ShowData(element) {
+        var popup = document.getElementById('PopUpScript');
+        popup.style.minHeight = "50%";
+        popup.style.left = "25%";
+        popup.style.top = "18%";
+        popup.style.width = "50%";
+        popup.style.overflowX = "auto";
+        document.getElementById('PopUpScript').style.display = 'block';
+        document.getElementById('PopUpScriptDetailContentID').innerHTML = element.innerHTML;
+    }
+</script>
+
 
