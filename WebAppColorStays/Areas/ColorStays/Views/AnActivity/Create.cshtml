@@ -65,6 +65,7 @@
     $(document).ready(function () {
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchActivity', '/ColorStays/Activity/SuggestActivity', '', '', AoCeActivity);
+        StartSuggestionBox(2, 'SearchIcon', '/ColorStays/Icon/SuggestIcon', '', '', AoCeIcon);
         MaxMin();
     });
 
@@ -116,13 +117,22 @@
         document.getElementById(UrId).value = '';
     }
 
-    //Autocomplete Item
+    //Autocomplete 
     function AoCeActivity(event) {
         var InputId = event.target.InputID;
         SuggestionClose(InputId);
         document.getElementById('Fk_Activities_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
     }
+
+    //Autocomplete Icon
+    function AoCeIcon(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Icon_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
 
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");

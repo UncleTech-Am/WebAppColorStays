@@ -22,6 +22,8 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationAnPackage", "AnPackage", AdditionalFields = ("NameAction, Fk_Package_Name, Id"))]
         public string? AccordianHeading { get; set; }
         public string? Description { get; set; }
+        public string? Fk_Icon_Name { get; set; }
+        [NotMapped]
         public string? Icon { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }

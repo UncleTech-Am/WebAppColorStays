@@ -63,6 +63,7 @@
     string RTFoodTypeMap = " ";
     string TravelAgent = " ";
     string Sightseeing = " ";
+    string Icon = " ";
 
     switch (Action)
     {
@@ -82,6 +83,7 @@
         case "Terrain": Terrain = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "NearByPlace": NearByPlace = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
 
+        case "Icon": Icon = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
         case "AnCountry": AnCountry = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
         case "AnState": AnState = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
         case "AnCity": AnCity = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
@@ -303,6 +305,16 @@
         </div>
         <div class="SideSubNavContainer @DrownLink2">
 
+             <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @Icon">
+                        <a href="~/ColorStays/Icon/Create">Icon</a>
+                    </div>
+                    <a href="~/ColorStays/Icon/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Icon/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @AnCountry">
@@ -316,7 +328,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @AnState">
-                        <a href="~/ColorStays/AnState/Create">AnState</a>
+                        <a href="~/ColorStays/AnState/Create">Accordian State</a>
                     </div>
                     <a href="~/ColorStays/AnState/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/AnState/Index"><i class="UT-List-OLine"></i></a>
@@ -326,7 +338,7 @@
              <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @AnCity">
-                        <a href="~/ColorStays/AnCity/Create">AnCity</a>
+                        <a href="~/ColorStays/AnCity/Create">Accordian City</a>
                     </div>
                     <a href="~/ColorStays/AnCity/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/AnCity/Index"><i class="UT-List-OLine"></i></a>
@@ -336,7 +348,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @AnPlace">
-                        <a href="~/ColorStays/AnPlace/Create">AnPlace</a>
+                        <a href="~/ColorStays/AnPlace/Create">Accordian Place</a>
                     </div>
                     <a href="~/ColorStays/AnPlace/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/AnPlace/Index"><i class="UT-List-OLine"></i></a>
@@ -346,7 +358,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @AnActivity">
-                        <a href="~/ColorStays/AnActivity/Create">AnActivity</a>
+                        <a href="~/ColorStays/AnActivity/Create">Accordian Activity</a>
                     </div>
                     <a href="~/ColorStays/AnActivity/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/AnActivity/Index"><i class="UT-List-OLine"></i></a>
@@ -356,7 +368,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @AnPackage">
-                        <a href="~/ColorStays/AnPackage/Create">AnPackage</a>
+                        <a href="~/ColorStays/AnPackage/Create">Accordian Package</a>
                     </div>
                     <a href="~/ColorStays/AnPackage/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/AnPackage/Index"><i class="UT-List-OLine"></i></a>
@@ -366,7 +378,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @AnRestaurant">
-                        <a href="~/ColorStays/AnRestaurant/Create">AnRestaurant</a>
+                        <a href="~/ColorStays/AnRestaurant/Create">Accordian Restaurant</a>
                     </div>
                     <a href="~/ColorStays/AnRestaurant/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/AnRestaurant/Index"><i class="UT-List-OLine"></i></a>
@@ -411,7 +423,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @NewsCategory">
-                        <a href="~/ColorStays/NewsCategory/Create">NewsCategory</a>
+                        <a href="~/ColorStays/NewsCategory/Create">News Category</a>
                     </div>
                     <a href="~/ColorStays/NewsCategory/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/NewsCategory/Index"><i class="UT-List-OLine"></i></a>
@@ -431,7 +443,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @CancellationPolicy">
-                        <a href="~/ColorStays/CancellationPolicy/Create">CancellationPolicy</a>
+                        <a href="~/ColorStays/CancellationPolicy/Create">Cancellation Policy</a>
                     </div>
                     <a href="~/ColorStays/CancellationPolicy/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/CancellationPolicy/Index"><i class="UT-List-OLine"></i></a>
@@ -440,7 +452,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @CancellationRefund">
-                        <a href="~/ColorStays/CancellationRefund/Create">CancellationRefund</a>
+                        <a href="~/ColorStays/CancellationRefund/Create">Cancellation Refund</a>
                     </div>
                     <a href="~/ColorStays/CancellationRefund/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/CancellationRefund/Index"><i class="UT-List-OLine"></i></a>
@@ -460,7 +472,7 @@
                          <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @SubCategory">
-                        <a href="~/ColorStays/SubCategory/Create">SubCategory</a>
+                        <a href="~/ColorStays/SubCategory/Create">Sub Category</a>
                     </div>
                     <a href="~/ColorStays/SubCategory/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/SubCategory/Index"><i class="UT-List-OLine"></i></a>
@@ -481,7 +493,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @MonthBestVisit">
-                        <a href="~/ColorStays/MonthBestVisit/Create">MonthBestVisit</a>
+                        <a href="~/ColorStays/MonthBestVisit/Create">Month Best Visit</a>
                     </div>
                     <a href="~/ColorStays/MonthBestVisit/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/MonthBestVisit/Index"><i class="UT-List-OLine"></i></a>
@@ -490,7 +502,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @AnswerPlace">
-                        <a href="~/ColorStays/AnswerPlace/Create">AnswerPlace</a>
+                        <a href="~/ColorStays/AnswerPlace/Create">Answer Place</a>
                     </div>
                     <a href="~/ColorStays/AnswerPlace/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/AnswerPlace/Index"><i class="UT-List-OLine"></i></a>
@@ -499,7 +511,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @QuestionPlace">
-                        <a href="~/ColorStays/QuestionPlace/Create">QuestionPlace</a>
+                        <a href="~/ColorStays/QuestionPlace/Create">Question Place</a>
                     </div>
                     <a href="~/ColorStays/QuestionPlace/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/QuestionPlace/Index"><i class="UT-List-OLine"></i></a>
@@ -508,7 +520,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @TravelAgent">
-                        <a href="~/ColorStays/TravelAgent/Create">TravelAgent</a>
+                        <a href="~/ColorStays/TravelAgent/Create">Travel Agent</a>
                     </div>
                     <a href="~/ColorStays/TravelAgent/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/TravelAgent/Index"><i class="UT-List-OLine"></i></a>
@@ -571,7 +583,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @PackageCityMap">
-                        <a href="~/ColorStays/PackageCityMap/Create">PackageCityMap</a>
+                        <a href="~/ColorStays/PackageCityMap/Create">Package CityMap</a>
                     </div>
                     <a href="~/ColorStays/PackageCityMap/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/PackageCityMap/Index"><i class="UT-List-OLine"></i></a>
@@ -581,7 +593,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @PackageExclusion">
-                        <a href="~/ColorStays/PackageExclusion/Create">PackageExclusion</a>
+                        <a href="~/ColorStays/PackageExclusion/Create">Package Exclusion</a>
                     </div>
                     <a href="~/ColorStays/PackageExclusion/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/PackageExclusion/Index"><i class="UT-List-OLine"></i></a>
@@ -591,7 +603,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @PackageInclusion">
-                        <a href="~/ColorStays/PackageInclusion/Create">PackageInclusion</a>
+                        <a href="~/ColorStays/PackageInclusion/Create">Package Inclusion</a>
                     </div>
                     <a href="~/ColorStays/PackageInclusion/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/PackageInclusion/Index"><i class="UT-List-OLine"></i></a>
@@ -601,7 +613,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @PackageItinerary">
-                        <a href="~/ColorStays/PackageItinerary/Create">PackageItinerary</a>
+                        <a href="~/ColorStays/PackageItinerary/Create">Package Itinerary</a>
                     </div>
                     <a href="~/ColorStays/PackageItinerary/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/PackageItinerary/Index"><i class="UT-List-OLine"></i></a>
@@ -626,7 +638,7 @@
               <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @RestaurantFoodType">
-                        <a href="~/ColorStays/RestaurantFoodType/Create">RestaurantFoodType</a>
+                        <a href="~/ColorStays/RestaurantFoodType/Create">Restaurant FoodType</a>
                     </div>
                     <a href="~/ColorStays/RestaurantFoodType/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/RestaurantFoodType/Index"><i class="UT-List-OLine"></i></a>
@@ -646,7 +658,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @RestaurantReview">
-                        <a href="~/ColorStays/RestaurantReview/Create">RestaurantReview</a>
+                        <a href="~/ColorStays/RestaurantReview/Create">Restaurant Review</a>
                     </div>
                     <a href="~/ColorStays/RestaurantReview/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/RestaurantReview/Index"><i class="UT-List-OLine"></i></a>
@@ -656,7 +668,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @RestaurantVideo">
-                        <a href="~/ColorStays/RestaurantVideo/Create">RestaurantVideo</a>
+                        <a href="~/ColorStays/RestaurantVideo/Create">Restaurant Video</a>
                     </div>
                     <a href="~/ColorStays/RestaurantVideo/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/RestaurantVideo/Index"><i class="UT-List-OLine"></i></a>
@@ -666,7 +678,7 @@
              <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @RTFoodTypeMap">
-                        <a href="~/ColorStays/RTFoodTypeMap/Create">RTFoodTypeMap</a>
+                        <a href="~/ColorStays/RTFoodTypeMap/Create">Restaurant FoodTypeMap</a>
                     </div>
                     <a href="~/ColorStays/RTFoodTypeMap/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/RTFoodTypeMap/Index"><i class="UT-List-OLine"></i></a>

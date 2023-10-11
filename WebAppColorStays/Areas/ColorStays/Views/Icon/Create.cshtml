@@ -1,4 +1,4 @@
-@model GHMS.Models.DbCrSs.TblIcon
+@model WebAppColorStays.Models.ViewModel.CsIcon
 
 @{
     Layout = "_Layout";
@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="Fx65 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
-            @await Html.PartialAsync("_IndexSearch", (IEnumerable<GHMS.Models.DbCrSs.TblIcon>)ViewData["EnteredDetails"])
+            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsIcon>)ViewData["EnteredDetails"])
         </div>
     </div>
 </div>

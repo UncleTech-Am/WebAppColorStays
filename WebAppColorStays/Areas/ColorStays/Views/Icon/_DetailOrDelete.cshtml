@@ -1,4 +1,4 @@
-@model GHMS.Models.DbCrSs.TblIcon
+@model WebAppColorStays.Models.ViewModel.CsIcon
 @{ 
     Layout = null; 
     ViewData["Action"] = "Icon";
@@ -27,7 +27,7 @@
  
         <tr>
         <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.HtmlCode)</td>
-        <td>@Model.HtmlCode</td>
+        <td>@Html.Raw(Model.HtmlCode)</td>
         </tr>
 
 		      
@@ -140,55 +140,6 @@
         <td>@Model.CompId</td>
         </tr>
 
-		      
-      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.TblAnActivities)</td>
-        <td>@(Model.TblAnActivities == null ? "None" : Model.TblAnActivities.Count.ToString())</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.TblAnCities)</td>
-        <td>@(Model.TblAnCities == null ? "None" : Model.TblAnCities.Count.ToString())</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.TblAnCountries)</td>
-        <td>@(Model.TblAnCountries == null ? "None" : Model.TblAnCountries.Count.ToString())</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.TblAnPackages)</td>
-        <td>@(Model.TblAnPackages == null ? "None" : Model.TblAnPackages.Count.ToString())</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.TblAnPlaces)</td>
-        <td>@(Model.TblAnPlaces == null ? "None" : Model.TblAnPlaces.Count.ToString())</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.TblAnRestaurants)</td>
-        <td>@(Model.TblAnRestaurants == null ? "None" : Model.TblAnRestaurants.Count.ToString())</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.TblAnStates)</td>
-        <td>@(Model.TblAnStates == null ? "None" : Model.TblAnStates.Count.ToString())</td>
-        </tr>
 
 		      
         </table>

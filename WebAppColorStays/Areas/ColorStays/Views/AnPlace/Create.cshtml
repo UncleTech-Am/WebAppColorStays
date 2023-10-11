@@ -65,6 +65,7 @@
     $(document).ready(function () {
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchPlace', '/ColorStays/Place/SuggestPlace', '', '', AoCePlace);
+        StartSuggestionBox(2, 'SearchIcon', '/ColorStays/Icon/SuggestIcon', '', '', AoCeIcon);
         MaxMin();
     });
 
@@ -124,6 +125,13 @@
         document.getElementById(InputId).value = event.target.Value;
     }
 
+    //Autocomplete Icon
+    function AoCeIcon(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Icon_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
         //Here we get the pageno,pagesize and listcount

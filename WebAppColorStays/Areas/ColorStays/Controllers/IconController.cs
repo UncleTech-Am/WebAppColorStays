@@ -5,16 +5,15 @@ using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using WebAppUT.Services;
 using LibCommon.DataTransfer;
 using LibCompanyService.Models.ViewCompany;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
 
-using GHMS.Models.DbCrSs;
+using WebAppColorStays.Models.ViewModel;
 
-namespace GHMS.Areas.ColorStays.Controllers
+namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
     [Area("ColorStays")]
     [SessionCheck]
@@ -32,6 +31,37 @@ namespace GHMS.Areas.ColorStays.Controllers
         private void Title()
         {
             ViewBag.Title = "Icon";
+        }
+        //Ends
+
+        //ItemAutoComplete
+        [HttpGet]
+        public async Task<JsonResult> SuggestIcon(string term)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+            var UserID = Request.Cookies["UserID"];
+            List<CsAutocomplete> list = new List<CsAutocomplete>();
+            var CompId = Process.Decrypt(Request.Cookies["CompanyID"]);
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                HttpResponseMessage res = await client.GetAsync("Icon/SuggestIcon/" + term + "/" + CompId, HttpCompletionOption.ResponseHeadersRead);
+                if (res.IsSuccessStatusCode)
+                {
+                    var results = res.Content.ReadAsStreamAsync().Result;
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsAutocomplete>>(results, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    var data = list.Select(x => new
+                    {
+                        id = Base64UrlEncoder.Encode(Process.Encrypt(x.Id)),
+                        value = x.Value,
+                        label = x.Label,
+
+                    }).ToList();
+                    return Json(data);
+                }
+            }
+            return null;
         }
         //Ends
 
@@ -90,13 +120,13 @@ namespace GHMS.Areas.ColorStays.Controllers
         //Ends
 
         //Give the list of the data
-        public async Task<Tuple<int, List<TblIcon>>> AllDataList(int? PgSize, int? PgSelectedNum)
+        public async Task<Tuple<int, List<CsIcon>>> AllDataList(int? PgSize, int? PgSelectedNum)
         {
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Tuple<int, List<TblIcon>> list;
-            using (HttpClient client = PathOfAPI.Initial())
+            Tuple<int, List<CsIcon>> list;
+            using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 using (var response = await client.GetAsync("Icon/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
@@ -104,7 +134,7 @@ namespace GHMS.Areas.ColorStays.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<TblIcon>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsIcon>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else{ list = null; }
                 }
@@ -123,15 +153,15 @@ namespace GHMS.Areas.ColorStays.Controllers
             Title();
 
             //Display the Dropdown of the Table fields in Search Data Popup
-            GetClassMember<TblIcon> getClassMember = new GetClassMember<TblIcon>();
-            TblIcon tblicon = new TblIcon();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(tblicon), "Value", "DisplayName");
+            GetClassMember<CsIcon> getClassMember = new GetClassMember<CsIcon>();
+            CsIcon CsIcon = new CsIcon();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsIcon), "Value", "DisplayName");
             //Ends
 
             try //Pagination and List of data Code
             {
                 Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<TblIcon>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                Task<Tuple<int, List<CsIcon>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                 PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
 
                 ViewData["ActionName"] = "Index";
@@ -171,15 +201,15 @@ namespace GHMS.Areas.ColorStays.Controllers
                 cIndex.PageSize = pagedata.Item1;
                 cIndex.PageSelectedNum = pagedata.Item2;
                 cIndex.CompId = CompID;
-                Tuple<int, List<TblIcon>> list;
-                using (HttpClient client = PathOfAPI.Initial())
+                Tuple<int, List<CsIcon>> list;
+                using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     //Get the List of data
                     using (var response = await client.PostAsJsonAsync("Icon/DateSearch/", cIndex))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<TblIcon>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsIcon>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else{ Success = false; }
@@ -205,7 +235,7 @@ namespace GHMS.Areas.ColorStays.Controllers
 
         //Search the Data according to the table fileds in the Index
         [HttpPost]
-        public async Task<IActionResult> TableSearch(TblIcon tblicon, IFormCollection fc)
+        public async Task<IActionResult> TableSearch(CsIcon CsIcon, IFormCollection fc)
         {
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
@@ -218,18 +248,18 @@ namespace GHMS.Areas.ColorStays.Controllers
 
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<TblIcon>> list;
+            Tuple<int, List<CsIcon>> list;
 
-            using (HttpClient client = PathOfAPI.Initial())
+            using (HttpClient client = APIColorStays.Initial())
             {
-                tblicon.CreatedBy = UserID;
-                tblicon.CompId = CompID;
+                CsIcon.CreatedBy = UserID;
+                CsIcon.CompId = CompID;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(tblicon), Encoding.UTF8, "application/json");
+                StringContent content = new StringContent(JsonSerializer.Serialize(CsIcon), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync("Icon/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<TblIcon>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsIcon>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -252,11 +282,11 @@ namespace GHMS.Areas.ColorStays.Controllers
         [HttpPost]
         public async Task<IActionResult> FilterSearch(CIndexSearchFilter indexsearchfilter, IFormCollection fc)
         {
-            GetClassMember<TblIcon> getClassMember = new GetClassMember<TblIcon>();
-            TblIcon tblicon = new TblIcon();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(tblicon), "Value", "DisplayName");
+            GetClassMember<CsIcon> getClassMember = new GetClassMember<CsIcon>();
+            CsIcon CsIcon = new CsIcon();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsIcon), "Value", "DisplayName");
             //Creating Search Filter List with class member Property Name
-            Dictionary<string, string> fields = getClassMember.GetPropertyName(tblicon);
+            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsIcon);
             foreach (var item in indexsearchfilter.IndexSearchList)
             { item.Name = fields[item.Name]; }
             //Ends
@@ -272,8 +302,8 @@ namespace GHMS.Areas.ColorStays.Controllers
             Title();
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<TblIcon>> list;
-            using (HttpClient client = PathOfAPI.Initial())
+            Tuple<int, List<CsIcon>> list;
+            using (HttpClient client = APIColorStays.Initial())
             {
                indexsearchfilter.CurrentUserId = UserID;
                 indexsearchfilter.CompId = CompID;
@@ -284,7 +314,7 @@ namespace GHMS.Areas.ColorStays.Controllers
                 using (var response = await client.PostAsync("Icon/FilterSearch", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<TblIcon>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsIcon>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -311,8 +341,8 @@ namespace GHMS.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
-            TblIcon tblicon = new TblIcon();
-            using (HttpClient client = PathOfAPI.Initial())
+            CsIcon CsIcon = new CsIcon();
+            using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 using (var response = await client.GetAsync("Icon/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
@@ -320,12 +350,12 @@ namespace GHMS.Areas.ColorStays.Controllers
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        tblicon = await System.Text.Json.JsonSerializer.DeserializeAsync<TblIcon>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        return View("_DetailOrDelete",tblicon);
+                        CsIcon = await System.Text.Json.JsonSerializer.DeserializeAsync<CsIcon>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        return View("_DetailOrDelete",CsIcon);
                     }
                     else
                     {
-                        Tuple<TblIcon, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<TblIcon, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Tuple<CsIcon, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsIcon, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (data.Item2 != null && data.Item2.Message == "GlobalItem")
                         {
                             ViewBag.Message = "Sytem Entry, Can't be Changed !";
@@ -351,14 +381,14 @@ namespace GHMS.Areas.ColorStays.Controllers
             if (Id != null)
             {
                 bool Success = false;
-                var data = new TblIcon();
-                using (HttpClient client = PathOfAPI.Initial())
+                var data = new CsIcon();
+                using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     using (var response = await client.GetAsync("Icon/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<TblIcon>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsIcon>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else { Success = false; }
@@ -392,7 +422,7 @@ namespace GHMS.Areas.ColorStays.Controllers
             ViewData["SearchType"] = "NoSearch";
 
             Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-            Task<Tuple<int, List<TblIcon>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+            Task<Tuple<int, List<CsIcon>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
             PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
             ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
             return View();
@@ -402,7 +432,7 @@ namespace GHMS.Areas.ColorStays.Controllers
         //POST: /Icon/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create(TblIcon tblicon)
+		public async Task<IActionResult> Create(CsIcon CsIcon)
         {       
             Title();
             ViewData["AnName"] = "Create";
@@ -410,24 +440,24 @@ namespace GHMS.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            tblicon.CompId = CompID;
-            tblicon.CreatedBy = UserID;
-            tblicon.ModifiedBy = UserID;
-            tblicon.Id = Guid.NewGuid().ToString();
+            CsIcon.CompId = CompID;
+            CsIcon.CreatedBy = UserID;
+            CsIcon.ModifiedBy = UserID;
+            CsIcon.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
-            TblIcon data = new TblIcon();
+            CsIcon data = new CsIcon();
             if (ModelState.IsValid)
             {
-                using (HttpClient client = PathOfAPI.Initial())
+                using (HttpClient client = APIColorStays.Initial())
                 {
 				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    StringContent content = new StringContent(JsonSerializer.Serialize(tblicon), Encoding.UTF8, "application/json");
+                    StringContent content = new StringContent(JsonSerializer.Serialize(CsIcon), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("Icon/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
                         {
-                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<TblIcon>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsIcon>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             Success = true;
                         }
                         else
@@ -443,9 +473,9 @@ namespace GHMS.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 { return RedirectToAction("Index", new { PageCall = "Show" }); }
-                else { return View("_CreateOrEdit", tblicon); }
+                else { return View("_CreateOrEdit", CsIcon); }
             }
-            return View("_CreateorEdit",tblicon);                
+            return View("_CreateorEdit",CsIcon);                
          }
 
 
@@ -470,20 +500,20 @@ namespace GHMS.Areas.ColorStays.Controllers
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
-            TblIcon tblicon = new TblIcon();
-            using (HttpClient client = PathOfAPI.Initial())
+            CsIcon CsIcon = new CsIcon();
+            using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 using (var response = await client.GetAsync("Icon/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<TblIcon>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                    Task<Tuple<int, List<CsIcon>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                     PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
                     ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;                   
                     if (response.IsSuccessStatusCode)
                     {
-                        tblicon = await System.Text.Json.JsonSerializer.DeserializeAsync<TblIcon>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsIcon = await System.Text.Json.JsonSerializer.DeserializeAsync<CsIcon>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else
                     {
@@ -495,14 +525,14 @@ namespace GHMS.Areas.ColorStays.Controllers
                     }
                 }
             }
-            return View(tblicon);
+            return View(CsIcon);
         }
 
                 
         //POST: /Icon/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(TblIcon tblicon)
+        public async Task<IActionResult> Edit(CsIcon CsIcon)
         {
             Title();
             ViewData["AnName"] = "Edit";
@@ -511,21 +541,21 @@ namespace GHMS.Areas.ColorStays.Controllers
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
-            tblicon.CompId = CompID;
-            tblicon.ModifiedBy = UserID;   
+            CsIcon.CompId = CompID;
+            CsIcon.ModifiedBy = UserID;   
             if (ModelState.IsValid)
             {
                 try
                 {
-                    using (HttpClient client = PathOfAPI.Initial())
+                    using (HttpClient client = APIColorStays.Initial())
                     {
 						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<TblIcon>("Icon/edit", tblicon))
+                        using (var response = await client.PostAsJsonAsync<CsIcon>("Icon/edit", CsIcon))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)
                             {
-                                Tuple<TblIcon, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<TblIcon,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Tuple<CsIcon, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsIcon,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                                 if (data.Item2 != null)
                                 {
                                     if (data.Item2.Message == "Duplicate")
@@ -553,7 +583,7 @@ namespace GHMS.Areas.ColorStays.Controllers
                     return View("_CreateorEdit");
                 }
             }
-            return View("_CreateorEdit",tblicon);
+            return View("_CreateorEdit",CsIcon);
         }
         
        
@@ -564,7 +594,7 @@ namespace GHMS.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
-            using (HttpClient client = PathOfAPI.Initial())
+            using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 using (var response = await client.GetAsync("Icon/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
@@ -598,8 +628,8 @@ namespace GHMS.Areas.ColorStays.Controllers
             model.CompId = CompID;
             if (model.ActionName == "Verify" || model.ActionName == "UnVerify") { model.VerifiedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
             if (model.ActionName == "Activate" || model.ActionName == "Inactivate") { model.ActivatedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
-			TblIcon tblicon = new TblIcon();
-            using (HttpClient client = PathOfAPI.Initial())
+			CsIcon CsIcon = new CsIcon();
+            using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
 				StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
@@ -679,7 +709,7 @@ namespace GHMS.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             if (Id == null) { Id = "No"; }
-            using (HttpClient client = PathOfAPI.Initial())
+            using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 using (var response = await client.GetAsync("Icon/CheckDuplicationIcon/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))

@@ -1,4 +1,4 @@
-@model IEnumerable<GHMS.Models.DbCrSs.TblIcon>
+@model IEnumerable<WebAppColorStays.Models.ViewModel.CsIcon>
 
 @{
     Layout = null;
@@ -36,7 +36,7 @@
          
 	    <td>@item.Name</td>
          
-	    <td>@item.HtmlCode</td>
+	    <td>@Html.Raw(item.HtmlCode)</td>
          
 	    <td>@item.Remarks</td>
          
@@ -68,20 +68,6 @@
 	    <td>@item.GCompId</td>
          
 	    <td>@item.CompId</td>
-         
-	    <td>@(item.TblAnActivities == null ? "None" : item.TblAnActivities.Count.ToString())</td>
-         
-	    <td>@(item.TblAnCities == null ? "None" : item.TblAnCities.Count.ToString())</td>
-         
-	    <td>@(item.TblAnCountries == null ? "None" : item.TblAnCountries.Count.ToString())</td>
-         
-	    <td>@(item.TblAnPackages == null ? "None" : item.TblAnPackages.Count.ToString())</td>
-         
-	    <td>@(item.TblAnPlaces == null ? "None" : item.TblAnPlaces.Count.ToString())</td>
-         
-	    <td>@(item.TblAnRestaurants == null ? "None" : item.TblAnRestaurants.Count.ToString())</td>
-         
-	    <td>@(item.TblAnStates == null ? "None" : item.TblAnStates.Count.ToString())</td>
             </tr>
 }
 

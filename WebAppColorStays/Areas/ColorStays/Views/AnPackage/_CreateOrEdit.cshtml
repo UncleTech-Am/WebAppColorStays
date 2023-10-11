@@ -28,6 +28,16 @@
     <div class="VnRd"><span asp-validation-for="Fk_Package_Name"></span></div>
 </div>
 
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Icon)</div>
+            <input class="TtBxTt14" placeholder="Icon Name" type="text" id="SearchIcon" asp-for="Icon" autocomplete="off" required onchange="ClearData('SearchIcon','Fk_Icon_Name')" />
+            <input type="hidden" asp-for="Fk_Icon_Name" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_Icon_Name"></span></div>
+</div>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -48,17 +58,6 @@
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="AccordianHeading"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Icon)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Icon)" asp-for="Icon" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Icon"></span></div>
 </div>
 
 
