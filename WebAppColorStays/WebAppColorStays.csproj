@@ -119,6 +119,15 @@
     <None Include="Areas\ColorStays\Views\AnState\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\AnState\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\AnState\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Icon\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\Icon\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Icon\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\Icon\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Icon\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\Icon\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Icon\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\Icon\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\Icon\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\NearByPlace\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\NearByPlace\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\NearByPlace\Index.cshtml" />
