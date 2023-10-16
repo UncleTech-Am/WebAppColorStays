@@ -1,0 +1,162 @@
+@model LibCompanyService.Models.ViewCompany.CsProjectApp
+
+
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "ProjectApp";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.RowVersion)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedOn)
+@Html.HiddenFor(model => model.CompId)
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Project_Name)</div>
+            <select asp-for="Fk_Project_Name" asp-items="@ViewBag.DDProject" class="TtBxTt15">
+                <option value="">Select Project</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_Project_Name"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Name"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CssFileName)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.CssFileName)" asp-for="CssFileName" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="CssFileName"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CssFilePath)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.CssFilePath)" asp-for="CssFilePath" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="CssFilePath"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AppPath)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AppPath)" asp-for="AppPath" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="AppPath"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AppIcon)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AppIcon)" asp-for="AppIcon" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="AppIcon"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DisplayOrder)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DisplayOrder)" asp-for="DisplayOrder" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="DisplayOrder"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">Pick Color</div>
+            <input class="TtBxTt15" type="color" name="PickColor" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ColorTheme)<span> "rgb(10 10 10/.85)"</span></div>
+            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ColorTheme)" asp-for="ColorTheme" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="ColorTheme"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ColorRGB)<span> "rgb(10 10 10)"</span></div>
+            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ColorRGB)" asp-for="ColorRGB" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="ColorRGB"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ColorThemeLight)<span> "White"</span></div>
+            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ColorThemeLight)" asp-for="ColorThemeLight" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="ColorThemeLight"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ColorThemeHoverText)<span> "White"</span></div>
+            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ColorThemeHoverText)" asp-for="ColorThemeHoverText" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="ColorThemeHoverText"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
+</div>
+

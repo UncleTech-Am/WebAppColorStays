@@ -1,113 +1,43 @@
+using LibCommon.DataTransfer;
 using LibCommon.Service;
+using LibCompanyService.Models.ViewCompany;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
-
-using LibCommon.DataTransfer;
-using LibCompanyService.Models.ViewCompany;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
 using UncleTech.Encryption;
 
-using WebAppColorStays.Models.ViewModel;
-using LibCommon.APICommonMethods;
-
-namespace WebAppColorStays.Areas.ColorStays.Controllers
-{   
-    [Area("ColorStays")]
-    [SessionCheck]
-    [Authorize]
-    public class PackageController : Controller
+namespace WebAppColorStays.Areas.Developer.Controllers
+{
+    [Area("Developer")]
+    [SessionCheck]  [Authorize]
+    public class ProjectAppController : Controller
     {
         private readonly Paging paging;
-        private readonly RyCSImage ryCsImage;
-        public PackageController()
+        private IWebHostEnvironment webHostEnvironment;
+
+        public ProjectAppController(IWebHostEnvironment webHostEnvironment)
         {
             paging = new Paging();
-            ryCsImage = new RyCSImage();
+            this.webHostEnvironment = webHostEnvironment;
+        }
+
+        private async void DropDown()
+        {
+            CsProjectName lists = new CsProjectName();
+            ViewBag.DDProject = new SelectList(lists.ReturnList(), "Id", "Name");
         }
 
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "Package";
-        }
-        //End
-        
-        //AutoComplete
-        [HttpGet]
-        public async Task<JsonResult> SuggestPackage(string term)
-        {
-            var TokenKey = Request.Cookies["JWToken"];
-            var UserID = Request.Cookies["UserID"];
-            List<CsAutocomplete> list = new List<CsAutocomplete>();
-            var CompId = Process.Decrypt(Request.Cookies["CompanyID"]);
-
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                HttpResponseMessage res = await client.GetAsync("Package/SuggestPackage/" + term + "/" + CompId, HttpCompletionOption.ResponseHeadersRead);
-                if (res.IsSuccessStatusCode)
-                {
-                    var results = res.Content.ReadAsStreamAsync().Result;
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsAutocomplete>>(results, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                    var data = list.Select(x => new
-                    {
-                        id = Base64UrlEncoder.Encode(Process.Encrypt(x.Id)),
-                        value = x.Value,
-                        label = x.Label,
-
-                    }).ToList();
-                    return Json(data);
-                }
-            }
-            return null;
+            ViewBag.Title = "ProjectApp";
         }
         //Ends
-
-        [HttpPost]
-        public async Task<IActionResult> SaveImage(string PId)
-        {
-            var TokenKey = Request.Cookies["JWToken"];
-
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var files = HttpContext.Request.Form.Files;
-            //var uploads = Path.Combine(Environment.WebRootPath, "Image\\Country");
-
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                foreach (var file in files)
-                {
-                    var fileName = "Package-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
-                    //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("Package/SaveImage/?PId=" + PId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
-                    {
-                        var apiResponse = await response.Content.ReadAsStreamAsync();
-                        if (!response.IsSuccessStatusCode)
-                        {
-                            return View("Error");
-                        }
-                    }
-
-                    if (file.Length > 0)
-                    {
-                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Package");
-                        Task.WaitAll(TImgUpload);
-                        if (TImgUpload.Result == "Error")
-                        {
-                            return View("Error");
-                        }
-                    }
-                }
-            }
-            return Json(new { Message = "Saved" });
-        }
-
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -127,8 +57,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Display the Pagination 
         [HttpGet]
         public IActionResult Pagination(int? PgSelectedNum, int? PgSize, string SearchType, string NetRecords)
-        {         
-			Title();
+        {
+            Title();
             switch (SearchType)
             {
                 case "DateSearch":
@@ -164,23 +94,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
         //Give the list of the data
-        public async Task<Tuple<int, List<CsPackage>>> AllDataList(int? PgSize, int? PgSelectedNum)
+        public async Task<Tuple<int, List<CsProjectApp>>> AllDataList(int? PgSize, int? PgSelectedNum)
         {
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Tuple<int, List<CsPackage>> list;
-            using (HttpClient client = APIColorStays.Initial())
+            Tuple<int, List<CsProjectApp>> list;
+            using (HttpClient client = APIComp.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Package/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("ProjectApp/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsPackage>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await JsonSerializer.DeserializeAsync<Tuple<int, List<CsProjectApp>>>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
-                    else{ list = null; }
+                    else { list = null; }
                 }
             }
             return list;
@@ -188,38 +118,36 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET:/Package/
+        //GET:/ProjectApp/
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string? Id)
-        {         
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
+        {
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Title();
 
             //Display the Dropdown of the Table fields in Search Data Popup
-            GetClassMember<CsPackage> getClassMember = new GetClassMember<CsPackage>();
-            CsPackage CsPackage = new CsPackage();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsPackage), "Value", "DisplayName");
+            GetClassMember<CsProjectApp> getClassMember = new GetClassMember<CsProjectApp>();
+            CsProjectApp tblprojectapp = new CsProjectApp();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(tblprojectapp), "Value", "DisplayName");
             //Ends
 
             try //Pagination and List of data Code
             {
                 Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<CsPackage>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                Task<Tuple<int, List<CsProjectApp>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                 PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
 
                 ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
-                ViewData["PId"] = Id;
-                if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
 
                 return View(ReturnDataList.Result.Item2);
             }
-            catch(Exception ex)
-            { 
+            catch (Exception ex)
+            {
                 return View("Error");
             }
         }
@@ -247,18 +175,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 cIndex.PageSize = pagedata.Item1;
                 cIndex.PageSelectedNum = pagedata.Item2;
                 cIndex.CompId = CompID;
-                Tuple<int, List<CsPackage>> list;
-                using (HttpClient client = APIColorStays.Initial())
+                Tuple<int, List<CsProjectApp>> list;
+                using (HttpClient client = APIComp.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     //Get the List of data
-                    using (var response = await client.PostAsJsonAsync("Package/DateSearch/", cIndex))
+                    using (var response = await client.PostAsJsonAsync("ProjectApp/DateSearch/", cIndex))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsPackage>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await JsonSerializer.DeserializeAsync<Tuple<int, List<CsProjectApp>>>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
-                        else{ Success = false; }
+                        else { Success = false; }
                     }
                 }
                 if (Success == true)
@@ -281,7 +209,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //Search the Data according to the table fileds in the Index
         [HttpPost]
-        public async Task<IActionResult> TableSearch(CsPackage CsPackage, IFormCollection fc)
+        public async Task<IActionResult> TableSearch(CsProjectApp tblprojectapp, IFormCollection fc)
         {
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
@@ -294,18 +222,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsPackage>> list;
+            Tuple<int, List<CsProjectApp>> list;
 
-            using (HttpClient client = APIColorStays.Initial())
+            using (HttpClient client = APIComp.Initial())
             {
-                CsPackage.CreatedBy = UserID;
-                CsPackage.CompId = CompID;
+                tblprojectapp.CreatedBy = UserID;
+                tblprojectapp.CompId = CompID;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(CsPackage), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Package/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
+                StringContent content = new StringContent(JsonSerializer.Serialize(tblprojectapp), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync("ProjectApp/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsPackage>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await JsonSerializer.DeserializeAsync<Tuple<int, List<CsProjectApp>>>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -323,20 +251,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
         //Ends
 
-        
+
         //Search the Data according to the Fields Selected in Search Data View
         [HttpPost]
         public async Task<IActionResult> FilterSearch(CIndexSearchFilter indexsearchfilter, IFormCollection fc)
         {
-            GetClassMember<CsPackage> getClassMember = new GetClassMember<CsPackage>();
-            CsPackage CsPackage = new CsPackage();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsPackage), "Value", "DisplayName");
+            GetClassMember<CsProjectApp> getClassMember = new GetClassMember<CsProjectApp>();
+            CsProjectApp tblprojectapp = new CsProjectApp();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(tblprojectapp), "Value", "DisplayName");
             //Creating Search Filter List with class member Property Name
-            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsPackage);
+            Dictionary<string, string> fields = getClassMember.GetPropertyName(tblprojectapp);
             foreach (var item in indexsearchfilter.IndexSearchList)
             { item.Name = fields[item.Name]; }
             //Ends
-            
+
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
             int PgSize = Convert.ToInt32(fc["PageSize"]);
@@ -348,19 +276,19 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsPackage>> list;
-            using (HttpClient client = APIColorStays.Initial())
+            Tuple<int, List<CsProjectApp>> list;
+            using (HttpClient client = APIComp.Initial())
             {
-               indexsearchfilter.CurrentUserId = UserID;
+                indexsearchfilter.CurrentUserId = UserID;
                 indexsearchfilter.CompId = CompID;
                 indexsearchfilter.PageSelectedNum = pagedata.Item2;
                 indexsearchfilter.PageSize = pagedata.Item1;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(indexsearchfilter), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Package/FilterSearch", content))
+                using (var response = await client.PostAsync("ProjectApp/FilterSearch", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsPackage>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await JsonSerializer.DeserializeAsync<Tuple<int, List<CsProjectApp>>>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -380,32 +308,32 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET: /Package/Details/5
+        //GET: /ProjectApp/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
-            CsPackage CsPackage = new CsPackage();
-            using (HttpClient client = APIColorStays.Initial())
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            CsProjectApp tblprojectapp = new CsProjectApp();
+            using (HttpClient client = APIComp.Initial())
             {
-				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Package/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("ProjectApp/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        CsPackage = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        return View("_DetailOrDelete",CsPackage);
+                        tblprojectapp = await JsonSerializer.DeserializeAsync<CsProjectApp>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        return View("_DetailOrDelete", tblprojectapp);
                     }
                     else
                     {
-                        Tuple<CsPackage, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsPackage, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Tuple<CsProjectApp, Response> data = await JsonSerializer.DeserializeAsync<Tuple<CsProjectApp, Response>>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (data.Item2 != null && data.Item2.Message == "GlobalItem")
                         {
                             ViewBag.Message = "Sytem Entry, Can't be Changed !";
-                            return View("_DetailOrDelete",data.Item1);
+                            return View("_DetailOrDelete", data.Item1);
                         }
                         if (data.Item1 == null && data.Item2 == null) { ViewData["ErrorMessage"] = "Entry Could not be Found!"; return View("_ErrorGeneric"); }
                     }
@@ -415,26 +343,27 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-        //GET: /Package/CreateOrEdit
+        //GET: /ProjectApp/CreateOrEdit
         [HttpGet]
         [ResponseCache(Duration = 0)]
         public async Task<IActionResult> CreateOrEdit(string Id)
         {
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
+            DropDown();
             if (Id != null)
             {
                 bool Success = false;
-                var data = new CsPackage();
-                using (HttpClient client = APIColorStays.Initial())
+                var data = new CsProjectApp();
+                using (HttpClient client = APIComp.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("Package/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync("ProjectApp/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        data = await JsonSerializer.DeserializeAsync<CsProjectApp>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else { Success = false; }
@@ -452,8 +381,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 return View("_CreateOrEdit");
             }
         }
-        
-        //GET: /Package/Create
+
+        //GET: /ProjectApp/Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -466,49 +395,51 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
+            DropDown();
 
             Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-            Task<Tuple<int, List<CsPackage>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+            Task<Tuple<int, List<CsProjectApp>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
             PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
             ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
             return View();
-        } 
-        
+        }
 
-        //POST: /Package/Create
+
+        //POST: /ProjectApp/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create(CsPackage CsPackage)
-        {       
+        public async Task<IActionResult> Create(CsProjectApp tblprojectapp)
+        {
             Title();
             ViewData["AnName"] = "Create";
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            CsPackage.CompId = CompID;
-            CsPackage.CreatedBy = UserID;
-            CsPackage.ModifiedBy = UserID;
-            CsPackage.Id = Guid.NewGuid().ToString();
+            tblprojectapp.CompId = CompID;
+            tblprojectapp.CreatedBy = UserID;
+            tblprojectapp.ModifiedBy = UserID;
+            tblprojectapp.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
-            CsPackage data = new CsPackage();
+            DropDown();
+            CsProjectApp data = new CsProjectApp();
             if (ModelState.IsValid)
             {
-                using (HttpClient client = APIColorStays.Initial())
+                using (HttpClient client = APIComp.Initial())
                 {
-				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    StringContent content = new StringContent(JsonSerializer.Serialize(CsPackage), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("Package/create", content))
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    StringContent content = new StringContent(JsonSerializer.Serialize(tblprojectapp), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("ProjectApp/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
                         {
-                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            data = await JsonSerializer.DeserializeAsync<CsProjectApp>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             Success = true;
                         }
                         else
                         {
-                            Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            Response responsemsg = await JsonSerializer.DeserializeAsync<Response>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             if (responsemsg != null && responsemsg.Message == "Duplicate")
                             {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
                                 ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
@@ -519,16 +450,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 {
-                    data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id });
+                    string filecontent = ":root{ --CrTe:" + tblprojectapp.ColorTheme + ";  --CrTeRGB:" + tblprojectapp.ColorRGB + ";  --CrTeTtLt: white;    --CrTeHrTt:" + tblprojectapp.ColorThemeHoverText + ";  }";
+                    string FileStorePath = webHostEnvironment.WebRootPath + "\\css\\AppCss\\" + tblprojectapp.Name + "app.css";
+                    var cssfilecreated = FnFile.CreateCssFile(FileStorePath, filecontent);
+                    return RedirectToAction("Index", new { PageCall = "Show" });
                 }
-                else { return View("_CreateOrEdit", CsPackage); }
+                else { return View("_CreateOrEdit", tblprojectapp); }
             }
-            return View("_CreateorEdit",CsPackage);                
-         }
+            return View("_CreateorEdit", tblprojectapp);
+        }
 
 
-        //GET: /Package/Edit/5
+        //GET: /ProjectApp/Edit/5
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
@@ -538,6 +471,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            DropDown();
 
             if (id == null)
             {
@@ -549,62 +483,63 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
-            CsPackage CsPackage = new CsPackage();
-            using (HttpClient client = APIColorStays.Initial())
+            CsProjectApp tblprojectapp = new CsProjectApp();
+            using (HttpClient client = APIComp.Initial())
             {
-				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Package/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("ProjectApp/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsPackage>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                    Task<Tuple<int, List<CsProjectApp>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                     PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;                   
+                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
                     if (response.IsSuccessStatusCode)
                     {
-                        CsPackage = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        tblprojectapp = await JsonSerializer.DeserializeAsync<CsProjectApp>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else
                     {
-                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        if (responsemsg.Message == "NotFound") 
+                        Response responsemsg = await JsonSerializer.DeserializeAsync<Response>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        if (responsemsg.Message == "NotFound")
                         { ViewBag.Message = "Entry Not Exits!"; }
                         if (responsemsg.Message == "GlobalItem")
                         { ViewBag.Message = "Sytem Entry, Can't Change !"; }
                     }
                 }
             }
-            return View(CsPackage);
+            return View(tblprojectapp);
         }
 
-                
-        //POST: /Package/Edit/5
+
+        //POST: /ProjectApp/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CsPackage CsPackage)
+        public async Task<IActionResult> Edit(CsProjectApp tblprojectapp)
         {
             Title();
             ViewData["AnName"] = "Edit";
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
-            CsPackage.CompId = CompID;
-            CsPackage.ModifiedBy = UserID;   
+            DropDown();
+            tblprojectapp.CompId = CompID;
+            tblprojectapp.ModifiedBy = UserID;
             if (ModelState.IsValid)
             {
                 try
                 {
-                    using (HttpClient client = APIColorStays.Initial())
+                    using (HttpClient client = APIComp.Initial())
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsPackage>("Package/edit", CsPackage))
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        using (var response = await client.PostAsJsonAsync("ProjectApp/edit", tblprojectapp))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)
                             {
-                                Tuple<CsPackage, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsPackage,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Tuple<CsProjectApp, Response> data = await JsonSerializer.DeserializeAsync<Tuple<CsProjectApp, Response>>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                                 if (data.Item2 != null)
                                 {
                                     if (data.Item2.Message == "Duplicate")
@@ -624,7 +559,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", CsPackage.Id });
+                    string filecontent = ":root{ --CrTe:" + tblprojectapp.ColorTheme + ";  --CrTeRGB:" + tblprojectapp.ColorRGB + ";  --CrTeTtLt: white;    --CrTeHrTt:" + tblprojectapp.ColorThemeHoverText + ";  }";
+                    string FileStorePath = webHostEnvironment.WebRootPath + "\\css\\AppCss\\" + tblprojectapp.Name + "app.css";
+                    var cssfilecreated = FnFile.CreateCssFile(FileStorePath, filecontent);
+
+                    return RedirectToAction("Index", new { PageCall = "Show" });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -632,30 +571,30 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     return View("_CreateorEdit");
                 }
             }
-            return View("_CreateorEdit",CsPackage);
+            return View("_CreateorEdit", tblprojectapp);
         }
-        
-       
-        //POST: /Package/Delete/5
+
+
+        //POST: /ProjectApp/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
-            using (HttpClient client = APIColorStays.Initial())
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            using (HttpClient client = APIComp.Initial())
             {
-				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Package/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("ProjectApp/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index", new { PageCall= "Show" });
+                        return RedirectToAction("Index", new { PageCall = "Show" });
                     }
                     else
                     {
-                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Response responsemsg = await JsonSerializer.DeserializeAsync<Response>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (responsemsg.Message == "DeleteStop") { ViewData["ErrorMessage"] = "Sytem Entry, Can't be Del !"; return View("_ErrorGeneric"); }
                         else { return View("Error"); }
                     }
@@ -666,28 +605,28 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //POST: >Verify/5
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> VerifyData(string Id, string AnName)          
+        public async Task<IActionResult> VerifyData(string Id, string AnName)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
-			VerNActViewModel model = new VerNActViewModel();
+            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            VerNActViewModel model = new VerNActViewModel();
             model.Id = Id;
             model.ActionName = AnName;
             model.CompId = CompID;
             if (model.ActionName == "Verify" || model.ActionName == "UnVerify") { model.VerifiedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
             if (model.ActionName == "Activate" || model.ActionName == "Inactivate") { model.ActivatedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
-			CsPackage CsPackage = new CsPackage();
-            using (HttpClient client = APIColorStays.Initial())
+            CsProjectApp tblprojectapp = new CsProjectApp();
+            using (HttpClient client = APIComp.Initial())
             {
-				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-				StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Package/verifydata/" , content))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync("ProjectApp/verifydata/", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
                     {
-                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Response responsemsg = await JsonSerializer.DeserializeAsync<Response>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (responsemsg.Message == "GlobalItem")
                         {
                             ViewData["ErrorMessage"] = "Sytem Entry, Can't be Changed !"; return View("_ErrorGeneric");
@@ -709,8 +648,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             StarUnstar starUnstar = new StarUnstar();
             starUnstar.Id = Id;
             starUnstar.Host = Request.Scheme + "://" + Request.Host;
-            starUnstar.AreaName = "ColorStays";
-            starUnstar.ControllerName = "Package";
+            starUnstar.AreaName = "Business";
+            starUnstar.ControllerName = "ProjectApp";
             starUnstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
@@ -739,7 +678,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             unstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
-				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(unstar), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync("UserClip/unmarkstar/", content))
                 {
@@ -751,23 +690,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             else { return View("Error"); }
         }
 
-         //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationPackage(string Name, string NameAction, string Id)
+        //This method is to check duplicate values for specific columns......
+        public async Task<JsonResult> CheckDuplicationProjectApp(string Name, string NameAction, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             if (Id == null) { Id = "No"; }
-            using (HttpClient client = APIColorStays.Initial())
+            using (HttpClient client = APIComp.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Package/CheckDuplicationPackage/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("ProjectApp/CheckDuplicationProjectApp/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         Success = true;
                     }
-                    if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
                         return Json("Sorry, this " + Name + " already exists");
                     }

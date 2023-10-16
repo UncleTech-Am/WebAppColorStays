@@ -1,14 +1,15 @@
 ﻿@using LibCommon.Service
+<link href="~/css/appcss/developerapp.css" rel="stylesheet" />
 @{
     string Action = ViewData["Action"].ToString();
     string MainNav = " ";
+    string ProjectApp = " ";
     string CompanyNav = " ";
-
     switch (Action)
     {
         case "MainNav": MainNav = "SideNavActive"; break;
+        case "ProjectApp": ProjectApp = "SideNavActive"; break;
         case "CompanyNav": CompanyNav = "SideNavActive"; break;
-
         default: break;
     }
 }
@@ -18,7 +19,12 @@
     <div class="SideNavHideBn" id="SideNavHideBnID"></div>
     <div class="SideNavMeHideBn" id="SideNavMeHideBnID" style="background-color:aqua;" onclick="HideNavSideMe();"></div>
 
-    @await Html.PartialAsync("_BusinessLogoNav")
+    <div class="SideNavLogo">
+        <div class="TextCenter">
+            <i class="icon-UncleTech-Face UncleTechLogo"></i>
+            <i class="icon-UncleTech-Glasses UncleTechLogo UncleTechGlasses"></i>
+        </div>
+    </div>
 
     <div class="SideNavContainer">
         <div class="SideNavLinkDiv">
@@ -38,7 +44,7 @@
     <div class="SideNavContainer">
         <div class="SideNavLinkDiv">
             <div class="SideNavLink @MainNav">
-                <i class="UT-AppsSolid FtSz26"></i>
+                <i class="UT-POSComputer FtSz26"></i>
                 <div class="SideNavLinkText">
                     <a href="~/AppsView/Index">@projectdata.FirstOrDefault(x=>x.Id == "5").Name</a>
                 </div>
@@ -46,5 +52,17 @@
         </div>
     </div>
 
+    <div class="SideNavContainer">
+        <div class="SideNavLinkDiv">
+            <div class="SideNavLink @ProjectApp">
+                <i class="UT-PlusLine"></i>
+                <div class="SideNavLinkText">
+                    <a href="@Url.Action("Index", "ProjectApp", new { Area = "Developer" })">Add Apps</a>
+                </div>
+                <a href="~/Developer/ProjectApp/Create"><i class="UT-AddFile"></i></a>
+                <a href="~/Developer/ProjectApp/Index"><i class="UT-List-OLine"></i></a>
+            </div>
+        </div>
+    </div>
 </div>
 

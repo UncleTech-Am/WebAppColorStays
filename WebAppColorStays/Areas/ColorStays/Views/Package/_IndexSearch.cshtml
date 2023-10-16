@@ -75,14 +75,30 @@
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.LocationDuration)" name="LocationDuration" autocomplete="off"/>
                         </td>
                         
+                       <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_Place_Name)" name="Fk_Place_Name" autocomplete="off"/>
+                        </td>
+                        
                         <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.StartingFrom)" name="StartingFrom" autocomplete="off"/>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_City_Name)" name="Fk_City_Name" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_State_Name)" name="Fk_State_Name" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_Country_Name)" name="Fk_Country_Name" autocomplete="off"/>
                         </td>
                         
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Price)" name="Price" autocomplete="off"/>
                         </td>
-                        
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Discount)" name="Discount" autocomplete="off" />
+                    </td>
+
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_Currency_Name)" name="Fk_Currency_Name" autocomplete="off"/>
                         </td>
@@ -186,8 +202,12 @@
                                         <th> @Html.DisplayNameFor(model => model.Lunch) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Dinner) </th>       
                                         <th> @Html.DisplayNameFor(model => model.LocationDuration) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.StartingFrom) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Price) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Fk_Place_Name) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Fk_City_Name) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Fk_State_Name) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Fk_Country_Name) </th>   
+                                        <th> @Html.DisplayNameFor(model => model.Price) </th>
+                                        <th> @Html.DisplayNameFor(model => model.Discount) </th>
                                         <th> @Html.DisplayNameFor(model => model.Fk_Currency_Name) </th>       
                                         <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
                                         <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEODescription) </th>       

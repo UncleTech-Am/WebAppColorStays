@@ -20,10 +20,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_Currency_Name { get; set; }
         [NotMapped]
         public string? Currency { get; set; }
-        [DisplayName("Sightseeing")]
-        public string? Fk_Sightseeing_Name { get; set; }
-        [NotMapped]
-        public string? Sightseeing { get; set; }
+        public bool Sightseeing { get; set; }
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationPackage", "Package", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
@@ -36,9 +33,25 @@ namespace WebAppColorStays.Models.ViewModel
         public bool Breakfast { get; set; }
         public bool Lunch { get; set; }
         public bool Dinner { get; set; }
-        public int? LocationDuration { get; set; }
-        public string? StartingFrom { get; set; }
+        public string? LocationDuration { get; set; }
+        [DisplayName("Staring From")]
+        public string? Fk_Place_Name { get; set; }
+        [NotMapped]
+        public string? Place { get; set; }
+        [DisplayName("City")]
+        public string? Fk_City_Name { get; set; }
+        [NotMapped]
+        public string? City { get; set; }
+        [DisplayName("State")]
+        public string? Fk_State_Name { get; set; }
+        [NotMapped]
+        public string? State { get; set; }
+        [DisplayName("Country")]
+        public string? Fk_Country_Name { get; set; }
+        [NotMapped]
+        public string? Country { get; set; }
         public double? Price { get; set; }
+        public int? Discount { get; set; }
         [DisplayName("Video Link")]
         public string? Video { get; set; }
         public bool FreezeStatus { get; set; }

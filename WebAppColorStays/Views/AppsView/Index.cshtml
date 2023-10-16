@@ -34,17 +34,17 @@
             {
                 @if (User.IsInRole("Owner") || User.IsInRole("Administrator") || User.IsInRole(item.Name))
                 {
-                                <div class="Fx25 Pg15">
-                                    <div class="DyFx FxDnCn FxJyCtCr FxAnImCr Pg10 BrRs8" style="background-color:@item.ColorTheme">
-                                        <a href="@Html.Raw(item.AppPath)">
-                                            <div class="FtSzRm4">@Html.Raw(item.AppIcon) </div>
-                                        </a>
-                                        <a href="@Html.Raw(item.AppPath)">
-                                            <div class="FtSz20">@item.Name
-                                            </div>
-                                        </a>
-                                    </div>
+                    <div class="Fx25 Pg15">
+                        <div class="DyFx FxDnCn FxJyCtCr FxAnImCr Pg10 BrRs8" style="background-color:@item.ColorTheme">
+                            <a href="@Html.Raw(item.AppPath)">
+                                <div class="FtSzRm4">@Html.Raw(item.AppIcon) </div>
+                            </a>
+                            <a href="@Html.Raw(item.AppPath)">
+                                <div class="FtSz20">@item.Name
                                 </div>
+                            </a>
+                        </div>
+                    </div>
                 }
             }
         }
