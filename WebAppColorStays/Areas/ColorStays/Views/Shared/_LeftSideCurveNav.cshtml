@@ -67,6 +67,9 @@
     string ActivityType = " "; 
     string ActivityTypeCountryMap = " ";
     string ActivityTypeStateMap = " ";
+    string PackageType = " "; 
+    string PackageTypeCountryMap = " ";
+    string PackageTypeStateMap = " ";
 
     switch (Action)
     {
@@ -120,6 +123,10 @@
         case "PackageExclusion": PackageExclusion = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageInclusion": PackageInclusion = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageItinerary": PackageItinerary = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
+        case "PackageType": PackageType = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
+        case "PackageTypeCountryMap": PackageTypeCountryMap = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
+        case "PackageTypeStateMap": PackageTypeStateMap = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
+
 
         case "Restaurant": Restaurant = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
         case "RestaurantFoodType": RestaurantFoodType = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
@@ -353,7 +360,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @AnCountry">
-                        <a href="~/ColorStays/AnCountry/Create">AnCountry</a>
+                        <a href="~/ColorStays/AnCountry/Create">Accordian Country</a>
                     </div>
                     <a href="~/ColorStays/AnCountry/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/AnCountry/Index"><i class="UT-List-OLine"></i></a>
@@ -595,15 +602,15 @@
         </div>
         <div class="SideSubNavContainer @DrownLink4">
 
-            @*<div class="SideNavSubLinkDiv">
+            <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @Sightseeing">
-                        <a href="~/ColorStays/Sightseeing/Create">Sightseeing</a>
+                    <div class="SideNavLinkText @PackageType">
+                        <a href="~/ColorStays/PackageType/Create">PackageType</a>
                     </div>
-                    <a href="~/ColorStays/Sightseeing/Create"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/Sightseeing/Index"><i class="UT-List-OLine"></i></a>
+                    <a href="~/ColorStays/PackageType/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/PackageType/Index"><i class="UT-List-OLine"></i></a>
                 </div>
-            </div>*@
+            </div>
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
@@ -612,6 +619,25 @@
                     </div>
                     <a href="~/ColorStays/Package/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/Package/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @PackageTypeCountryMap">
+                        <a href="~/ColorStays/PackageTypeCountryMap/Create">PackageType CountryMap</a>
+                    </div>
+                    <a href="~/ColorStays/PackageTypeCountryMap/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/PackageTypeCountryMap/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @PackageTypeStateMap">
+                        <a href="~/ColorStays/PackageTypeStateMap/Create">PackageType StateMap</a>
+                    </div>
+                    <a href="~/ColorStays/PackageTypeStateMap/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/PackageTypeStateMap/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
 

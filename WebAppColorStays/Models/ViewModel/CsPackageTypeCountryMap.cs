@@ -1,31 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsMonthBestVisit
+    public class CsPackageTypeCountryMap
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        [Required(ErrorMessage = "Please enter Name.")]
-        [Remote("CheckDuplicationMonthBestVisit", "MonthBestVisit", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]
-        public string Name { get; set; }
-        [DisplayName("Place")]
-        public string? Fk_Place_Name { get; set; }
-        [NotMapped]
-        public string? Place { get; set; }
-        [DisplayName("City")]
-        public string? Fk_City_Name { get; set; }
-        [DisplayName("State")]
-        public string? Fk_State_Name { get; set; }
         [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
-        public string? Description { get; set; }
-        [Remote("CheckDuplicationMonthBestVisitRank", "MonthBestVisit", AdditionalFields = ("NameAction, Fk_Place_Name, Name, Id"))]
-        public int? Rank { get; set; }
+        [NotMapped]
+        public string? Country { get; set; }
+        [DisplayName("PackageType")]
+        public string? Fk_PackageType_Name { get; set; }
+        [NotMapped]
+        public string? PackageType { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]

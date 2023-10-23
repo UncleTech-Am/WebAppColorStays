@@ -408,6 +408,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
             CsActivity CsActivity = new CsActivity();
+            DropDown(CompID, TokenKey);
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
