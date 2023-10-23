@@ -235,6 +235,10 @@
     }
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
+        document.getElementById('Fk_Place_Name').value = "";
+        document.getElementById('Fk_State_Name').value = "";
+        document.getElementById('Fk_City_Name').value = "";
+        document.getElementById('Fk_Country_Name').value = "";
         //Show the Image Tab
         ActiveTabUt('UTabs1', 1);
         ActiveTabUt('UTabs2', 0);

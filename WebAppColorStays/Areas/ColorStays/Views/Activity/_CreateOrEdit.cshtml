@@ -16,6 +16,18 @@
 @Html.HiddenFor(model => model.CreatedOn)
 @Html.HiddenFor(model => model.CompId)
 
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_ActivityType_Name)<span style="color:red;"> *</span></div>
+                <select asp-for="Fk_ActivityType_Name" asp-items="@await ViewBag.ActivityType" class="TtBxTt15" required>
+                    <option value="">Select Activity Type</option>
+                </select>        
+            </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_ActivityType_Name"></span></div>
+</div>
+
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">

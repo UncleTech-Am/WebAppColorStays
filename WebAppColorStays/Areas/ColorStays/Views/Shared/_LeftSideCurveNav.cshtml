@@ -64,6 +64,9 @@
     string TravelAgent = " ";
     string Sightseeing = " ";
     string Icon = " ";
+    string ActivityType = " "; 
+    string ActivityTypeCountryMap = " ";
+    string ActivityTypeStateMap = " ";
 
     switch (Action)
     {
@@ -82,6 +85,9 @@
         case "Railway": Railway = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "Terrain": Terrain = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "NearByPlace": NearByPlace = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
+        case "ActivityType": ActivityType = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
+        case "ActivityTypeCountryMap": ActivityTypeCountryMap = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
+        case "ActivityTypeStateMap": ActivityTypeStateMap = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
 
         case "Icon": Icon = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
         case "AnCountry": AnCountry = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
@@ -262,11 +268,40 @@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @ActivityType">
+                        <a href="~/ColorStays/ActivityType/Create">Activity Type</a>
+                    </div>
+                    <a href="~/ColorStays/ActivityType/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/ActivityType/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @Activity">
                         <a href="~/ColorStays/Activity/Create">Activity</a>
                     </div>
                     <a href="~/ColorStays/Activity/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/Activity/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @ActivityTypeCountryMap">
+                        <a href="~/ColorStays/ActivityTypeCountryMap/Create">ActivityType CountryMap</a>
+                    </div>
+                    <a href="~/ColorStays/ActivityTypeCountryMap/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/ActivityTypeCountryMap/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @ActivityTypeStateMap">
+                        <a href="~/ColorStays/ActivityTypeStateMap/Create">ActivityType StateMap</a>
+                    </div>
+                    <a href="~/ColorStays/ActivityTypeStateMap/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/ActivityTypeStateMap/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
 

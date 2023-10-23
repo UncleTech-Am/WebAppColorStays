@@ -1,15 +1,15 @@
-@model WebAppColorStays.Models.ViewModel.CsAirport
+@model WebAppColorStays.Models.ViewModel.CsActivityType
 
 @{
     Layout = "_Layout";
-    ViewData["Action"] = "Airport";
+    ViewData["Action"] = "ActivityType";
 }
 
 
 <div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
     <div class="CrTeTtLt FxGw1"> <h1>Add @ViewBag.Title</h1></div>
     <div>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1"><i class="UT-List-OLine FtSz18" onclick="location.href='/ColorStays/Airport/Index'"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1"><i class="UT-List-OLine FtSz18" onclick="location.href='/ColorStays/ActivityType/Index'"></i></button>
     </div>
 </div>
 
@@ -27,13 +27,14 @@
                         <i class="UT-PenNibSmall"></i>
                         Enter Detail
                     </h3>
-                    <form id="Create"
-                          data-ajax="true"
-                          data-ajax-url="/ColorStays/Airport/Create"
-                          data-ajax-method="POST"
-                          data-ajax-loading="#loader"
-                          data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
-                          data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
+                     <form id="Create"
+                        data-ajax="true"
+                        data-ajax-url="/ColorStays/ActivityType/Create"
+                        data-ajax-method="POST"
+                        data-ajax-loading="#loader"
+                        contentType="multipart/form-data"
+                        data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
+                        data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
 
                         @Html.AntiForgeryToken()
 
@@ -46,7 +47,7 @@
                                 <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
                             </div>
                             <div>
-                                <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Airport/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                                <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/ActivityType/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
                             </div>
                         </div>
                     </form>
@@ -59,7 +60,7 @@
                         </h3>
                         <form id="CreateDn"
                               data-ajax="true"
-                              data-ajax-url="/ColorStays/Airport/SaveImage"
+                              data-ajax-url="/ColorStays/ActivityType/SaveImage"
                               data-ajax-method="POST"
                               data-ajax-loading="#loader"
                               enctype="multipart/form-data"
@@ -85,24 +86,25 @@
                     <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
                     <div class="Pg10 FxRw">
                         <div class="FxGw1">
-                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Airport/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
+                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/ActivityType/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
                         </div>
                         <div>
                             <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="Fx50 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
             <div id="UTabs2">
-                <div>All Airport </div>
+                <div>All Activity Type </div>
                 <div>Image</div>
             </div>
             <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
                 <div id="UTabs2Cont0">
                     <div id="Detail">
-                        @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsAirport>)ViewData["EnteredDetails"])
+                        @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsActivityType>)ViewData["EnteredDetails"])
                     </div>
                 </div>
                 <div id="UTabs2Cont1">
@@ -118,38 +120,21 @@
     $(document).ready(function () {
         TabsUT('UTabs1', 0, null, [1, 2]);
         TabsUT('UTabs2', 0, null, [1]);
-        StartSuggestionBox(2, 'SearchPlace', '/ColorStays/Place/SuggestPlace', '', '', AoCePlace);
+
+        IntializeTableSearch();
     });
-
-    //Clear Autocompete data
-    function ClearData(UrNe, UrId, Text1, Text2, Text3) {
-        document.getElementById(UrNe).value = '';
-        document.getElementById(UrId).value = '';
-        document.getElementById(Text1).value = '';
-        document.getElementById(Text2).value = '';
-        document.getElementById(Text3).value = '';
-    }
-
-    //Autocomplete Item
-    function AoCePlace(event) {
-        var InputId = event.target.InputID;
-        SuggestionClose(InputId);
-        document.getElementById('Fk_Place_Name').value = event.target.Id;
-        document.getElementById(InputId).value = event.target.Value;
-        document.getElementById('Fk_City_Name').value = event.target.Text1;
-        document.getElementById('Fk_State_Name').value = event.target.Text2;
-        document.getElementById('Fk_Country_Name').value = event.target.Text3;
-    }
 
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
         ShowImage(document.getElementById('ATId').value);
         ActiveTabUt('UTabs2', 0);
+
     }
+
 
     function ShowImage(Id) {
         ShowLoader();
-        getUT('/ColorStays/Airport/AddImage?Id=' + Id, function (data) {
+        getUT('/ColorStays/ActivityType/AddImage?Id=' + Id, function (data) {
             document.getElementById('AddImage').innerHTML = "";
             document.getElementById('AddImage').innerHTML = data;
             ActiveTabUt('UTabs1', 1);
@@ -173,8 +158,8 @@
 
     //Show the Uploaded Image in the Tab.......................
     function ShowUploads() {
-        var Id = $("#AId").val();
-        getUT('/ColorStays/Airport/UploadedImage?Id=' + Id + '&ShowBtn=' + true, function (data) {
+        var Id = $("#ATId").val();
+        getUT('/ColorStays/ActivityType/UploadedImage?Id=' + Id + '&ShowBtn=' + true, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 1);
@@ -182,7 +167,7 @@
             HideLoader();
         });
         //Show the Images in LHS for Update
-        getUT('/ColorStays/Airport/UploadedImage?Id=' + Id + '&UpdateDetail=Yes', function (data) {
+        getUT('/ColorStays/ActivityType/UploadedImage?Id=' + Id + '&UpdateDetail=Yes', function (data) {
             document.getElementById('AddImgDetail').innerHTML = "";
             document.getElementById('AddImgDetail').innerHTML = data;
         });
@@ -190,22 +175,23 @@
     //Ends.............................
 
     //Delete the Image
-    function DeleteImg(id, field, imgname) {
+    function DeleteImg(id, imgname) {
         ShowLoader();
-        getUT('/ColorStays/Airport/ImageDelete?Id=' + id + '&Field=' + field + '&ImgName=' + imgname, function (data) {
+        getUT('/ColorStays/ActivityType/ImageDelete?Id=' + id + '&ImgName=' + imgname, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 1);
             //Show the Images in LHS for Update
-            getUT('/ColorStays/Airport/UploadedImage?Id=' + id + '&UpdateDetail=Yes', function (data) {
+            getUT('/ColorStays/ActivityType/UploadedImage?Id=' + id + '&UpdateDetail=Yes', function (data) {
                 document.getElementById('AddImgDetail').innerHTML = "";
                 document.getElementById('AddImgDetail').innerHTML = data;
             });
             HideLoader();
         });
-        
+
     };
     //Ends
+
 
     //Table Search Success Function
     function TableSuccessFn(data, status, xhr, FormID) {
@@ -218,7 +204,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/Airport/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/ActivityType/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
     }
 
     function IntializeTableSearch() {

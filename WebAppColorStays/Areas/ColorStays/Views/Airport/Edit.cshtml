@@ -71,7 +71,7 @@
                               data-ajax-url="/ColorStays/Airport/SaveImage"
                               data-ajax-method="POST"
                               data-ajax-loading="#loader"
-                              contentType="multipart/form-data"
+                              enctype="multipart/form-data"
                               data-ajax-success="SuccessDn(data, status, xhr,'CreateDn','AddImage')"
                               data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateDn')">
                             @Html.AntiForgeryToken()

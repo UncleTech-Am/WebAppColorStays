@@ -16,6 +16,10 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SEODescription { get; set; }
         [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
+        [DisplayName("ActivityType")]
+        public string? Fk_ActivityType_Name { get; set; }
+        [NotMapped]
+        public string? ActivityType { get; set; }
         [DisplayName("Place")]
         public string? Fk_Place_Name { get; set; }
         [NotMapped]

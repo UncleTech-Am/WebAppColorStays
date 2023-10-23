@@ -24,6 +24,8 @@
     <Content Remove="Areas\ColorStays\Views\ActivityImage\_IndexSearch.cshtml" />
     <Content Remove="Areas\ColorStays\Views\ActivityImage\_Pagination.cshtml" />
     <Content Remove="Areas\ColorStays\Views\ActivityImage\_SearchData.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\ActivityType\_AddImage.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\ActivityType\_CreatePhoto.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Airport\_AddImage.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Airport\_CreatePhoto.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Image\Index.cshtml" />
@@ -45,6 +47,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\ColorStays\Views\ActivityTypeStateMap\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeStateMap\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeStateMap\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeStateMap\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeStateMap\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeStateMap\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeStateMap\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeStateMap\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeStateMap\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\ActivityImage\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\ActivityImage\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\ActivityImage\Index.cshtml" />
@@ -54,6 +65,26 @@
     <None Include="Areas\ColorStays\Views\ActivityImage\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\ActivityImage\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\ActivityImage\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeCountryMap\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeCountryMap\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeCountryMap\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeCountryMap\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeCountryMap\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeCountryMap\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeCountryMap\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeCountryMap\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityTypeCountryMap\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityType\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityType\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityType\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityType\_AddImage.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityType\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityType\_CreatePhoto.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityType\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityType\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityType\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityType\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\ActivityType\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\Airport\_AddImage.cshtml" />
     <None Include="Areas\ColorStays\Views\Airport\_CreatePhoto.cshtml" />
     <None Include="Areas\ColorStays\Views\AnActivity\Create.cshtml" />
