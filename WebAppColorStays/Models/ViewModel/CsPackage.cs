@@ -39,9 +39,8 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? PackageType { get; set; }
         [DisplayName("Staring From")]
-        public string? Fk_Place_Name { get; set; }
-        [NotMapped]
-        public string? Place { get; set; }
+        public string? Fk_City_Name1 { get; set; }
+        public string? StaringFrom { get; set; }
         [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
         [NotMapped]
