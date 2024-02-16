@@ -36,6 +36,10 @@ namespace WebAppColorStays.Models.ViewModel
         public int? DomesticAirportCount { get; set; }
         public int? RailwayStationCount { get; set; }
         public string? BestTimeToVisit { get; set; }
+        [StringLength(50, ErrorMessage = "You can enter only 50 characters long!")]
+        public string? RequiredDays { get; set; }
+        [StringLength(50, ErrorMessage = "You can enter only 50 characters long!")]
+        public string? Icon { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]

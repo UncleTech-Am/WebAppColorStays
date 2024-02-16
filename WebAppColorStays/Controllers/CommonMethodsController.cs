@@ -38,7 +38,7 @@ namespace WebAppColorStays.Controllers
         public async Task<IActionResult> ClippedDataCount()
         {
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             int Count = 0;
             using (HttpClient client = APIComp.Initial())
@@ -64,7 +64,7 @@ namespace WebAppColorStays.Controllers
         {
 
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
             ViewBag.ctrName = "Company";
@@ -95,7 +95,7 @@ namespace WebAppColorStays.Controllers
         public async Task<IActionResult> EditClippedData(string Id)
         {
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
             ViewBag.ctrName = "Company";
@@ -122,7 +122,7 @@ namespace WebAppColorStays.Controllers
         public async Task<IActionResult> EditClippedData(UserClippedData userclippeddata)
         {
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
             ViewBag.ctrName = "Company";
@@ -165,7 +165,7 @@ namespace WebAppColorStays.Controllers
         public async Task<IActionResult> DeleteClippedData(string id)
         {
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             ViewBag.ctrName = "Company";
             ViewBag.Title = "Company";
             ViewBag.Action = "Delete";

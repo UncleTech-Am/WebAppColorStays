@@ -1,23 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsTerrain
+    public class CsTerrainCountryMap
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        [StringLength(450)]
-        [Required(ErrorMessage = "Please enter Name.")]
-        [Remote("CheckDuplicationTerrain", "Terrain", AdditionalFields = ("NameAction, Id"))]
-        public string Name { get; set; }
-        public string? Description { get; set; }
-        public string? Region { get; set; }
-        public string? Icon { get; set; }
-        public string? Photo { get; set; }
-        public string? Video { get; set; }
-        public bool FreezeStatus { get; set; }
+        public string? Fk_Country_Name { get; set; }
+        [NotMapped]
+        public string? Country { get; set; }
+        public string? Fk_Terrain_Name { get; set; }
+        [NotMapped]
+        public string? Terrain { get; set; }
+        public bool? FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]
         public string? Remarks { get; set; }

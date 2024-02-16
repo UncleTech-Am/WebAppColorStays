@@ -94,7 +94,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         public async Task<Tuple<int, List<CsPackageImage>>> AllDataList(int? PgSize, int? PgSelectedNum)
         {
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Tuple<int, List<CsPackageImage>> list;
             using (HttpClient client = APIColorStays.Initial())
@@ -199,7 +199,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             CsPackageImage CsPackageImage = new CsPackageImage();
             using (HttpClient client = APIColorStays.Initial())
             {
@@ -234,7 +234,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         public async Task<IActionResult> CreateOrEdit(string Id)
         {
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
             if (Id != null)
@@ -273,7 +273,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             ViewData["AnName"] = "Create";
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             ViewData["ActionName"] = "Index";
@@ -296,7 +296,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             ViewData["AnName"] = "Create";
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
             CsPackageImage.CompId = CompID;
@@ -346,7 +346,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["AnName"] = "Edit";
             ViewData["Id"] = id;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (id == null)
@@ -396,7 +396,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             ViewData["AnName"] = "Edit";
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
@@ -443,7 +443,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
@@ -471,7 +471,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
 			VerNActViewModel model = new VerNActViewModel();
             model.Id = Id;
             model.ActionName = AnName;
@@ -505,7 +505,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             StarUnstar starUnstar = new StarUnstar();
             starUnstar.Id = Id;
@@ -533,7 +533,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             StarUnstar unstar = new StarUnstar();
             unstar.UnStarId = Id;
@@ -557,7 +557,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             if (Id == null) { Id = "No"; }
             using (HttpClient client = APIColorStays.Initial())
             {

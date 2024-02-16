@@ -1,6 +1,6 @@
 @model WebAppColorStays.Models.ViewModel.CsState
-@{ 
-    Layout = null; 
+@{
+    Layout = null;
     ViewData["Action"] = "State";
 }
 
@@ -19,7 +19,7 @@
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Country_Name)<span style="color:red;"> *</span></div>
             <input class="TtBxTt14" placeholder="Country Name" type="text" id="SearchCountry" asp-for="Country" autocomplete="off" required onchange="ClearData('SearchCountry','Fk_Country_Name')" />
-            <input type="hidden" asp-for="Fk_Country_Name" required /> 
+            <input type="hidden" asp-for="Fk_Country_Name" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_Country_Name"></span></div>
@@ -30,7 +30,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.URL)<span style="color:red;"> *</span></div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.URL)" asp-for="URL" autocomplete="off" required />
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.URL)" asp-for="URL" autocomplete="off" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="URL"></span></div>
@@ -40,7 +40,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required/>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
@@ -52,7 +52,7 @@
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Longitude)<span style="color:red;"> *</span></div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Longitude)" asp-for="Longitude" autocomplete="off" required/>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Longitude)" asp-for="Longitude" autocomplete="off" required />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="Longitude"></span></div>
@@ -63,7 +63,7 @@
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Latitude)<span style="color:red;"> *</span></div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Latitude)" asp-for="Latitude" autocomplete="off" required/>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Latitude)" asp-for="Latitude" autocomplete="off" required />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="Latitude"></span></div>
@@ -75,7 +75,8 @@
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">
-                    @Html.DisplayNameFor(model => model.Area) &nbsp;<span>Km &sup2 </span> </div>
+                    @Html.DisplayNameFor(model => model.Area) &nbsp;<span>Km &sup2 </span>
+                </div>
                 <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Area)" asp-for="Area" autocomplete="off" />
             </div>
         </div>
@@ -147,6 +148,17 @@
         <div class="VnRd"><span asp-validation-for="RailwayStationCount"></span></div>
     </div>
 </diV>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.RequiredDays)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.RequiredDays)" asp-for="RequiredDays" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="RequiredDays"></span></div>
+</div>
+
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -227,7 +239,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Remarks"></span></div>

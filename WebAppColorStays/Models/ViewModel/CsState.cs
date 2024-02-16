@@ -35,6 +35,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Population { get; set; }
         public string? PopularReligion { get; set; }
         public int? Rating { get; set; }
+        public string? RequiredDays { get; set; }
         public int? InternationalAirportCount { get; set; }
         public int? DomesticAirportCount { get; set; }
         public int? RailwayStationCount { get; set; }

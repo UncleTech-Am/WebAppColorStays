@@ -1,4 +1,5 @@
 ﻿using LibCommon.DataTransfer;
+using LibCommon.Service;
 using LibCompanyService.Models.ViewCompany;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,7 @@ namespace WebAppColorStays.Controllers
     public class AppsViewController : Controller
     {
         [Authorize]
-        public async Task<IActionResult> Index(string CompId)
+        public async Task<IActionResult> Index(string CompId, string CompNe)
         {
             //Check User Company Is Created if true show apps else show Starting Wizard.
             var TokenKey = Request.Cookies["JWToken"];
@@ -19,13 +20,17 @@ namespace WebAppColorStays.Controllers
 
             //this is used when Current User Change the Company from any where
             //then only change the Cookie value of Company and go to the Apps View
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompName = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyNe"]));
             if (CompId != null)
             {
                 Response.Cookies.Delete("CompanyID");
-                var cid = Process.Encrypt(CompId);
-                Response.Cookies.Append("CompanyID", cid, new CookieOptions { HttpOnly = true });
-                CompID = CompId;
+                Response.Cookies.Delete("CompanyNe");
+                Response.Cookies.Append("CompanyID", CompId, new CookieOptions { HttpOnly = true });
+                var cne = Base64UrlEncoder.Encode(Process.Encrypt(CompNe));
+                Response.Cookies.Append("CompanyNe", cne, new CookieOptions { HttpOnly = true });
+                CompID = Process.Decrypt(Base64UrlEncoder.Decode(CompId));
+                CompName = CompNe;
             }
             //Ends
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
 using System.Net.Http.Headers;
+using System.Numerics;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
@@ -44,7 +45,7 @@ namespace WebAppColorStays.Controllers
         {
             var TokenKey = Request.Cookies["JWToken"];
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             List<User> list = new List<User>();
             using (HttpClient client = APIAuthor.Initial())
             {
@@ -111,6 +112,7 @@ namespace WebAppColorStays.Controllers
                     string username = Convert.ToString(logincookies.UserName);
                     string useremail = Convert.ToString(logincookies.UserEmail);
                     string compid = Convert.ToString(logincookies.CompanyId);
+                    string compne = Convert.ToString(logincookies.CompanyName);
                     string usertype = Convert.ToString(logincookies.UserType);
                     string roles = Convert.ToString(logincookies.Roles);
                     string timezone = Convert.ToString(logincookies.Timezone);
@@ -137,8 +139,10 @@ namespace WebAppColorStays.Controllers
 
                     HttpContext.Session.SetString("Roles", roles);
                     Response.Cookies.Append("JWToken", token, new CookieOptions { HttpOnly = true });
-                    var company = Process.Encrypt(compid);
+                    var company = Base64UrlEncoder.Encode(Process.Encrypt(compid));
                     Response.Cookies.Append("CompanyID", company, new CookieOptions { HttpOnly = true });
+                    var compname = Base64UrlEncoder.Encode(Process.Encrypt(compne));
+                    Response.Cookies.Append("CompanyNe", compname, new CookieOptions { HttpOnly = true });
                     Response.Cookies.Append("UserType", usertype, new CookieOptions { HttpOnly = true });
                     if (logourl == null) { logourl = "NoLogo"; }
                     Response.Cookies.Append("CompLogo", logourl, new CookieOptions { HttpOnly = true });
@@ -269,7 +273,7 @@ namespace WebAppColorStays.Controllers
         {
 
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             SeSendEmail seSendEmail = new SeSendEmail();
             model.CompId = CompID;

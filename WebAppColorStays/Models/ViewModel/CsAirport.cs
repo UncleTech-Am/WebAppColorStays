@@ -20,6 +20,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_City_Name { get; set; }
         public string? Fk_State_Name { get; set; }
         public string? Fk_Country_Name { get; set; }
+        public string? URL { get; set; }
         public bool International { get; set; }
         public bool Domestic { get; set; }
         public int? PinCode { get; set; }
@@ -27,6 +28,11 @@ namespace WebAppColorStays.Models.ViewModel
         public int? ContactNumber1 { get; set; }
         public int? ContactNumber2 { get; set; }
         public int? ContactNumber3 { get; set; }
+        public string? OwnedBy { get; set; }
+        public string? OperatedBy { get; set; }
+        public string? AirportCode { get; set; }
+        public string? Facilities { get; set; }
+        public string? Terminals { get; set; }
         public string? LocationDescription { get; set; }
         public string? ConnectivityDescription { get; set; }
         public string? RunWayDescription { get; set; }
