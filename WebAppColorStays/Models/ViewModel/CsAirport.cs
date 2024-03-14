@@ -15,6 +15,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string Name { get; set; }
         [NotMapped]
         public string? Place { get; set; }
+        public string? Description { get; set; }
         [DisplayName("Place")]
         public string? Fk_Place_Name { get; set; }
         public string? Fk_City_Name { get; set; }

@@ -299,7 +299,7 @@
     //Show the Uploaded Image in the Tab.......................
     function ShowUploads() {
         var PlaceId = $("#PId").val();
-        getUT('/ColorStays/Photo/UploadedImage?CountryId=null' + '&StateId=null' + '&CityId=null' + '&PlaceId=' + PlaceId + '&ShowBtn=' + true, function (data) {
+        getUT('/ColorStays/Photo/UploadedImage?CountryId=null' + '&StateId=null' + '&CityId=null' + '&PlaceId=' + PlaceId + '&ShowBtn=' + true + '&FolderName=Place', function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 1);
@@ -307,7 +307,7 @@
             HideLoader();
         });
         //Show the Images in LHS for Update
-        getUT('/ColorStays/Photo/Index?CountryId=null' + '&StateId=null' + '&CityId=null' + '&PlaceId=' + PlaceId + '&UpdateDetail=Yes', function (data) {
+        getUT('/ColorStays/Photo/Index?CountryId=null' + '&StateId=null' + '&CityId=null' + '&PlaceId=' + PlaceId + '&UpdateDetail=Yes' + '&FolderName=Place', function (data) {
             document.getElementById('AddImgDetail').innerHTML = "";
             document.getElementById('AddImgDetail').innerHTML = data;
         });
@@ -317,12 +317,12 @@
     //Delete the Image
     function DeleteImg(id, PlaceId, imgname) {
         ShowLoader();
-        getUT('/ColorStays/Photo/ImageDelete?ImageID=' + id + '&CountryId=null' + '&StateId=null' + '&CityId=null' + '&PlaceId=' + PlaceId + '&ImgName=' + imgname, function (data) {
+        getUT('/ColorStays/Photo/ImageDelete?ImageID=' + id + '&CountryId=null' + '&StateId=null' + '&CityId=null' + '&PlaceId=' + PlaceId + '&ImgName=' + imgname + '&FolderName=Place', function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 1);
             //Show the Images in LHS for Update
-            getUT('/ColorStays/Photo/Index?CountryId=null' + '&StateId=null' + '&CityId=null' + '&PlaceId=' + PlaceId + '&UpdateDetail=Yes', function (data) {
+            getUT('/ColorStays/Photo/Index?CountryId=null' + '&StateId=null' + '&CityId=null' + '&PlaceId=' + PlaceId + '&UpdateDetail=Yes' + '&FolderName=Place', function (data) {
                 document.getElementById('AddImgDetail').innerHTML = "";
                 document.getElementById('AddImgDetail').innerHTML = data;
             });

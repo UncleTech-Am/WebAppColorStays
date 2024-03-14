@@ -88,7 +88,7 @@
 
 
 <div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rank)</div>
@@ -97,7 +97,23 @@
         </div>
         <div class="VnRd"><span asp-validation-for="Rank"></span></div>
     </div>
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rating)<span style="color:red;"> *</span></div>
+                <select asp-for="Rating" class="TtBxTt15" required>
+                    <option value="">Select Rating</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Rating"></span></div>
+    </div>
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PinCode)</div>
@@ -113,18 +129,12 @@
     <div class="Fx50 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rating)<span style="color:red;"> *</span></div>
-                <select asp-for="Rating" class="TtBxTt15" required>
-                    <option value="">Select Rating</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
+                <input class="SeIt1o15" type="checkbox" asp-for="CountryAttraction">
+
+                &nbsp;Show In CountryAttraction
             </div>
         </div>
-        <div class="VnRd"><span asp-validation-for="Rating"></span></div>
+        <div class="VnRd"><span asp-validation-for="CountryAttraction"></span></div>
     </div>
 
 

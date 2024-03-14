@@ -134,20 +134,18 @@
        
         //Show Image
         var Countryid = $("#Id").val();
-        getUT('/ColorStays/Photo/Index?CountryId=' + Countryid + '&StateId=null' + '&CityId=null' + '&PlaceId=null', function (data) {
+        getUT('/ColorStays/Photo/Index?CountryId=' + Countryid + '&StateId=null' + '&CityId=null' + '&PlaceId=null' + '&FolderName=Country', function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             document.getElementById('SwTb3').style.display = "block";
         });
         //Show the Images in LHS for Update
-        getUT('/ColorStays/Photo/Index?CountryId=' + Countryid + '&StateId=null' + '&CityId=null' + '&PlaceId=null' + '&UpdateDetail=Yes', function (data) {
+        getUT('/ColorStays/Photo/Index?CountryId=' + Countryid + '&StateId=null' + '&CityId=null' + '&PlaceId=null' + '&UpdateDetail=Yes' + '&FolderName=Country', function (data) {
             document.getElementById('AddImgDetail').innerHTML = "";
             document.getElementById('AddImgDetail').innerHTML = data;
             HideLoader();
         });
         //Ends
-       
-
         MaxMin();
     });
 
@@ -268,7 +266,6 @@
                 formData.append("CId", jQuery("#CId").val());
                 ShowLoader();
             });
-
             this.on("success", function () {
                 ShowUploads();
             });
@@ -279,7 +276,7 @@
     //Show the Uploaded Image in the Tab.......................
     function ShowUploads() {
         var Countryid = $("#CId").val();
-        getUT('/ColorStays/Photo/UploadedImage?CountryId=' + Countryid + '&StateId=null' + '&CityId=null' + '&PlaceId=null' + '&ShowBtn=' + true, function (data) {
+        getUT('/ColorStays/Photo/UploadedImage?CountryId=' + Countryid + '&StateId=null' + '&CityId=null' + '&PlaceId=null' + '&ShowBtn=' + true + '&FolderName=Country', function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 1);
@@ -287,7 +284,7 @@
             HideLoader();
         });
         //Show the Images in LHS for Update
-        getUT('/ColorStays/Photo/Index?CountryId=' + Countryid + '&StateId=null' + '&CityId=null' + '&PlaceId=null' + '&UpdateDetail=Yes', function (data) {
+        getUT('/ColorStays/Photo/Index?CountryId=' + Countryid + '&StateId=null' + '&CityId=null' + '&PlaceId=null' + '&UpdateDetail=Yes' + '&FolderName=Country', function (data) {
             document.getElementById('AddImgDetail').innerHTML = "";
             document.getElementById('AddImgDetail').innerHTML = data;
         });
@@ -297,19 +294,17 @@
     //Delete the Image
     function DeleteImg(id, Countryid, imgname) {
         ShowLoader();
-        getUT('/ColorStays/Photo/ImageDelete?ImageID=' + id + '&CountryId=' + Countryid + '&StateId=null' + '&CityId=null' + '&PlaceId=null' + '&ImgName=' + imgname, function (data) {
+        getUT('/ColorStays/Photo/ImageDelete?ImageID=' + id + '&CountryId=' + Countryid + '&StateId=null' + '&CityId=null' + '&PlaceId=null' + '&ImgName=' + imgname + '&FolderName=Country', function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 1);
             //Show the Images in LHS for Update
-            getUT('/ColorStays/Photo/Index?CountryId=' + Countryid + '&StateId=null' + '&CityId=null' + '&PlaceId=null' + '&UpdateDetail=Yes', function (data) {
+            getUT('/ColorStays/Photo/Index?CountryId=' + Countryid + '&StateId=null' + '&CityId=null' + '&PlaceId=null' + '&UpdateDetail=Yes' + '&FolderName=Country', function (data) {
                 document.getElementById('AddImgDetail').innerHTML = "";
                 document.getElementById('AddImgDetail').innerHTML = data;
             });
             HideLoader();
         });
-
-        
     };
     //Ends
 </script>

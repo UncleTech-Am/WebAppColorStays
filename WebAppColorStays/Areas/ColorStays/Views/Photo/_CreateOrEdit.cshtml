@@ -29,7 +29,7 @@
         @Html.HiddenFor(model => model.Fk_City_Name)
         @Html.HiddenFor(model => model.Fk_Place_Name)
         @Html.HiddenFor(model => model.ImageUrl)
-
+        @Html.HiddenFor(model => model.UploadedFolder)
         <div class="MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
@@ -65,72 +65,64 @@
                 <div class="TtBxFlStDiv">
                     <div class="TtBxFlSt">
                         <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ShowCountryGallery)</div>
-                        @Html.CheckBoxFor(x => x.ShowCountryGallery, htmlAttributes : new { id = "ShowCountryGallery", @Class = "TtBxTt15"})
+                        @Html.CheckBoxFor(x => x.ShowCountryGallery, htmlAttributes: new { id = "ShowCountryGallery", @Class = "TtBxTt15" })
                     </div>
                 </div>
                 <div class="VnRd"><span asp-validation-for="ShowCountryGallery"></span></div>
             </div>
-
         }
-
         @if (Model.Fk_State_Name != null)
         {
             <div class="MnTp7 MnBm7">
                 <div class="TtBxFlStDiv">
                     <div class="TtBxFlSt">
                         <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ShowStateGallery)</div>
-                        @Html.CheckBoxFor(x => x.ShowStateGallery, htmlAttributes : new { id = "ShowStateGallery", @Class = "TtBxTt15"})
+                        @Html.CheckBoxFor(x => x.ShowStateGallery, htmlAttributes: new { id = "ShowStateGallery", @Class = "TtBxTt15" })
                     </div>
                 </div>
                 <div class="VnRd"><span asp-validation-for="ShowStateGallery"></span></div>
             </div>
-
         }
-
         @if (Model.Fk_City_Name != null)
         {
             <div class="MnTp7 MnBm7">
                 <div class="TtBxFlStDiv">
                     <div class="TtBxFlSt">
                         <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ShowCityGallery)</div>
-                        @Html.CheckBoxFor(x => x.ShowCityGallery, htmlAttributes : new { id = "ShowCityGallery", @Class = "TtBxTt15"})
+                        @Html.CheckBoxFor(x => x.ShowCityGallery, htmlAttributes: new { id = "ShowCityGallery", @Class = "TtBxTt15" })
                     </div>
                 </div>
                 <div class="VnRd"><span asp-validation-for="ShowCityGallery"></span></div>
             </div>
-
         }
-
         @if (Model.Fk_Place_Name != null)
         {
             <div class="MnTp7 MnBm7">
                 <div class="TtBxFlStDiv">
                     <div class="TtBxFlSt">
                         <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ShowPlaceGallery)</div>
-                        @Html.CheckBoxFor(x => x.ShowPlaceGallery, htmlAttributes : new { id = "ShowPlaceGallery", @Class = "TtBxTt15"})
+                        @Html.CheckBoxFor(x => x.ShowPlaceGallery, htmlAttributes: new { id = "ShowPlaceGallery", @Class = "TtBxTt15" })
                     </div>
                 </div>
                 <div class="VnRd"><span asp-validation-for="ShowPlaceGallery"></span></div>
             </div>
-
         }
-
-    </div>
+        </div>
     <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
         <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
-        @if (Model.Fk_Country_Name != null)
+        @if (Model.Fk_Country_Name != null && Model.UploadedFolder == "Country")
         {
             <input type="button" onclick="DeleteImg('@Model.Id','@Model.Fk_Country_Name','@Model.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
         }
-         @if (Model.Fk_State_Name != null)
+        @if (Model.Fk_State_Name != null && Model.UploadedFolder == "State")
         {
             <input type="button" onclick="DeleteImg('@Model.Id','@Model.Fk_State_Name','@Model.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
         }
-         @if (Model.Fk_City_Name != null)
+        @if (Model.Fk_City_Name != null && Model.UploadedFolder == "City")
         {
             <input type="button" onclick="DeleteImg('@Model.Id','@Model.Fk_City_Name','@Model.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
         }
-        @if (Model.Fk_Place_Name != null)
+        @if (Model.Fk_Place_Name != null && Model.UploadedFolder == "Place")
         {
             <input type="button" onclick="DeleteImg('@Model.Id','@Model.Fk_Place_Name','@Model.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
         }

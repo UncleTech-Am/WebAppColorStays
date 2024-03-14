@@ -22,6 +22,7 @@ namespace WebAppColorStays.Controllers
     {
         // GET: AccountController
         public ActionResult Login()
+        
         {
             return Redirect(ApiSingleSignOn.AccountLoginColorStays());
         }

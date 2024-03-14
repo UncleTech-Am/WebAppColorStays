@@ -145,13 +145,13 @@
 
         //Show Image
         var CityId = $("#Id").val();
-        getUT('/ColorStays/Photo/Index?CountryId=null' + '&StateId=null' + '&CityId=' + CityId + '&PlaceId=null', function (data) {
+        getUT('/ColorStays/Photo/Index?CountryId=null' + '&StateId=null' + '&CityId=' + CityId + '&PlaceId=null' + '&FolderName=City', function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             document.getElementById('SwTb3').style.display = "block";
         });
         //Show the Images in LHS for Update
-        getUT('/ColorStays/Photo/Index?CountryId=null' + '&StateId=null' + '&CityId=' + CityId + '&PlaceId=null' + '&UpdateDetail=Yes', function (data) {
+        getUT('/ColorStays/Photo/Index?CountryId=null' + '&StateId=null' + '&CityId=' + CityId + '&PlaceId=null' + '&UpdateDetail=Yes' + '&FolderName=City', function (data) {
             document.getElementById('AddImgDetail').innerHTML = "";
             document.getElementById('AddImgDetail').innerHTML = data;
             HideLoader();
@@ -301,7 +301,7 @@
     //Show the Uploaded Image in the Tab.......................
     function ShowUploads() {
         var CityId = $("#CId").val();
-        getUT('/ColorStays/Photo/UploadedImage?CountryId=null' + '&StateId=null' + '&CityId=' + CityId + '&PlaceId=null' + '&ShowBtn=' + true, function (data) {
+        getUT('/ColorStays/Photo/UploadedImage?CountryId=null' + '&StateId=null' + '&CityId=' + CityId + '&PlaceId=null' + '&ShowBtn=' + true + '&FolderName=City', function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 1);
@@ -309,7 +309,7 @@
             HideLoader();
         });
         //Show the Images in LHS for Update
-        getUT('/ColorStays/Photo/Index?CountryId=null' + '&StateId=null' + '&CityId=' + CityId + '&PlaceId=null' + '&UpdateDetail=Yes', function (data) {
+        getUT('/ColorStays/Photo/Index?CountryId=null' + '&StateId=null' + '&CityId=' + CityId + '&PlaceId=null' + '&UpdateDetail=Yes' + '&FolderName=City', function (data) {
             document.getElementById('AddImgDetail').innerHTML = "";
             document.getElementById('AddImgDetail').innerHTML = data;
         });
@@ -319,12 +319,12 @@
     //Delete the Image
     function DeleteImg(id, CityId, imgname) {
         ShowLoader();
-        getUT('/ColorStays/Photo/ImageDelete?ImageID=' + id + '&CountryId=null' + '&StateId=null' + '&CityId=' + CityId + '&PlaceId=null' + '&ImgName=' + imgname, function (data) {
+        getUT('/ColorStays/Photo/ImageDelete?ImageID=' + id + '&CountryId=null' + '&StateId=null' + '&CityId=' + CityId + '&PlaceId=null' + '&ImgName=' + imgname + '&FolderName=City', function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 1);
             //Show the Images in LHS for Update
-            getUT('/ColorStays/Photo/Index?CountryId=null' + '&StateId=null' + '&CityId=' + CityId + '&PlaceId=null' + '&UpdateDetail=Yes', function (data) {
+            getUT('/ColorStays/Photo/Index?CountryId=null' + '&StateId=null' + '&CityId=' + CityId + '&PlaceId=null' + '&UpdateDetail=Yes' + '&FolderName=City', function (data) {
                 document.getElementById('AddImgDetail').innerHTML = "";
                 document.getElementById('AddImgDetail').innerHTML = data;
             });

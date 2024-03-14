@@ -17,6 +17,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? ImageUrl { get; set; }
         public string? AltTag { get; set; }
         public string? Description { get; set; }
+        public string? UploadedFolder { get; set; }
         public bool ArchiveStatus { get; set; }
         public bool ShowPlaceGallery { get; set; }
         public bool ShowCityGallery { get; set; }

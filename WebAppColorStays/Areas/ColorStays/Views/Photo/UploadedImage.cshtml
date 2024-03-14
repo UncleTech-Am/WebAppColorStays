@@ -29,19 +29,19 @@
             @if (ViewBag.ShowBtn != "false")
             {
                 <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
-                    @if (item.Fk_Country_Name != null)
+                    @if (item.Fk_Country_Name != null && item.UploadedFolder =="Country")
                     {
                         <input type="button" onclick="DeleteImg('@item.Id','@item.Fk_Country_Name','@item.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
                     }
-                    @if (item.Fk_State_Name != null)
+                    @if (item.Fk_State_Name != null && item.UploadedFolder== "State")
                     {
                         <input type="button" onclick="DeleteImg('@item.Id','@item.Fk_State_Name','@item.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
                     }
-                    @if (item.Fk_City_Name != null)
+                    @if (item.Fk_City_Name != null && item.UploadedFolder == "City")
                     {
                         <input type="button" onclick="DeleteImg('@item.Id','@item.Fk_City_Name','@item.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
                     }
-                    @if (item.Fk_Place_Name != null)
+                    @if (item.Fk_Place_Name != null && item.UploadedFolder == "Place")
                     {
                         <input type="button" onclick="DeleteImg('@item.Id','@item.Fk_Place_Name','@item.Title')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
                     }

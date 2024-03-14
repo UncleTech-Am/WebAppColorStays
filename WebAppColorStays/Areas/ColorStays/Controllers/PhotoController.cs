@@ -116,7 +116,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //show upload the image
         [HttpGet]
-        public async Task<IActionResult> Index(string? CountryId, string? StateId, string? CityId, string? PlaceId, string? UpdateDetail, string? ShowBtn)
+        public async Task<IActionResult> Index(string? CountryId, string? StateId, string? CityId, string? PlaceId, string? UpdateDetail, string? ShowBtn, string FolderName)
         {
             var TokenKey = Request.Cookies["JWToken"];
             List<CsPhoto> photosList = new List<CsPhoto>();
@@ -124,7 +124,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Photo/Index/" + CountryId + "/" + StateId + "/" + CityId + "/" + PlaceId))
+                using (var response = await client.GetAsync("Photo/Index/" + CountryId + "/" + StateId + "/" + CityId + "/" + PlaceId +"/" + FolderName))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -142,7 +142,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //show upload the image
         [HttpGet]
-        public async Task<IActionResult> UploadedImage(string? CountryId, string? StateId, string? CityId, string? PlaceId, string ShowBtn)
+        public async Task<IActionResult> UploadedImage(string? CountryId, string? StateId, string? CityId, string? PlaceId, string ShowBtn, string FolderName)
         {
 
             var TokenKey = Request.Cookies["JWToken"];
@@ -151,7 +151,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Photo/UploadedImage/" + CountryId + "/" + StateId + "/" + CityId + "/" + PlaceId, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Photo/UploadedImage/" + CountryId + "/" + StateId + "/" + CityId + "/" + PlaceId + "/" + FolderName, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     csPhotos = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -166,7 +166,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //ends
 
         //Delete the upload image
-        public async Task<IActionResult> ImageDelete(string ImageID, string? CountryId, string? StateId, string? CityId, string  PlaceId, string ImgName)
+        public async Task<IActionResult> ImageDelete(string ImageID, string? CountryId, string? StateId, string? CityId, string  PlaceId, string ImgName, string FolderName)
         {
             var TokenKey = Request.Cookies["JWToken"];
 
@@ -175,30 +175,30 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Photo/ImageDelete/" + ImageID + "/" + CountryId +"/"+StateId +"/"+ CityId + "/"+ PlaceId, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Photo/ImageDelete/" + ImageID + "/" + CountryId +"/"+StateId +"/"+ CityId + "/"+ PlaceId +"/" + FolderName, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                    
                     //Delete the Images from the folder
-                    if (CountryId != "null")
+                    if (CountryId != "null" && FolderName=="Country")
                     {
                         Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Country");
                         Task.WaitAll(TDeleteImage);
                     }
                     //Delete the Images from the folder
-                    if (StateId != "null")
+                    if (StateId != "null" && FolderName =="State")
                     {
                         Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "State");
                         Task.WaitAll(TDeleteImage);
                     }
-                    if (CityId != "null")
+                    if (CityId != "null" && FolderName =="City")
                     {
                         //Delete the Images from the folder
                         Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "City");
                         Task.WaitAll(TDeleteImage);
                     }
                     //Delete the Images from the folder
-                    if (PlaceId != "null")
+                    if (PlaceId != "null" && FolderName =="Place")
                     {
                         Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Place");
                         Task.WaitAll(TDeleteImage);
@@ -206,7 +206,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
             }
 
-            return RedirectToAction("UploadedImage", new { CountryId, StateId, CityId, PlaceId });
+            return RedirectToAction("UploadedImage", new { CountryId, StateId, CityId, PlaceId, FolderName });
         }
         //ends
 
