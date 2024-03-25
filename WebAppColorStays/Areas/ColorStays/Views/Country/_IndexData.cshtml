@@ -84,31 +84,12 @@
 	    <td>@item.Video</td>
 
         <td>@item.Quote</td>
+
+        <td>@item.Quote1</td>
          
 	    <td>@item.PopularReligion</td>
          
 	    <td>@item.Rating</td>
-         
-	    <td>@item.InternationalAirportCount</td>
-         
-	    <td>@item.DomesticAirportCount</td>
-         
-	    <td>@item.RailwayStationCount</td>
-         
-	    <td>@if (item.BestTimeToVisit != null && item.BestTimeToVisit.Length > 50)
-            {
-                @item.BestTimeToVisit.Substring(0,50)
-                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
-                    ...Read More
-                    <div class="DyNe">
-                        @item.BestTimeToVisit
-                    </div>
-                </div>
-            }
-            else{
-                @item.BestTimeToVisit
-            }
-        </td>
 
         <td>@item.SEOTitle</td>
 

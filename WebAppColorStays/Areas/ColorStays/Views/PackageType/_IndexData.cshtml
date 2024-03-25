@@ -42,7 +42,13 @@
          
 	    <td>@item.Description</td>
          
-	    <td>@item.Icon</td>
+	    <td>@String.Format("{0:F}", item.StartingPrice)</td>
+         
+	    <td>@item.BigImage</td>
+         
+	    <td>@item.AltTag1</td>
+         
+	    <td>@String.Format("{0:F}", item.EndPrice)</td>
          
 	    <td>@item.Remarks</td>
          
@@ -74,7 +80,6 @@
 	    <td>@item.GCompId</td>
          
 	    <td>@item.CompId</td>
-         
             </tr>
 }
 

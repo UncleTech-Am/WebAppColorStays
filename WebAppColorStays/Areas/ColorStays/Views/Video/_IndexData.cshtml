@@ -18,6 +18,7 @@
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
                     <input type="checkbox" ClipStatus ="Selected" id="@item.Id" value="@item.Id" name="@item.Title" class="AmIndexCheckbox SeIt1o14" />
                 </span>
+
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.AltTag','/ColorStays/Video')"><i class="UT-StarSolid"> </i> </a>
             }
             else
@@ -41,9 +42,15 @@
 	    <td>@item.Fk_State_Name</td>
          
 	    <td>@item.Fk_Country_Name</td>
+
+        <td>@item.Fk_VideoType_Name</td>
          
 	    <td>@item.Title</td>
-         
+
+        <td>@item.Link</td>
+
+        @*<td>@item.Upload</td>*@
+
 	    <td>@item.AltTag</td>
          
 	    <td>@item.Description</td>

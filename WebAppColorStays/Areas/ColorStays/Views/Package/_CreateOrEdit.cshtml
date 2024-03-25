@@ -23,7 +23,7 @@
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_PackageType_Name)<span style="color:red;"> *</span></div>
             <select asp-for="Fk_PackageType_Name" asp-items="@await ViewBag.PackageType" class="TtBxTt15" required>
                 <option value="">Select Package Type</option>
-                </select>        
+            </select>        
             </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_PackageType_Name"></span></div>

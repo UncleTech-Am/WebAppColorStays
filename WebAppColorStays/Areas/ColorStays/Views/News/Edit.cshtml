@@ -89,7 +89,7 @@
                             <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/News/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ShowEditImage()"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
                         </div>
                     </div>
                 </div>
@@ -187,7 +187,7 @@
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
         ActiveTabUt('UTabs2', 0);
-        ShowImage(document.getElementById('NId').value);
+        ShowImage(document.getElementById('Id').value);
     }
 
     function ShowImage(Id) {
@@ -198,6 +198,15 @@
             ActiveTabUt('UTabs1', 1);
             HideLoader();
         });
+    }
+
+    function ShowEditImage() {
+        var Id = $("#AId").val();
+        getUT('/ColorStays/News/UploadedImage?Id=' + Id + '&UpdateDetail=Yes', function (data) {
+            document.getElementById('AddImgDetail').innerHTML = "";
+            document.getElementById('AddImgDetail').innerHTML = data;
+        });
+        ActiveTabUt('UTabs1', 1)
     }
 
     function SuccessDn(data, status, xhr, FormID, FormFieldID) {
@@ -216,7 +225,7 @@
 
     //Show the Uploaded Image in the Tab.......................
     function ShowUploads() {
-        var Id = $("#Id").val();
+        var Id = $("#AId").val();
         getUT('/ColorStays/News/UploadedImage?Id=' + Id + '&ShowBtn=' + true, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;

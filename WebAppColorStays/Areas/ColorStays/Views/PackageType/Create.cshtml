@@ -27,14 +27,14 @@
                         <i class="UT-PenNibSmall"></i>
                         Enter Detail
                     </h3>
-                     <form id="Create"
-                        data-ajax="true"
-                        data-ajax-url="/ColorStays/PackageType/Create"
-                        data-ajax-method="POST"
-                        data-ajax-loading="#loader"
-                        contentType="multipart/form-data"
-                        data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
-                        data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
+                    <form id="Create"
+                          data-ajax="true"
+                          data-ajax-url="/ColorStays/PackageType/Create"
+                          data-ajax-method="POST"
+                          data-ajax-loading="#loader"
+                          contentType="multipart/form-data"
+                          data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
+                          data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
 
                         @Html.AntiForgeryToken()
 
@@ -59,39 +59,39 @@
                             Upload Image
                         </h3>
                         <form id="CreateDn"
-                              data-ajax="true"
-                              data-ajax-url="/ColorStays/PackageType/SaveImage"
-                              data-ajax-method="POST"
-                              data-ajax-loading="#loader"
-                              enctype="multipart/form-data"
-                              data-ajax-success="SuccessDn(data, status, xhr,'CreateDn','AddImage')"
-                              data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateDn')">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="NameAction" value="E" />
-                            <div id="AddImage"></div>
+                                  data-ajax="true"
+                                  data-ajax-url="/ColorStays/PackageType/SaveImage"
+                                  data-ajax-method="POST"
+                                  data-ajax-loading="#loader"
+                                  enctype="multipart/form-data"
+                                  data-ajax-success="SuccessDn(data, status, xhr,'CreateDn','AddImage')"
+                                  data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateDn')">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="NameAction" value="E" />
+                                <div id="AddImage"></div>
 
-                            <div class="MnTp7 MnBm7 FxRw">
-                                <div class="FxGw1">
-                                    <button type="submit" id="submit-all" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-ImageLine"></i>&nbsp;Upload</button>
+                                <div class="MnTp7 MnBm7 FxRw">
+                                    <div class="FxGw1">
+                                        <button type="submit" id="submit-all" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-ImageLine"></i>&nbsp;Upload</button>
+                                    </div>
+                                    <div>
+                                        <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 2)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                                    </div>
                                 </div>
-                                <div>
-                                    <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 2)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
                     </div>
                 </div>
 
                 <div id="UTabs1Cont2">
                     <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
-                    <div class="Pg10 FxRw">
-                        <div class="FxGw1">
-                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/PackageType/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
+                        <div class="Pg10 FxRw">
+                            <div class="FxGw1">
+                                <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/PackageType/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
+                            </div>
+                            <div>
+                                <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
+                            </div>
                         </div>
-                        <div>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -128,7 +128,6 @@
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
         ShowImage(document.getElementById('PTId').value);
         ActiveTabUt('UTabs2', 0);
-
     }
 
 
@@ -158,7 +157,7 @@
 
     //Show the Uploaded Image in the Tab.......................
     function ShowUploads() {
-        var Id = $("#PTId").val();
+        var Id = $("#PId").val();
         getUT('/ColorStays/PackageType/UploadedImage?Id=' + Id + '&ShowBtn=' + true, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
@@ -175,9 +174,9 @@
     //Ends.............................
 
     //Delete the Image
-    function DeleteImg(id, imgname) {
+    function DeleteImg(id, field, imgname) {
         ShowLoader();
-        getUT('/ColorStays/PackageType/ImageDelete?Id=' + id + '&ImgName=' + imgname, function (data) {
+        getUT('/ColorStays/PackageType/ImageDelete?Id=' + id + '&Field=' + field + '&ImgName=' + imgname, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 1);
@@ -191,7 +190,6 @@
 
     };
     //Ends
-
 
     //Table Search Success Function
     function TableSuccessFn(data, status, xhr, FormID) {

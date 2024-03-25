@@ -47,8 +47,29 @@
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Icon)</td>
-        <td>@Model.Icon</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.StartingPrice)</td>
+        <td>@String.Format("{0:F}", Model.StartingPrice)</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.BigImage)</td>
+        <td>@Model.BigImage</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.AltTag1)</td>
+        <td>@Model.AltTag1</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.EndPrice)</td>
+        <td>@String.Format("{0:F}", Model.EndPrice)</td>
         </tr>
 
 		      
@@ -161,7 +182,8 @@
         <td>@Model.CompId</td>
         </tr>
 
-		      		      
+		      
+      
         </table>
     </div>
 </div>

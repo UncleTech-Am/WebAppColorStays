@@ -116,12 +116,25 @@
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rank)</div>
-                <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Rank)" asp-for="Rank" autocomplete="off" />
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Rank)" asp-for="Rank" autocomplete="off" />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="Rank"></span></div>
     </div>
     <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="PopularDestination">
+                &nbsp;Popular Destination
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Rank"></span></div>
+    </div>
+
+</div>
+
+<div class="FxRw">
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rating)<span style="color:red;"> *</span></div>
@@ -138,24 +151,21 @@
         <div class="VnRd"><span asp-validation-for="Rating"></span></div>
     </div>
 
-</div>
-
-<div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.NoOfDays)</div>
-                <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.NoOfDays)" asp-for="NoOfDays" autocomplete="off" />
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.NoOfDays)" asp-for="NoOfDays" autocomplete="off" />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="NoOfDays"></span></div>
     </div>
 
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.NoOfPlaces)</div>
-                <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.NoOfPlaces)" asp-for="NoOfPlaces" autocomplete="off" />
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.NoOfPlaces)" asp-for="NoOfPlaces" autocomplete="off" />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="NoOfPlaces"></span></div>

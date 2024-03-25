@@ -1,0 +1,93 @@
+@model WebAppColorStays.Models.ViewModel.CsPackageType
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "PackageType";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+<form id="Edit1"
+      data-ajax="true"
+      data-ajax-url="/ColorStays/PackageType/EditImageDetail"
+      data-ajax-method="POST"
+      data-ajax-loading="#loader"
+      data-ajax-success="SuccessIeDl(data, status, xhr,'Edit1','CreateOrEdit2')"
+      data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit1')">
+
+    @Html.AntiForgeryToken()
+    <div class="TtAnCr Pg7">
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.RowVersion)
+        @Html.HiddenFor(model => model.CreatedBy)
+        @Html.HiddenFor(model => model.CreatedOn)
+        @Html.HiddenFor(model => model.CompId)
+        @Html.HiddenFor(model => model.Description)
+        @Html.HiddenFor(model => model.Name)
+        @Html.HiddenFor(model => model.Remarks)
+        @Html.HiddenFor(model => model.ImageName)
+        @Html.HiddenFor(model => model.StartingPrice)
+        @Html.HiddenFor(model => model.EndPrice)
+        @Html.HiddenFor(model => model.ImageName)
+        @Html.HiddenFor(model => model.BigImage)
+
+        @if (Model.ImageName != null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">SmallImage</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ImageName)" asp-for="ImageName" autocomplete="off" readonly />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="ImageName"></span></div>
+            </div>
+
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag)" asp-for="AltTag" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="AltTag"></span></div>
+            </div>
+
+            <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+                <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+
+                <input type="button" onclick="DeleteImg('@Model.Id', 'Image','@Model.ImageName')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            </div>
+
+        }
+        @if (Model.BigImage != null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BigImage)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.BigImage)" asp-for="BigImage" autocomplete="off" readonly />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="BigImage"></span></div>
+            </div>
+
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag1)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag1)" asp-for="AltTag1" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="AltTag1"></span></div>
+            </div>
+
+            <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+                <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+
+                <input type="button" onclick="DeleteImg('@Model.Id', 'BigImage','@Model.BigImage')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            </div>
+
+        }
+    </div>
+</form>

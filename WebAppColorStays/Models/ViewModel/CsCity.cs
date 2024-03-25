@@ -34,7 +34,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Stories { get; set; }
         public string? Longitude { get; set; }
         public string? Latitude { get; set; }
-        [Remote("CheckDuplicationCityRank", "City", AdditionalFields = ("NameAction, Fk_State_Name, Id"))]
+        public bool PopularDestination { get; set; }
+        [Remote("CheckDuplicationCityRank", "City", AdditionalFields = ("NameAction, Fk_Country_Name, Id"))]
         public int? Rank { get; set; }
         public int? NoOfDays { get; set; }
         public int? NoOfPlaces { get; set; }

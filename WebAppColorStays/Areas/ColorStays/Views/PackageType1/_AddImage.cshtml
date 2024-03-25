@@ -1,0 +1,50 @@
+@model WebAppColorStays.Models.ViewModel.CsPackageType
+@{
+    Layout = null;
+    ViewData["Action"] = "PackageType";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+
+@*@Html.HiddenFor(model => model.Id)*@
+<input type="hidden" id="ATId" asp-for="Id" />
+@Html.HiddenFor(model => model.RowVersion)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedOn)
+@Html.HiddenFor(model => model.CompId)
+@Html.HiddenFor(model => model.Description)
+@Html.HiddenFor(model => model.Name)
+@Html.HiddenFor(model => model.StartingPrice)
+@Html.HiddenFor(model => model.EndPrice)
+@Html.HiddenFor(model => model.Remarks)
+@Html.HiddenFor(model => model.ImageName)
+@Html.HiddenFor(model => model.AltTag)
+
+
+@if (Model.ImageName == null)
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">SmallImage</div>
+                <input asp-for="ImageName" type="file" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="ImageName"></span></div>
+    </div>
+}
+@if (Model.BigImage == null)
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BigImage)</div>
+                <input asp-for="BigImage" type="file" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="BigImage"></span></div>
+    </div>
+}

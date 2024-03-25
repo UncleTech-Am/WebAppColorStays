@@ -23,6 +23,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string Name { get; set; }
         public string? History { get; set; }
         public string? Quote { get; set; }
+        public string? Quote1 { get; set; }
         public string? Fact { get; set; }
         public string? Longitude { get; set; }
         public string? Latitude { get; set; }
@@ -32,10 +33,6 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Population { get; set; }
         public string? PopularReligion { get; set; }
         public int? Rating { get; set; }
-        public int? InternationalAirportCount { get; set; }
-        public int? DomesticAirportCount { get; set; }
-        public int? RailwayStationCount { get; set; }
-        public string? BestTimeToVisit { get; set; }
         [StringLength(50, ErrorMessage = "You can enter only 50 characters long!")]
         public string? RequiredDays { get; set; }
         [StringLength(50, ErrorMessage = "You can enter only 50 characters long!")]

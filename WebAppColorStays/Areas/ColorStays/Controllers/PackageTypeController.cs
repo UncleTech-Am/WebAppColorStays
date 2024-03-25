@@ -13,7 +13,6 @@ using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
 using LibCommon.APICommonMethods;
-using System.Net.Http.Json;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -24,7 +23,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     {
         private readonly Paging paging;
         private readonly RyCSImage ryCsImage;
-
 
         public PackageTypeController()
         {
@@ -38,6 +36,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Title = "PackageType";
         }
         //Ends
+
+
 
         //GET: /PackageType/Add image in PackageType
         [HttpGet]
@@ -106,9 +106,16 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 foreach (var file in files)
                 {
                     var fileName = "PackageType-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
-
-                    CsPackageType.ImageName = fileName;
-                   
+                    var extension = Path.GetExtension(file.FileName);
+                    if (extension == ".gif")
+                    {
+                        CsPackageType.BigImage = fileName;
+                    }
+                    else
+                    {
+                        CsPackageType.ImageName = fileName;
+                    }
+                    
 
                     if (file.Length > 0)
                     {
@@ -219,7 +226,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //ends
 
         //Delete the upload image
-        public async Task<IActionResult> ImageDelete(string Id, string ImgName)
+        public async Task<IActionResult> ImageDelete(string Id, string Field, string ImgName)
         {
             var TokenKey = Request.Cookies["JWToken"];
 
@@ -228,7 +235,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("PackageType/ImageDelete/" + Id, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("PackageType/ImageDelete/" + Id + "/" + Field, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
@@ -634,7 +641,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 using (HttpClient client = APIColorStays.Initial())
                 {
 				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsPackageType), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("PackageType/create", content))
                     {

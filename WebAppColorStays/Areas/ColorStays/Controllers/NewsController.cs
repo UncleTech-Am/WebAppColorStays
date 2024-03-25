@@ -172,7 +172,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     using (HttpClient client = APIColorStays.Initial())
                     {
                         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsNews>("News/edit", CsNews))
+                        using (var response = await client.PostAsJsonAsync<CsNews>("News/EditImage", CsNews))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)
@@ -780,7 +780,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", CsNews.Id });
+                    return RedirectToAction("Index", new { PageCall = "Show", CsNews.Id });
                 }
                 catch (DbUpdateConcurrencyException)
                 {

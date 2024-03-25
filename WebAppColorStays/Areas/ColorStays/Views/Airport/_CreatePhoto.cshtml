@@ -27,6 +27,13 @@
         @Html.HiddenFor(model => model.Fk_State_Name)
         @Html.HiddenFor(model => model.Fk_Country_Name)
         @Html.HiddenFor(model => model.Name)
+        @Html.HiddenFor(model => model.Description)
+        @Html.HiddenFor(model => model.URL)
+        @Html.HiddenFor(model => model.OwnedBy)
+        @Html.HiddenFor(model => model.OperatedBy)
+        @Html.HiddenFor(model => model.AirportCode)
+        @Html.HiddenFor(model => model.Facilities)
+        @Html.HiddenFor(model => model.Terminals)
         @Html.HiddenFor(model => model.International)
         @Html.HiddenFor(model => model.Domestic)
         @Html.HiddenFor(model => model.Address)
@@ -52,48 +59,48 @@
         @Html.HiddenFor(model => model.Video4)
         @Html.HiddenFor(model => model.Video5)
 
-       
 
-    @if (Model.Photo1 != null)
-    {
-        <div class="MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo1)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo1)" asp-for="Photo1" autocomplete="off" readonly />
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="Photo1"></span></div>
-        </div>
 
-        <div class="MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag1)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag1)" asp-for="AltTag1" autocomplete="off" />
+        @if (Model.Photo1 != null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo1)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Photo1)" asp-for="Photo1" autocomplete="off" readonly />
+                    </div>
                 </div>
+                <div class="VnRd"><span asp-validation-for="Photo1"></span></div>
             </div>
-            <div class="VnRd"><span asp-validation-for="AltTag1"></span></div>
-        </div>
 
-        <div class="MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description1)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Description1)" asp-for="Description1" autocomplete="off" />
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag1)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag1)" asp-for="AltTag1" autocomplete="off" />
+                    </div>
                 </div>
+                <div class="VnRd"><span asp-validation-for="AltTag1"></span></div>
             </div>
-            <div class="VnRd"><span asp-validation-for="Description1"></span></div>
-        </div>
-        <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
-            <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description1)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Description1)" asp-for="Description1" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Description1"></span></div>
+            </div>
+            <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+                <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
 
                 <input type="button" onclick="DeleteImg('@Model.Id', 'Photo1','@Model.Photo1')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
-        </div>
-    }
+            </div>
+        }
 
-    @if (Model.Photo2 != null)
-   {
+        @if (Model.Photo2 != null)
+        {
             <div class="MnTp7 MnBm7">
                 <div class="TtBxFlStDiv">
                     <div class="TtBxFlSt">
@@ -123,16 +130,16 @@
                 </div>
                 <div class="VnRd"><span asp-validation-for="Description2"></span></div>
             </div>
-        <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
-            <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+                <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
 
-            <input type="button" onclick="DeleteImg('@Model.Id','Photo2','@Model.Photo2')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
-        </div>
+                <input type="button" onclick="DeleteImg('@Model.Id','Photo2','@Model.Photo2')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            </div>
 
-    }
+        }
 
-    @if (Model.Photo3 != null)
-   {
+        @if (Model.Photo3 != null)
+        {
             <div class="MnTp7 MnBm7">
                 <div class="TtBxFlStDiv">
                     <div class="TtBxFlSt">
@@ -162,16 +169,16 @@
                 </div>
                 <div class="VnRd"><span asp-validation-for="Description3"></span></div>
             </div>
-        <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
-            <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+                <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
 
-            <input type="button" onclick="DeleteImg('@Model.Id','Photo3','@Model.Photo3')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
-        </div>
+                <input type="button" onclick="DeleteImg('@Model.Id','Photo3','@Model.Photo3')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            </div>
 
-    }
+        }
 
-    @if (Model.Photo4 != null)
-   {
+        @if (Model.Photo4 != null)
+        {
             <div class="MnTp7 MnBm7">
                 <div class="TtBxFlStDiv">
                     <div class="TtBxFlSt">
@@ -201,15 +208,15 @@
                 </div>
                 <div class="VnRd"><span asp-validation-for="Description4"></span></div>
             </div>
-        <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
-            <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+                <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
 
-            <input type="button" onclick="DeleteImg('@Model.Id','Photo4','@Model.Photo4')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
-        </div>
+                <input type="button" onclick="DeleteImg('@Model.Id','Photo4','@Model.Photo4')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            </div>
 
-    }
+        }
 
-    @if (Model.Photo5 != null)
+        @if (Model.Photo5 != null)
         {
             <div class="MnTp7 MnBm7">
                 <div class="TtBxFlStDiv">

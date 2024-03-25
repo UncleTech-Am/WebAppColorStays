@@ -3,7 +3,7 @@
 
 @{
     Layout = null;
-    ViewData["Action"] = "Airport";
+    ViewData["Action"] = "PackageType";
 }
 
 <div style="display:none">responseformUT @ViewData["ResponseName"]</div>
@@ -11,19 +11,25 @@
 <div>
 
 
-        <div class="FxRw FxAnImSh">
-            <div class="Fx50">
-                <div class="MnTp10 MnBm18 TtAnCr Pg7">
+    <div class="FxRw FxAnImSh">
+        <div class="Fx50">
+            <div class="MnTp10 MnBm18 TtAnCr Pg7">
                 <br />
-
-                <img src="@Model.ImageUrl" class="img-responsive" style="width:200px; height:200px;">
-               
+                @if (Model.ImageName != null)
+                {
+                    <img src="@Model.ImageUrl" class="img-responsive" style="width:200px; height:200px;">
+                }
+                <br /> <br />
+                @if (Model.BigImage != null)
+                {
+                    <img src="@Model.ImageUrl1" class="img-responsive" style="width:200px; height:200px;">
+                }
             </div>
-            </div>
+        </div>
         <div class="Fx50" id="CreateOrEdit2">
             @await Html.PartialAsync("_CreatePhoto", Model)
         </div>
-        </div>
+    </div>
 </div>
 
 

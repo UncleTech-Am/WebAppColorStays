@@ -428,6 +428,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                         if (response.IsSuccessStatusCode)
                         {
                             data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPlaceType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            
                             Success = true;
                         }
                         else

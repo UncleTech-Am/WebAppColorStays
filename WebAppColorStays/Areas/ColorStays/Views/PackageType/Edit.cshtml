@@ -170,7 +170,7 @@
 
     //Show the Uploaded Image in the Tab.......................
     function ShowUploads() {
-        var Id = $("#PTId").val();
+        var Id = $("#Id").val();
         getUT('/ColorStays/PackageType/UploadedImage?Id=' + Id + '&ShowBtn=' + true, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
@@ -187,9 +187,9 @@
     //Ends.............................
 
     //Delete the Image
-    function DeleteImg(id, imgname) {
+    function DeleteImg(id, field, imgname) {
         ShowLoader();
-        getUT('/ColorStays/PackageType/ImageDelete?Id=' + id + '&ImgName=' + imgname, function (data) {
+        getUT('/ColorStays/PackageType/ImageDelete?Id=' + id + '&Field=' + field + '&ImgName=' + imgname, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 1);

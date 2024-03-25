@@ -14,7 +14,12 @@ namespace WebAppColorStays.Models.ViewModel
         public string? ImageUrl { get; set; }
         public string? AltTag { get; set; }
         public string? Description { get; set; }
-        public string? Icon { get; set; }
+        public double? StartingPrice { get; set; }
+        public double? EndPrice { get; set; }
+        public string? BigImage { get; set; }
+        public string? AltTag1 { get; set; }
+        [NotMapped]
+        public string? ImageUrl1 { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]

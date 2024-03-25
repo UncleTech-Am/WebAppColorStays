@@ -1,0 +1,102 @@
+@{
+    Layout = null;
+    bool ShowPageNextLink = Convert.ToBoolean(ViewData["ShowNextBtn"]);
+    bool ShowPagePreviousLink = Convert.ToBoolean(ViewData["ShowPrevBtn"]);
+    int PageStartNumber = Convert.ToInt32(ViewData["PageStartNo"]);
+    List<int> PageSizeSelectList = ViewData["PageSizeSelectList"] as List<int>;
+    int PageSelectButtonCount = Convert.ToInt32(ViewData["PageSelectButtonCount"]);
+    int PageNumberSelected = Convert.ToInt32(ViewData["PageNumberSelected"]);
+    int PageRecordSize = Convert.ToInt32(ViewData["PageRecordSize"]);
+    int NetRecords = Convert.ToInt32(ViewData["NetRecords"]);
+    int PageNoSelect = 0;
+    int PageSize = 0;
+    int PageBtnVal = 0;
+}
+
+<div id="SearchType" style="display:none;">@ViewData["SearchType"]</div>
+<div id="SearchFormID" style="display:none;">@ViewData["FormID"]</div>
+
+<div class="DyFx FxRw FxAnImCr">
+    <div>
+        <div class="TePgBn Pg5"><i class="UT-DataBaseTwoLineSolid"></i> &nbsp; @NetRecords </div>
+    </div>
+
+    <div>
+        @if (ViewData["SearchType"] == "DateSearch")
+        {
+            <button type="button" id="@ViewData["SearchType"]BnID" class="BnRd15 CrBdTeBn HrTmSeo94 Cr-1Pr MnLt10" onclick="location.href='/ColorStays/PackageType/Index'">Date Search &nbsp;<i class="UT-CrossCircelSolid"></i></button>
+        }
+        @if (ViewData["SearchType"] == "TableSearch")
+        {
+            <button type="button" id="@ViewData["SearchType"]BnID" class="BnRd15 CrBdTeBn HrTmSeo94 Cr-1Pr MnLt10" onclick="location.href='/ColorStays/PackageType/Index'">Table Search &nbsp;<i class="UT-CrossCircelSolid"></i></button>
+        }
+        @if (ViewData["SearchType"] == "FilterSearch")
+        {
+            <button type="button" id="@ViewData["SearchType"]BnID" class="BnRd15 CrBdTeBn HrTmSeo94 Cr-1Pr MnLt10" onclick="location.href='/ColorStays/PackageType/Index'">Filter Search &nbsp;<i class="UT-CrossCircelSolid"></i></button>
+        }
+    </div>
+
+    <div class="FxGw1">
+        <div class="DyFx FxJyCtCr Wh100p">
+            <div class="TePgBnPtDv">
+                @if (ShowPagePreviousLink == true)
+                {
+                    PageBtnVal = PageNumberSelected - 1;
+                    <div class="TePgBn" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" style="cursor:pointer;" onclick="PaginationPageNoBtn('@PageBtnVal','/ColorStays/PackageType/Pagination','/ColorStays/PackageType/@ViewData["ActionName"]',this);"><i class="UT-ArrowLeftCircleSolid"></i></div>
+                }
+
+                @for (int i = 0; i < PageSelectButtonCount; i++)
+                {
+                    int PageNo = PageStartNumber + i;
+                    if (PageNo == PageNumberSelected)
+                    {
+                        PageNoSelect = @PageNo;
+                        <div class="TePgBn TePgBnAe" id="PgNum" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" style="cursor:pointer;" onclick="PaginationPageNoBtn('@PageNo','/ColorStays/PackageType/Pagination','/ColorStays/PackageType/@ViewData["ActionName"]',this);">@PageNo</div>
+                    }
+                    else
+                    {
+                        <div class="TePgBn" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" style="cursor:pointer;" onclick="PaginationPageNoBtn('@PageNo','/ColorStays/PackageType/Pagination','/ColorStays/PackageType/@ViewData["ActionName"]',this);">@PageNo</div>
+                    }
+                }
+
+                @if (ShowPageNextLink == true)
+                {
+                    PageBtnVal = PageNumberSelected + 1;
+                    <div class="TePgBn" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" style="cursor:pointer;" onclick="PaginationPageNoBtn('@PageBtnVal','/ColorStays/PackageType/Pagination','/ColorStays/PackageType/@ViewData["ActionName"]',this);"><i class="UT-ArrowRightCircleSolid"></i></div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <div class="DyFx FxDnRw Gp3">
+
+        @if (User.IsInRole("DataExtract") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
+        {
+            <div class="TePgBn Cr-uPr" onclick="GetExcel('TeUT','@ViewData["Action"]') ;">
+                <i class="UT-ExcelSolid"></i>
+            </div>
+        }
+
+        <div class="TePgBn">
+            <select name="TablePageSize" id="TablePageSizeID" class="TtBxTt16" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" onchange="PaginationPageSize('/ColorStays/PackageType/Pagination','/ColorStays/PackageType/@ViewData["ActionName"]',this);">
+                @for (int i = 0; i < PageSizeSelectList.Count(); i++)
+                {
+
+                    if (PageRecordSize == PageSizeSelectList[i])
+                    {
+                        PageSize = PageSizeSelectList[i];
+                        <option selected="selected" value="@PageSizeSelectList[i]">@PageSizeSelectList[i]</option>
+                    }
+                    else
+                    {
+                        <option value="@PageSizeSelectList[i]">@PageSizeSelectList[i]</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+
+

@@ -99,59 +99,23 @@
     </div>
 </div>
 
-<div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rating)<span style="color:red;"> *</span></div>
-                <select asp-for="Rating" class="TtBxTt15" required>
-                    <option value="">Select Rating</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
+<div class="Pg2 MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rating)<span style="color:red;"> *</span></div>
+            <select asp-for="Rating" class="TtBxTt15" required>
+                <option value="">Select Rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
         </div>
-        <div class="VnRd"><span asp-validation-for="Rating"></span></div>
     </div>
-
-
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.InternationalAirportCount)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.InternationalAirportCount)" asp-for="InternationalAirportCount" autocomplete="off" />
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="InternationalAirportCount"></span></div>
-    </div>
+    <div class="VnRd"><span asp-validation-for="Rating"></span></div>
 </div>
 
-
-<diV class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DomesticAirportCount)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DomesticAirportCount)" asp-for="DomesticAirportCount" autocomplete="off" />
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="DomesticAirportCount"></span></div>
-    </div>
-
-
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.RailwayStationCount)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.RailwayStationCount)" asp-for="RailwayStationCount" autocomplete="off" />
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="RailwayStationCount"></span></div>
-    </div>
-</diV>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -187,11 +151,11 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BestTimeToVisit)</div>
-            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.BestTimeToVisit)" asp-for="BestTimeToVisit" autocomplete="off"></textarea>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Quote1)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Quote1)" asp-for="Quote1" autocomplete="off" />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="BestTimeToVisit"></span></div>
+    <div class="VnRd"><span asp-validation-for="Quote1"></span></div>
 </div>
 
 <div class="MnTp7 MnBm7">
