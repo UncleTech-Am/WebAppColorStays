@@ -165,14 +165,35 @@
     <div class="VnRd"><span asp-validation-for="OperatedBy"></span></div>
 </div>
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AirportCode)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AirportCode)" asp-for="AirportCode" autocomplete="off" />
+<div class="FxRw">
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AirportCode)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AirportCode)" asp-for="AirportCode" autocomplete="off" />
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="AirportCode"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="AirportCode"></span></div>
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TotalRunways)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.TotalRunways)" asp-for="TotalRunways" autocomplete="off" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="TotalRunways"></span></div>
+    </div>
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TotalTerminals)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.TotalTerminals)" asp-for="TotalTerminals" autocomplete="off" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="TotalTerminals"></span></div>
+    </div>
+
 </div>
 
 <div class="MnTp7 MnBm7">
@@ -185,15 +206,37 @@
     <div class="VnRd"><span asp-validation-for="Facilities"></span></div>
 </div>
 
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DutyFreeShop)</div>
+                @Html.CheckBoxFor(x => x.DutyFreeShop, htmlAttributes: new { id = "DutyFreeShop", @Class = "TtBxTt15" })
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="DutyFreeShop"></span></div>
+    </div>
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Lounge)</div>
+                @Html.CheckBoxFor(x => x.Lounge, htmlAttributes: new { id = "Lounge", @Class = "TtBxTt15" })
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Lounge"></span></div>
+    </div>
+</div>
+
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Terminals)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Terminals)" asp-for="Terminals" autocomplete="off" />
+            <div class="TtBxFlStLl15">Cab/Train Stations NearBy</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Nearby)" asp-for="Nearby" autocomplete="off" />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Terminals"></span></div>
+    <div class="VnRd"><span asp-validation-for="Nearby"></span></div>
 </div>
+
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -214,17 +257,6 @@
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="ConnectivityDescription"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.RunWayDescription)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.RunWayDescription)" asp-for="RunWayDescription" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="RunWayDescription"></span></div>
 </div>
 
 

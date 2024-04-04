@@ -1,8 +1,8 @@
-@model IEnumerable<WebAppColorStays.Models.ViewModel.CsMustExperience>
+@model IEnumerable<WebAppColorStays.Models.ViewModel.CsCountryOverView>
 
 @{
     Layout = null;
-    ViewData["Action"] = "MustExperience";
+    ViewData["Action"] = "CountryOverView";
     int PageNoSelect = Convert.ToInt32(ViewData["PageNumberSelected"]);
     int PageSize = Convert.ToInt32(ViewData["PageRecordSize"]);
 }
@@ -16,47 +16,69 @@
             @if (item.SelectStatus == true)
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
-                    <input type="checkbox" ClipStatus ="Selected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
+                    <input type="checkbox" ClipStatus ="Selected" id="@item.Id" value="@item.Id" name="@item.Fk_Country_Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
-                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.Name','/ColorStays/MustExperience')"><i class="UT-StarSolid"> </i> </a>
+                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.Fk_Country_Name','/ColorStays/CountryOverView')"><i class="UT-StarSolid"> </i> </a>
             }
             else
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
-                    <input type="checkbox" ClipStatus ="UnSelected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
+                    <input type="checkbox" ClipStatus ="UnSelected" id="@item.Id" value="@item.Id" name="@item.Fk_Country_Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
-                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Name','/ColorStays/MustExperience')"><i class="UT-UnstarSolid"></i></a>
+                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Fk_Country_Name','/ColorStays/CountryOverView')"><i class="UT-UnstarSolid"></i></a>
             }
-            <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('/ColorStays/MustExperience/Details?Id=@item.Id')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i> </a>
+            <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('/ColorStays/CountryOverView/Details?Id=@item.Id')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i> </a>
             @if (item.VerifiedStatus == false && item.ActiveStatus == false && item.GlobalStatus == false)
             {
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Id })"> <i class="UT-EditFileLine FtWt800"></i> </a>
             }
         </td>
          
-	    <td>@item.Name</td>
+	    <td>@item.Fk_Country_Name</td>
          
-	    <td><img src="@item.Image" class="Wh100p"/></td>
-                  
-	    <td>@item.TagLine</td>
+	    <td>@item.AirportTagLine</td>
          
         <td>
-            @if (item.Description != null && item.Description.Length > 50)
+            @if (item.AirportDescription != null && item.AirportDescription.Length > 50)
             {
-                @Html.Raw(item.Description.Substring(0, 50))
+                @Html.Raw(item.AirportDescription.Substring(0, 50))
                 <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
                     ...Read More
 
                     <div class="DyNe">
-                        @Html.Raw(item.Description)
+                        @Html.Raw(item.AirportDescription)
                     </div>
                 </div>
             }
             else
             {
-                @item.Description
+                @item.AirportDescription
             }
         </td>
+         
+	    <td><img src="@item.AirportImage" class="Wh100p"/></td>
+         
+	    <td>@item.TerrainTagLine</td>
+         
+        <td>
+            @if (item.TerrainDescription != null && item.TerrainDescription.Length > 50)
+            {
+                @Html.Raw(item.TerrainDescription.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.TerrainDescription)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.TerrainDescription
+            }
+        </td>
+
+	    <td><img src="@item.TerrainImage" class="Wh100p" /></td>
          
 	    <td>@item.Remarks</td>
          

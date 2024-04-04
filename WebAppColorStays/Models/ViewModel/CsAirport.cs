@@ -29,6 +29,13 @@ namespace WebAppColorStays.Models.ViewModel
         public int? ContactNumber1 { get; set; }
         public int? ContactNumber2 { get; set; }
         public int? ContactNumber3 { get; set; }
+        public bool DutyFreeShop { get; set; }
+        public bool Lounge { get; set; }
+        public int? TotalRunways { get; set; }
+        public int? TotalTerminals { get; set; }
+        public string? Nearby { get; set; }
+        public string? History { get; set; }
+        public string? VehicleParking { get; set; }
         public string? OwnedBy { get; set; }
         public string? OperatedBy { get; set; }
         public string? AirportCode { get; set; }

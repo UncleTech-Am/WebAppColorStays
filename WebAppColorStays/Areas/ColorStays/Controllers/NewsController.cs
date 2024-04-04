@@ -14,6 +14,8 @@ using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
 using LibCommon.APICommonMethods;
+using WebAppColorStays.Areas.ColorStays.CommonMethods;
+using System.Net.Http.Json;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -37,6 +39,58 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Title = "News";
         }
         //Ends
+
+
+        //Drop Down
+        public async void DropDown(string CompId, string Token)
+        {
+            try
+            {
+                
+                List<SelectListItem> list = new List<SelectListItem>();
+                ViewBag.TagList = list;
+            }
+            catch (Exception ex) { }
+
+        }
+
+        public async Task<List<SelectListItem>> DpDnTags()
+        {
+            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            List<SelectListItem> list = new List<SelectListItem>();
+            var TokenKey = Request.Cookies["JWToken"];
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var dresp = await client.GetAsync("NewsTag/DropDown/" + CompId))
+                {
+                    var dapiResp = await dresp.Content.ReadAsStreamAsync();
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<SelectListItem>>(dapiResp, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            return list;
+        }
+
+        public async Task<List<SelectListItem>> DpDnNewsTags(string NewsId)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var dresp = await client.GetAsync("NewsTag/DropdownNewsTagList/" + CompId + "/" + NewsId))
+                {
+                    var dapiResp = await dresp.Content.ReadAsStreamAsync();
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<SelectListItem>>(dapiResp, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            return list;
+        }
+
 
         //GET: /News/Add image in News
         [HttpGet]
@@ -137,7 +191,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                         }
                     }
                 }
-                using (var response = await client.PostAsJsonAsync<CsNews>("News/edit", CsNews))
+                using (var response = await client.PostAsJsonAsync<CsNews>("News/EditImage", CsNews))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
@@ -580,6 +634,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
+            DropDown(CompID, TokenKey);
             if (Id != null)
             {
                 bool Success = false;
@@ -618,7 +673,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            DropDown(CompID, TokenKey);
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
@@ -642,24 +697,29 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
+            DropDown(CompID, TokenKey);
+
             CsNews.CompId = CompID;
             CsNews.CreatedBy = UserID;
             CsNews.ModifiedBy = UserID;
             CsNews.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
             CsNews data = new CsNews();
+            var tags = CsNews.Tags;
+            CsNews.Id = Guid.NewGuid().ToString();
+            Tuple<CsNews, string[]?> model = Tuple.Create(CsNews, tags);
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
 				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    StringContent content = new StringContent(JsonSerializer.Serialize(CsNews), Encoding.UTF8, "application/json");
+                    StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("News/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
                         {
-                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsNews>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            //data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsNews>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             Success = true;
                         }
                         else
@@ -675,8 +735,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 {
-                    data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id });
+                    CsNews.Id = Base64UrlEncoder.Encode(Process.Encrypt(CsNews.Id));
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", CsNews.Id });
                 }
                 else { return View("_CreateOrEdit", CsNews); }
             }
@@ -694,7 +754,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            DropDown(CompID, TokenKey);
             if (id == null)
             {
                 ViewBag.Message = "Not Founded";
@@ -745,9 +805,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
+            DropDown(CompID, TokenKey);
             ViewData["ResponseName"] = "ShowValidation";
             CsNews.CompId = CompID;
-            CsNews.ModifiedBy = UserID;   
+            CsNews.ModifiedBy = UserID;
+
+            var tags = CsNews.Tags;
+            if (CsNews.Tags == null)
+            {
+                string[] notags = { "No" };
+                tags = notags;
+            }
+            Tuple<CsNews, string[]?> model = Tuple.Create(CsNews, tags);
             if (ModelState.IsValid)
             {
                 try
@@ -755,7 +824,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     using (HttpClient client = APIColorStays.Initial())
                     {
 						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsNews>("News/edit", CsNews))
+                        StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+
+                        using (var response = await client.PostAsync("News/edit", content))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)

@@ -1,6 +1,6 @@
 @model WebAppColorStays.Models.ViewModel.CsNews
-@{ 
-    Layout = null; 
+@{
+    Layout = null;
     ViewData["Action"] = "News";
 }
 
@@ -8,7 +8,7 @@
 
 <h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
 
-<input type="hidden" id="AId" asp-for="Id"/>
+<input type="hidden" id="AId" asp-for="Id" />
 @Html.HiddenFor(model => model.RowVersion)
 @Html.HiddenFor(model => model.CreatedBy)
 @Html.HiddenFor(model => model.CreatedOn)
@@ -18,6 +18,11 @@
 @Html.HiddenFor(model => model.Fk_State_Name)
 @Html.HiddenFor(model => model.Fk_Country_Name)
 @Html.HiddenFor(model => model.Fk_NewsCategory_Name)
+@Html.HiddenFor(model => model.URL)
+@Html.HiddenFor(model => model.Author)
+@Html.HiddenFor(model => model.ShowInCity)
+@Html.HiddenFor(model => model.ShowInState)
+@Html.HiddenFor(model => model.ShowInCountry)
 @Html.HiddenFor(model => model.SEOTitle)
 @Html.HiddenFor(model => model.SEODescription)
 @Html.HiddenFor(model => model.SEOKeywords)

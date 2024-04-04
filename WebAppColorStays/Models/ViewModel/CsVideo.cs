@@ -25,8 +25,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_Country_Name { get; set; }
         [NotMapped]
         public string? Country { get; set; }
-        [DisplayName("VideoType")]
-        public string? Fk_VideoType_Name { get; set; }
+        public bool Short { get; set; }
         public string? Title { get; set; }
         public string? AltTag { get; set; }
         public string? Description { get; set; }

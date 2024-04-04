@@ -6,6 +6,7 @@ namespace WebAppColorStays.Models.ViewModel
 {
     public class CsNews
     {
+        public string[]? Tags { get; set; }
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
@@ -29,6 +30,11 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_NewsCategory_Name { get; set; }
         [NotMapped]
         public string? NewsCategory { get; set; }
+        public string? URL { get; set; }
+        public string? Author { get; set; }
+        public bool ShowInCity { get; set; }
+        public bool ShowInState { get; set; }
+        public bool ShowInCountry { get; set; }
         [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
         public string? SEOTitle { get; set; }
         [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]

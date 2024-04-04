@@ -24,15 +24,15 @@
     <div>
         @if (ViewData["SearchType"] == "DateSearch")
         {
-            <button type="button" id="@ViewData["SearchType"]BnID" class="BnRd15 CrBdTeBn HrTmSeo94 Cr-1Pr MnLt10" onclick="location.href='/ColorStays/VideoType/Index'">Date Search &nbsp;<i class="UT-CrossCircelSolid"></i></button>
+            <button type="button" id="@ViewData["SearchType"]BnID" class="BnRd15 CrBdTeBn HrTmSeo94 Cr-1Pr MnLt10" onclick="location.href='/ColorStays/NewsTag/Index'">Date Search &nbsp;<i class="UT-CrossCircelSolid"></i></button>
         }
         @if (ViewData["SearchType"] == "TableSearch")
         {
-            <button type="button" id="@ViewData["SearchType"]BnID" class="BnRd15 CrBdTeBn HrTmSeo94 Cr-1Pr MnLt10" onclick="location.href='/ColorStays/VideoType/Index'">Table Search &nbsp;<i class="UT-CrossCircelSolid"></i></button>
+            <button type="button" id="@ViewData["SearchType"]BnID" class="BnRd15 CrBdTeBn HrTmSeo94 Cr-1Pr MnLt10" onclick="location.href='/ColorStays/NewsTag/Index'">Table Search &nbsp;<i class="UT-CrossCircelSolid"></i></button>
         }
         @if (ViewData["SearchType"] == "FilterSearch")
         {
-            <button type="button" id="@ViewData["SearchType"]BnID" class="BnRd15 CrBdTeBn HrTmSeo94 Cr-1Pr MnLt10" onclick="location.href='/ColorStays/VideoType/Index'">Filter Search &nbsp;<i class="UT-CrossCircelSolid"></i></button>
+            <button type="button" id="@ViewData["SearchType"]BnID" class="BnRd15 CrBdTeBn HrTmSeo94 Cr-1Pr MnLt10" onclick="location.href='/ColorStays/NewsTag/Index'">Filter Search &nbsp;<i class="UT-CrossCircelSolid"></i></button>
         }
     </div>
 
@@ -42,7 +42,7 @@
                 @if (ShowPagePreviousLink == true)
                 {
                     PageBtnVal = PageNumberSelected - 1;
-                    <div class="TePgBn" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" style="cursor:pointer;" onclick="PaginationPageNoBtn('@PageBtnVal','/ColorStays/VideoType/Pagination','/ColorStays/VideoType/@ViewData["ActionName"]',this);"><i class="UT-ArrowLeftCircleSolid"></i></div>
+                    <div class="TePgBn" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" style="cursor:pointer;" onclick="PaginationPageNoBtn('@PageBtnVal','/ColorStays/NewsTag/Pagination','/ColorStays/NewsTag/@ViewData["ActionName"]',this);"><i class="UT-ArrowLeftCircleSolid"></i></div>
                 }
 
                 @for (int i = 0; i < PageSelectButtonCount; i++)
@@ -51,18 +51,18 @@
                     if (PageNo == PageNumberSelected)
                     {
                         PageNoSelect = @PageNo;
-                        <div class="TePgBn TePgBnAe" id="PgNum" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" style="cursor:pointer;" onclick="PaginationPageNoBtn('@PageNo','/ColorStays/VideoType/Pagination','/ColorStays/VideoType/@ViewData["ActionName"]',this);">@PageNo</div>
+                        <div class="TePgBn TePgBnAe" id="PgNum" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" style="cursor:pointer;" onclick="PaginationPageNoBtn('@PageNo','/ColorStays/NewsTag/Pagination','/ColorStays/NewsTag/@ViewData["ActionName"]',this);">@PageNo</div>
                     }
                     else
                     {
-                        <div class="TePgBn" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" style="cursor:pointer;" onclick="PaginationPageNoBtn('@PageNo','/ColorStays/VideoType/Pagination','/ColorStays/VideoType/@ViewData["ActionName"]',this);">@PageNo</div>
+                        <div class="TePgBn" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" style="cursor:pointer;" onclick="PaginationPageNoBtn('@PageNo','/ColorStays/NewsTag/Pagination','/ColorStays/NewsTag/@ViewData["ActionName"]',this);">@PageNo</div>
                     }
                 }
 
                 @if (ShowPageNextLink == true)
                 {
                     PageBtnVal = PageNumberSelected + 1;
-                    <div class="TePgBn" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" style="cursor:pointer;" onclick="PaginationPageNoBtn('@PageBtnVal','/ColorStays/VideoType/Pagination','/ColorStays/VideoType/@ViewData["ActionName"]',this);"><i class="UT-ArrowRightCircleSolid"></i></div>
+                    <div class="TePgBn" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" style="cursor:pointer;" onclick="PaginationPageNoBtn('@PageBtnVal','/ColorStays/NewsTag/Pagination','/ColorStays/NewsTag/@ViewData["ActionName"]',this);"><i class="UT-ArrowRightCircleSolid"></i></div>
                 }
             </div>
         </div>
@@ -79,7 +79,7 @@
         }
 
         <div class="TePgBn">
-            <select name="TablePageSize" id="TablePageSizeID" class="TtBxTt16" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" onchange="PaginationPageSize('/ColorStays/VideoType/Pagination','/ColorStays/VideoType/@ViewData["ActionName"]',this);">
+            <select name="TablePageSize" id="TablePageSizeID" class="TtBxTt16" SearchType="@ViewData["SearchType"]" SearchFormID="@ViewData["FormID"]" onchange="PaginationPageSize('/ColorStays/NewsTag/Pagination','/ColorStays/NewsTag/@ViewData["ActionName"]',this);">
                 @for (int i = 0; i < PageSizeSelectList.Count(); i++)
                 {
 

@@ -16,14 +16,14 @@
             @if (item.SelectStatus == true)
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
-                    <input type="checkbox" ClipStatus ="Selected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
+                    <input type="checkbox" ClipStatus="Selected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.Name','/ColorStays/Airport')"><i class="UT-StarSolid"> </i> </a>
             }
             else
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
-                    <input type="checkbox" ClipStatus ="UnSelected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
+                    <input type="checkbox" ClipStatus="UnSelected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Name','/ColorStays/Airport')"><i class="UT-UnstarSolid"></i></a>
             }
@@ -33,94 +33,201 @@
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Id })"> <i class="UT-EditFileLine FtWt800"></i> </a>
             }
         </td>
-         
-	    <td>@item.Name</td>
-         
-	    <td>@item.Fk_Place_Name</td>
-         
-	    <td>@item.Fk_City_Name</td>
-         
-	    <td>@item.Fk_State_Name</td>
-         
-	    <td>@item.Fk_Country_Name</td>
-         
-	    <td>@item.International</td>
-         
-	    <td>@item.Domestic</td>
-         
-	    <td>@item.PinCode</td>
-         
-	    <td>@item.Address</td>
-         
-	    <td>@item.ContactNumber1</td>
-         
-	    <td>@item.ContactNumber2</td>
-         
-	    <td>@item.ContactNumber3</td>
-         
-	    <td>@item.LocationDescription</td>
-         
-	    <td>@item.ConnectivityDescription</td>
-         
-	    <td>@item.RunWayDescription</td>
-         
-	    <td>@item.HowToReach</td>
-         
-	    <td>@item.Upcoming</td>
-         
-	    <td>@item.Photo1</td>
-         
-	    <td>@item.Photo2</td>
-         
-	    <td>@item.Photo3</td>
-         
-	    <td>@item.Photo4</td>
-         
-	    <td>@item.Photo5</td>
-         
-	    <td>@item.Video1</td>
-         
-	    <td>@item.Video2</td>
-         
-	    <td>@item.Video3</td>
-         
-	    <td>@item.Video4</td>
-         
-	    <td>@item.Video5</td>
-         
-	    <td>@item.OutTransportation</td>
-         
-	    <td>@item.Remarks</td>
-         
-	    <td>@item.FreezeStatus</td>
-         
-	    <td>@item.FreezedBy</td>
-        	    <td>@if(item.VerifiedStatus == true){<span>Verified</span>}else{ <span>Pending-Verify</span>}</td>              
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.VerifiedOn)</td>
-         
-	    <td>@item.VerifiedBy</td>
-            
-	    <td>@if(item.ActiveStatus == true){<span>Activated</span>}else{ <span>Inactive</span>}</td>   
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ActivatedOn)</td>
-         
-	    <td>@item.ActivatedBy</td>
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.CreatedOn)</td>
-         
-	    <td>@item.CreatedBy</td>
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ModifiedOn)</td>
-         
-	    <td>@item.ModifiedBy</td>
-         
-	    <td>@item.ModificationFrequency</td>
-         
-	    <td>@item.GCompId</td>
-         
-	    <td>@item.CompId</td>
-            </tr>
+
+        <td>@item.Name</td>
+
+        <td>@item.Fk_Place_Name</td>
+
+        <td>@item.Fk_City_Name</td>
+
+        <td>@item.Fk_State_Name</td>
+
+        <td>@item.Fk_Country_Name</td>
+
+        <td>@item.International</td>
+
+        <td>@item.Domestic</td>
+
+        <td>@item.PinCode</td>
+
+        <td>@item.Address</td>
+
+        <td>@item.DutyFreeShop</td>
+
+        <td>@item.Lounge</td>
+
+        <td>@item.TotalTerminals</td>
+        <td>@item.TotalRunways</td>
+        <td>@item.Nearby</td>
+
+        <td>
+            @if (item.Description != null && item.Description.Length > 50)
+            {
+                @Html.Raw(item.Description.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.Description)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.Description
+            }
+        </td>
+
+        <td>
+            @if (item.Terminals != null && item.Terminals.Length > 50)
+            {
+                @Html.Raw(item.Terminals.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.Terminals)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.Terminals
+            }
+        </td>
+
+        <td>
+            @if (item.History != null && item.History.Length > 50)
+            {
+                @Html.Raw(item.History.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.History)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.History
+            }
+        </td>
+
+        <td>
+            @if (item.VehicleParking != null && item.VehicleParking.Length > 50)
+            {
+                @Html.Raw(item.VehicleParking.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.VehicleParking)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.VehicleParking
+            }
+        </td>
+
+
+        <td>@item.ContactNumber1</td>
+
+        <td>@item.ContactNumber2</td>
+
+        <td>@item.ContactNumber3</td>
+
+        <td>@item.LocationDescription</td>
+
+        <td>@item.ConnectivityDescription</td>
+
+        <td>
+            @if (item.RunWayDescription != null && item.RunWayDescription.Length > 50)
+            {
+                @Html.Raw(item.RunWayDescription.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.RunWayDescription)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.RunWayDescription
+            }
+        </td>
+
+        <td>@item.HowToReach</td>
+
+        <td>@item.Upcoming</td>
+
+        <td>@item.Photo1</td>
+
+        <td>@item.Photo2</td>
+
+        <td>@item.Photo3</td>
+
+        <td>@item.Photo4</td>
+
+        <td>@item.Photo5</td>
+
+        <td>@item.Video1</td>
+
+        <td>@item.Video2</td>
+
+        <td>@item.Video3</td>
+
+        <td>@item.Video4</td>
+
+        <td>@item.Video5</td>
+
+        <td>@item.OutTransportation</td>
+
+        <td>@item.Remarks</td>
+
+        <td>@item.FreezeStatus</td>
+
+        <td>@item.FreezedBy</td>
+        <td>
+            @if (item.VerifiedStatus == true)
+            {<span>Verified</span>}
+            else
+            { <span>Pending-Verify</span>}
+        </td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.VerifiedOn)</td>
+
+        <td>@item.VerifiedBy</td>
+
+        <td>
+            @if (item.ActiveStatus == true)
+            {<span>Activated</span>}
+            else
+            { <span>Inactive</span>}
+        </td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ActivatedOn)</td>
+
+        <td>@item.ActivatedBy</td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.CreatedOn)</td>
+
+        <td>@item.CreatedBy</td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ModifiedOn)</td>
+
+        <td>@item.ModifiedBy</td>
+
+        <td>@item.ModificationFrequency</td>
+
+        <td>@item.GCompId</td>
+
+        <td>@item.CompId</td>
+    </tr>
 }
 
 

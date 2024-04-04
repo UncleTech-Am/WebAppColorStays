@@ -1,15 +1,15 @@
-@model WebAppColorStays.Models.ViewModel.CsVideoType
+@model WebAppColorStays.Models.ViewModel.CsNewsTag
 
 @{
     Layout = "_Layout";
-    ViewData["Action"] = "VideoType";
+    ViewData["Action"] = "NewsTag";
 }
 
 <div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
     <div class="CrTeTtLt FxGw1"> <h1>Edit @ViewBag.Title</h1></div>
     <div>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/VideoType/Create'"><i class="UT-AddFile FtSz18"></i></button>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/VideoType/Index'"><i class="UT-List-OLine FtSz18"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/NewsTag/Create'"><i class="UT-AddFile FtSz18"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/NewsTag/Index'"><i class="UT-List-OLine FtSz18"></i></button>
     </div>
 
 </div>
@@ -25,10 +25,10 @@
 
                 <form id="Edit"
                       data-ajax="true"
-                      data-ajax-url="/ColorStays/VideoType/Edit"
+                      data-ajax-url="/ColorStays/NewsTag/Edit"
                       data-ajax-method="POST"
                       data-ajax-loading="#loader"
-                      data-ajax-success="Success(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/VideoType/CreateOrEdit?id=@Model.Id')"
+                      data-ajax-success="Success(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/NewsTag/CreateOrEdit?id=@Model.Id')"
                       data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')">
 
                     @Html.AntiForgeryToken()
@@ -48,7 +48,7 @@
                             <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-EditFileLine"></i>&nbsp;Edit</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/VideoType/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/NewsTag/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
                         </div>
                     </div>
                 </form>
@@ -56,7 +56,7 @@
         </div>
 
         <div class="Fx65 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
-            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsVideoType>)ViewData["EnteredDetails"])
+            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsNewsTag>)ViewData["EnteredDetails"])
         </div>
     </div>
 </div>
@@ -75,7 +75,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/VideoType/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/NewsTag/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
     }
 
     //Table Search Success Function
@@ -89,7 +89,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/VideoType/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/NewsTag/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
     }
 
     function IntializeTableSearch() {

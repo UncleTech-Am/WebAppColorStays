@@ -18,194 +18,205 @@
         <table class="TeStrip TeBr TeFxCl1" id="TeUT">
             <thead class="TeFxHd">
                 <form id="TableSearchID">
-                    <tr>
-                        <td class="CrBdWe94">
-                            @if (ViewData["AnName"] == "Create") { <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/News/Create'"><i class="UT-List-OLine"></i></button> }
-                            else if(ViewData["AnName"] == "Edit") {  <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/News/Edit?id='+'@ViewData["Id"]'"><i class="UT-List-OLine"></i></button>  }
-                            else { <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/News/Index'"><i class="UT-List-OLine"></i></button>  }
-                            <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="SearchClear('TeUT')"><i class="UT-ClearDocument"></i></button>
-                            <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="FormSubmit('/ColorStays/News/TableSearch','TableSearchID',TableSuccessFn)"><i class="UT-SearchRightSolid"></i></button>
-                        </td>
-                    
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_City_Name)" name="Fk_City_Name" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_State_Name)" name="Fk_State_Name" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_Country_Name)" name="Fk_Country_Name" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_Activity_Name)" name="Fk_Activity_Name" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_NewsCategory_Name)" name="Fk_NewsCategory_Name" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" name="SEOTitle" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" name="SEODescription" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" name="SEOKeywords" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Title)" name="Title" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Summary)" name="Summary" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.News)" name="News" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.LikeCount)" name="LikeCount" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ShareCount)" name="ShareCount" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.DislikeCount)" name="DislikeCount" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Video1)" name="Video1" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Video2)" name="Video2" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Video3)" name="Video3" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Video4)" name="Video4" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Video5)" name="Video5" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Photo1)" name="Photo1" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Photo2)" name="Photo2" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Photo3)" name="Photo3" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Photo4)" name="Photo4" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Photo5)" name="Photo5" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc1)" name="PhotoDesc1" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc2)" name="PhotoDesc2" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc3)" name="PhotoDesc3" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc4)" name="PhotoDesc4" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc5)" name="PhotoDesc5" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Remarks)" name="Remarks" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.FreezeStatus)" name="FreezeStatus" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.FreezedBy)" name="FreezedBy" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.VerifiedStatus)" name="VerifiedStatus" autocomplete="off"/>
-                        </td>
-                                                <td>
-                           <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.VerifiedOn)" name="VerifiedOn" autocomplete="off" id="VerifiedOn" UTDate="D-MM-YYYY" onclick="ShowCalender('VerifiedOn','Date')"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.VerifiedBy)" name="VerifiedBy" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ActiveStatus)" name="ActiveStatus" autocomplete="off"/>
-                        </td>
-                                                <td>
-                           <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ActivatedOn)" name="ActivatedOn" autocomplete="off" id="ActivatedOn" UTDate="D-MM-YYYY" onclick="ShowCalender('ActivatedOn','Date')"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ActivatedBy)" name="ActivatedBy" autocomplete="off"/>
-                        </td>
-                                                <td>
-                           <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CreatedOn)" name="CreatedOn" autocomplete="off" id="CreatedOn" UTDate="D-MM-YYYY" onclick="ShowCalender('CreatedOn','Date')"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CreatedBy)" name="CreatedBy" autocomplete="off"/>
-                        </td>
-                                                <td>
-                           <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ModifiedOn)" name="ModifiedOn" autocomplete="off" id="ModifiedOn" UTDate="D-MM-YYYY" onclick="ShowCalender('ModifiedOn','Date')"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ModifiedBy)" name="ModifiedBy" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ModificationFrequency)" name="ModificationFrequency" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.GCompId)" name="GCompId" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CompId)" name="CompId" autocomplete="off"/>
-                        </td>
-                        
-                        
-                                            </tr>
+                <tr>
+                    <td class="CrBdWe94">
+                        @if (ViewData["AnName"] == "Create")
+                        {<button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/News/Create'"><i class="UT-List-OLine"></i></button> }
+                        else if (ViewData["AnName"] == "Edit")
+                        { <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/News/Edit?id='+'@ViewData["Id"]'"><i class="UT-List-OLine"></i></button> }
+                        else
+                        { <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/News/Index'"><i class="UT-List-OLine"></i></button>}
+                        <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="SearchClear('TeUT')"><i class="UT-ClearDocument"></i></button>
+                        <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="FormSubmit('/ColorStays/News/TableSearch','TableSearchID',TableSuccessFn)"><i class="UT-SearchRightSolid"></i></button>
+                    </td>
+
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_City_Name)" name="Fk_City_Name" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_State_Name)" name="Fk_State_Name" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_Country_Name)" name="Fk_Country_Name" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_Activity_Name)" name="Fk_Activity_Name" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_NewsCategory_Name)" name="Fk_NewsCategory_Name" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.URL)" name="URL" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Title)" name="Title" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Summary)" name="Summary" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.News)" name="News" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Author)" name="Author" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.LikeCount)" name="LikeCount" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ShareCount)" name="ShareCount" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.DislikeCount)" name="DislikeCount" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Video1)" name="Video1" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Video2)" name="Video2" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Video3)" name="Video3" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Video4)" name="Video4" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Video5)" name="Video5" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Photo1)" name="Photo1" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Photo2)" name="Photo2" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Photo3)" name="Photo3" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Photo4)" name="Photo4" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Photo5)" name="Photo5" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc1)" name="PhotoDesc1" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc2)" name="PhotoDesc2" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc3)" name="PhotoDesc3" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc4)" name="PhotoDesc4" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.PhotoDesc5)" name="PhotoDesc5" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" name="SEOTitle" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" name="SEODescription" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" name="SEOKeywords" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Remarks)" name="Remarks" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.FreezeStatus)" name="FreezeStatus" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.FreezedBy)" name="FreezedBy" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.VerifiedStatus)" name="VerifiedStatus" autocomplete="off" />
+                    </td>
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.VerifiedOn)" name="VerifiedOn" autocomplete="off" id="VerifiedOn" UTDate="D-MM-YYYY" onclick="ShowCalender('VerifiedOn','Date')" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.VerifiedBy)" name="VerifiedBy" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ActiveStatus)" name="ActiveStatus" autocomplete="off" />
+                    </td>
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ActivatedOn)" name="ActivatedOn" autocomplete="off" id="ActivatedOn" UTDate="D-MM-YYYY" onclick="ShowCalender('ActivatedOn','Date')" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ActivatedBy)" name="ActivatedBy" autocomplete="off" />
+                    </td>
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CreatedOn)" name="CreatedOn" autocomplete="off" id="CreatedOn" UTDate="D-MM-YYYY" onclick="ShowCalender('CreatedOn','Date')" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CreatedBy)" name="CreatedBy" autocomplete="off" />
+                    </td>
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ModifiedOn)" name="ModifiedOn" autocomplete="off" id="ModifiedOn" UTDate="D-MM-YYYY" onclick="ShowCalender('ModifiedOn','Date')" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ModifiedBy)" name="ModifiedBy" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.ModificationFrequency)" name="ModificationFrequency" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.GCompId)" name="GCompId" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CompId)" name="CompId" autocomplete="off" />
+                    </td>
+
+
+                </tr>
                 </form>
                 <tr>
                     <th>
@@ -215,52 +226,54 @@
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','','','/ColorStays/News')"><i class="UT-UnstarSolid"></i></a>
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark Star" onclick="MultiButtonFunc('Star','','','/ColorStays/News')"> <i class="UT-StarSolid"></i></a>
                     </th>
-                                        <th> @Html.DisplayNameFor(model => model.Fk_City_Name) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Fk_State_Name) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Fk_Country_Name) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Fk_Activity_Name) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Fk_NewsCategory_Name) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEODescription) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEOKeywords) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Title) </th>       
-                                        <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.Summary) </th>       
-                                        <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.News) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.LikeCount) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.ShareCount) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.DislikeCount) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Video1) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Video2) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Video3) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Video4) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Video5) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Photo1) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Photo2) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Photo3) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Photo4) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Photo5) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.PhotoDesc1) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.PhotoDesc2) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.PhotoDesc3) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.PhotoDesc4) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.PhotoDesc5) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Remarks) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.FreezeStatus) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.FreezedBy) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.VerifiedStatus) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.VerifiedOn) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.VerifiedBy) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.ActiveStatus) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.ActivatedOn) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.ActivatedBy) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.CreatedOn) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.CreatedBy) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.ModifiedOn) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.ModifiedBy) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.ModificationFrequency) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.GCompId) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.CompId) </th>       
-                                    </tr>
+                    <th> @Html.DisplayNameFor(model => model.Fk_City_Name) </th>
+                    <th> @Html.DisplayNameFor(model => model.Fk_State_Name) </th>
+                    <th> @Html.DisplayNameFor(model => model.Fk_Country_Name) </th>
+                    <th> @Html.DisplayNameFor(model => model.Fk_Activity_Name) </th>
+                    <th> @Html.DisplayNameFor(model => model.Fk_NewsCategory_Name) </th>
+                    <th> @Html.DisplayNameFor(model => model.URL) </th>
+                    <th> @Html.DisplayNameFor(model => model.Title) </th>
+                    <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.Summary) </th>
+                    <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.News) </th>
+                    <th> @Html.DisplayNameFor(model => model.Author) </th>
+                    <th> @Html.DisplayNameFor(model => model.LikeCount) </th>
+                    <th> @Html.DisplayNameFor(model => model.ShareCount) </th>
+                    <th> @Html.DisplayNameFor(model => model.DislikeCount) </th>
+                    <th> @Html.DisplayNameFor(model => model.Video1) </th>
+                    <th> @Html.DisplayNameFor(model => model.Video2) </th>
+                    <th> @Html.DisplayNameFor(model => model.Video3) </th>
+                    <th> @Html.DisplayNameFor(model => model.Video4) </th>
+                    <th> @Html.DisplayNameFor(model => model.Video5) </th>
+                    <th> @Html.DisplayNameFor(model => model.Photo1) </th>
+                    <th> @Html.DisplayNameFor(model => model.Photo2) </th>
+                    <th> @Html.DisplayNameFor(model => model.Photo3) </th>
+                    <th> @Html.DisplayNameFor(model => model.Photo4) </th>
+                    <th> @Html.DisplayNameFor(model => model.Photo5) </th>
+                    <th> @Html.DisplayNameFor(model => model.PhotoDesc1) </th>
+                    <th> @Html.DisplayNameFor(model => model.PhotoDesc2) </th>
+                    <th> @Html.DisplayNameFor(model => model.PhotoDesc3) </th>
+                    <th> @Html.DisplayNameFor(model => model.PhotoDesc4) </th>
+                    <th> @Html.DisplayNameFor(model => model.PhotoDesc5) </th>
+                    <th> @Html.DisplayNameFor(model => model.SEOTitle) </th>
+                    <th> @Html.DisplayNameFor(model => model.SEODescription) </th>
+                    <th> @Html.DisplayNameFor(model => model.SEOKeywords) </th>
+                    <th> @Html.DisplayNameFor(model => model.Remarks) </th>
+                    <th> @Html.DisplayNameFor(model => model.FreezeStatus) </th>
+                    <th> @Html.DisplayNameFor(model => model.FreezedBy) </th>
+                    <th> @Html.DisplayNameFor(model => model.VerifiedStatus) </th>
+                    <th> @Html.DisplayNameFor(model => model.VerifiedOn) </th>
+                    <th> @Html.DisplayNameFor(model => model.VerifiedBy) </th>
+                    <th> @Html.DisplayNameFor(model => model.ActiveStatus) </th>
+                    <th> @Html.DisplayNameFor(model => model.ActivatedOn) </th>
+                    <th> @Html.DisplayNameFor(model => model.ActivatedBy) </th>
+                    <th> @Html.DisplayNameFor(model => model.CreatedOn) </th>
+                    <th> @Html.DisplayNameFor(model => model.CreatedBy) </th>
+                    <th> @Html.DisplayNameFor(model => model.ModifiedOn) </th>
+                    <th> @Html.DisplayNameFor(model => model.ModifiedBy) </th>
+                    <th> @Html.DisplayNameFor(model => model.ModificationFrequency) </th>
+                    <th> @Html.DisplayNameFor(model => model.GCompId) </th>
+                    <th> @Html.DisplayNameFor(model => model.CompId) </th>
+                </tr>
             </thead>
 
             <tbody id="Def">

@@ -14,15 +14,15 @@ using WebAppColorStays.Models.ViewModel;
 
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
-{   
+{
     [Area("ColorStays")]
     [SessionCheck]
     [Authorize]
-    public class VideoTypeController : Controller
+    public class NewsTagController : Controller
     {
         private readonly Paging paging;
 
-        public VideoTypeController()
+        public NewsTagController()
         {
             paging = new Paging();
         }
@@ -30,9 +30,40 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "VideoType";
+            ViewBag.Title = "NewsTag";
         }
         //Ends
+
+        //ItemAutoComplete
+        [HttpGet]
+        public async Task<JsonResult> SearchNewsTag(string term)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+            var UserID = Request.Cookies["UserID"];
+            List<CsAutocomplete> list = new List<CsAutocomplete>();
+            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                HttpResponseMessage res = await client.GetAsync("NewsTag/SearchNewsTag/" + term + "/" + CompId, HttpCompletionOption.ResponseHeadersRead);
+                if (res.IsSuccessStatusCode)
+                {
+                    var results = res.Content.ReadAsStreamAsync().Result;
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsAutocomplete>>(results, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    var data = list.Select(x => new
+                    {
+                        id = Base64UrlEncoder.Encode(Process.Encrypt(x.Id)),
+                        value = x.Value,
+                        label = x.Label,
+
+                    }).ToList();
+                    return Json(data);
+                }
+            }
+            return null;
+        }
+
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -52,8 +83,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Display the Pagination 
         [HttpGet]
         public IActionResult Pagination(int? PgSelectedNum, int? PgSize, string SearchType, string NetRecords)
-        {         
-			Title();
+        {
+            Title();
             switch (SearchType)
             {
                 case "DateSearch":
@@ -89,23 +120,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
         //Give the list of the data
-        public async Task<Tuple<int, List<CsVideoType>>> AllDataList(int? PgSize, int? PgSelectedNum)
+        public async Task<Tuple<int, List<CsNewsTag>>> AllDataList(int? PgSize, int? PgSelectedNum)
         {
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Tuple<int, List<CsVideoType>> list;
+            Tuple<int, List<CsNewsTag>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("VideoType/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("NewsTag/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsVideoType>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await JsonSerializer.DeserializeAsync<Tuple<int, List<CsNewsTag>>>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
-                    else{ list = null; }
+                    else { list = null; }
                 }
             }
             return list;
@@ -113,24 +144,24 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET:/VideoType/
+        //GET:/NewsTag/
         [HttpGet]
         public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
-        {         
-			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+        {
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Title();
 
             //Display the Dropdown of the Table fields in Search Data Popup
-            GetClassMember<CsVideoType> getClassMember = new GetClassMember<CsVideoType>();
-            CsVideoType CsVideoType = new CsVideoType();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsVideoType), "Value", "DisplayName");
+            GetClassMember<CsNewsTag> getClassMember = new GetClassMember<CsNewsTag>();
+            CsNewsTag CsNewsTag = new CsNewsTag();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsNewsTag), "Value", "DisplayName");
             //Ends
 
             try //Pagination and List of data Code
             {
                 Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<CsVideoType>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                Task<Tuple<int, List<CsNewsTag>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                 PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
 
                 ViewData["ActionName"] = "Index";
@@ -141,8 +172,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                 return View(ReturnDataList.Result.Item2);
             }
-            catch(Exception ex)
-            { 
+            catch (Exception ex)
+            {
                 return View("Error");
             }
         }
@@ -157,7 +188,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
             int PgSize = Convert.ToInt32(fc["PageSize"]);
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             try //Pagination and List of data Code
@@ -170,18 +201,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 cIndex.PageSize = pagedata.Item1;
                 cIndex.PageSelectedNum = pagedata.Item2;
                 cIndex.CompId = CompID;
-                Tuple<int, List<CsVideoType>> list;
+                Tuple<int, List<CsNewsTag>> list;
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     //Get the List of data
-                    using (var response = await client.PostAsJsonAsync("VideoType/DateSearch/", cIndex))
+                    using (var response = await client.PostAsJsonAsync("NewsTag/DateSearch/", cIndex))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsVideoType>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await JsonSerializer.DeserializeAsync<Tuple<int, List<CsNewsTag>>>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
-                        else{ Success = false; }
+                        else { Success = false; }
                     }
                 }
                 if (Success == true)
@@ -204,31 +235,31 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //Search the Data according to the table fileds in the Index
         [HttpPost]
-        public async Task<IActionResult> TableSearch(CsVideoType CsVideoType, IFormCollection fc)
+        public async Task<IActionResult> TableSearch(CsNewsTag CsNewsTag, IFormCollection fc)
         {
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
             int PgSize = Convert.ToInt32(fc["PageSize"]);
             int ListCount = 0;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Title();
 
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsVideoType>> list;
+            Tuple<int, List<CsNewsTag>> list;
 
             using (HttpClient client = APIColorStays.Initial())
             {
-                CsVideoType.CreatedBy = UserID;
-                CsVideoType.CompId = CompID;
+                CsNewsTag.CreatedBy = UserID;
+                CsNewsTag.CompId = CompID;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(CsVideoType), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("VideoType/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
+                StringContent content = new StringContent(JsonSerializer.Serialize(CsNewsTag), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync("NewsTag/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsVideoType>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await JsonSerializer.DeserializeAsync<Tuple<int, List<CsNewsTag>>>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -246,44 +277,44 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
         //Ends
 
-        
+
         //Search the Data according to the Fields Selected in Search Data View
         [HttpPost]
         public async Task<IActionResult> FilterSearch(CIndexSearchFilter indexsearchfilter, IFormCollection fc)
         {
-            GetClassMember<CsVideoType> getClassMember = new GetClassMember<CsVideoType>();
-            CsVideoType CsVideoType = new CsVideoType();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsVideoType), "Value", "DisplayName");
+            GetClassMember<CsNewsTag> getClassMember = new GetClassMember<CsNewsTag>();
+            CsNewsTag CsNewsTag = new CsNewsTag();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsNewsTag), "Value", "DisplayName");
             //Creating Search Filter List with class member Property Name
-            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsVideoType);
+            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsNewsTag);
             foreach (var item in indexsearchfilter.IndexSearchList)
             { item.Name = fields[item.Name]; }
             //Ends
-            
+
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
             int PgSize = Convert.ToInt32(fc["PageSize"]);
             int ListCount = 0;
 
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Title();
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsVideoType>> list;
+            Tuple<int, List<CsNewsTag>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
-               indexsearchfilter.CurrentUserId = UserID;
+                indexsearchfilter.CurrentUserId = UserID;
                 indexsearchfilter.CompId = CompID;
                 indexsearchfilter.PageSelectedNum = pagedata.Item2;
                 indexsearchfilter.PageSize = pagedata.Item1;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(indexsearchfilter), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("VideoType/FilterSearch", content))
+                using (var response = await client.PostAsync("NewsTag/FilterSearch", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsVideoType>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await JsonSerializer.DeserializeAsync<Tuple<int, List<CsNewsTag>>>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -303,32 +334,32 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET: /VideoType/Details/5
+        //GET: /NewsTag/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            CsVideoType CsVideoType = new CsVideoType();
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            CsNewsTag CsNewsTag = new CsNewsTag();
             using (HttpClient client = APIColorStays.Initial())
             {
-				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("VideoType/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("NewsTag/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        CsVideoType = await System.Text.Json.JsonSerializer.DeserializeAsync<CsVideoType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        return View("_DetailOrDelete",CsVideoType);
+                        CsNewsTag = await JsonSerializer.DeserializeAsync<CsNewsTag>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        return View("_DetailOrDelete", CsNewsTag);
                     }
                     else
                     {
-                        Tuple<CsVideoType, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsVideoType, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Tuple<CsNewsTag, Response> data = await JsonSerializer.DeserializeAsync<Tuple<CsNewsTag, Response>>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (data.Item2 != null && data.Item2.Message == "GlobalItem")
                         {
                             ViewBag.Message = "Sytem Entry, Can't be Changed !";
-                            return View("_DetailOrDelete",data.Item1);
+                            return View("_DetailOrDelete", data.Item1);
                         }
                         if (data.Item1 == null && data.Item2 == null) { ViewData["ErrorMessage"] = "Entry Could not be Found!"; return View("_ErrorGeneric"); }
                     }
@@ -338,26 +369,26 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-        //GET: /VideoType/CreateOrEdit
+        //GET: /NewsTag/CreateOrEdit
         [HttpGet]
         [ResponseCache(Duration = 0)]
         public async Task<IActionResult> CreateOrEdit(string Id)
         {
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
             if (Id != null)
             {
                 bool Success = false;
-                var data = new CsVideoType();
+                var data = new CsNewsTag();
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("VideoType/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync("NewsTag/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsVideoType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        data = await JsonSerializer.DeserializeAsync<CsNewsTag>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else { Success = false; }
@@ -375,15 +406,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 return View("_CreateOrEdit");
             }
         }
-        
-        //GET: /VideoType/Create
+
+        //GET: /NewsTag/Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {
             Title();
             ViewData["AnName"] = "Create";
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             ViewData["ActionName"] = "Index";
@@ -391,47 +422,47 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["SearchType"] = "NoSearch";
 
             Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-            Task<Tuple<int, List<CsVideoType>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+            Task<Tuple<int, List<CsNewsTag>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
             PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
             ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
             return View();
-        } 
-        
+        }
 
-        //POST: /VideoType/Create
+
+        //POST: /NewsTag/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create(CsVideoType CsVideoType)
-        {       
+        public async Task<IActionResult> Create(CsNewsTag CsNewsTag)
+        {
             Title();
             ViewData["AnName"] = "Create";
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            CsVideoType.CompId = CompID;
-            CsVideoType.CreatedBy = UserID;
-            CsVideoType.ModifiedBy = UserID;
-            CsVideoType.Id = Guid.NewGuid().ToString();
+            CsNewsTag.CompId = CompID;
+            CsNewsTag.CreatedBy = UserID;
+            CsNewsTag.ModifiedBy = UserID;
+            CsNewsTag.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
-            CsVideoType data = new CsVideoType();
+            CsNewsTag data = new CsNewsTag();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    StringContent content = new StringContent(JsonSerializer.Serialize(CsVideoType), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("VideoType/create", content))
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    StringContent content = new StringContent(JsonSerializer.Serialize(CsNewsTag), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("NewsTag/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
                         {
-                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsVideoType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            data = await JsonSerializer.DeserializeAsync<CsNewsTag>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             Success = true;
                         }
                         else
                         {
-                            Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            Response responsemsg = await JsonSerializer.DeserializeAsync<Response>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             if (responsemsg != null && responsemsg.Message == "Duplicate")
                             {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
                                 ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
@@ -442,13 +473,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 { return RedirectToAction("Index", new { PageCall = "Show" }); }
-                else { return View("_CreateOrEdit", CsVideoType); }
+                else { return View("_CreateOrEdit", CsNewsTag); }
             }
-            return View("_CreateorEdit",CsVideoType);                
-         }
+            return View("_CreateorEdit", CsNewsTag);
+        }
 
 
-        //GET: /VideoType/Edit/5
+        //GET: /NewsTag/Edit/5
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
@@ -456,7 +487,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["AnName"] = "Edit";
             ViewData["Id"] = id;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (id == null)
@@ -469,62 +500,62 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
-            CsVideoType CsVideoType = new CsVideoType();
+            CsNewsTag CsNewsTag = new CsNewsTag();
             using (HttpClient client = APIColorStays.Initial())
             {
-				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("VideoType/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("NewsTag/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsVideoType>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                    Task<Tuple<int, List<CsNewsTag>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                     PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;                   
+                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
                     if (response.IsSuccessStatusCode)
                     {
-                        CsVideoType = await System.Text.Json.JsonSerializer.DeserializeAsync<CsVideoType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsNewsTag = await JsonSerializer.DeserializeAsync<CsNewsTag>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else
                     {
-                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        if (responsemsg.Message == "NotFound") 
+                        Response responsemsg = await JsonSerializer.DeserializeAsync<Response>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        if (responsemsg.Message == "NotFound")
                         { ViewBag.Message = "Entry Not Exits!"; }
                         if (responsemsg.Message == "GlobalItem")
                         { ViewBag.Message = "Sytem Entry, Can't Change !"; }
                     }
                 }
             }
-            return View(CsVideoType);
+            return View(CsNewsTag);
         }
 
-                
-        //POST: /VideoType/Edit/5
+
+        //POST: /NewsTag/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CsVideoType CsVideoType)
+        public async Task<IActionResult> Edit(CsNewsTag CsNewsTag)
         {
             Title();
             ViewData["AnName"] = "Edit";
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
-            CsVideoType.CompId = CompID;
-            CsVideoType.ModifiedBy = UserID;   
+            CsNewsTag.CompId = CompID;
+            CsNewsTag.ModifiedBy = UserID;
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsVideoType>("VideoType/edit", CsVideoType))
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        using (var response = await client.PostAsJsonAsync<CsNewsTag>("NewsTag/edit", CsNewsTag))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)
                             {
-                                Tuple<CsVideoType, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsVideoType,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Tuple<CsNewsTag, Response> data = await JsonSerializer.DeserializeAsync<Tuple<CsNewsTag, Response>>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                                 if (data.Item2 != null)
                                 {
                                     if (data.Item2.Message == "Duplicate")
@@ -552,30 +583,30 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     return View("_CreateorEdit");
                 }
             }
-            return View("_CreateorEdit",CsVideoType);
+            return View("_CreateorEdit", CsNewsTag);
         }
-        
-       
-        //POST: /VideoType/Delete/5
+
+
+        //POST: /NewsTag/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             using (HttpClient client = APIColorStays.Initial())
             {
-				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("VideoType/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("NewsTag/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index", new { PageCall="Show"});
+                        return RedirectToAction("Index", new { PageCall = "Show" });
                     }
                     else
                     {
-                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Response responsemsg = await JsonSerializer.DeserializeAsync<Response>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (responsemsg.Message == "DeleteStop") { ViewData["ErrorMessage"] = "Sytem Entry, Can't be Del !"; return View("_ErrorGeneric"); }
                         else { return View("Error"); }
                     }
@@ -586,28 +617,28 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //POST: >Verify/5
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> VerifyData(string Id, string AnName)          
+        public async Task<IActionResult> VerifyData(string Id, string AnName)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-			VerNActViewModel model = new VerNActViewModel();
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            VerNActViewModel model = new VerNActViewModel();
             model.Id = Id;
             model.ActionName = AnName;
             model.CompId = CompID;
             if (model.ActionName == "Verify" || model.ActionName == "UnVerify") { model.VerifiedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
             if (model.ActionName == "Activate" || model.ActionName == "Inactivate") { model.ActivatedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
-			CsVideoType CsVideoType = new CsVideoType();
+            CsNewsTag CsNewsTag = new CsNewsTag();
             using (HttpClient client = APIColorStays.Initial())
             {
-				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-				StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("VideoType/verifydata/" , content))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync("NewsTag/verifydata/", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
                     {
-                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Response responsemsg = await JsonSerializer.DeserializeAsync<Response>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (responsemsg.Message == "GlobalItem")
                         {
                             ViewData["ErrorMessage"] = "Sytem Entry, Can't be Changed !"; return View("_ErrorGeneric");
@@ -624,13 +655,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             StarUnstar starUnstar = new StarUnstar();
             starUnstar.Id = Id;
             starUnstar.Host = Request.Scheme + "://" + Request.Host;
             starUnstar.AreaName = "ColorStays";
-            starUnstar.ControllerName = "VideoType";
+            starUnstar.ControllerName = "NewsTag";
             starUnstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
@@ -652,14 +683,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             StarUnstar unstar = new StarUnstar();
             unstar.UnStarId = Id;
             unstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
-				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(unstar), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync("UserClip/unmarkstar/", content))
                 {
@@ -671,23 +702,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             else { return View("Error"); }
         }
 
-         //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationVideoType(string Name, string NameAction, string Id)
+        //This method is to check duplicate values for specific columns......
+        public async Task<JsonResult> CheckDuplicationNewsTag(string Name, string NameAction, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var CompID =  Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             if (Id == null) { Id = "No"; }
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("VideoType/CheckDuplicationVideoType/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("NewsTag/CheckDuplicationNewsTag/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         Success = true;
                     }
-                    if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
                         return Json("Sorry, this " + Name + " already exists");
                     }

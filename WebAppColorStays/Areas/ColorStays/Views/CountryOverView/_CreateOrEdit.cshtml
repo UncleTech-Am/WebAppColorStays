@@ -1,0 +1,110 @@
+@model WebAppColorStays.Models.ViewModel.CsCountryOverView
+
+
+@{
+    Layout = null;
+    ViewData["Action"] = "CountryOverView";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.RowVersion)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedOn)
+@Html.HiddenFor(model => model.CompId)
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Country_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Country Name" type="text" id="SearchCountry" asp-for="Country" autocomplete="off" required onchange="ClearData('SearchCountry','Fk_Country_Name')" />
+            <input type="hidden" asp-for="Fk_Country_Name" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_Country_Name"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AirportTagLine)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AirportTagLine)" asp-for="AirportTagLine" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="AirportTagLine"></span></div>
+</div>
+
+@if (Model != null)
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AirportImage)</div>
+                <img src="@Model.AirportImage" class="Wh60p" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="AirportImage"></span></div>
+    </div>
+
+}
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AirportImage)</div>
+            <input asp-for="AirportImage" type="file" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="AirportImage"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TerrainTagLine)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.TerrainTagLine)" asp-for="TerrainTagLine" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="TerrainTagLine"></span></div>
+</div>
+
+@if (Model != null)
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TerrainImage)</div>
+                <img src="@Model.TerrainImage" class="Wh60p" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="TerrainImage"></span></div>
+    </div>
+
+}
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TerrainImage)</div>
+            <input asp-for="TerrainImage" type="file" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="TerrainImage"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
+</div>

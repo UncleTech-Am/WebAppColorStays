@@ -1,15 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsVideoType
+    public class CsCountryOverView
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        public string? Name { get; set; }
-        public bool? FreezeStatus { get; set; }
+        [DisplayName("Country")]
+        public string? Fk_Country_Name { get; set; }
+        [NotMapped]
+        public string? Country { get; set; }
+        public string? AirportTagLine { get; set; }
+        public string? AirportDescription { get; set; }
+        public string? AirportImage { get; set; }
+        public string? TerrainTagLine { get; set; }
+        public string? TerrainDescription { get; set; }
+        public string? TerrainImage { get; set; }
+        public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]
         public string? Remarks { get; set; }

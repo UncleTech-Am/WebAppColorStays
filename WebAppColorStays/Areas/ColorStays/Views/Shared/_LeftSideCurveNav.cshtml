@@ -43,7 +43,6 @@
     string PackageInclusion = " ";
     string PackageItinerary = " ";
     string Video = "";
-    string VideoType = "";
     string Photo = " ";
     string MainLink3 = " ";
     string DrownLink3 = " ";
@@ -81,6 +80,8 @@
     string Highlight = "";
     string Religion = "";
     string MustExperience = "";
+    string CountryOverView = "";
+    string NewsTag = "";
 
 
     switch (Action)
@@ -105,7 +106,7 @@
         case "ActivityTypeCountryMap": ActivityTypeCountryMap = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "ActivityTypeStateMap": ActivityTypeStateMap = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "Video": Video = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
-        case "VideoType": VideoType = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
+        case "CountryOverView": CountryOverView = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
 
         case "Icon": Icon = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
         case "AnCountry": AnCountry = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
@@ -124,6 +125,7 @@
         case "FAQ": FAQ = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "HowToReach": HowToReach = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "MonthBestVisit": MonthBestVisit = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "NewsTag": NewsTag = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "NewsCategory": NewsCategory = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "News": News = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "QuestionPlace": QuestionPlace = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
@@ -131,7 +133,6 @@
         case "EnqCallBack": EnqCallBack = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "Enquiry": Enquiry = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "MustExperience": MustExperience = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
-
 
         case "Sightseeing": Sightseeing = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageCityMap": PackageCityMap = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
@@ -143,14 +144,12 @@
         case "PackageTypeCountryMap": PackageTypeCountryMap = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageTypeStateMap": PackageTypeStateMap = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
 
-
         case "Restaurant": Restaurant = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
         case "RestaurantFoodType": RestaurantFoodType = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
         case "RestaurantImage": RestaurantImage = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
         case "RestaurantReview": RestaurantReview = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
         case "RestaurantVideo": RestaurantVideo = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
         case "RTFoodTypeMap": RTFoodTypeMap = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
-
 
         case "FestivalType": FestivalType = "SideSubLinkActive"; MainLink6 = "SideNavActive"; DrownLink6 = "SideSubNavActive"; break;
         case "Festival": Festival = "SideSubLinkActive"; MainLink6 = "SideNavActive"; DrownLink6 = "SideSubNavActive"; break;
@@ -285,15 +284,6 @@
                 </div>
             </div>
 
-            <div class="SideNavSubLinkDiv">
-                <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @VideoType">
-                        <a href="~/ColorStays/VideoType/Create">VideoType</a>
-                    </div>
-                    <a href="~/ColorStays/VideoType/Create"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/VideoType/Index"><i class="UT-List-OLine"></i></a>
-                </div>
-            </div>
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
@@ -351,6 +341,16 @@
                     </div>
                     <a href="~/ColorStays/ActivityTypeStateMap/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/ActivityTypeStateMap/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @CountryOverView">
+                        <a href="~/ColorStays/CountryOverView/Create">Country OverView</a>
+                    </div>
+                    <a href="~/ColorStays/CountryOverView/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/CountryOverView/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
 
@@ -483,7 +483,7 @@
             </div>
         </div>
         <div class="SideSubNavContainer @DrownLink3">
-            
+
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @MustExperience">
@@ -521,6 +521,16 @@
                     </div>
                     <a href="~/ColorStays/NewsCategory/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/NewsCategory/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @NewsTag">
+                        <a href="~/ColorStays/NewsTag/Create">News Tag</a>
+                    </div>
+                    <a href="~/ColorStays/NewsTag/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/NewsTag/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
 

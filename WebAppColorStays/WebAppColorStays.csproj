@@ -4,6 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+  <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
   </PropertyGroup>
 
   <ItemGroup>
@@ -76,6 +78,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\ColorStays\Views\CountryOverView\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\CountryOverView\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\CountryOverView\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\CountryOverView\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\CountryOverView\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\CountryOverView\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\CountryOverView\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\CountryOverView\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\CountryOverView\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\FestivalType\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\FestivalType\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\FestivalType\Index.cshtml" />
@@ -112,6 +123,15 @@
     <None Include="Areas\ColorStays\Views\MustExperience\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\MustExperience\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\MustExperience\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\NewsTag\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\NewsTag\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\NewsTag\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\NewsTag\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\NewsTag\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\NewsTag\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\NewsTag\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\NewsTag\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\NewsTag\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageType1\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageType1\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageType1\Index.cshtml" />
@@ -648,15 +668,6 @@
     <None Include="Areas\ColorStays\Views\TravelAgent\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\TravelAgent\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\TravelAgent\_SearchData.cshtml" />
-    <None Include="Areas\ColorStays\Views\VideoType\Create.cshtml" />
-    <None Include="Areas\ColorStays\Views\VideoType\Edit.cshtml" />
-    <None Include="Areas\ColorStays\Views\VideoType\Index.cshtml" />
-    <None Include="Areas\ColorStays\Views\VideoType\_CreateOrEdit.cshtml" />
-    <None Include="Areas\ColorStays\Views\VideoType\_DetailOrDelete.cshtml" />
-    <None Include="Areas\ColorStays\Views\VideoType\_IndexData.cshtml" />
-    <None Include="Areas\ColorStays\Views\VideoType\_IndexSearch.cshtml" />
-    <None Include="Areas\ColorStays\Views\VideoType\_Pagination.cshtml" />
-    <None Include="Areas\ColorStays\Views\VideoType\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\Video\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\Video\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\Video\Index.cshtml" />
