@@ -15,14 +15,14 @@
             @if (item.SelectStatus == true)
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
-                    <input type="checkbox" ClipStatus ="Selected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
+                    <input type="checkbox" ClipStatus="Selected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.Name','/ColorStays/Activity')"><i class="UT-StarSolid"> </i> </a>
             }
             else
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
-                    <input type="checkbox" ClipStatus ="UnSelected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
+                    <input type="checkbox" ClipStatus="UnSelected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Name','/ColorStays/Activity')"><i class="UT-UnstarSolid"></i></a>
             }
@@ -32,43 +32,72 @@
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Id })"> <i class="UT-EditFileLine FtWt800"></i> </a>
             }
         </td>
-         
-	    
-         
-	    <td>@item.Fk_Place_Name</td>
-         
-	    <td>@item.Fk_City_Name</td>
-         
-	    <td>@item.Fk_State_Name</td>
-         
-	    <td>@item.Fk_Country_Name</td>
-         
-	    <td>@item.URL</td>
-         
-	    <td>@item.Name</td>
-         
-	    <td>@item.Description</td>
-         
-	    <td>@item.Video</td>
-         
-	    <td>@String.Format("{0:F}", item.StartingPrice)</td>
-         
-	    <td>@item.Duration</td>
-         
-	    <td>@item.Rank</td>
-         
-	    <td>@String.Format("{0:F}", item.Price)</td>
-         
-	    <td>@item.MinAge</td>
-         
-	    <td>@item.MaxAge</td>
-         
-	    <td>@item.MustKnowBefore</td>
+
+
+
+        <td>@item.Fk_Place_Name</td>
+
+        <td>@item.Fk_City_Name</td>
+
+        <td>@item.Fk_State_Name</td>
+
+        <td>@item.Fk_Country_Name</td>
+
+        <td>@item.URL</td>
+
+        <td>@item.Name</td>
+
+        <td>
+            @if (item.Description != null && item.Description.Length > 50)
+            {
+                @Html.Raw(item.Description.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @Html.Raw(item.Description)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.Description)
+            }
+        </td>
+        <td>@item.Video</td>
+
+        <td>@String.Format("{0:F}", item.StartingPrice)</td>
+
+        <td>@item.Duration</td>
+
+        <td>@item.Rank</td>
+
+        <td>@String.Format("{0:F}", item.Price)</td>
+
+        <td>@item.MinAge</td>
+
+        <td>@item.MaxAge</td>
+
+        <td>
+            @if (item.MustKnowBefore != null && item.MustKnowBefore.Length > 50)
+            {
+                @Html.Raw(item.MustKnowBefore.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @Html.Raw(item.MustKnowBefore)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.MustKnowBefore)
+            }
+        </td>
 
         <td>
             @if (item.BestTimeToDo != null && item.BestTimeToDo.Length > 50)
             {
-                @item.BestTimeToDo.Substring(0,50)
+                @item.BestTimeToDo.Substring(0, 50)
                 <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
                     ...Read More
                     <div class="DyNe">
@@ -83,42 +112,48 @@
         </td>
 
         <td>@item.SEOTitle</td>
-         
-	    <td>@item.SEODescription</td>
-         
-	    <td>@item.SEOKeywords</td>
-         
-	    <td>@item.Remarks</td>
-         
-	    <td>@item.FreezeStatus</td>
-         
-	    <td>@item.FreezedBy</td>
-        	    <td>@if(item.VerifiedStatus == true){<span>Verified</span>}else{ <span>Pending-Verify</span>}</td>              
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.VerifiedOn)</td>
-         
-	    <td>@item.VerifiedBy</td>
-            
-	    <td>@if(item.ActiveStatus == true){<span>Activated</span>}else{ <span>Inactive</span>}</td>   
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ActivatedOn)</td>
-         
-	    <td>@item.ActivatedBy</td>
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.CreatedOn)</td>
-         
-	    <td>@item.CreatedBy</td>
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ModifiedOn)</td>
-         
-	    <td>@item.ModifiedBy</td>
-         
-	    <td>@item.ModificationFrequency</td>
-         
-	    <td>@item.GCompId</td>
-         
-	    <td>@item.CompId</td>
-            </tr>
+
+        <td>@item.SEODescription</td>
+
+        <td>@item.SEOKeywords</td>
+
+        <td>@item.Remarks</td>
+
+        <td>@item.FreezeStatus</td>
+
+        <td>@item.FreezedBy</td>
+        <td>@if (item.VerifiedStatus == true)
+        {<span>Verified</span>}
+        else
+        { <span>Pending-Verify</span>}</td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.VerifiedOn)</td>
+
+        <td>@item.VerifiedBy</td>
+
+        <td>@if (item.ActiveStatus == true)
+        {<span>Activated</span>}
+        else
+        { <span>Inactive</span>}</td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ActivatedOn)</td>
+
+        <td>@item.ActivatedBy</td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.CreatedOn)</td>
+
+        <td>@item.CreatedBy</td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ModifiedOn)</td>
+
+        <td>@item.ModifiedBy</td>
+
+        <td>@item.ModificationFrequency</td>
+
+        <td>@item.GCompId</td>
+
+        <td>@item.CompId</td>
+    </tr>
 }
 
 

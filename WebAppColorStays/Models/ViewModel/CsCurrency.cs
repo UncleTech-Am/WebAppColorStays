@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,6 +14,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationCurrency", "Currency", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
         [Required(ErrorMessage = "Please enter Country Name.")]
+        [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
         [NotMapped]
         public string? Country { get; set; }
