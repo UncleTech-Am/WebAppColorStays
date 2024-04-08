@@ -436,7 +436,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                         {
                             CsCountryOverView.TerrainImage = fileName;
                         }
-
+                        if ("ActivityImage" == file.Name)
+                        {
+                            CsCountryOverView.ActivityImage = fileName;
+                        }
                         if (file.Length > 0)
                         {
                             Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "CountryOverView");
@@ -543,6 +546,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var files = HttpContext.Request.Form.Files;
             var imageAirport = CsCountryOverView.AirportImage;
             var imageTerrain = CsCountryOverView.TerrainImage;
+            var imageActivity = CsCountryOverView.ActivityImage;
             if (ModelState.IsValid)
             {
                 try
@@ -568,8 +572,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                                 Task<string> TDeleteImage = ryCsImage.DeleteImage(imageTerrain, TokenKey, "CountryOverView");
                                 Task.WaitAll(TDeleteImage);
                             }
-                            
 
+                            if ("ActivityImage" == file.Name)
+                            {
+                                CsCountryOverView.ActivityImage = fileName;
+                                //Delete the Images from the folder
+                                Task<string> TDeleteImage = ryCsImage.DeleteImage(imageActivity, TokenKey, "CountryOverView");
+                                Task.WaitAll(TDeleteImage);
+                            }
                             if (file.Length > 0)
                             {
                                 Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "CountryOverView");

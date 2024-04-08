@@ -19,6 +19,9 @@ namespace WebAppColorStays.Models.ViewModel
         public string? TerrainTagLine { get; set; }
         public string? TerrainDescription { get; set; }
         public string? TerrainImage { get; set; }
+        public string? ActivityTagLine { get; set; }
+        public string? ActivityDescription { get; set; }
+        public string? ActivityImage { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]

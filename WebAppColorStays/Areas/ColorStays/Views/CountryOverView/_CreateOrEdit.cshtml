@@ -102,6 +102,40 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ActivityTagLine)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ActivityTagLine)" asp-for="ActivityTagLine" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="ActivityTagLine"></span></div>
+</div>
+
+@if (Model != null)
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ActivityImage)</div>
+                <img src="@Model.ActivityImage" class="Wh60p" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="ActivityImage"></span></div>
+    </div>
+
+}
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ActivityImage)</div>
+            <input asp-for="ActivityImage" type="file" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="ActivityImage"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
             <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
         </div>
