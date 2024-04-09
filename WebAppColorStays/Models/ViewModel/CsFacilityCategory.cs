@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -7,6 +8,8 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [Required(ErrorMessage = "Please enter Name.")]
+        [Remote("CheckDuplicationFacilityCategory", "FacilityCategory", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
         public string? Description { get; set; }
         public bool FreezeStatus { get; set; }

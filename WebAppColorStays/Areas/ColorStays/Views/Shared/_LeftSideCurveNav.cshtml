@@ -88,6 +88,8 @@
     string HotelType = "";
     string MainLink8 = "";
     string DrownLink8 = "";
+    string FacilityCategory = "";
+
 
     switch (Action)
     {
@@ -165,6 +167,7 @@
         case "HotelFacility": HotelFacility = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "Hotel": Hotel = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "HotelChainBrand": HotelChainBrand = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
+        case "FacilityCategory": FacilityCategory = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
 
 
         default: break;
@@ -930,6 +933,15 @@
                 </div>
             </div>
 
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @FacilityCategory">
+                        <a href="~/ColorStays/FacilityCategory/Create">FacilityCategory</a>
+                    </div>
+                    <a href="~/ColorStays/FacilityCategory/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/FacilityCategory/Index\"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
 
         </div>
     </div>
