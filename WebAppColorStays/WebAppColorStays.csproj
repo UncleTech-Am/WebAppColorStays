@@ -87,6 +87,15 @@
     <None Include="Areas\ColorStays\Views\CountryOverView\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\CountryOverView\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\CountryOverView\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\FacilityCategory\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\FacilityCategory\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\FacilityCategory\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\FacilityCategory\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\FacilityCategory\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\FacilityCategory\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\FacilityCategory\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\FacilityCategory\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\FacilityCategory\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\FestivalType\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\FestivalType\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\FestivalType\Index.cshtml" />
