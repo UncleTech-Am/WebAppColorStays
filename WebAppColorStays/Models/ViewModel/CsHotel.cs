@@ -26,7 +26,6 @@ namespace WebAppColorStays.Models.ViewModel
         public string? CoverImage { get; set; }
         public string? Address { get; set; }
         public string? EmailAddress { get; set; }
-        public string? Phone1 { get; set; }
         public string? ContactPerson { get; set; }
         public string? GstNo { get; set; }
         public string? Landmark { get; set; }
@@ -51,7 +50,6 @@ namespace WebAppColorStays.Models.ViewModel
         public int? NoOfRestaurant { get; set; }
         public int? Phone { get; set; }
         public int? Mobile { get; set; }
-        public string? Email { get; set; }
         public string? Website { get; set; }
         public int? CustomerCareNum { get; set; }
         public bool FreezeStatus { get; set; }
