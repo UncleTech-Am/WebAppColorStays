@@ -16,14 +16,14 @@
             @if (item.SelectStatus == true)
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
-                    <input type="checkbox" ClipStatus ="Selected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
+                    <input type="checkbox" ClipStatus="Selected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.Name','/ColorStays/Restaurant')"><i class="UT-StarSolid"> </i> </a>
             }
             else
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
-                    <input type="checkbox" ClipStatus ="UnSelected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
+                    <input type="checkbox" ClipStatus="UnSelected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Name','/ColorStays/Restaurant')"><i class="UT-UnstarSolid"></i></a>
             }
@@ -33,95 +33,113 @@
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Id })"> <i class="UT-EditFileLine FtWt800"></i> </a>
             }
         </td>
-         
+
         <td>@item.Name</td>
 
         <td>@item.URL</td>
 
-	    <td>@item.Fk_Place_Name</td>
-         
-	    <td>@item.Fk_City_Name</td>
-         
-	    <td>@item.Fk_State_Name</td>
-         
-	    <td>@item.Fk_Country_Name</td>
-         
-	    <td>@item.Rank</td>
-                  
-	    <td>@item.Chinese</td>
-         
-	    <td>@item.SouthIndian</td>
-         
-	    <td>@item.Italion</td>
-         
-	    <td>@item.Gujrati</td>
-         
-	    <td>@item.PureVeg</td>
-         
-	    <td>@item.Bakery</td>
-         
-	    <td>@item.Sweets</td>
-         
-	    <td>@item.ContactNumber</td>
-         
-	    <td>@item.About</td>
-                  
-	    <td>@item.Alcohal</td>
-         
-	    <td>@item.WashRoom</td>
-         
-	    <td>@item.Address</td>
-         
-	    <td>@item.Website</td>
-         
-	    <td>@item.Owner</td>
-         
-	    <td>@item.Email</td>
-         
-	    <td>@item.Timing</td>
-         
-	    <td>@item.Days</td>
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.OpeningDate)</td>
-         
-	    <td>@item.OpenStatus</td>
-         
-	    <td>@item.Longitude</td>
-         
-	    <td>@item.Latitude</td>
-         
-	    <td>@item.Remarks</td>
-         
-	    <td>@item.FreezeStatus</td>
-         
-	    <td>@item.FreezedBy</td>
-        	    <td>@if(item.VerifiedStatus == true){<span>Verified</span>}else{ <span>Pending-Verify</span>}</td>              
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.VerifiedOn)</td>
-         
-	    <td>@item.VerifiedBy</td>
-            
-	    <td>@if(item.ActiveStatus == true){<span>Activated</span>}else{ <span>Inactive</span>}</td>   
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ActivatedOn)</td>
-         
-	    <td>@item.ActivatedBy</td>
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.CreatedOn)</td>
-         
-	    <td>@item.CreatedBy</td>
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ModifiedOn)</td>
-         
-	    <td>@item.ModifiedBy</td>
-         
-	    <td>@item.ModificationFrequency</td>
-         
-	    <td>@item.GCompId</td>
-         
-	    <td>@item.CompId</td>
-         
-	   </tr>
+        <td>@item.Fk_Place_Name</td>
+
+        <td>@item.Fk_City_Name</td>
+
+        <td>@item.Fk_State_Name</td>
+
+        <td>@item.Fk_Country_Name</td>
+
+        <td>@item.Rank</td>
+
+        <td>@item.Chinese</td>
+
+        <td>@item.SouthIndian</td>
+
+        <td>@item.Italion</td>
+
+        <td>@item.Gujrati</td>
+
+        <td>@item.PureVeg</td>
+
+        <td>@item.Bakery</td>
+
+        <td>@item.Sweets</td>
+
+        <td>@item.ContactNumber</td>
+
+        <td>@item.PhoneNumber</td>
+
+        <td>@item.LandMark</td>
+
+        <td>@item.DistanceFromLandMark</td>
+
+        <td>@item.TagLine</td>
+
+        <td>@item.About</td>
+
+        <td>@item.Alcohal</td>
+
+        <td>@item.WashRoom</td>
+
+        <td>@item.Address</td>
+
+        <td>@item.Website</td>
+
+        <td>@item.Owner</td>
+
+        <td>@item.Email</td>
+
+        <td>@item.Timing</td>
+
+        <td>@item.Days</td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.OpeningDate)</td>
+
+        <td>@item.OpenStatus</td>
+
+        <td>@item.Longitude</td>
+
+        <td>@item.Latitude</td>
+
+        <td>@item.Remarks</td>
+
+        <td>@item.FreezeStatus</td>
+
+        <td>@item.FreezedBy</td>
+        <td>
+            @if (item.VerifiedStatus == true)
+            {<span>Verified</span>}
+            else
+            { <span>Pending-Verify</span>}
+        </td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.VerifiedOn)</td>
+
+        <td>@item.VerifiedBy</td>
+
+        <td>
+            @if (item.ActiveStatus == true)
+            {<span>Activated</span>}
+            else
+            { <span>Inactive</span>}
+        </td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ActivatedOn)</td>
+
+        <td>@item.ActivatedBy</td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.CreatedOn)</td>
+
+        <td>@item.CreatedBy</td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ModifiedOn)</td>
+
+        <td>@item.ModifiedBy</td>
+
+        <td>@item.ModificationFrequency</td>
+
+        <td>@item.GCompId</td>
+
+        <td>@item.CompId</td>
+
+    </tr>
 }
 
 

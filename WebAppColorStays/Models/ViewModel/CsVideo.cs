@@ -30,7 +30,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? AltTag { get; set; }
         public string? Description { get; set; }
         public string? Link { get; set; }
-        public string? Upload { get; set; }
+        public string? Image { get; set; }
         public bool ArchiveStatus { get; set; }
         public bool ShowPlaceGallery { get; set; }
         public bool ShowCityGallery { get; set; }

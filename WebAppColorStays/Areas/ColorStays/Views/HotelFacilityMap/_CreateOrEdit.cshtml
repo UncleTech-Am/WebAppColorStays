@@ -17,6 +17,7 @@
 @Html.HiddenFor(model => model.CompId)
 
 
+
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
@@ -31,8 +32,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsPaid)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsPaid)" asp-for="IsPaid" autocomplete="off" />
+            <input class="SeIt1o15" type="checkbox" asp-for="IsPaid">
+            &nbsp;Is Paid
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="IsPaid"></span></div>
@@ -49,16 +50,6 @@
     <div class="VnRd"><span asp-validation-for="Description"></span></div>
 </div>
 
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_FacilityCategory_Name)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Fk_FacilityCategory_Name)" asp-for="Fk_FacilityCategory_Name" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Fk_FacilityCategory_Name"></span></div>
-</div>
 
 
 <div class="MnTp7 MnBm7">
