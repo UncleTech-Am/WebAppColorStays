@@ -90,6 +90,9 @@
     string DrownLink8 = "";
     string FacilityCategory = "";
     string HotelFacilityMap = "";
+    string Offer = "";
+
+
 
     switch (Action)
     {
@@ -140,6 +143,8 @@
         case "EnqCallBack": EnqCallBack = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "Enquiry": Enquiry = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "MustExperience": MustExperience = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "Offer": Offer = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+
 
         case "Sightseeing": Sightseeing = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageCityMap": PackageCityMap = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
@@ -169,7 +174,6 @@
         case "HotelChainBrand": HotelChainBrand = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "FacilityCategory": FacilityCategory = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "HotelFacilityMap": HotelFacilityMap = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
-
 
         default: break;
     }
@@ -518,6 +522,17 @@
                     <a href="~/ColorStays/FAQ/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @Offer">
+                        <a href="~/ColorStays/Offer/Create">Offer</a>
+                    </div>
+                    <a href="~/ColorStays/Offer/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Offer/Index\"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
@@ -953,6 +968,9 @@
                     <a href="~/ColorStays/HotelFacilityMap/Index\"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
+
+
+
         </div>
     </div>
 

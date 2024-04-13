@@ -9,7 +9,6 @@ using LibCommon.DataTransfer;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
-
 using WebAppColorStays.Models.ViewModel;
 using LibCommon.APICommonMethods;
 using WebAppColorStays.Areas.ColorStays.CommonMethods;
