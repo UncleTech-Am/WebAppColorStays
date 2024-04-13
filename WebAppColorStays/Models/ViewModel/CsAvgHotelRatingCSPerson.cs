@@ -1,22 +1,32 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsAutocompletes
+    public class CsAvgHotelRatingCSPerson
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
 
-        [StringLength(500, ErrorMessage = "You can enter only 500 characters long!")]
-        public string Name { get; set; }
-
+        [DisplayName("Hotel")]
         [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
-        public string? Category { get; set; }
+        [Required(ErrorMessage = "Please enter Hotel Name.")]
+        public string? Fk_Hotel_Name { get; set; }
+        public int? OwnerAttitude { get; set; }
+        public int? Location { get; set; }
+        public int? ViewRating { get; set; }
+        public int? Parking { get; set; }
+        public int? StaffProfessionalism { get; set; }
+        public int? HotelInterior { get; set; }
+        public int? RoomInterior { get; set; }
+        public int? Restaurant { get; set; }
+        public int? Amenity { get; set; }
+        public int? HotelResponseRate { get; set; }
+        public int? Cleaniness { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
-
-        [StringLength(500, ErrorMessage = "You can enter only 500 characters long!")]
+        [StringLength(450)]
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
         public bool? SelectStatus { get; set; }
@@ -43,5 +53,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Timestamp]
         [ConcurrencyCheck]
         public byte[]? RowVersion { get; set; }
+
+        public virtual TblHotel TblHotel { get; set; }
     }
 }
