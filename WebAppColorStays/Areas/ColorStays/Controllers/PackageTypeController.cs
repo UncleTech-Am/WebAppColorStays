@@ -803,11 +803,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Task<string> TDeleteImage2 = null;
             if (CsPackageImages.ImageName != null)
             {
-                TDeleteImage1 = ryCsImage.DeleteImage(CsPackageImages.ImageName, "PackageType", TokenKey);
+                TDeleteImage1 = ryCsImage.DeleteImage(CsPackageImages.ImageName, TokenKey, "PackageType");
             }
             if (CsPackageImages.BigImage != null)
             {
-                TDeleteImage2 = ryCsImage.DeleteImage(CsPackageImages.BigImage, "PackageType", TokenKey);
+                TDeleteImage2 = ryCsImage.DeleteImage(CsPackageImages.BigImage, TokenKey, "PackageType");
             }
             //Delete the Images from the folder
             Task.WaitAll(TDeleteImage1, TDeleteImage2);

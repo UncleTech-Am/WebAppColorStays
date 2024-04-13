@@ -27,6 +27,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string Name { get; set; }
         public string? URL { get; set; }
         public string? Image { get; set; }
+        [NotMapped]
+        public string? ImageName { get; set; }
         public int? PhoneNumber { get; set; }
         public string? LandMark { get; set; }
         public string? DistanceFromLandMark { get; set; }

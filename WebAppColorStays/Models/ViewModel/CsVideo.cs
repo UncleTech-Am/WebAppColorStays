@@ -26,11 +26,13 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? Country { get; set; }
         public bool Short { get; set; }
+        public string? Image { get; set; }
+        [NotMapped]
+        public string? ImageName { get; set; }
         public string? Title { get; set; }
         public string? AltTag { get; set; }
         public string? Description { get; set; }
         public string? Link { get; set; }
-        public string? Image { get; set; }
         public bool ArchiveStatus { get; set; }
         public bool ShowPlaceGallery { get; set; }
         public bool ShowCityGallery { get; set; }

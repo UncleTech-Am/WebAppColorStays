@@ -599,521 +599,521 @@ function UTabHz(TabLinkIdStg, TabContentIdStg, TabActiveInt, TabDisableAryInt, T
 //Ends
 
 //Start:- DatePicker
-function ShowCalender(InputIdStg, CalenderTypeStg, StartYearInt, StartMonthStg) {
+//function ShowCalender(InputIdStg, CalenderTypeStg, StartYearInt, StartMonthStg) {
 
-    var CalenderType = 'Date';
+//    var CalenderType = 'Date';
 
-    var StartYear = new Date().getFullYear();
-    var StartMonth = new Date().getMonth();
-    if (CalenderTypeStg != null) {
-        CalenderType = CalenderTypeStg;
-    }
+//    var StartYear = new Date().getFullYear();
+//    var StartMonth = new Date().getMonth();
+//    if (CalenderTypeStg != null) {
+//        CalenderType = CalenderTypeStg;
+//    }
 
 
-    if (StartMonthStg != null) {
-        StartMonth = StartMonthStg;
-    }
+//    if (StartMonthStg != null) {
+//        StartMonth = StartMonthStg;
+//    }
 
 
-    if (StartYearInt != null) {
-        StartYear = StartYearInt;
-    }
+//    if (StartYearInt != null) {
+//        StartYear = StartYearInt;
+//    }
 
-    switch (CalenderType) {
-        case 'Date': DateCalender(StartYear, StartMonth, InputIdStg);
-            break;
-        case 'Year': YearCalender(StartYear, InputIdStg);
-            break;
-        case 'Month': MonthCalender(StartYear, InputIdStg);
-            break;
-    }
+//    switch (CalenderType) {
+//        case 'Date': DateCalender(StartYear, StartMonth, InputIdStg);
+//            break;
+//        case 'Year': YearCalender(StartYear, InputIdStg);
+//            break;
+//        case 'Month': MonthCalender(StartYear, InputIdStg);
+//            break;
+//    }
 
 
 
-}
+//}
 
-function DateCalender(UserYearInt, UserMonthInt, DatePickerIdStg, UserLangStg) {
+//function DateCalender(UserYearInt, UserMonthInt, DatePickerIdStg, UserLangStg) {
 
-    //Gets the current Date variables
-    var today = new Date();
+//    //Gets the current Date variables
+//    var today = new Date();
 
-    var UserYear = today.getFullYear();
-    if (UserYearInt != null) { UserYear = UserYearInt; }
+//    var UserYear = today.getFullYear();
+//    if (UserYearInt != null) { UserYear = UserYearInt; }
 
-    var UserMonth = today.getMonth();
-    if (UserMonthInt != null) { UserMonth = UserMonthInt; }
+//    var UserMonth = today.getMonth();
+//    if (UserMonthInt != null) { UserMonth = UserMonthInt; }
 
-    var todayDate = UserYear + '-' + UserMonth + '-' + today.getDate();
-    var UserLang = 'en-US';
-    if (UserLangStg != null) { UserLang = UserLangStg; }
+//    var todayDate = UserYear + '-' + UserMonth + '-' + today.getDate();
+//    var UserLang = 'en-US';
+//    if (UserLangStg != null) { UserLang = UserLangStg; }
 
-    var WeekDay = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
-    var month = new Date(UserYear, UserMonth).toLocaleString(UserLang, { month: 'short' });
-    var monthNum = UserMonth;
-    var year = UserYear;
-    var MonthDays = new Date(UserYear, UserMonth + 1, 0).getDate();
+//    var WeekDay = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+//    var month = new Date(UserYear, UserMonth).toLocaleString(UserLang, { month: 'short' });
+//    var monthNum = UserMonth;
+//    var year = UserYear;
+//    var MonthDays = new Date(UserYear, UserMonth + 1, 0).getDate();
 
 
-    function GetDayName(dateStr) {
-        var date = new Date(dateStr);
-        return date.toLocaleDateString(UserLang, { weekday: 'long' });
-    }
+//    function GetDayName(dateStr) {
+//        var date = new Date(dateStr);
+//        return date.toLocaleDateString(UserLang, { weekday: 'long' });
+//    }
 
 
 
-    const CalenderDiv = document.createElement("div");
-    CalenderDiv.setAttribute('class', 'CalenderDiv');
-    CalenderDiv.setAttribute('id', 'UTCalenderDateDiv');
+//    const CalenderDiv = document.createElement("div");
+//    CalenderDiv.setAttribute('class', 'CalenderDiv');
+//    CalenderDiv.setAttribute('id', 'UTCalenderDateDiv');
 
 
-    //Creating the Calender Header with Icon and Current Month & Year
-    //Main Head Div
-    const CalenderHeadDiv = document.createElement('div');
-    CalenderHeadDiv.setAttribute('class', 'CalenderHead CalenderRowHighlight');
-    CalenderDiv.appendChild(CalenderHeadDiv);
-    //Main Head child Add
-    const CalenderIconMonthDiv = document.createElement('div');
-    CalenderIconMonthDiv.setAttribute('class', 'CalenderUpDownIcon');
-    CalenderHeadDiv.appendChild(CalenderIconMonthDiv);
+//    //Creating the Calender Header with Icon and Current Month & Year
+//    //Main Head Div
+//    const CalenderHeadDiv = document.createElement('div');
+//    CalenderHeadDiv.setAttribute('class', 'CalenderHead CalenderRowHighlight');
+//    CalenderDiv.appendChild(CalenderHeadDiv);
+//    //Main Head child Add
+//    const CalenderIconMonthDiv = document.createElement('div');
+//    CalenderIconMonthDiv.setAttribute('class', 'CalenderUpDownIcon');
+//    CalenderHeadDiv.appendChild(CalenderIconMonthDiv);
 
-    const AddMonthDiv = document.createElement('div');
-    AddMonthDiv.setAttribute('onclick', "DateChangeUT(" + parseInt(UserYear) + "," + parseInt(UserMonth + 1) + ", '" + DatePickerIdStg + "' )");
-    AddMonthDiv.setAttribute('class', "Cr-uPr");
-    CalenderIconMonthDiv.appendChild(AddMonthDiv);
-    AddMonthDiv.innerHTML = '<i class="UT-PlusCircleSolid" >';
+//    const AddMonthDiv = document.createElement('div');
+//    AddMonthDiv.setAttribute('onclick', "DateChangeUT(" + parseInt(UserYear) + "," + parseInt(UserMonth + 1) + ", '" + DatePickerIdStg + "' )");
+//    AddMonthDiv.setAttribute('class', "Cr-uPr");
+//    CalenderIconMonthDiv.appendChild(AddMonthDiv);
+//    AddMonthDiv.innerHTML = '<i class="UT-PlusCircleSolid" >';
 
-    const SubMonthDiv = document.createElement('div');
-    SubMonthDiv.setAttribute('onclick', "DateChangeUT(" + parseInt(UserYear) + "," + parseInt(UserMonth - 1) + ", '" + DatePickerIdStg + "' )");
-    SubMonthDiv.setAttribute('class', "Cr-uPr");
-    CalenderIconMonthDiv.appendChild(SubMonthDiv);
-    SubMonthDiv.innerHTML = '<i class="UT-MinusCircleSolid" > </i>';
+//    const SubMonthDiv = document.createElement('div');
+//    SubMonthDiv.setAttribute('onclick', "DateChangeUT(" + parseInt(UserYear) + "," + parseInt(UserMonth - 1) + ", '" + DatePickerIdStg + "' )");
+//    SubMonthDiv.setAttribute('class', "Cr-uPr");
+//    CalenderIconMonthDiv.appendChild(SubMonthDiv);
+//    SubMonthDiv.innerHTML = '<i class="UT-MinusCircleSolid" > </i>';
 
 
-    const CalenderCurrentMonth = document.createElement('div');
-    CalenderCurrentMonth.setAttribute('onclick', "MonthCalender(" + parseInt(UserYear) + ", '" + DatePickerIdStg + "' )");
-    CalenderCurrentMonth.setAttribute('class', 'Cr-uPr');
-    CalenderCurrentMonth.innerHTML = month + '&nbsp' + '<i class="UT-CursorHandLine"></i>';
-    CalenderHeadDiv.appendChild(CalenderCurrentMonth);
+//    const CalenderCurrentMonth = document.createElement('div');
+//    CalenderCurrentMonth.setAttribute('onclick', "MonthCalender(" + parseInt(UserYear) + ", '" + DatePickerIdStg + "' )");
+//    CalenderCurrentMonth.setAttribute('class', 'Cr-uPr');
+//    CalenderCurrentMonth.innerHTML = month + '&nbsp' + '<i class="UT-CursorHandLine"></i>';
+//    CalenderHeadDiv.appendChild(CalenderCurrentMonth);
 
-    const CalenderCurrentYear = document.createElement('div');
-    CalenderCurrentYear.setAttribute('onclick', "YearCalender(" + parseInt(UserYear) + ", '" + DatePickerIdStg + "' )");
-    CalenderCurrentYear.setAttribute('class', 'Cr-uPr');
-    //Checks Leap Year
-    if (new Date(year, 1, 29).getDate() === 29) {
-        CalenderCurrentYear.innerHTML = year + '&nbsp' + 'L' + '&nbsp' + '<i class="UT-CursorHandLine"></i>';
-    }
-    else {
-        CalenderCurrentYear.innerHTML = year + '&nbsp' + '<i class="UT-CursorHandLine"></i>';
-    }
-    CalenderHeadDiv.appendChild(CalenderCurrentYear);
-
-    const CalenderIconYearDiv = document.createElement('div');
-    CalenderIconYearDiv.setAttribute('class', 'CalenderUpDownIcon');
-    CalenderHeadDiv.appendChild(CalenderIconYearDiv);
-
-    const AddYearDiv = document.createElement('div');
-    AddYearDiv.setAttribute('onclick', "DateChangeUT(" + parseInt(UserYear + 1) + "," + parseInt(UserMonth) + ", '" + DatePickerIdStg + "' )");
-    AddYearDiv.setAttribute('class', "Cr-uPr");
-    CalenderIconYearDiv.appendChild(AddYearDiv);
-    AddYearDiv.innerHTML = '<i class="UT-PlusCircleSolid" > </i>';
-
-    const SubYearDiv = document.createElement('div');
-    SubYearDiv.setAttribute('onclick', "DateChangeUT(" + parseInt(UserYear - 1) + "," + parseInt(UserMonth) + ", '" + DatePickerIdStg + "' )");
-    SubYearDiv.setAttribute('class', "Cr-uPr");
-    CalenderIconYearDiv.appendChild(SubYearDiv);
-    SubYearDiv.innerHTML = '<i class="UT-MinusCircleSolid" > </i>';
-
-
-    //Main Head Ends
-
-    //Create DayNameRow
-    const CalenderWeekDayDiv = document.createElement('div');
-    CalenderWeekDayDiv.setAttribute('class', 'CalenderDayName CalenderRowHighlight');
-    CalenderDiv.appendChild(CalenderWeekDayDiv);
-
-    for (var i = 0; i < WeekDay.length; i++) {
-        const DayName = document.createElement('div');
-        DayName.innerHTML = WeekDay[i];
-        CalenderWeekDayDiv.appendChild(DayName);
-    }
-
-    // Adding Calender Rows
-    var monthDate = 1;
-    var monthStartDayName = GetDayName(new Date(year, UserMonth, monthDate));
-    //For Comparing Month Start Date DayName
-    var WeekDayName = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-    for (var i = 0; i < 6; i++) {
-        var CalenderRowDiv = document.createElement('div');
-        CalenderRowDiv.setAttribute('class', 'CalenderDayRow');
-
-        for (var weekDay = 0; weekDay < 7; weekDay++) {
-            var CalenderRowDayDiv = document.createElement('div');
-
-            if (monthStartDayName == WeekDayName[weekDay] && monthDate <= MonthDays) {
-                CalenderRowDayDiv.innerHTML = monthDate;
-                var passdate = new Date(year, monthNum, monthDate);
-                CalenderRowDayDiv.setAttribute('onclick', "DateSelect( " + UserYear + "," + UserMonth + "," + monthDate + " , '" + DatePickerIdStg + "' )");
-                //Active Day Highlight + ", '" + DatePickerIdStg + "' )");
-                var activedate = today.getFullYear() + '-' + today.getMonth() + '-' + monthDate;
-
-                if (activedate == todayDate) {
-
-                    CalenderRowDayDiv.setAttribute('class', "CalenderDayActiveUT");
-
-                }
-
-                monthDate++;
-                monthStartDayName = GetDayName(new Date(year, monthNum, monthDate));
-            }
-            else {
-                CalenderRowDayDiv.innerHTML = " ";
-            }
-            CalenderRowDiv.appendChild(CalenderRowDayDiv);
-
-
-        }
-        CalenderDiv.appendChild(CalenderRowDiv);
-
-        // Month Date exceed the total number of days in the month break loop
-        if (monthDate > MonthDays) {
-            break;
-        }
-    }
-
-    AddCalender(CalenderDiv, DatePickerIdStg);
-}
-
-function MonthCalender(YearInt, DatePickerIdStg) {
-    CYear = new Date().getFullYear();
-    if (YearInt == null) {
-        YearInt = CYear;
-    }
-
-    const CalenderDiv = document.createElement("div");
-    CalenderDiv.setAttribute('class', 'CalenderMonthDiv');
-    CalenderDiv.setAttribute('id', 'UTCalenderMonthDiv');
-
-
-    //Creating the Calender Header with Icon and Current Month & YearInt
-    //Main Head Div
-    const CalenderHeadDiv = document.createElement('div');
-    CalenderHeadDiv.setAttribute('class', 'CalenderMonthHead CalenderRowHighlight');
-    CalenderDiv.appendChild(CalenderHeadDiv);
-    //Main Head child Add
-    const CalenderIconMonthDiv = document.createElement('div');
-    CalenderHeadDiv.appendChild(CalenderIconMonthDiv);
-    CalenderIconMonthDiv.innerHTML = '<i class="UT-MonthNumberLine FtSz18"></i>' + ' &nbsp; ' + ' Months'
-
-    const CalenderCurrentYear = document.createElement('div');
-    CalenderCurrentYear.setAttribute('onclick', "YearCalender(" + parseInt(YearInt) + ", '" + DatePickerIdStg + "' )");
-    CalenderCurrentYear.setAttribute('class', 'Cr-uPr');
-    //Checks Leap Year
-    if (new Date(YearInt, 1, 29).getDate() === 29) {
-        CalenderCurrentYear.innerHTML = YearInt + '&nbsp' + 'L' + '&nbsp' + '<i class="UT-CursorHandLine"></i>';
-    }
-    else {
-        CalenderCurrentYear.innerHTML = YearInt + '&nbsp' + '<i class="UT-CursorHandLine"></i>';
-    }
-    CalenderHeadDiv.appendChild(CalenderCurrentYear);
-
-
-    //Add Months
-    var MonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-    var monthindex = 0;
-
-    for (var r = 0; r < 3; r++) {
-
-        const CalenderMonthDiv = document.createElement('div');
-        CalenderMonthDiv.setAttribute('class', 'CalenderMonthRow');
-        CalenderDiv.appendChild(CalenderMonthDiv);
-
-        for (var i = 0; i < 4; i++) {
-            const MonthInitials = document.createElement('div');
-            if (MonthName[monthindex] == new Date().toLocaleString('en-US', { month: 'short' })) {
-                MonthInitials.setAttribute('class', 'CalenderDayActiveUT');
-            }
-
-            MonthInitials.innerHTML = MonthName[monthindex];
-            MonthInitials.setAttribute('onclick', "DateCalender(" + parseInt(YearInt) + "," + parseInt(monthindex) + "," + "'" + DatePickerIdStg + "'" + ")");
-
-            CalenderMonthDiv.appendChild(MonthInitials);
-            monthindex++;
-        }
-    }
-    AddCalender(CalenderDiv, DatePickerIdStg);
-}
-
-function YearCalender(YearInt, DatePickerIdStg) {
-
-    CYear = new Date().getFullYear();
-    if (YearInt == null) {
-        YearInt = CYear;
-    }
-    const CalenderDiv = document.createElement("div");
-    CalenderDiv.setAttribute('class', 'CalenderDiv');
-    CalenderDiv.setAttribute('id', 'UTCalenderYearDiv');
-
-
-    //Creating the Calender Header with Icon and Current Month & YearInt
-    //Main Head Div
-    var CalenderHeadDiv = document.createElement('div');
-    CalenderHeadDiv.setAttribute('class', 'CalenderHead CalenderRowHighlight');
-    CalenderDiv.appendChild(CalenderHeadDiv);
-    //Main Head child Add
-    var CalenderIconYearDiv = document.createElement('div');
-    CalenderIconYearDiv.setAttribute('class', 'CalenderUpDownIcon');
-    CalenderHeadDiv.appendChild(CalenderIconYearDiv);
-
-    var YearJump3 = document.createElement('div');
-    YearJump3.setAttribute('onclick', "YearSetChangeUT(" + parseInt(YearInt + 75) + ", '" + DatePickerIdStg + "' )");
-    YearJump3.setAttribute('class', "Cr-uPr");
-    CalenderIconYearDiv.appendChild(YearJump3);
-    YearJump3.innerHTML = '<i class="UT-ArrowUpThreeLineCircleSolid" >';
-
-    var YearJump2 = document.createElement('div');
-    YearJump2.setAttribute('onclick', "YearSetChangeUT(" + parseInt(YearInt + 50) + ", '" + DatePickerIdStg + "' )");
-    YearJump2.setAttribute('class', "Cr-uPr");
-    CalenderIconYearDiv.appendChild(YearJump2);
-    YearJump2.innerHTML = '<i class="UT-ArrowUpTwoLineCircleSolid" > </i>';
-
-    var YearJump1 = document.createElement('div');
-    YearJump1.setAttribute('onclick', "YearSetChangeUT(" + parseInt(YearInt + 25) + ", '" + DatePickerIdStg + "' )");
-    YearJump1.setAttribute('class', "Cr-uPr");
-    CalenderIconYearDiv.appendChild(YearJump1);
-    YearJump1.innerHTML = '<i class="UT-ArrowUpOneLineCircleSolid" > </i>';
-
-
-    const CalenderYears = document.createElement('div');
-    CalenderYears.innerHTML = '<i class="UT-PlusCircleSolid" ></i>.Years.<i class="UT-MinusCircleSolid"></i>';
-    CalenderHeadDiv.appendChild(CalenderYears);
-
-    var CalenderIconDownYearDiv = document.createElement('div');
-    CalenderIconDownYearDiv.setAttribute('class', 'CalenderUpDownIcon');
-    CalenderHeadDiv.appendChild(CalenderIconDownYearDiv);
-
-    var YearJumpDn3 = document.createElement('div');
-    YearJumpDn3.setAttribute('onclick', "YearSetChangeUT(" + parseInt(YearInt - 25) + ", '" + DatePickerIdStg + "' )");
-    YearJumpDn3.setAttribute('class', "Cr-uPr");
-    CalenderIconDownYearDiv.appendChild(YearJumpDn3);
-    YearJumpDn3.innerHTML = '<i class="UT-ArrowDownOneLineCircleSolid" >';
-
-    var YearJumpDn2 = document.createElement('div');
-    YearJumpDn2.setAttribute('onclick', "YearSetChangeUT(" + parseInt(YearInt - 50) + ", '" + DatePickerIdStg + "' )");
-    YearJumpDn2.setAttribute('class', "Cr-uPr");
-    CalenderIconDownYearDiv.appendChild(YearJumpDn2);
-    YearJumpDn2.innerHTML = '<i class="UT-ArrowDownTwoLineCircleSolid" > </i>';
-
-    var YearJumpDn1 = document.createElement('div');
-    YearJumpDn1.setAttribute('onclick', "YearSetChangeUT(" + parseInt(YearInt - 75) + ", '" + DatePickerIdStg + "' )");
-    YearJumpDn1.setAttribute('class', "Cr-uPr");
-    CalenderIconDownYearDiv.appendChild(YearJumpDn1);
-    YearJumpDn1.innerHTML = '<i class="UT-ArrowDownThreeLineCircleSolid" > </i>';
-    //Main Head Ends
-    var yearindex = 0;
-    for (var r = 0; r < 5; r++) {
-        const CalenderYearRowDiv = document.createElement('div');
-        CalenderYearRowDiv.setAttribute('class', 'CalenderYearRow');
-        CalenderDiv.appendChild(CalenderYearRowDiv);
-
-        for (var i = 0; i < 5; i++) {
-            var yearUd = YearInt + yearindex;
-            const YearInit = document.createElement('div');
-            YearInit.innerHTML = yearUd;
-            if (yearUd == new Date().getFullYear()) { YearInit.setAttribute('class', 'CalenderDayActiveUT') }
-            YearInit.setAttribute('onclick', "MonthCalender(" + parseInt(YearInt + yearindex) + ", '" + DatePickerIdStg + "' )");
-            CalenderYearRowDiv.appendChild(YearInit);
-            yearindex++;
-        }
-    }
-
-    AddCalender(CalenderDiv, DatePickerIdStg);
-
-
-}
-
-//Adds Calender To UI
-function AddCalender(Calender, InputId) {
-    var previouscalender = document.getElementById(InputId + "UT");
-    if (previouscalender != null) {
-        previouscalender.remove();
-    }
-
-    //Locate the Input Location First
-    const element = document.getElementById(InputId);
-    const DateInputXY = element.getBoundingClientRect();
-    var leftPosnInputWindow = parseInt(DateInputXY.left.toFixed()) + 5; //Gives left edge distance from ViewPort
-    var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-    var bottomPosnInputDoc = parseInt(DateInputXY.bottom.toFixed()) + parseInt(scrollTop) + 2;// Gives Bottom Edge Distance from --Document---
-    var topPosnInputWindow = parseInt(DateInputXY.top.toFixed());
-    const viewPortHeight = window.innerHeight;
-    //Location Ends
-
-    //Create Div To Push Calender
-    const body = document.getElementsByTagName("BODY")[0];
-    const displayCalenderDiv = document.createElement('div');
-    displayCalenderDiv.setAttribute('class', 'DisplayCalenderDiv');
-    displayCalenderDiv.setAttribute('id', InputId + "UT");
-    displayCalenderDiv.appendChild(Calender);
-    body.appendChild(displayCalenderDiv);
-    //Locate the location Of Input
-
-    var calenderHeight = document.getElementById(InputId + 'UT').clientHeight;
-
-    //IF WindowHEIGHT-InputTop > calenderheight then opencalender at bottom of input.
-    if ((viewPortHeight - parseInt(DateInputXY.bottom.toFixed())) >= calenderHeight) {
-        document.getElementById(InputId + 'UT').style.top = bottomPosnInputDoc + "px";
-        document.getElementById(InputId + 'UT').style.left = leftPosnInputWindow + "px";
-    }
-    //Top Opening Position Of calender  = Scroll + WindowTopOfInput -HeightofCalender
-    else {
-        document.getElementById(InputId + 'UT').style.top = (parseInt(scrollTop) + topPosnInputWindow - calenderHeight - 2) + "px";
-        document.getElementById(InputId + 'UT').style.left = leftPosnInputWindow + "px";
-    }
-
-    //Hide the DatePicker when we click outside the datepicker or input(Ankita)
-    document.addEventListener('mouseup', function (e) {
-        var previouscalender = document.getElementById(InputId + "UT");
-        if (previouscalender != null) {
-            previouscalender.style.display = 'none';
-        }
-    });
-    //Ends(Ankita)
-}
-//Closes all the Open Calender Div
-
-function CloseCalenderDiv() {
-    var yeardiv = document.getElementById('UTCalenderYearDiv');
-    if (yeardiv != null) {
-        yeardiv.remove();
-    }
-
-    var monthdiv = document.getElementById('UTCalenderMonthDiv');
-    if (monthdiv != null) {
-        monthdiv.remove();
-    }
-    var Datediv = document.getElementById('UTCalenderDateDiv');
-    if (Datediv != null) {
-        Datediv.remove();
-    }
-}
-
-//Year Calender Arrow Buttons Call This To Shuffle Year Set
-function YearSetChangeUT(Year, DatePickerIdStg) {
-    YearCalender(Year, DatePickerIdStg);
-}
-//On Year Select This Shows Month Calender
-
-//Arrow Button On the Date Calender Uses This Function
-function DateChangeUT(Year, Month, DatePickerIdStg) {
-    var GetDate = new Date(Year, Month);
-    DateCalender(GetDate.getFullYear(), GetDate.getMonth(), DatePickerIdStg);
-}
-//Ends
-
-//When we select the date in textbox or other it will hide the Calender after selecting
-function DateSelect(YearInt, MonthInt, DateInt, DatePickerIdStg) {
-    //Closes Calender On Date Selection
-    var previouscalender = document.getElementById(DatePickerIdStg + "UT");
-    if (previouscalender != null) {
-        previouscalender.remove();
-    }
-    //End
-    var selectedDate = new Date(YearInt, MonthInt, DateInt);
-    var DatePickerElement = document.getElementById(DatePickerIdStg);
-
-    // Default Format 
-    var month = 'MMM';
-    var year = 'YYYY';
-    var format = 'D/MMM/YYYY';
-
-    /// Check the Passed Format in the input
-    var passedFormat = DatePickerElement.getAttribute('UTDate');
-    var passedMonth = passedFormat.match(/M/gi).length;
-    switch (passedMonth) {
-        case 1: month = 'M';
-            break;
-        case 2: month = 'MM';
-            break;
-        case 3: month = 'MMM';
-            break;
-    }
-
-    var passedYear = passedFormat.match(/Y/gi).length;
-    switch (passedYear) {
-        case 2: year = 'YY';
-            break;
-        case 4: year = 'YYYY';
-            break;
-    }
-
-    if (passedFormat != null) { format = passedFormat; }
-
-    //In these variable we save the date to be put in textbox
-    var returnDate;
-    var returnMonth;
-    var returnYear;
-    //Ends
-
-
-    switch (month) {
-        case 'M':
-            returnMonth = selectedDate.getMonth();
-            break;
-        case 'MM':
-
-            returnMonth = selectedDate.toLocaleString('en-US', { month: 'short' });
-            break;
-        default:
-            returnMonth = selectedDate.toLocaleString('en-US', { month: 'long' });
-            break;
-    }
-
-    switch (year) {
-        case "YY": returnYear = selectedDate.getFullYear().toString().slice(-2);
-            break;
-
-        default: returnYear = selectedDate.getFullYear();
-            break;
-    }
-
-    switch (format) {
-
-        case 'D-M-YYYY':
-        case 'D-MM-YYYY':
-        case 'D-MMM-YYYY':
-        case 'D-M-YY':
-        case 'D-MM-YY':
-        case 'D-MMM-YY': returnDate = DateInt + '-' + returnMonth + '-' + returnYear;
-            break;
-
-
-        case 'M-D-YYYY':
-        case 'MM-D-YYYY':
-        case 'MMM-D-YYYY':
-        case 'M-D-YY':
-        case 'MM-D-YY':
-        case 'MMM-D-YY': returnDate = returnMonth + '-' + DateInt + '-' + returnYear;
-            break;
-
-
-        case 'M-D-YYYY':
-        case 'MM-D-YYYY':
-        case 'MMM-D-YYYY':
-        case 'M-D-YY':
-        case 'MM-D-YY':
-        case 'MMM-D-YY': returnDate = returnYear + '-' + returnMonth + '-' + DateInt;
-            break;
-
-
-        default: returnDate = returnYear + '-' + returnMonth + '-' + DateInt;
-            break;
-    }
-    DatePickerElement.value = returnDate;
-}
-//Ends
-//Ends:-DatePicker
+//    const CalenderCurrentYear = document.createElement('div');
+//    CalenderCurrentYear.setAttribute('onclick', "YearCalender(" + parseInt(UserYear) + ", '" + DatePickerIdStg + "' )");
+//    CalenderCurrentYear.setAttribute('class', 'Cr-uPr');
+//    //Checks Leap Year
+//    if (new Date(year, 1, 29).getDate() === 29) {
+//        CalenderCurrentYear.innerHTML = year + '&nbsp' + 'L' + '&nbsp' + '<i class="UT-CursorHandLine"></i>';
+//    }
+//    else {
+//        CalenderCurrentYear.innerHTML = year + '&nbsp' + '<i class="UT-CursorHandLine"></i>';
+//    }
+//    CalenderHeadDiv.appendChild(CalenderCurrentYear);
+
+//    const CalenderIconYearDiv = document.createElement('div');
+//    CalenderIconYearDiv.setAttribute('class', 'CalenderUpDownIcon');
+//    CalenderHeadDiv.appendChild(CalenderIconYearDiv);
+
+//    const AddYearDiv = document.createElement('div');
+//    AddYearDiv.setAttribute('onclick', "DateChangeUT(" + parseInt(UserYear + 1) + "," + parseInt(UserMonth) + ", '" + DatePickerIdStg + "' )");
+//    AddYearDiv.setAttribute('class', "Cr-uPr");
+//    CalenderIconYearDiv.appendChild(AddYearDiv);
+//    AddYearDiv.innerHTML = '<i class="UT-PlusCircleSolid" > </i>';
+
+//    const SubYearDiv = document.createElement('div');
+//    SubYearDiv.setAttribute('onclick', "DateChangeUT(" + parseInt(UserYear - 1) + "," + parseInt(UserMonth) + ", '" + DatePickerIdStg + "' )");
+//    SubYearDiv.setAttribute('class', "Cr-uPr");
+//    CalenderIconYearDiv.appendChild(SubYearDiv);
+//    SubYearDiv.innerHTML = '<i class="UT-MinusCircleSolid" > </i>';
+
+
+//    //Main Head Ends
+
+//    //Create DayNameRow
+//    const CalenderWeekDayDiv = document.createElement('div');
+//    CalenderWeekDayDiv.setAttribute('class', 'CalenderDayName CalenderRowHighlight');
+//    CalenderDiv.appendChild(CalenderWeekDayDiv);
+
+//    for (var i = 0; i < WeekDay.length; i++) {
+//        const DayName = document.createElement('div');
+//        DayName.innerHTML = WeekDay[i];
+//        CalenderWeekDayDiv.appendChild(DayName);
+//    }
+
+//    // Adding Calender Rows
+//    var monthDate = 1;
+//    var monthStartDayName = GetDayName(new Date(year, UserMonth, monthDate));
+//    //For Comparing Month Start Date DayName
+//    var WeekDayName = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+//    for (var i = 0; i < 6; i++) {
+//        var CalenderRowDiv = document.createElement('div');
+//        CalenderRowDiv.setAttribute('class', 'CalenderDayRow');
+
+//        for (var weekDay = 0; weekDay < 7; weekDay++) {
+//            var CalenderRowDayDiv = document.createElement('div');
+
+//            if (monthStartDayName == WeekDayName[weekDay] && monthDate <= MonthDays) {
+//                CalenderRowDayDiv.innerHTML = monthDate;
+//                var passdate = new Date(year, monthNum, monthDate);
+//                CalenderRowDayDiv.setAttribute('onclick', "DateSelect( " + UserYear + "," + UserMonth + "," + monthDate + " , '" + DatePickerIdStg + "' )");
+//                //Active Day Highlight + ", '" + DatePickerIdStg + "' )");
+//                var activedate = today.getFullYear() + '-' + today.getMonth() + '-' + monthDate;
+
+//                if (activedate == todayDate) {
+
+//                    CalenderRowDayDiv.setAttribute('class', "CalenderDayActiveUT");
+
+//                }
+
+//                monthDate++;
+//                monthStartDayName = GetDayName(new Date(year, monthNum, monthDate));
+//            }
+//            else {
+//                CalenderRowDayDiv.innerHTML = " ";
+//            }
+//            CalenderRowDiv.appendChild(CalenderRowDayDiv);
+
+
+//        }
+//        CalenderDiv.appendChild(CalenderRowDiv);
+
+//        // Month Date exceed the total number of days in the month break loop
+//        if (monthDate > MonthDays) {
+//            break;
+//        }
+//    }
+
+//    AddCalender(CalenderDiv, DatePickerIdStg);
+//}
+
+//function MonthCalender(YearInt, DatePickerIdStg) {
+//    CYear = new Date().getFullYear();
+//    if (YearInt == null) {
+//        YearInt = CYear;
+//    }
+
+//    const CalenderDiv = document.createElement("div");
+//    CalenderDiv.setAttribute('class', 'CalenderMonthDiv');
+//    CalenderDiv.setAttribute('id', 'UTCalenderMonthDiv');
+
+
+//    //Creating the Calender Header with Icon and Current Month & YearInt
+//    //Main Head Div
+//    const CalenderHeadDiv = document.createElement('div');
+//    CalenderHeadDiv.setAttribute('class', 'CalenderMonthHead CalenderRowHighlight');
+//    CalenderDiv.appendChild(CalenderHeadDiv);
+//    //Main Head child Add
+//    const CalenderIconMonthDiv = document.createElement('div');
+//    CalenderHeadDiv.appendChild(CalenderIconMonthDiv);
+//    CalenderIconMonthDiv.innerHTML = '<i class="UT-MonthNumberLine FtSz18"></i>' + ' &nbsp; ' + ' Months'
+
+//    const CalenderCurrentYear = document.createElement('div');
+//    CalenderCurrentYear.setAttribute('onclick', "YearCalender(" + parseInt(YearInt) + ", '" + DatePickerIdStg + "' )");
+//    CalenderCurrentYear.setAttribute('class', 'Cr-uPr');
+//    //Checks Leap Year
+//    if (new Date(YearInt, 1, 29).getDate() === 29) {
+//        CalenderCurrentYear.innerHTML = YearInt + '&nbsp' + 'L' + '&nbsp' + '<i class="UT-CursorHandLine"></i>';
+//    }
+//    else {
+//        CalenderCurrentYear.innerHTML = YearInt + '&nbsp' + '<i class="UT-CursorHandLine"></i>';
+//    }
+//    CalenderHeadDiv.appendChild(CalenderCurrentYear);
+
+
+//    //Add Months
+//    var MonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+//    var monthindex = 0;
+
+//    for (var r = 0; r < 3; r++) {
+
+//        const CalenderMonthDiv = document.createElement('div');
+//        CalenderMonthDiv.setAttribute('class', 'CalenderMonthRow');
+//        CalenderDiv.appendChild(CalenderMonthDiv);
+
+//        for (var i = 0; i < 4; i++) {
+//            const MonthInitials = document.createElement('div');
+//            if (MonthName[monthindex] == new Date().toLocaleString('en-US', { month: 'short' })) {
+//                MonthInitials.setAttribute('class', 'CalenderDayActiveUT');
+//            }
+
+//            MonthInitials.innerHTML = MonthName[monthindex];
+//            MonthInitials.setAttribute('onclick', "DateCalender(" + parseInt(YearInt) + "," + parseInt(monthindex) + "," + "'" + DatePickerIdStg + "'" + ")");
+
+//            CalenderMonthDiv.appendChild(MonthInitials);
+//            monthindex++;
+//        }
+//    }
+//    AddCalender(CalenderDiv, DatePickerIdStg);
+//}
+
+//function YearCalender(YearInt, DatePickerIdStg) {
+
+//    CYear = new Date().getFullYear();
+//    if (YearInt == null) {
+//        YearInt = CYear;
+//    }
+//    const CalenderDiv = document.createElement("div");
+//    CalenderDiv.setAttribute('class', 'CalenderDiv');
+//    CalenderDiv.setAttribute('id', 'UTCalenderYearDiv');
+
+
+//    //Creating the Calender Header with Icon and Current Month & YearInt
+//    //Main Head Div
+//    var CalenderHeadDiv = document.createElement('div');
+//    CalenderHeadDiv.setAttribute('class', 'CalenderHead CalenderRowHighlight');
+//    CalenderDiv.appendChild(CalenderHeadDiv);
+//    //Main Head child Add
+//    var CalenderIconYearDiv = document.createElement('div');
+//    CalenderIconYearDiv.setAttribute('class', 'CalenderUpDownIcon');
+//    CalenderHeadDiv.appendChild(CalenderIconYearDiv);
+
+//    var YearJump3 = document.createElement('div');
+//    YearJump3.setAttribute('onclick', "YearSetChangeUT(" + parseInt(YearInt + 75) + ", '" + DatePickerIdStg + "' )");
+//    YearJump3.setAttribute('class', "Cr-uPr");
+//    CalenderIconYearDiv.appendChild(YearJump3);
+//    YearJump3.innerHTML = '<i class="UT-ArrowUpThreeLineCircleSolid" >';
+
+//    var YearJump2 = document.createElement('div');
+//    YearJump2.setAttribute('onclick', "YearSetChangeUT(" + parseInt(YearInt + 50) + ", '" + DatePickerIdStg + "' )");
+//    YearJump2.setAttribute('class', "Cr-uPr");
+//    CalenderIconYearDiv.appendChild(YearJump2);
+//    YearJump2.innerHTML = '<i class="UT-ArrowUpTwoLineCircleSolid" > </i>';
+
+//    var YearJump1 = document.createElement('div');
+//    YearJump1.setAttribute('onclick', "YearSetChangeUT(" + parseInt(YearInt + 25) + ", '" + DatePickerIdStg + "' )");
+//    YearJump1.setAttribute('class', "Cr-uPr");
+//    CalenderIconYearDiv.appendChild(YearJump1);
+//    YearJump1.innerHTML = '<i class="UT-ArrowUpOneLineCircleSolid" > </i>';
+
+
+//    const CalenderYears = document.createElement('div');
+//    CalenderYears.innerHTML = '<i class="UT-PlusCircleSolid" ></i>.Years.<i class="UT-MinusCircleSolid"></i>';
+//    CalenderHeadDiv.appendChild(CalenderYears);
+
+//    var CalenderIconDownYearDiv = document.createElement('div');
+//    CalenderIconDownYearDiv.setAttribute('class', 'CalenderUpDownIcon');
+//    CalenderHeadDiv.appendChild(CalenderIconDownYearDiv);
+
+//    var YearJumpDn3 = document.createElement('div');
+//    YearJumpDn3.setAttribute('onclick', "YearSetChangeUT(" + parseInt(YearInt - 25) + ", '" + DatePickerIdStg + "' )");
+//    YearJumpDn3.setAttribute('class', "Cr-uPr");
+//    CalenderIconDownYearDiv.appendChild(YearJumpDn3);
+//    YearJumpDn3.innerHTML = '<i class="UT-ArrowDownOneLineCircleSolid" >';
+
+//    var YearJumpDn2 = document.createElement('div');
+//    YearJumpDn2.setAttribute('onclick', "YearSetChangeUT(" + parseInt(YearInt - 50) + ", '" + DatePickerIdStg + "' )");
+//    YearJumpDn2.setAttribute('class', "Cr-uPr");
+//    CalenderIconDownYearDiv.appendChild(YearJumpDn2);
+//    YearJumpDn2.innerHTML = '<i class="UT-ArrowDownTwoLineCircleSolid" > </i>';
+
+//    var YearJumpDn1 = document.createElement('div');
+//    YearJumpDn1.setAttribute('onclick', "YearSetChangeUT(" + parseInt(YearInt - 75) + ", '" + DatePickerIdStg + "' )");
+//    YearJumpDn1.setAttribute('class', "Cr-uPr");
+//    CalenderIconDownYearDiv.appendChild(YearJumpDn1);
+//    YearJumpDn1.innerHTML = '<i class="UT-ArrowDownThreeLineCircleSolid" > </i>';
+//    //Main Head Ends
+//    var yearindex = 0;
+//    for (var r = 0; r < 5; r++) {
+//        const CalenderYearRowDiv = document.createElement('div');
+//        CalenderYearRowDiv.setAttribute('class', 'CalenderYearRow');
+//        CalenderDiv.appendChild(CalenderYearRowDiv);
+
+//        for (var i = 0; i < 5; i++) {
+//            var yearUd = YearInt + yearindex;
+//            const YearInit = document.createElement('div');
+//            YearInit.innerHTML = yearUd;
+//            if (yearUd == new Date().getFullYear()) { YearInit.setAttribute('class', 'CalenderDayActiveUT') }
+//            YearInit.setAttribute('onclick', "MonthCalender(" + parseInt(YearInt + yearindex) + ", '" + DatePickerIdStg + "' )");
+//            CalenderYearRowDiv.appendChild(YearInit);
+//            yearindex++;
+//        }
+//    }
+
+//    AddCalender(CalenderDiv, DatePickerIdStg);
+
+
+//}
+
+////Adds Calender To UI
+//function AddCalender(Calender, InputId) {
+//    var previouscalender = document.getElementById(InputId + "UT");
+//    if (previouscalender != null) {
+//        previouscalender.remove();
+//    }
+
+//    //Locate the Input Location First
+//    const element = document.getElementById(InputId);
+//    const DateInputXY = element.getBoundingClientRect();
+//    var leftPosnInputWindow = parseInt(DateInputXY.left.toFixed()) + 5; //Gives left edge distance from ViewPort
+//    var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+//    var bottomPosnInputDoc = parseInt(DateInputXY.bottom.toFixed()) + parseInt(scrollTop) + 2;// Gives Bottom Edge Distance from --Document---
+//    var topPosnInputWindow = parseInt(DateInputXY.top.toFixed());
+//    const viewPortHeight = window.innerHeight;
+//    //Location Ends
+
+//    //Create Div To Push Calender
+//    const body = document.getElementsByTagName("BODY")[0];
+//    const displayCalenderDiv = document.createElement('div');
+//    displayCalenderDiv.setAttribute('class', 'DisplayCalenderDiv');
+//    displayCalenderDiv.setAttribute('id', InputId + "UT");
+//    displayCalenderDiv.appendChild(Calender);
+//    body.appendChild(displayCalenderDiv);
+//    //Locate the location Of Input
+
+//    var calenderHeight = document.getElementById(InputId + 'UT').clientHeight;
+
+//    //IF WindowHEIGHT-InputTop > calenderheight then opencalender at bottom of input.
+//    if ((viewPortHeight - parseInt(DateInputXY.bottom.toFixed())) >= calenderHeight) {
+//        document.getElementById(InputId + 'UT').style.top = bottomPosnInputDoc + "px";
+//        document.getElementById(InputId + 'UT').style.left = leftPosnInputWindow + "px";
+//    }
+//    //Top Opening Position Of calender  = Scroll + WindowTopOfInput -HeightofCalender
+//    else {
+//        document.getElementById(InputId + 'UT').style.top = (parseInt(scrollTop) + topPosnInputWindow - calenderHeight - 2) + "px";
+//        document.getElementById(InputId + 'UT').style.left = leftPosnInputWindow + "px";
+//    }
+
+//    //Hide the DatePicker when we click outside the datepicker or input(Ankita)
+//    document.addEventListener('mouseup', function (e) {
+//        var previouscalender = document.getElementById(InputId + "UT");
+//        if (previouscalender != null) {
+//            previouscalender.style.display = 'none';
+//        }
+//    });
+//    //Ends(Ankita)
+//}
+////Closes all the Open Calender Div
+
+//function CloseCalenderDiv() {
+//    var yeardiv = document.getElementById('UTCalenderYearDiv');
+//    if (yeardiv != null) {
+//        yeardiv.remove();
+//    }
+
+//    var monthdiv = document.getElementById('UTCalenderMonthDiv');
+//    if (monthdiv != null) {
+//        monthdiv.remove();
+//    }
+//    var Datediv = document.getElementById('UTCalenderDateDiv');
+//    if (Datediv != null) {
+//        Datediv.remove();
+//    }
+//}
+
+////Year Calender Arrow Buttons Call This To Shuffle Year Set
+//function YearSetChangeUT(Year, DatePickerIdStg) {
+//    YearCalender(Year, DatePickerIdStg);
+//}
+////On Year Select This Shows Month Calender
+
+////Arrow Button On the Date Calender Uses This Function
+//function DateChangeUT(Year, Month, DatePickerIdStg) {
+//    var GetDate = new Date(Year, Month);
+//    DateCalender(GetDate.getFullYear(), GetDate.getMonth(), DatePickerIdStg);
+//}
+////Ends
+
+////When we select the date in textbox or other it will hide the Calender after selecting
+//function DateSelect(YearInt, MonthInt, DateInt, DatePickerIdStg) {
+//    //Closes Calender On Date Selection
+//    var previouscalender = document.getElementById(DatePickerIdStg + "UT");
+//    if (previouscalender != null) {
+//        previouscalender.remove();
+//    }
+//    //End
+//    var selectedDate = new Date(YearInt, MonthInt, DateInt);
+//    var DatePickerElement = document.getElementById(DatePickerIdStg);
+
+//    // Default Format 
+//    var month = 'MMM';
+//    var year = 'YYYY';
+//    var format = 'D/MMM/YYYY';
+
+//    /// Check the Passed Format in the input
+//    var passedFormat = DatePickerElement.getAttribute('UTDate');
+//    var passedMonth = passedFormat.match(/M/gi).length;
+//    switch (passedMonth) {
+//        case 1: month = 'M';
+//            break;
+//        case 2: month = 'MM';
+//            break;
+//        case 3: month = 'MMM';
+//            break;
+//    }
+
+//    var passedYear = passedFormat.match(/Y/gi).length;
+//    switch (passedYear) {
+//        case 2: year = 'YY';
+//            break;
+//        case 4: year = 'YYYY';
+//            break;
+//    }
+
+//    if (passedFormat != null) { format = passedFormat; }
+
+//    //In these variable we save the date to be put in textbox
+//    var returnDate;
+//    var returnMonth;
+//    var returnYear;
+//    //Ends
+
+
+//    switch (month) {
+//        case 'M':
+//            returnMonth = selectedDate.getMonth();
+//            break;
+//        case 'MM':
+
+//            returnMonth = selectedDate.toLocaleString('en-US', { month: 'short' });
+//            break;
+//        default:
+//            returnMonth = selectedDate.toLocaleString('en-US', { month: 'long' });
+//            break;
+//    }
+
+//    switch (year) {
+//        case "YY": returnYear = selectedDate.getFullYear().toString().slice(-2);
+//            break;
+
+//        default: returnYear = selectedDate.getFullYear();
+//            break;
+//    }
+
+//    switch (format) {
+
+//        case 'D-M-YYYY':
+//        case 'D-MM-YYYY':
+//        case 'D-MMM-YYYY':
+//        case 'D-M-YY':
+//        case 'D-MM-YY':
+//        case 'D-MMM-YY': returnDate = DateInt + '-' + returnMonth + '-' + returnYear;
+//            break;
+
+
+//        case 'M-D-YYYY':
+//        case 'MM-D-YYYY':
+//        case 'MMM-D-YYYY':
+//        case 'M-D-YY':
+//        case 'MM-D-YY':
+//        case 'MMM-D-YY': returnDate = returnMonth + '-' + DateInt + '-' + returnYear;
+//            break;
+
+
+//        case 'M-D-YYYY':
+//        case 'MM-D-YYYY':
+//        case 'MMM-D-YYYY':
+//        case 'M-D-YY':
+//        case 'MM-D-YY':
+//        case 'MMM-D-YY': returnDate = returnYear + '-' + returnMonth + '-' + DateInt;
+//            break;
+
+
+//        default: returnDate = returnYear + '-' + returnMonth + '-' + DateInt;
+//            break;
+//    }
+//    DatePickerElement.value = returnDate;
+//}
+////Ends
+////Ends:-DatePicker
 
 //Ankita
 //Show the Detail View

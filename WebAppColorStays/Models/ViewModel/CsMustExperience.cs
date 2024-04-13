@@ -23,6 +23,8 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? Country { get; set; }
         public string? Image { get; set; }
+        [NotMapped]
+        public string? ImageName { get; set; }
         public string? TagLine { get; set; }
         public string? Description { get; set; }
         public bool FreezeStatus { get; set; }
