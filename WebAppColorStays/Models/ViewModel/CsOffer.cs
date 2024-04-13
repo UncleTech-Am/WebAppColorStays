@@ -24,11 +24,11 @@ namespace WebAppColorStays.Models.ViewModel
 
         [DisplayName("Package")]
         public string? Fk_Package_Name { get; set; }
-
         [NotMapped]
         public string? Package { get; set; }
-
         public string? Image { get; set; }
+        [NotMapped]
+        public string? ImageName { get; set; }
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
         public string? Title { get; set; }

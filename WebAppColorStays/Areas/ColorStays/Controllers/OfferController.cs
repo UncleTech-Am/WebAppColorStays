@@ -435,7 +435,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                         if (file.Length > 0)
                         {
-                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "MustExperience");
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Offer");
                             Task.WaitAll(TImgUpload);
                             if (TImgUpload.Result == "Error")
                             {
@@ -611,6 +611,25 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            CsOffer csOffer = new CsOffer();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Offer/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csOffer = await System.Text.Json.JsonSerializer.DeserializeAsync<CsOffer>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            //Delete the Images from the folder
+            Task<string> TDeleteImage = ryCsImage.DeleteImage(csOffer.ImageName, TokenKey, "MustExperience");
+            Task.WaitAll(TDeleteImage);
+            if (TDeleteImage.Result == "Error")
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
+
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
