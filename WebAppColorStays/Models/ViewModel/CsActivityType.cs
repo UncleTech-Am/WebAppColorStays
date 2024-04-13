@@ -8,12 +8,22 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+
+        [StringLength(100, ErrorMessage = "You can enter only 100 characters long!")]
         public string? Name { get; set; }
+
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? ImageName { get; set; }
         [NotMapped]
         public string? ImageUrl { get; set; }
+
+        [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
         public string? AltTag { get; set; }
+
+        [StringLength(500, ErrorMessage = "You can enter only 500 characters long!")]
         public string? Description { get; set; }
+
+        [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
         public string? Icon { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }

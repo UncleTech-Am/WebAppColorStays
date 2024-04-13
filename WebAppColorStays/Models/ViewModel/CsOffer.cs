@@ -5,35 +5,40 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsAnPackage
+    public class CsOffer
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        [Required(ErrorMessage = "Please enter Package Name.")]
-        [DisplayName("Package")]
-        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
-        public string? Fk_Package_Name { get; set; }
-        [NotMapped]
-        [Required(ErrorMessage = "Please enter Restaurant Name.")]
-        public string? Package { get; set; }
-        [Required(ErrorMessage = "Please enter An No.")]
-        [Remote("CheckDuplicationAnPackageAnNo", "AnPackage", AdditionalFields = ("NameAction, Fk_Package_Name, Id"))]
-        public int? AnNo { get; set; }
-        [Required(ErrorMessage = "Please enter AccordianHeading.")]
-        [Remote("CheckDuplicationAnPackage", "AnPackage", AdditionalFields = ("NameAction, Fk_Package_Name, Id"))]
-        [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
-        public string? AccordianHeading { get; set; }
-        public string? Description { get; set; }
 
-        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
-        public string? Fk_Icon_Name { get; set; }
+        [StringLength(450)]
+        [Required(ErrorMessage = "Please enter Name.")]
+        [Remote("CheckDuplicationOffer", "Offer", AdditionalFields = ("NameAction, Id"))]
+        public string? Name { get; set; }
+
+        public string? Fk_Hotel_Name { get; set; }
+
         [NotMapped]
-        public string? Icon { get; set; }
+        public string? Hotel { get; set; }
+
+        [DisplayName("Package")]
+        public string? Fk_Package_Name { get; set; }
+
+        [NotMapped]
+        public string? Package { get; set; }
+
+        public string? Image { get; set; }
+        public DateTime ValidFrom { get; set; }
+        public DateTime ValidTo { get; set; }
+        public string? Title { get; set; }
+        public string? TagLine { get; set; }
+        public double? DiscountPercent { get; set; }
+        public double? DiscountPrice { get; set; }
+        public string? GeneratedCode { get; set; }
+        public string? CommonCode { get; set; }
+      
         public bool FreezeStatus { get; set; }
-        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? FreezedBy { get; set; }
-        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
         public bool? SelectStatus { get; set; }

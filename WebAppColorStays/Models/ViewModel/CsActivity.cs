@@ -16,26 +16,39 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SEODescription { get; set; }
         [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
+
         [DisplayName("ActivityType")]
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Fk_ActivityType_Name { get; set; }
         [NotMapped]
+
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? ActivityType { get; set; }
+
         [DisplayName("Place")]
+        [StringLength(450)]
         public string? Fk_Place_Name { get; set; }
         [NotMapped]
+        [StringLength(450)]
         public string? Place { get; set; }
         [DisplayName("City")]
+        [StringLength(450)]
         public string? Fk_City_Name { get; set; }
         [DisplayName("State")]
+        [StringLength(450)]
         public string? Fk_State_Name { get; set; }
         [DisplayName("Country")]
+        [StringLength(450)]
         public string? Fk_Country_Name { get; set; }
+        
+        [StringLength(450)]
         public string? URL { get; set; }
         [Required(ErrorMessage = "Please enter Activity Name.")]
         [Remote("CheckDuplicationActivity", "Activity", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]
         public string Name { get; set; }
         public string? Description { get; set; }
         [DisplayName("Video Link")]
+        [StringLength(500, ErrorMessage = "You can enter only 500 characters long!")]
         public string? Video { get; set; }
         public double? StartingPrice { get; set; }
         public int? Duration { get; set; }

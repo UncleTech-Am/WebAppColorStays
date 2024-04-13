@@ -11,10 +11,12 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Id { get; set; }
         [DisplayName("State")]
         [Required(ErrorMessage = "Please enter State Name.")]
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Fk_State_Name { get; set; }
         [NotMapped]
         public string? State { get; set; }
         [DisplayName("ActivityType")]
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Fk_ActivityType_Name { get; set; }
         [NotMapped]
         public string? ActivityType { get; set; }

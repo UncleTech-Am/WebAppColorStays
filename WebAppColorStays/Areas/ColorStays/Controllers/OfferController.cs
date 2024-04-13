@@ -10,20 +10,19 @@ using LibCompanyService.Models.ViewCompany;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
+
 using WebAppColorStays.Models.ViewModel;
-using WebAppColorStays.Areas.ColorStays.CommonMethods;
-using Microsoft.DotNet.Scaffolding.Shared.Project;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
     [Area("ColorStays")]
     [SessionCheck]
     [Authorize]
-    public class HotelController : Controller
+    public class OfferController : Controller
     {
         private readonly Paging paging;
 
-        public HotelController()
+        public OfferController()
         {
             paging = new Paging();
         }
@@ -31,62 +30,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "Hotel";
+            ViewBag.Title = "Offer";
         }
         //Ends
-
-
-        //ItemAutoComplete
-        [HttpGet]
-        public async Task<JsonResult> SuggestHotel(string term)
-        {
-            var TokenKey = Request.Cookies["JWToken"];
-            var UserID = Request.Cookies["UserID"];
-            List<CsAutocomplete> list = new List<CsAutocomplete>();
-            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                HttpResponseMessage res = await client.GetAsync("Hotel/SuggestHotel/" + term + "/" + CompId, HttpCompletionOption.ResponseHeadersRead);
-                if (res.IsSuccessStatusCode)
-                {
-                    var results = res.Content.ReadAsStreamAsync().Result;
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsAutocomplete>>(results, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                    var data = list.Select(x => new
-                    {
-                        id = Base64UrlEncoder.Encode(Process.Encrypt(x.Id)),
-                        value = x.Value,
-                        label = x.Label,
-
-                    }).ToList();
-                    return Json(data);
-                }
-            }
-            return null;
-        }
-        //Ends
-
-        //Drop Down
-        public async void DropDown(string CompId, string Token)
-        {
-            RyCrSsDropDown ry = new RyCrSsDropDown();
-            string URLChainBrand = "HotelChainBrand/DropDown/" + CompId;
-            string URLHotelType = "HotelType/DropDown/" + CompId;
-            string URLCurrency = "HotelType/DropDown/" + CompId;
-            try
-            {
-                Task<List<SelectListItem>> ChainBrand = ry.DDColorStaysAPI(URLChainBrand, Token);
-                Task<List<SelectListItem>> HotelType = ry.DDColorStaysAPI(URLHotelType, Token);
-                Task<List<SelectListItem>> Currency = ry.DDColorStaysAPI(URLCurrency, Token);
-                Task.WaitAll(ChainBrand, HotelType, Currency);
-                ViewBag.ChainBrand = ChainBrand;
-                ViewBag.HotelType = HotelType;
-                ViewBag.Currency = Currency;
-            }
-            catch (Exception ex) { }
-
-        }
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -143,21 +89,21 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
         //Give the list of the data
-        public async Task<Tuple<int, List<CsHotel>>> AllDataList(int? PgSize, int? PgSelectedNum)
+        public async Task<Tuple<int, List<CsOffer>>> AllDataList(int? PgSize, int? PgSelectedNum)
         {
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Tuple<int, List<CsHotel>> list;
+            Tuple<int, List<CsOffer>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Hotel/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Offer/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsHotel>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsOffer>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else{ list = null; }
                 }
@@ -167,7 +113,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET:/Hotel/
+        //GET:/Offer/
         [HttpGet]
         public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
         {         
@@ -176,15 +122,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
 
             //Display the Dropdown of the Table fields in Search Data Popup
-            GetClassMember<CsHotel> getClassMember = new GetClassMember<CsHotel>();
-            CsHotel CsHotel = new CsHotel();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsHotel), "Value", "DisplayName");
+            GetClassMember<CsOffer> getClassMember = new GetClassMember<CsOffer>();
+            CsOffer CsOffer = new CsOffer();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsOffer), "Value", "DisplayName");
             //Ends
 
             try //Pagination and List of data Code
             {
                 Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<CsHotel>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                Task<Tuple<int, List<CsOffer>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                 PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
 
                 ViewData["ActionName"] = "Index";
@@ -224,15 +170,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 cIndex.PageSize = pagedata.Item1;
                 cIndex.PageSelectedNum = pagedata.Item2;
                 cIndex.CompId = CompID;
-                Tuple<int, List<CsHotel>> list;
+                Tuple<int, List<CsOffer>> list;
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     //Get the List of data
-                    using (var response = await client.PostAsJsonAsync("Hotel/DateSearch/", cIndex))
+                    using (var response = await client.PostAsJsonAsync("Offer/DateSearch/", cIndex))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsHotel>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsOffer>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else{ Success = false; }
@@ -258,7 +204,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //Search the Data according to the table fileds in the Index
         [HttpPost]
-        public async Task<IActionResult> TableSearch(CsHotel CsHotel, IFormCollection fc)
+        public async Task<IActionResult> TableSearch(CsOffer CsOffer, IFormCollection fc)
         {
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
@@ -271,18 +217,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsHotel>> list;
+            Tuple<int, List<CsOffer>> list;
 
             using (HttpClient client = APIColorStays.Initial())
             {
-                CsHotel.CreatedBy = UserID;
-                CsHotel.CompId = CompID;
+                CsOffer.CreatedBy = UserID;
+                CsOffer.CompId = CompID;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(CsHotel), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Hotel/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
+                StringContent content = new StringContent(JsonSerializer.Serialize(CsOffer), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync("Offer/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsHotel>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsOffer>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -305,11 +251,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         [HttpPost]
         public async Task<IActionResult> FilterSearch(CIndexSearchFilter indexsearchfilter, IFormCollection fc)
         {
-            GetClassMember<CsHotel> getClassMember = new GetClassMember<CsHotel>();
-            CsHotel CsHotel = new CsHotel();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsHotel), "Value", "DisplayName");
+            GetClassMember<CsOffer> getClassMember = new GetClassMember<CsOffer>();
+            CsOffer CsOffer = new CsOffer();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsOffer), "Value", "DisplayName");
             //Creating Search Filter List with class member Property Name
-            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsHotel);
+            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsOffer);
             foreach (var item in indexsearchfilter.IndexSearchList)
             { item.Name = fields[item.Name]; }
             //Ends
@@ -325,7 +271,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsHotel>> list;
+            Tuple<int, List<CsOffer>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                indexsearchfilter.CurrentUserId = UserID;
@@ -334,10 +280,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 indexsearchfilter.PageSize = pagedata.Item1;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(indexsearchfilter), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Hotel/FilterSearch", content))
+                using (var response = await client.PostAsync("Offer/FilterSearch", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsHotel>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsOffer>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -357,29 +303,28 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET: /Hotel/Details/5
+        //GET: /Offer/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            CsHotel CsHotel = new CsHotel();
-            DropDown(CompID, TokenKey);
+            CsOffer CsOffer = new CsOffer();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Hotel/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Offer/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        CsHotel = await System.Text.Json.JsonSerializer.DeserializeAsync<CsHotel>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        return View("_DetailOrDelete",CsHotel);
+                        CsOffer = await System.Text.Json.JsonSerializer.DeserializeAsync<CsOffer>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        return View("_DetailOrDelete",CsOffer);
                     }
                     else
                     {
-                        Tuple<CsHotel, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsHotel, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Tuple<CsOffer, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsOffer, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (data.Item2 != null && data.Item2.Message == "GlobalItem")
                         {
                             ViewBag.Message = "Sytem Entry, Can't be Changed !";
@@ -393,7 +338,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-        //GET: /Hotel/CreateOrEdit
+        //GET: /Offer/CreateOrEdit
         [HttpGet]
         [ResponseCache(Duration = 0)]
         public async Task<IActionResult> CreateOrEdit(string Id)
@@ -402,18 +347,17 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
-            DropDown(CompID, TokenKey);
             if (Id != null)
             {
                 bool Success = false;
-                var data = new CsHotel();
+                var data = new CsOffer();
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("Hotel/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync("Offer/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsHotel>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsOffer>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else { Success = false; }
@@ -432,7 +376,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
         }
         
-        //GET: /Hotel/Create
+        //GET: /Offer/Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -441,23 +385,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            DropDown(CompID, TokenKey);
+
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
             Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-            Task<Tuple<int, List<CsHotel>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+            Task<Tuple<int, List<CsOffer>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
             PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
             ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
             return View();
         } 
         
 
-        //POST: /Hotel/Create
+        //POST: /Offer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create(CsHotel CsHotel)
+		public async Task<IActionResult> Create(CsOffer CsOffer)
         {       
             Title();
             ViewData["AnName"] = "Create";
@@ -465,25 +409,24 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            DropDown(CompID, TokenKey);
-            CsHotel.CompId = CompID;
-            CsHotel.CreatedBy = UserID;
-            CsHotel.ModifiedBy = UserID;
-            CsHotel.Id = Guid.NewGuid().ToString();
+            CsOffer.CompId = CompID;
+            CsOffer.CreatedBy = UserID;
+            CsOffer.ModifiedBy = UserID;
+            CsOffer.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
-            CsHotel data = new CsHotel();
+            CsOffer data = new CsOffer();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
 				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    StringContent content = new StringContent(JsonSerializer.Serialize(CsHotel), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("Hotel/create", content))
+                    StringContent content = new StringContent(JsonSerializer.Serialize(CsOffer), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("Offer/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
                         {
-                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsHotel>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsOffer>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             Success = true;
                         }
                         else
@@ -499,13 +442,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 { return RedirectToAction("Index", new { PageCall = "Show" }); }
-                else { return View("_CreateOrEdit", CsHotel); }
+                else { return View("_CreateOrEdit", CsOffer); }
             }
-            return View("_CreateorEdit",CsHotel);                
+            return View("_CreateorEdit",CsOffer);                
          }
 
 
-        //GET: /Hotel/Edit/5
+        //GET: /Offer/Edit/5
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
@@ -515,7 +458,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            DropDown(CompID, TokenKey);
+
             if (id == null)
             {
                 ViewBag.Message = "Not Founded";
@@ -526,20 +469,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
-            CsHotel CsHotel = new CsHotel();
+            CsOffer CsOffer = new CsOffer();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Hotel/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Offer/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsHotel>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                    Task<Tuple<int, List<CsOffer>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                     PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
                     ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;                   
                     if (response.IsSuccessStatusCode)
                     {
-                        CsHotel = await System.Text.Json.JsonSerializer.DeserializeAsync<CsHotel>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsOffer = await System.Text.Json.JsonSerializer.DeserializeAsync<CsOffer>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else
                     {
@@ -551,14 +494,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
             }
-            return View(CsHotel);
+            return View(CsOffer);
         }
 
                 
-        //POST: /Hotel/Edit/5
+        //POST: /Offer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CsHotel CsHotel)
+        public async Task<IActionResult> Edit(CsOffer CsOffer)
         {
             Title();
             ViewData["AnName"] = "Edit";
@@ -566,10 +509,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            DropDown(CompID, TokenKey);
             ViewData["ResponseName"] = "ShowValidation";
-            CsHotel.CompId = CompID;
-            CsHotel.ModifiedBy = UserID;   
+            CsOffer.CompId = CompID;
+            CsOffer.ModifiedBy = UserID;   
             if (ModelState.IsValid)
             {
                 try
@@ -577,12 +519,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     using (HttpClient client = APIColorStays.Initial())
                     {
 						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsHotel>("Hotel/edit", CsHotel))
+                        using (var response = await client.PostAsJsonAsync<CsOffer>("Offer/edit", CsOffer))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)
                             {
-                                Tuple<CsHotel, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsHotel,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Tuple<CsOffer, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsOffer,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                                 if (data.Item2 != null)
                                 {
                                     if (data.Item2.Message == "Duplicate")
@@ -610,11 +552,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     return View("_CreateorEdit");
                 }
             }
-            return View("_CreateorEdit",CsHotel);
+            return View("_CreateorEdit",CsOffer);
         }
         
        
-        //POST: /Hotel/Delete/5
+        //POST: /Offer/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
@@ -624,7 +566,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Hotel/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Offer/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
@@ -655,12 +597,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             model.CompId = CompID;
             if (model.ActionName == "Verify" || model.ActionName == "UnVerify") { model.VerifiedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
             if (model.ActionName == "Activate" || model.ActionName == "Inactivate") { model.ActivatedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
-			CsHotel CsHotel = new CsHotel();
+			CsOffer CsOffer = new CsOffer();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
 				StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Hotel/verifydata/" , content))
+                using (var response = await client.PostAsync("Offer/verifydata/" , content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
@@ -688,7 +630,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             starUnstar.Id = Id;
             starUnstar.Host = Request.Scheme + "://" + Request.Host;
             starUnstar.AreaName = "ColorStays";
-            starUnstar.ControllerName = "Hotel";
+            starUnstar.ControllerName = "Offer";
             starUnstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
@@ -730,7 +672,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationHotel(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationOffer(string Name, string NameAction, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
@@ -739,7 +681,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Hotel/CheckDuplicationHotel/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Offer/CheckDuplicationOffer/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {

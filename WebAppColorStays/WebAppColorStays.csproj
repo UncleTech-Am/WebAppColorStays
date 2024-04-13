@@ -195,6 +195,15 @@
     <None Include="Areas\ColorStays\Views\NewsTag\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\NewsTag\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\NewsTag\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Offer\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\Offer\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Offer\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\Offer\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Offer\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\Offer\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Offer\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\Offer\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\Offer\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageType1\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageType1\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageType1\Index.cshtml" />
