@@ -702,7 +702,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Restaurant/edit/" + id, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Restaurant/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     csRestaurant = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRestaurant>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -716,7 +716,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 img = item.Title;
                 image.Add(img);
             }
-            Task<string> TDeleteImage = ryCsImage.DeleteImage(csRestaurant.Image, TokenKey, "RestaurantCover");
+            Task<string> TDeleteImage = ryCsImage.DeleteImage(csRestaurant.ImageName, TokenKey, "RestaurantCover");
 
             Task<string> TDeleteImageList = ryCsImage.DeleteMultiImage(image, "Restaurant", TokenKey);
             Task.WaitAll(TDeleteImage, TDeleteImageList);

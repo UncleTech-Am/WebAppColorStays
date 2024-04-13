@@ -620,14 +620,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Video/edit/" + id, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Video/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     csVideo = await System.Text.Json.JsonSerializer.DeserializeAsync<CsVideo>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                 }
             }
             //Delete the Images from the folder
-            Task<string> TDeleteImage = ryCsImage.DeleteImage(csVideo.Image, TokenKey, "Video");
+            Task<string> TDeleteImage = ryCsImage.DeleteImage(csVideo.ImageName, TokenKey, "Video");
             Task.WaitAll(TDeleteImage);
             if (TDeleteImage.Result == "Error")
             {

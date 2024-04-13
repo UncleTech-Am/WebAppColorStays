@@ -642,7 +642,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("CountryOverView/edit/" + id, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("CountryOverView/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     csCountryOver = await System.Text.Json.JsonSerializer.DeserializeAsync<CsCountryOverView>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -653,15 +653,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Task<string> TDeleteImage3 = null;
             if (csCountryOver.AirportImage != null)
             {
-                TDeleteImage1 = ryCsImage.DeleteImage(csCountryOver.AirportImage, "CountryOverView", TokenKey);
+                TDeleteImage1 = ryCsImage.DeleteImage(csCountryOver.AirportImageName, TokenKey, "CountryOverView");
             }
             if (csCountryOver.TerrainImage != null)
             {
-                TDeleteImage2 = ryCsImage.DeleteImage(csCountryOver.TerrainImage, "CountryOverView", TokenKey);
+                TDeleteImage2 = ryCsImage.DeleteImage(csCountryOver.TerrainImageName, TokenKey, "CountryOverView");
             }
             if (csCountryOver.ActivityImage != null)
             {
-                TDeleteImage3 = ryCsImage.DeleteImage(csCountryOver.ActivityImage, "CountryOverView", TokenKey);
+                TDeleteImage3 = ryCsImage.DeleteImage(csCountryOver.ActivityImageName, TokenKey, "CountryOverView");
             }
            
             //Delete the Images from the folder

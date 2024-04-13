@@ -816,23 +816,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Task<string> TDeleteImage5 = null;
             if (CsAirportImages.Photo1 != null)
             {
-                TDeleteImage1 = ryCsImage.DeleteImage(CsAirportImages.Photo1, "Airport", TokenKey);
+                TDeleteImage1 = ryCsImage.DeleteImage(CsAirportImages.Photo1, TokenKey, "Airport");
             }
             if (CsAirportImages.Photo2 != null)
             {
-                TDeleteImage2 = ryCsImage.DeleteImage(CsAirportImages.Photo2, "Airport", TokenKey);
+                TDeleteImage2 = ryCsImage.DeleteImage(CsAirportImages.Photo2, TokenKey, "Airport");
             }
             if (CsAirportImages.Photo3 != null)
             {
-                TDeleteImage3 = ryCsImage.DeleteImage(CsAirportImages.Photo3, "Airport", TokenKey);
+                TDeleteImage3 = ryCsImage.DeleteImage(CsAirportImages.Photo3, TokenKey, "Airport");
             }
             if (CsAirportImages.Photo4 != null)
             {
-                TDeleteImage4 = ryCsImage.DeleteImage(CsAirportImages.Photo4, "Airport", TokenKey);
+                TDeleteImage4 = ryCsImage.DeleteImage(CsAirportImages.Photo4, TokenKey, "Airport");
             }
             if (CsAirportImages.Photo5 != null)
             {
-                TDeleteImage5 = ryCsImage.DeleteImage(CsAirportImages.Photo5, "Airport", TokenKey);
+                TDeleteImage5 = ryCsImage.DeleteImage(CsAirportImages.Photo5, TokenKey, "Airport");
             }
             //Delete the Images from the folder
             Task.WaitAll(TDeleteImage1, TDeleteImage2, TDeleteImage3, TDeleteImage4, TDeleteImage5);

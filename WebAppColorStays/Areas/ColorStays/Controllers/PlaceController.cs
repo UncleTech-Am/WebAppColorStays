@@ -669,7 +669,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Photo/Index/" + "null" + "/" + "null" + "/" + "null" + "/" + "id" + "/" + "Place"))
+                using (var response = await client.GetAsync("Photo/Index/" + "null" + "/" + "null" + "/" + "null" + "/" + id + "/" + "Place"))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });

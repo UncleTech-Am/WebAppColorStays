@@ -615,14 +615,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("MustExperience/edit/" + id, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("MustExperience/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     csMustExperience = await System.Text.Json.JsonSerializer.DeserializeAsync<CsMustExperience>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                 }
             }
             //Delete the Images from the folder
-            Task<string> TDeleteImage = ryCsImage.DeleteImage(csMustExperience.Image, TokenKey, "MustExperience");
+            Task<string> TDeleteImage = ryCsImage.DeleteImage(csMustExperience.ImageName, TokenKey, "MustExperience");
             Task.WaitAll(TDeleteImage);
             if (TDeleteImage.Result == "Error")
             {
