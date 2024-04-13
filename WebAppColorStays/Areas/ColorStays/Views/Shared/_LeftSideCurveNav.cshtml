@@ -89,6 +89,7 @@
     string MainLink8 = "";
     string DrownLink8 = "";
     string FacilityCategory = "";
+    string HotelFacilityMap = "";
     string Offer = "";
 
 
@@ -172,6 +173,7 @@
         case "Hotel": Hotel = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "HotelChainBrand": HotelChainBrand = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "FacilityCategory": FacilityCategory = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
+        case "HotelFacilityMap": HotelFacilityMap = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
 
         default: break;
     }
@@ -919,6 +921,16 @@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @FacilityCategory">
+                        <a href="~/ColorStays/FacilityCategory/Create">FacilityCategory</a>
+                    </div>
+                    <a href="~/ColorStays/FacilityCategory/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/FacilityCategory/Index\"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @HotelChainBrand">
                         <a href="~/ColorStays/HotelChainBrand/Create">HotelChainBrand</a>
                     </div>
@@ -949,11 +961,11 @@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @FacilityCategory">
-                        <a href="~/ColorStays/FacilityCategory/Create">FacilityCategory</a>
+                    <div class="SideNavLinkText @HotelFacilityMap">
+                        <a href="~/ColorStays/HotelFacilityMap/Create">HotelFacilityMap</a>
                     </div>
-                    <a href="~/ColorStays/FacilityCategory/Create"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/FacilityCategory/Index\"><i class="UT-List-OLine"></i></a>
+                    <a href="~/ColorStays/HotelFacilityMap/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/HotelFacilityMap/Index\"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
 

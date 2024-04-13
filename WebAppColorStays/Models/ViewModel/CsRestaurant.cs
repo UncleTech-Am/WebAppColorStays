@@ -26,6 +26,11 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationRestaurant", "Restaurant", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]
         public string Name { get; set; }
         public string? URL { get; set; }
+        public string? Image { get; set; }
+        public int? PhoneNumber { get; set; }
+        public string? LandMark { get; set; }
+        public string? DistanceFromLandMark { get; set; }
+        public string? TagLine { get; set; }
         [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
         public string? SEOTitle { get; set; }
         [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]

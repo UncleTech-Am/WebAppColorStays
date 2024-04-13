@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
+using WebAppColorStays.Areas.ColorStays.CommonMethods;
 
 
 
@@ -35,6 +36,21 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Title = "HotelFacility";
         }
         //Ends
+
+        //Drop Down
+        public async void DropDown(string CompId, string Token)
+        {
+            RyCrSsDropDown ry = new RyCrSsDropDown();
+            string URLFacilityCategory = "FacilityCategory/DropDown/" + CompId;
+            try
+            {
+                Task<List<SelectListItem>> FacilityCategory = ry.DDColorStaysAPI(URLFacilityCategory, Token);
+                Task.WaitAll(FacilityCategory);
+                ViewBag.FacilityCategory = FacilityCategory;
+            }
+            catch (Exception ex) { }
+
+        }
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -313,6 +329,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             CsHotelFacility CsHotelFacility = new CsHotelFacility();
+            DropDown(CompID, TokenKey);
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
@@ -349,6 +366,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
+            DropDown(CompID, TokenKey);
             if (Id != null)
             {
                 bool Success = false;
@@ -387,7 +405,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            DropDown(CompID, TokenKey);
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
@@ -411,6 +429,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
+            DropDown(CompID, TokenKey);
             CsHotelFacility.CompId = CompID;
             CsHotelFacility.CreatedBy = UserID;
             CsHotelFacility.ModifiedBy = UserID;
@@ -460,7 +479,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            DropDown(CompID, TokenKey);
             if (id == null)
             {
                 ViewBag.Message = "Not Founded";
@@ -511,6 +530,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
+            DropDown(CompID, TokenKey);
             ViewData["ResponseName"] = "ShowValidation";
             CsHotelFacility.CompId = CompID;
             CsHotelFacility.ModifiedBy = UserID;   
