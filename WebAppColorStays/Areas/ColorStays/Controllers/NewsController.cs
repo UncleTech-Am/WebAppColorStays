@@ -870,6 +870,53 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            CsNews csNews = new CsNews();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("News/UploadedImage/" + id, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csNews = await System.Text.Json.JsonSerializer.DeserializeAsync<CsNews>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+
+            Task<string> TDeleteImage1 = null;
+            Task<string> TDeleteImage2 = null;
+            Task<string> TDeleteImage3 = null;
+            Task<string> TDeleteImage4 = null;
+            Task<string> TDeleteImage5 = null;
+            if (csNews.Photo1 != null)
+            {
+                TDeleteImage1 = ryCsImage.DeleteImage(csNews.Photo1, "News", TokenKey);
+            }
+            if (csNews.Photo2 != null)
+            {
+                TDeleteImage2 = ryCsImage.DeleteImage(csNews.Photo2, "News", TokenKey);
+            }
+            if (csNews.Photo3 != null)
+            {
+                TDeleteImage3 = ryCsImage.DeleteImage(csNews.Photo3, "News", TokenKey);
+            }
+            if (csNews.Photo4 != null)
+            {
+                TDeleteImage4 = ryCsImage.DeleteImage(csNews.Photo4, "News", TokenKey);
+            }
+            if (csNews.Photo5 != null)
+            {
+                TDeleteImage5 = ryCsImage.DeleteImage(csNews.Photo5, "News", TokenKey);
+            }
+            //Delete the Images from the folder
+            Task.WaitAll(TDeleteImage1, TDeleteImage2, TDeleteImage3, TDeleteImage4, TDeleteImage5);
+
+            if (TDeleteImage1.Result == "Error" || TDeleteImage2.Result == "Error" || TDeleteImage3.Result == "Error" || TDeleteImage4.Result == "Error" || TDeleteImage5.Result == "Error")
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
+
+
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);

@@ -797,6 +797,52 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            CsAirport CsAirportImages = new CsAirport();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Airport/UploadedImage/" + id, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    CsAirportImages = await System.Text.Json.JsonSerializer.DeserializeAsync<CsAirport>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+
+            Task<string> TDeleteImage1= null;
+            Task<string> TDeleteImage2 = null;
+            Task<string> TDeleteImage3 = null;
+            Task<string> TDeleteImage4 = null;
+            Task<string> TDeleteImage5 = null;
+            if (CsAirportImages.Photo1 != null)
+            {
+                TDeleteImage1 = ryCsImage.DeleteImage(CsAirportImages.Photo1, "Airport", TokenKey);
+            }
+            if (CsAirportImages.Photo2 != null)
+            {
+                TDeleteImage2 = ryCsImage.DeleteImage(CsAirportImages.Photo2, "Airport", TokenKey);
+            }
+            if (CsAirportImages.Photo3 != null)
+            {
+                TDeleteImage3 = ryCsImage.DeleteImage(CsAirportImages.Photo3, "Airport", TokenKey);
+            }
+            if (CsAirportImages.Photo4 != null)
+            {
+                TDeleteImage4 = ryCsImage.DeleteImage(CsAirportImages.Photo4, "Airport", TokenKey);
+            }
+            if (CsAirportImages.Photo5 != null)
+            {
+                TDeleteImage5 = ryCsImage.DeleteImage(CsAirportImages.Photo5, "Airport", TokenKey);
+            }
+            //Delete the Images from the folder
+            Task.WaitAll(TDeleteImage1, TDeleteImage2, TDeleteImage3, TDeleteImage4, TDeleteImage5);
+
+            if (TDeleteImage1.Result == "Error" || TDeleteImage2.Result == "Error" || TDeleteImage3.Result == "Error" || TDeleteImage4.Result == "Error"|| TDeleteImage5.Result == "Error")
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
+
+
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);

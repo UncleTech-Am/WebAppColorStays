@@ -636,6 +636,42 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            CsCountryOverView csCountryOver = new CsCountryOverView();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("CountryOverView/edit/" + id, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csCountryOver = await System.Text.Json.JsonSerializer.DeserializeAsync<CsCountryOverView>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            Task<string> TDeleteImage1 = null;
+            Task<string> TDeleteImage2 = null;
+            Task<string> TDeleteImage3 = null;
+            if (csCountryOver.AirportImage != null)
+            {
+                TDeleteImage1 = ryCsImage.DeleteImage(csCountryOver.AirportImage, "CountryOverView", TokenKey);
+            }
+            if (csCountryOver.TerrainImage != null)
+            {
+                TDeleteImage2 = ryCsImage.DeleteImage(csCountryOver.TerrainImage, "CountryOverView", TokenKey);
+            }
+            if (csCountryOver.ActivityImage != null)
+            {
+                TDeleteImage3 = ryCsImage.DeleteImage(csCountryOver.ActivityImage, "CountryOverView", TokenKey);
+            }
+           
+            //Delete the Images from the folder
+            Task.WaitAll(TDeleteImage1, TDeleteImage2, TDeleteImage3);
+
+            if (TDeleteImage1.Result == "Error" || TDeleteImage2.Result == "Error" || TDeleteImage3.Result == "Error")
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
+
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);

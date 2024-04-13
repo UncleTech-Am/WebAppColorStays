@@ -787,6 +787,36 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            CsPackageType CsPackageImages = new CsPackageType();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageType/UploadedImage/" + id, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    CsPackageImages = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackageType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            Task<string> TDeleteImage1 = null;
+            Task<string> TDeleteImage2 = null;
+            if (CsPackageImages.ImageName != null)
+            {
+                TDeleteImage1 = ryCsImage.DeleteImage(CsPackageImages.ImageName, "PackageType", TokenKey);
+            }
+            if (CsPackageImages.BigImage != null)
+            {
+                TDeleteImage2 = ryCsImage.DeleteImage(CsPackageImages.BigImage, "PackageType", TokenKey);
+            }
+            //Delete the Images from the folder
+            Task.WaitAll(TDeleteImage1, TDeleteImage2);
+
+            if (TDeleteImage1.Result == "Error" || TDeleteImage2.Result == "Error" )
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
+
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
