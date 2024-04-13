@@ -12,6 +12,7 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
 using LibCommon.APICommonMethods;
+using SixLabors.ImageSharp;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -490,11 +491,30 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsRestaurant.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
             CsRestaurant data = new CsRestaurant();
+            var files = HttpContext.Request.Form.Files;
+
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    foreach (var file in files)
+                    {
+                        var fileName = "RestaurantCover-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+
+                        CsRestaurant.Image = fileName;
+
+                        if (file.Length > 0)
+                        {
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "RestaurantCover");
+                            Task.WaitAll(TImgUpload);
+                            if (TImgUpload.Result == "Error")
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsRestaurant), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("Restaurant/create", content))
                     {
@@ -589,14 +609,37 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
             CsRestaurant.CompId = CompID;
-            CsRestaurant.ModifiedBy = UserID;   
+            CsRestaurant.ModifiedBy = UserID;
+            var files = HttpContext.Request.Form.Files;
+            var imagename = CsRestaurant.Image;
+
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        foreach (var file in files)
+                        {
+                            var fileName = "RestaurantCover-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+
+                            CsRestaurant.Image = fileName;
+                            //Delete the Images from the folder
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(imagename, TokenKey, "RestaurantCover");
+                            Task.WaitAll(TDeleteImage);
+
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "RestaurantCover");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                         using (var response = await client.PostAsJsonAsync<CsRestaurant>("Restaurant/edit", CsRestaurant))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
@@ -641,6 +684,47 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            List<CsRestaurantImage> photosList = new List<CsRestaurantImage>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("RestaurantImage/Index/" + id))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsRestaurantImage>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+
+            CsRestaurant csRestaurant = new CsRestaurant();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Restaurant/edit/" + id, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csRestaurant = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRestaurant>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            //Delete the Images from the folder
+            List<string> image = new List<string>();
+            foreach (var item in photosList)
+            {
+                string img;
+                img = item.Title;
+                image.Add(img);
+            }
+            Task<string> TDeleteImage = ryCsImage.DeleteImage(csRestaurant.Image, TokenKey, "RestaurantCover");
+
+            Task<string> TDeleteImageList = ryCsImage.DeleteMultiImage(image, "Restaurant", TokenKey);
+            Task.WaitAll(TDeleteImage, TDeleteImageList);
+            if (TDeleteImage.Result == "Error" || TDeleteImageList.Result == "Error")
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
+
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);

@@ -669,6 +669,34 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            List<CsPhoto> photosList = new List<CsPhoto>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Photo/Index/" + id + "/" + "null" + "/" + "null" + "/" + "null" + "/" + "Country"))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            //Delete the Images from the folder
+            List<string> image = new List<string>();
+            foreach (var item in photosList)
+            {
+                string img;
+                img = item.Title;
+                image.Add(img);
+            }
+            Task<string> TDeleteImage = ryCsImage.DeleteMultiImage(image, "Country", TokenKey);
+            Task.WaitAll(TDeleteImage);
+
+            if (TDeleteImage.Result == "Error")
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
+
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
