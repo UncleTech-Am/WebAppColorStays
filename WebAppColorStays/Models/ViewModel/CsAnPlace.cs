@@ -27,6 +27,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Icon { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
+
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
         public bool? SelectStatus { get; set; }

@@ -16,6 +16,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationOffer", "Offer", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
 
+        [DisplayName("Hotel")]
         public string? Fk_Hotel_Name { get; set; }
 
         [NotMapped]
