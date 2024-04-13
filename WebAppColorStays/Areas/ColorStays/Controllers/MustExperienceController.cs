@@ -13,7 +13,6 @@ using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
 using LibCommon.APICommonMethods;
 
-
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
     [Area("ColorStays")]

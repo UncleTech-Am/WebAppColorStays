@@ -12,6 +12,7 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
+using LibCommon.APICommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -21,10 +22,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class OfferController : Controller
     {
         private readonly Paging paging;
+        private readonly RyCSImage ryCsImage;
 
         public OfferController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
+
         }
 
         //Show the Title in View
@@ -415,11 +419,32 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsOffer.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
             CsOffer data = new CsOffer();
+            var files = HttpContext.Request.Form.Files;
+
+
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    foreach (var file in files)
+                    {
+                        var fileName = "Offer-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+
+                        CsOffer.Image = fileName;
+
+
+                        if (file.Length > 0)
+                        {
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "MustExperience");
+                            Task.WaitAll(TImgUpload);
+                            if (TImgUpload.Result == "Error")
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsOffer), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("Offer/create", content))
                     {
@@ -511,14 +536,37 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
             CsOffer.CompId = CompID;
-            CsOffer.ModifiedBy = UserID;   
+            CsOffer.ModifiedBy = UserID;
+            var files = HttpContext.Request.Form.Files;
+            var imagename = CsOffer.Image;
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        foreach (var file in files)
+                        {
+                            var fileName = "Offer-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+
+                            CsOffer.Image = fileName;
+                            //Delete the Images from the folder
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(imagename, TokenKey, "MustExperience");
+                            Task.WaitAll(TDeleteImage);
+
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "MustExperience");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+
+
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                         using (var response = await client.PostAsJsonAsync<CsOffer>("Offer/edit", CsOffer))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
