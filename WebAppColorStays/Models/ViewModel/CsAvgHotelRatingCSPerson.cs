@@ -1,39 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsAnPlace
+    public class CsAvgHotelRatingCSPerson
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        [DisplayName("Place")]
-        [Required(ErrorMessage = "Please enter Place Name.")]
-        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
-        public string? Fk_Place_Name { get; set; }
-        [NotMapped]
-        public string? Place { get; set; }
-        [Required(ErrorMessage = "Please enter An No.")]
-        [Remote("CheckDuplicationAnPlaceAnNo", "AnPlace", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]
-        public int? AnNo { get; set; }
-        [Required(ErrorMessage = "Please enter AccordianHeading.")]
-        [Remote("CheckDuplicationAnPlace", "AnPlace", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]
-        [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
-        public string? AccordianHeading { get; set; }
-        public string? Description { get; set; }
 
+        [DisplayName("Hotel")]
         [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
-        [DisplayName("Icon")]
-        public string? Fk_Icon_Name { get; set; }
-        [NotMapped]
-        public string? Icon { get; set; }
+        [Required(ErrorMessage = "Please enter Hotel Name.")]
+        public string? Fk_Hotel_Name { get; set; }
+        public int? OwnerAttitude { get; set; }
+        public int? Location { get; set; }
+        public int? ViewRating { get; set; }
+        public int? Parking { get; set; }
+        public int? StaffProfessionalism { get; set; }
+        public int? HotelInterior { get; set; }
+        public int? RoomInterior { get; set; }
+        public int? Restaurant { get; set; }
+        public int? Amenity { get; set; }
+        public int? HotelResponseRate { get; set; }
+        public int? Cleaniness { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
-
-        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
+        [StringLength(450)]
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
         public bool? SelectStatus { get; set; }
@@ -60,5 +53,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Timestamp]
         [ConcurrencyCheck]
         public byte[]? RowVersion { get; set; }
+
+        public virtual TblHotel TblHotel { get; set; }
     }
 }

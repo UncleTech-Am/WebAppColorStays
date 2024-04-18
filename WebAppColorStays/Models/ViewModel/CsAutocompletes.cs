@@ -7,10 +7,16 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+
+        [StringLength(500, ErrorMessage = "You can enter only 500 characters long!")]
         public string Name { get; set; }
+
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Category { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
+
+        [StringLength(500, ErrorMessage = "You can enter only 500 characters long!")]
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
         public bool? SelectStatus { get; set; }

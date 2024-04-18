@@ -11,6 +11,7 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(450)]
         public string? Id { get; set; }
         [DisplayName("Restaurant")]
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Fk_Restaurant_Name { get; set; }
         [NotMapped]
         [Required(ErrorMessage = "Please enter Restaurant Name.")]
@@ -20,13 +21,19 @@ namespace WebAppColorStays.Models.ViewModel
         public int? AnNo { get; set; }
         [Required(ErrorMessage = "Please enter AccordianHeading.")]
         [Remote("CheckDuplicationAnRestaurant", "AnRestaurant", AdditionalFields = ("NameAction, Fk_Restaurant_Name, Id"))]
+        [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
         public string? AccordianHeading { get; set; }
         public string? Description { get; set; }
+
+        [DisplayName("Icon")]
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Fk_Icon_Name { get; set; }
         [NotMapped]
         public string? Icon { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
+
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
         public bool? SelectStatus { get; set; }
