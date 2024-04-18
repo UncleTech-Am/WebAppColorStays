@@ -611,8 +611,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsRestaurant.CompId = CompID;
             CsRestaurant.ModifiedBy = UserID;
             var files = HttpContext.Request.Form.Files;
-            var imagename = CsRestaurant.Image;
-
+            if (CsRestaurant.ImageName != null)
+            {
+                CsRestaurant.Image = CsRestaurant.ImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -625,7 +627,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                             CsRestaurant.Image = fileName;
                             //Delete the Images from the folder
-                            Task<string> TDeleteImage = ryCsImage.DeleteImage(imagename, TokenKey, "RestaurantCover");
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsRestaurant.ImageName, TokenKey, "RestaurantCover");
                             Task.WaitAll(TDeleteImage);
 
                             if (file.Length > 0)

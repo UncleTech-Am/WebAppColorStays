@@ -46,6 +46,7 @@
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AirportImage)</div>
                 <img src="@Model.AirportImage" class="Wh60p" />
+                <input asp-for="AirportImageName" type="hidden" />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="AirportImage"></span></div>
@@ -81,6 +82,7 @@
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TerrainImage)</div>
                 <img src="@Model.TerrainImage" class="Wh60p" />
+                <input asp-for="TerrainImageName" type="hidden" />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="TerrainImage"></span></div>
@@ -116,6 +118,7 @@
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ActivityImage)</div>
                 <img src="@Model.ActivityImage" class="Wh60p" />
+                <input asp-for="ActivityImageName" type="hidden" />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="ActivityImage"></span></div>

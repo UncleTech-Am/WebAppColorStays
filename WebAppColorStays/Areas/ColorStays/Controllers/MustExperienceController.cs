@@ -536,7 +536,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsMustExperience.CompId = CompID;
             CsMustExperience.ModifiedBy = UserID;
             var files = HttpContext.Request.Form.Files;
-            var imagename = CsMustExperience.Image;
+            if (CsMustExperience.ImageName != null)
+            {
+                CsMustExperience.Image = CsMustExperience.ImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -549,7 +552,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                             CsMustExperience.Image = fileName;
                             //Delete the Images from the folder
-                            Task<string> TDeleteImage = ryCsImage.DeleteImage(imagename, TokenKey, "MustExperience");
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsMustExperience.ImageName, TokenKey, "MustExperience");
                             Task.WaitAll(TDeleteImage);
 
                             if (file.Length > 0)

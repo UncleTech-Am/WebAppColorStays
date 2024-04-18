@@ -547,6 +547,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var imageAirport = CsCountryOverView.AirportImage;
             var imageTerrain = CsCountryOverView.TerrainImage;
             var imageActivity = CsCountryOverView.ActivityImage;
+            if (CsCountryOverView.AirportImageName != null)
+            {
+                CsCountryOverView.AirportImage = CsCountryOverView.AirportImageName;
+            }
+            if (CsCountryOverView.TerrainImageName != null)
+            {
+                CsCountryOverView.TerrainImage = CsCountryOverView.TerrainImageName;
+            }
+            if (CsCountryOverView.ActivityImageName != null)
+            {
+                CsCountryOverView.ActivityImage = CsCountryOverView.ActivityImageName;
+            }
             if (ModelState.IsValid)
             {
                 try

@@ -16,16 +16,22 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationOffer", "Offer", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
 
-        [DisplayName("Hotel")]
-        public string? Fk_Hotel_Name { get; set; }
-
+        [DisplayName("Place")]
+        public string? Fk_Place_Name { get; set; }
         [NotMapped]
-        public string? Hotel { get; set; }
-
-        [DisplayName("Package")]
-        public string? Fk_Package_Name { get; set; }
+        public string? Place { get; set; }
+        [DisplayName("City")]
+        public string? Fk_City_Name { get; set; }
         [NotMapped]
-        public string? Package { get; set; }
+        public string? City { get; set; }
+        [DisplayName("State")]
+        public string? Fk_State_Name { get; set; }
+        [NotMapped]
+        public string? State { get; set; }
+        [DisplayName("Country")]
+        public string? Fk_Country_Name { get; set; }
+        [NotMapped]
+        public string? Country { get; set; }
         public string? Image { get; set; }
         [NotMapped]
         public string? ImageName { get; set; }

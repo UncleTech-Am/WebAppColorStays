@@ -15,7 +15,7 @@
 @Html.HiddenFor(model => model.CreatedBy)
 @Html.HiddenFor(model => model.CreatedOn)
 @Html.HiddenFor(model => model.CompId)
-
+@Html.HiddenFor(model => model.Label)
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -92,12 +92,25 @@
     <div class="VnRd"><span asp-validation-for="TagLine"></span></div>
 </div>
 
+@if (Model != null)
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverImage)</div>
+                <img src="@Model.CoverImage" class="Wh60p" />
+                <input asp-for="CoverImageName" type="hidden" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="CoverImage"></span></div>
+    </div>
+}
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverImage)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.CoverImage)" asp-for="CoverImage" autocomplete="off" />
+            <input asp-for="CoverImage" type="file" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="CoverImage"></span></div>
@@ -189,7 +202,7 @@
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <input class="SeIt1o15" type="checkbox" asp-for="IsFreeCancellation">
-                &nbsp;Is Free Cancellation
+                &nbsp;Free Cancellation
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="IsFreeCancellation"></span></div>
@@ -200,7 +213,7 @@
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <input class="SeIt1o15" type="checkbox" asp-for="IsBookWithoutCreditCard">
-                &nbsp;IsBook Without CreditCard
+                &nbsp;Book Without CreditCard
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="IsBookWithoutCreditCard"></span></div>
@@ -212,7 +225,7 @@
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <input class="SeIt1o15" type="checkbox" asp-for="IsNoPrePayment">
-                &nbsp;Is NoPrePayment
+                &nbsp;NoPrePayment
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="IsNoPrePayment"></span></div>
@@ -223,23 +236,11 @@
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <input class="SeIt1o15" type="checkbox" asp-for="IsFeaturedProperty">
-                &nbsp;Is Featured Property
+                &nbsp;Featured Property
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="IsFeaturedProperty"></span></div>
     </div>
-</div>
-
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Description)" asp-for="Description" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Description"></span></div>
 </div>
 
 

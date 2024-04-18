@@ -10,18 +10,19 @@ using LibCompanyService.Models.ViewCompany;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
+
 using WebAppColorStays.Models.ViewModel;
-using WebAppColorStays.Areas.ColorStays.CommonMethods;
+
 namespace WebAppColorStays.Areas.ColorStays.Controllers
-{
+{   
     [Area("ColorStays")]
     [SessionCheck]
     [Authorize]
-    public class RoomTypeController : Controller
+    public class RoomCategoryController : Controller
     {
         private readonly Paging paging;
 
-        public RoomTypeController()
+        public RoomCategoryController()
         {
             paging = new Paging();
         }
@@ -29,27 +30,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "RoomType";
+            ViewBag.Title = "RoomCategory";
         }
         //Ends
-
-
-        //Drop Down
-        public async void DropDown(string CompId, string Token)
-        {
-            RyCrSsDropDown ry = new RyCrSsDropDown();
-            string URLRoomCategory = "RoomCategory/DropDown/" + CompId;
-            try
-            {
-                Task<List<SelectListItem>> RoomCategory = ry.DDColorStaysAPI(URLRoomCategory, Token);
-                Task.WaitAll(RoomCategory);
-                ViewBag.RoomCategory = RoomCategory;
-            }
-            catch (Exception ex) { }
-
-        }
-
-
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -69,8 +52,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Display the Pagination 
         [HttpGet]
         public IActionResult Pagination(int? PgSelectedNum, int? PgSize, string SearchType, string NetRecords)
-        {
-            Title();
+        {         
+			Title();
             switch (SearchType)
             {
                 case "DateSearch":
@@ -106,23 +89,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
         //Give the list of the data
-        public async Task<Tuple<int, List<CsRoomType>>> AllDataList(int? PgSize, int? PgSelectedNum)
+        public async Task<Tuple<int, List<CsRoomCategory>>> AllDataList(int? PgSize, int? PgSelectedNum)
         {
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Tuple<int, List<CsRoomType>> list;
+            Tuple<int, List<CsRoomCategory>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("RoomType/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("RoomCategory/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRoomType>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRoomCategory>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
-                    else { list = null; }
+                    else{ list = null; }
                 }
             }
             return list;
@@ -130,24 +113,24 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET:/RoomType/
+        //GET:/RoomCategory/
         [HttpGet]
         public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
-        {
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+        {         
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Title();
 
             //Display the Dropdown of the Table fields in Search Data Popup
-            GetClassMember<CsRoomType> getClassMember = new GetClassMember<CsRoomType>();
-            CsRoomType CsRoomType = new CsRoomType();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsRoomType), "Value", "DisplayName");
+            GetClassMember<CsRoomCategory> getClassMember = new GetClassMember<CsRoomCategory>();
+            CsRoomCategory CsRoomCategory = new CsRoomCategory();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsRoomCategory), "Value", "DisplayName");
             //Ends
 
             try //Pagination and List of data Code
             {
                 Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<CsRoomType>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                Task<Tuple<int, List<CsRoomCategory>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                 PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
 
                 ViewData["ActionName"] = "Index";
@@ -158,8 +141,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                 return View(ReturnDataList.Result.Item2);
             }
-            catch (Exception ex)
-            {
+            catch(Exception ex)
+            { 
                 return View("Error");
             }
         }
@@ -187,18 +170,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 cIndex.PageSize = pagedata.Item1;
                 cIndex.PageSelectedNum = pagedata.Item2;
                 cIndex.CompId = CompID;
-                Tuple<int, List<CsRoomType>> list;
+                Tuple<int, List<CsRoomCategory>> list;
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     //Get the List of data
-                    using (var response = await client.PostAsJsonAsync("RoomType/DateSearch/", cIndex))
+                    using (var response = await client.PostAsJsonAsync("RoomCategory/DateSearch/", cIndex))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRoomType>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRoomCategory>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
-                        else { Success = false; }
+                        else{ Success = false; }
                     }
                 }
                 if (Success == true)
@@ -221,7 +204,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //Search the Data according to the table fileds in the Index
         [HttpPost]
-        public async Task<IActionResult> TableSearch(CsRoomType CsRoomType, IFormCollection fc)
+        public async Task<IActionResult> TableSearch(CsRoomCategory CsRoomCategory, IFormCollection fc)
         {
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
@@ -234,18 +217,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsRoomType>> list;
+            Tuple<int, List<CsRoomCategory>> list;
 
             using (HttpClient client = APIColorStays.Initial())
             {
-                CsRoomType.CreatedBy = UserID;
-                CsRoomType.CompId = CompID;
+                CsRoomCategory.CreatedBy = UserID;
+                CsRoomCategory.CompId = CompID;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(CsRoomType), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("RoomType/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
+                StringContent content = new StringContent(JsonSerializer.Serialize(CsRoomCategory), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync("RoomCategory/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRoomType>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRoomCategory>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -263,20 +246,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
         //Ends
 
-
+        
         //Search the Data according to the Fields Selected in Search Data View
         [HttpPost]
         public async Task<IActionResult> FilterSearch(CIndexSearchFilter indexsearchfilter, IFormCollection fc)
         {
-            GetClassMember<CsRoomType> getClassMember = new GetClassMember<CsRoomType>();
-            CsRoomType CsRoomType = new CsRoomType();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsRoomType), "Value", "DisplayName");
+            GetClassMember<CsRoomCategory> getClassMember = new GetClassMember<CsRoomCategory>();
+            CsRoomCategory CsRoomCategory = new CsRoomCategory();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsRoomCategory), "Value", "DisplayName");
             //Creating Search Filter List with class member Property Name
-            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsRoomType);
+            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsRoomCategory);
             foreach (var item in indexsearchfilter.IndexSearchList)
             { item.Name = fields[item.Name]; }
             //Ends
-
+            
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
             int PgSize = Convert.ToInt32(fc["PageSize"]);
@@ -288,19 +271,19 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsRoomType>> list;
+            Tuple<int, List<CsRoomCategory>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
-                indexsearchfilter.CurrentUserId = UserID;
+               indexsearchfilter.CurrentUserId = UserID;
                 indexsearchfilter.CompId = CompID;
                 indexsearchfilter.PageSelectedNum = pagedata.Item2;
                 indexsearchfilter.PageSize = pagedata.Item1;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(indexsearchfilter), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("RoomType/FilterSearch", content))
+                using (var response = await client.PostAsync("RoomCategory/FilterSearch", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRoomType>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRoomCategory>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -320,32 +303,32 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET: /RoomType/Details/5
+        //GET: /RoomCategory/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            CsRoomType CsRoomType = new CsRoomType();
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            CsRoomCategory CsRoomCategory = new CsRoomCategory();
             using (HttpClient client = APIColorStays.Initial())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("RoomType/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("RoomCategory/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        CsRoomType = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        return View("_DetailOrDelete", CsRoomType);
+                        CsRoomCategory = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomCategory>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        return View("_DetailOrDelete",CsRoomCategory);
                     }
                     else
                     {
-                        Tuple<CsRoomType, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsRoomType, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Tuple<CsRoomCategory, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsRoomCategory, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (data.Item2 != null && data.Item2.Message == "GlobalItem")
                         {
                             ViewBag.Message = "Sytem Entry, Can't be Changed !";
-                            return View("_DetailOrDelete", data.Item1);
+                            return View("_DetailOrDelete",data.Item1);
                         }
                         if (data.Item1 == null && data.Item2 == null) { ViewData["ErrorMessage"] = "Entry Could not be Found!"; return View("_ErrorGeneric"); }
                     }
@@ -355,27 +338,26 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-        //GET: /RoomType/CreateOrEdit
+        //GET: /RoomCategory/CreateOrEdit
         [HttpGet]
         [ResponseCache(Duration = 0)]
         public async Task<IActionResult> CreateOrEdit(string Id)
         {
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
-            DropDown(CompID, TokenKey);
             if (Id != null)
             {
                 bool Success = false;
-                var data = new CsRoomType();
+                var data = new CsRoomCategory();
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("RoomType/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync("RoomCategory/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomCategory>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else { Success = false; }
@@ -393,8 +375,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 return View("_CreateOrEdit");
             }
         }
-
-        //GET: /RoomType/Create
+        
+        //GET: /RoomCategory/Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -403,49 +385,48 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            DropDown(CompID, TokenKey);
+
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
             Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-            Task<Tuple<int, List<CsRoomType>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+            Task<Tuple<int, List<CsRoomCategory>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
             PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
             ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
             return View();
-        }
+        } 
+        
 
-
-        //POST: /RoomType/Create
+        //POST: /RoomCategory/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CsRoomType CsRoomType)
-        {
+		public async Task<IActionResult> Create(CsRoomCategory CsRoomCategory)
+        {       
             Title();
             ViewData["AnName"] = "Create";
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            DropDown(CompID, TokenKey);
-            CsRoomType.CompId = CompID;
-            CsRoomType.CreatedBy = UserID;
-            CsRoomType.ModifiedBy = UserID;
-            CsRoomType.Id = Guid.NewGuid().ToString();
+            CsRoomCategory.CompId = CompID;
+            CsRoomCategory.CreatedBy = UserID;
+            CsRoomCategory.ModifiedBy = UserID;
+            CsRoomCategory.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
-            CsRoomType data = new CsRoomType();
+            CsRoomCategory data = new CsRoomCategory();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    StringContent content = new StringContent(JsonSerializer.Serialize(CsRoomType), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("RoomType/create", content))
+				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    StringContent content = new StringContent(JsonSerializer.Serialize(CsRoomCategory), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("RoomCategory/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
                         {
-                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomCategory>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             Success = true;
                         }
                         else
@@ -461,13 +442,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 { return RedirectToAction("Index", new { PageCall = "Show" }); }
-                else { return View("_CreateOrEdit", CsRoomType); }
+                else { return View("_CreateOrEdit", CsRoomCategory); }
             }
-            return View("_CreateorEdit", CsRoomType);
-        }
+            return View("_CreateorEdit",CsRoomCategory);                
+         }
 
 
-        //GET: /RoomType/Edit/5
+        //GET: /RoomCategory/Edit/5
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
@@ -477,7 +458,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            DropDown(CompID, TokenKey);
+
             if (id == null)
             {
                 ViewBag.Message = "Not Founded";
@@ -488,63 +469,62 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
-            CsRoomType CsRoomType = new CsRoomType();
+            CsRoomCategory CsRoomCategory = new CsRoomCategory();
             using (HttpClient client = APIColorStays.Initial())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("RoomType/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("RoomCategory/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsRoomType>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                    Task<Tuple<int, List<CsRoomCategory>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                     PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
+                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;                   
                     if (response.IsSuccessStatusCode)
                     {
-                        CsRoomType = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsRoomCategory = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomCategory>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else
                     {
                         Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        if (responsemsg.Message == "NotFound")
+                        if (responsemsg.Message == "NotFound") 
                         { ViewBag.Message = "Entry Not Exits!"; }
                         if (responsemsg.Message == "GlobalItem")
                         { ViewBag.Message = "Sytem Entry, Can't Change !"; }
                     }
                 }
             }
-            return View(CsRoomType);
+            return View(CsRoomCategory);
         }
 
-
-        //POST: /RoomType/Edit/5
+                
+        //POST: /RoomCategory/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CsRoomType CsRoomType)
+        public async Task<IActionResult> Edit(CsRoomCategory CsRoomCategory)
         {
             Title();
             ViewData["AnName"] = "Edit";
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            DropDown(CompID, TokenKey);
             ViewData["ResponseName"] = "ShowValidation";
-            CsRoomType.CompId = CompID;
-            CsRoomType.ModifiedBy = UserID;
+            CsRoomCategory.CompId = CompID;
+            CsRoomCategory.ModifiedBy = UserID;   
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsRoomType>("RoomType/edit", CsRoomType))
+						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        using (var response = await client.PostAsJsonAsync<CsRoomCategory>("RoomCategory/edit", CsRoomCategory))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)
                             {
-                                Tuple<CsRoomType, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsRoomType, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Tuple<CsRoomCategory, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsRoomCategory,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                                 if (data.Item2 != null)
                                 {
                                     if (data.Item2.Message == "Duplicate")
@@ -572,26 +552,26 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     return View("_CreateorEdit");
                 }
             }
-            return View("_CreateorEdit", CsRoomType);
+            return View("_CreateorEdit",CsRoomCategory);
         }
-
-
-        //POST: /RoomType/Delete/5
+        
+       
+        //POST: /RoomCategory/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             using (HttpClient client = APIColorStays.Initial())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("RoomType/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("RoomCategory/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index", new { PageCall = "Show" });
+                        return RedirectToAction("Index", new { PageCall="Show"});
                     }
                     else
                     {
@@ -606,23 +586,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //POST: >Verify/5
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> VerifyData(string Id, string AnName)
+        public async Task<IActionResult> VerifyData(string Id, string AnName)          
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            VerNActViewModel model = new VerNActViewModel();
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+			VerNActViewModel model = new VerNActViewModel();
             model.Id = Id;
             model.ActionName = AnName;
             model.CompId = CompID;
             if (model.ActionName == "Verify" || model.ActionName == "UnVerify") { model.VerifiedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
             if (model.ActionName == "Activate" || model.ActionName == "Inactivate") { model.ActivatedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
-            CsRoomType CsRoomType = new CsRoomType();
+			CsRoomCategory CsRoomCategory = new CsRoomCategory();
             using (HttpClient client = APIColorStays.Initial())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("RoomType/verifydata/", content))
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+				StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync("RoomCategory/verifydata/" , content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
@@ -650,7 +630,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             starUnstar.Id = Id;
             starUnstar.Host = Request.Scheme + "://" + Request.Host;
             starUnstar.AreaName = "ColorStays";
-            starUnstar.ControllerName = "RoomType";
+            starUnstar.ControllerName = "RoomCategory";
             starUnstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
@@ -679,7 +659,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             unstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(unstar), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync("UserClip/unmarkstar/", content))
                 {
@@ -691,8 +671,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             else { return View("Error"); }
         }
 
-        //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationRoomType(string Name, string NameAction, string Id)
+         //This method is to check duplicate values for specific columns......
+        public async Task<JsonResult> CheckDuplicationRoomCategory(string Name, string NameAction, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
@@ -701,13 +681,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("RoomType/CheckDuplicationRoomType/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("RoomCategory/CheckDuplicationRoomCategory/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         Success = true;
                     }
-                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
                         return Json("Sorry, this " + Name + " already exists");
                     }

@@ -91,6 +91,8 @@
     string FacilityCategory = "";
     string HotelFacilityMap = "";
     string Offer = "";
+    string RoomType = "";
+    string RoomCategory = "";
 
     switch (Action)
     {
@@ -172,6 +174,8 @@
         case "HotelChainBrand": HotelChainBrand = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "FacilityCategory": FacilityCategory = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "HotelFacilityMap": HotelFacilityMap = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
+        case "RoomCategory": RoomCategory = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
+        case "RoomType": RoomType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
 
         default: break;
     }
@@ -929,6 +933,16 @@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @HotelFacility">
+                        <a href="~/ColorStays/HotelFacility/Create">HotelFacility</a>
+                    </div>
+                    <a href="~/ColorStays/HotelFacility/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/HotelFacility/Index\"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @HotelChainBrand">
                         <a href="~/ColorStays/HotelChainBrand/Create">HotelChainBrand</a>
                     </div>
@@ -949,24 +963,24 @@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @HotelFacility">
-                        <a href="~/ColorStays/HotelFacility/Create">HotelFacility</a>
+                    <div class="SideNavLinkText @RoomCategory">
+                        <a href="~/ColorStays/RoomCategory/Create">RoomCategory</a>
                     </div>
-                    <a href="~/ColorStays/HotelFacility/Create"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/HotelFacility/Index\"><i class="UT-List-OLine"></i></a>
+                    <a href="~/ColorStays/RoomCategory/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/RoomCategory/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
+
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @HotelFacilityMap">
-                        <a href="~/ColorStays/HotelFacilityMap/Create">HotelFacilityMap</a>
+                    <div class="SideNavLinkText @RoomType">
+                        <a href="~/ColorStays/RoomType/Create">RoomType</a>
                     </div>
-                    <a href="~/ColorStays/HotelFacilityMap/Create"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/HotelFacilityMap/Index\"><i class="UT-List-OLine"></i></a>
+                    <a href="~/ColorStays/RoomType/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/RoomType/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
-
 
 
         </div>
