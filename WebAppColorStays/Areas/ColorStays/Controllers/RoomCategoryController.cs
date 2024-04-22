@@ -12,28 +12,25 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
-using LibCommon.APICommonMethods;
-using SixLabors.ImageSharp;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
     [Area("ColorStays")]
     [SessionCheck]
     [Authorize]
-    public class CountryOverViewController : Controller
+    public class RoomCategoryController : Controller
     {
         private readonly Paging paging;
-        private readonly RyCSImage ryCsImage;
-        public CountryOverViewController()
+
+        public RoomCategoryController()
         {
             paging = new Paging();
-            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "Country Overview";
+            ViewBag.Title = "RoomCategory";
         }
         //Ends
 
@@ -92,21 +89,21 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
         //Give the list of the data
-        public async Task<Tuple<int, List<CsCountryOverView>>> AllDataList(int? PgSize, int? PgSelectedNum)
+        public async Task<Tuple<int, List<CsRoomCategory>>> AllDataList(int? PgSize, int? PgSelectedNum)
         {
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Tuple<int, List<CsCountryOverView>> list;
+            Tuple<int, List<CsRoomCategory>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("CountryOverView/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("RoomCategory/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsCountryOverView>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRoomCategory>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else{ list = null; }
                 }
@@ -116,7 +113,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET:/CountryOverView/
+        //GET:/RoomCategory/
         [HttpGet]
         public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
         {         
@@ -125,15 +122,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
 
             //Display the Dropdown of the Table fields in Search Data Popup
-            GetClassMember<CsCountryOverView> getClassMember = new GetClassMember<CsCountryOverView>();
-            CsCountryOverView CsCountryOverView = new CsCountryOverView();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsCountryOverView), "Value", "DisplayName");
+            GetClassMember<CsRoomCategory> getClassMember = new GetClassMember<CsRoomCategory>();
+            CsRoomCategory CsRoomCategory = new CsRoomCategory();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsRoomCategory), "Value", "DisplayName");
             //Ends
 
             try //Pagination and List of data Code
             {
                 Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<CsCountryOverView>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                Task<Tuple<int, List<CsRoomCategory>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                 PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
 
                 ViewData["ActionName"] = "Index";
@@ -173,15 +170,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 cIndex.PageSize = pagedata.Item1;
                 cIndex.PageSelectedNum = pagedata.Item2;
                 cIndex.CompId = CompID;
-                Tuple<int, List<CsCountryOverView>> list;
+                Tuple<int, List<CsRoomCategory>> list;
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     //Get the List of data
-                    using (var response = await client.PostAsJsonAsync("CountryOverView/DateSearch/", cIndex))
+                    using (var response = await client.PostAsJsonAsync("RoomCategory/DateSearch/", cIndex))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsCountryOverView>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRoomCategory>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else{ Success = false; }
@@ -207,7 +204,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //Search the Data according to the table fileds in the Index
         [HttpPost]
-        public async Task<IActionResult> TableSearch(CsCountryOverView CsCountryOverView, IFormCollection fc)
+        public async Task<IActionResult> TableSearch(CsRoomCategory CsRoomCategory, IFormCollection fc)
         {
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
@@ -220,18 +217,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsCountryOverView>> list;
+            Tuple<int, List<CsRoomCategory>> list;
 
             using (HttpClient client = APIColorStays.Initial())
             {
-                CsCountryOverView.CreatedBy = UserID;
-                CsCountryOverView.CompId = CompID;
+                CsRoomCategory.CreatedBy = UserID;
+                CsRoomCategory.CompId = CompID;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(CsCountryOverView), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("CountryOverView/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
+                StringContent content = new StringContent(JsonSerializer.Serialize(CsRoomCategory), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync("RoomCategory/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsCountryOverView>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRoomCategory>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -254,11 +251,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         [HttpPost]
         public async Task<IActionResult> FilterSearch(CIndexSearchFilter indexsearchfilter, IFormCollection fc)
         {
-            GetClassMember<CsCountryOverView> getClassMember = new GetClassMember<CsCountryOverView>();
-            CsCountryOverView CsCountryOverView = new CsCountryOverView();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsCountryOverView), "Value", "DisplayName");
+            GetClassMember<CsRoomCategory> getClassMember = new GetClassMember<CsRoomCategory>();
+            CsRoomCategory CsRoomCategory = new CsRoomCategory();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsRoomCategory), "Value", "DisplayName");
             //Creating Search Filter List with class member Property Name
-            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsCountryOverView);
+            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsRoomCategory);
             foreach (var item in indexsearchfilter.IndexSearchList)
             { item.Name = fields[item.Name]; }
             //Ends
@@ -274,7 +271,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsCountryOverView>> list;
+            Tuple<int, List<CsRoomCategory>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                indexsearchfilter.CurrentUserId = UserID;
@@ -283,10 +280,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 indexsearchfilter.PageSize = pagedata.Item1;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(indexsearchfilter), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("CountryOverView/FilterSearch", content))
+                using (var response = await client.PostAsync("RoomCategory/FilterSearch", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsCountryOverView>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRoomCategory>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -306,28 +303,28 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET: /CountryOverView/Details/5
+        //GET: /RoomCategory/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            CsCountryOverView CsCountryOverView = new CsCountryOverView();
+            CsRoomCategory CsRoomCategory = new CsRoomCategory();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("CountryOverView/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("RoomCategory/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        CsCountryOverView = await System.Text.Json.JsonSerializer.DeserializeAsync<CsCountryOverView>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        return View("_DetailOrDelete",CsCountryOverView);
+                        CsRoomCategory = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomCategory>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        return View("_DetailOrDelete",CsRoomCategory);
                     }
                     else
                     {
-                        Tuple<CsCountryOverView, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsCountryOverView, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Tuple<CsRoomCategory, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsRoomCategory, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (data.Item2 != null && data.Item2.Message == "GlobalItem")
                         {
                             ViewBag.Message = "Sytem Entry, Can't be Changed !";
@@ -341,7 +338,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-        //GET: /CountryOverView/CreateOrEdit
+        //GET: /RoomCategory/CreateOrEdit
         [HttpGet]
         [ResponseCache(Duration = 0)]
         public async Task<IActionResult> CreateOrEdit(string Id)
@@ -353,14 +350,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Id != null)
             {
                 bool Success = false;
-                var data = new CsCountryOverView();
+                var data = new CsRoomCategory();
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("CountryOverView/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync("RoomCategory/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsCountryOverView>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomCategory>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else { Success = false; }
@@ -379,7 +376,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
         }
         
-        //GET: /CountryOverView/Create
+        //GET: /RoomCategory/Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -394,17 +391,17 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["SearchType"] = "NoSearch";
 
             Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-            Task<Tuple<int, List<CsCountryOverView>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+            Task<Tuple<int, List<CsRoomCategory>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
             PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
             ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
             return View();
         } 
         
 
-        //POST: /CountryOverView/Create
+        //POST: /RoomCategory/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create(CsCountryOverView CsCountryOverView)
+		public async Task<IActionResult> Create(CsRoomCategory CsRoomCategory)
         {       
             Title();
             ViewData["AnName"] = "Create";
@@ -412,52 +409,24 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            CsCountryOverView.CompId = CompID;
-            CsCountryOverView.CreatedBy = UserID;
-            CsCountryOverView.ModifiedBy = UserID;
-            CsCountryOverView.Id = Guid.NewGuid().ToString();
+            CsRoomCategory.CompId = CompID;
+            CsRoomCategory.CreatedBy = UserID;
+            CsRoomCategory.ModifiedBy = UserID;
+            CsRoomCategory.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
-            CsCountryOverView data = new CsCountryOverView();
-            var files = HttpContext.Request.Form.Files;
+            CsRoomCategory data = new CsRoomCategory();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-
-                    foreach (var file in files)
-                    {
-                        var fileName = "CountryOverView-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
-
-                        if ("AirportImage" == file.Name)
-                        {
-                            CsCountryOverView.AirportImage = fileName;
-                        }
-                        if ("TerrainImage" == file.Name)
-                        {
-                            CsCountryOverView.TerrainImage = fileName;
-                        }
-                        if ("ActivityImage" == file.Name)
-                        {
-                            CsCountryOverView.ActivityImage = fileName;
-                        }
-                        if (file.Length > 0)
-                        {
-                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "CountryOverView");
-                            Task.WaitAll(TImgUpload);
-                            if (TImgUpload.Result == "Error")
-                            {
-                                return View("Error");
-                            }
-                        }
-                    }
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    StringContent content = new StringContent(JsonSerializer.Serialize(CsCountryOverView), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("CountryOverView/create", content))
+				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    StringContent content = new StringContent(JsonSerializer.Serialize(CsRoomCategory), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("RoomCategory/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
                         {
-                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsCountryOverView>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomCategory>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             Success = true;
                         }
                         else
@@ -473,13 +442,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 { return RedirectToAction("Index", new { PageCall = "Show" }); }
-                else { return View("_CreateOrEdit", CsCountryOverView); }
+                else { return View("_CreateOrEdit", CsRoomCategory); }
             }
-            return View("_CreateorEdit",CsCountryOverView);                
+            return View("_CreateorEdit",CsRoomCategory);                
          }
 
 
-        //GET: /CountryOverView/Edit/5
+        //GET: /RoomCategory/Edit/5
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
@@ -500,20 +469,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
-            CsCountryOverView CsCountryOverView = new CsCountryOverView();
+            CsRoomCategory CsRoomCategory = new CsRoomCategory();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("CountryOverView/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("RoomCategory/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsCountryOverView>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                    Task<Tuple<int, List<CsRoomCategory>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                     PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
                     ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;                   
                     if (response.IsSuccessStatusCode)
                     {
-                        CsCountryOverView = await System.Text.Json.JsonSerializer.DeserializeAsync<CsCountryOverView>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsRoomCategory = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomCategory>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else
                     {
@@ -525,14 +494,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
             }
-            return View(CsCountryOverView);
+            return View(CsRoomCategory);
         }
 
                 
-        //POST: /CountryOverView/Edit/5
+        //POST: /RoomCategory/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CsCountryOverView CsCountryOverView)
+        public async Task<IActionResult> Edit(CsRoomCategory CsRoomCategory)
         {
             Title();
             ViewData["AnName"] = "Edit";
@@ -541,75 +510,21 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
-            CsCountryOverView.CompId = CompID;
-            CsCountryOverView.ModifiedBy = UserID;
-            var files = HttpContext.Request.Form.Files;
-            var imageAirport = CsCountryOverView.AirportImage;
-            var imageTerrain = CsCountryOverView.TerrainImage;
-            var imageActivity = CsCountryOverView.ActivityImage;
-            if (CsCountryOverView.AirportImageName != null)
-            {
-                CsCountryOverView.AirportImage = CsCountryOverView.AirportImageName;
-            }
-            if (CsCountryOverView.TerrainImageName != null)
-            {
-                CsCountryOverView.TerrainImage = CsCountryOverView.TerrainImageName;
-            }
-            if (CsCountryOverView.ActivityImageName != null)
-            {
-                CsCountryOverView.ActivityImage = CsCountryOverView.ActivityImageName;
-            }
+            CsRoomCategory.CompId = CompID;
+            CsRoomCategory.ModifiedBy = UserID;   
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-                        foreach (var file in files)
-                        {
-                            var fileName = "CountryOverView-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
-
-                            if ("AirportImage" == file.Name)
-                            {
-                                CsCountryOverView.AirportImage = fileName;
-                                //Delete the Images from the folder
-                                Task<string> TDeleteImage = ryCsImage.DeleteImage(imageAirport, TokenKey, "CountryOverView");
-                                Task.WaitAll(TDeleteImage);
-
-                            }
-                            if ("TerrainImage" == file.Name)
-                            {
-                                CsCountryOverView.TerrainImage = fileName;
-                                //Delete the Images from the folder
-                                Task<string> TDeleteImage = ryCsImage.DeleteImage(imageTerrain, TokenKey, "CountryOverView");
-                                Task.WaitAll(TDeleteImage);
-                            }
-
-                            if ("ActivityImage" == file.Name)
-                            {
-                                CsCountryOverView.ActivityImage = fileName;
-                                //Delete the Images from the folder
-                                Task<string> TDeleteImage = ryCsImage.DeleteImage(imageActivity, TokenKey, "CountryOverView");
-                                Task.WaitAll(TDeleteImage);
-                            }
-                            if (file.Length > 0)
-                            {
-                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "CountryOverView");
-                                Task.WaitAll(TImgUpload);
-                                if (TImgUpload.Result == "Error")
-                                {
-                                    return View("Error");
-                                }
-                            }
-                        }
-
-                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsCountryOverView>("CountryOverView/edit", CsCountryOverView))
+						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        using (var response = await client.PostAsJsonAsync<CsRoomCategory>("RoomCategory/edit", CsRoomCategory))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)
                             {
-                                Tuple<CsCountryOverView, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsCountryOverView,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Tuple<CsRoomCategory, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsRoomCategory,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                                 if (data.Item2 != null)
                                 {
                                     if (data.Item2.Message == "Duplicate")
@@ -637,57 +552,21 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     return View("_CreateorEdit");
                 }
             }
-            return View("_CreateorEdit",CsCountryOverView);
+            return View("_CreateorEdit",CsRoomCategory);
         }
         
        
-        //POST: /CountryOverView/Delete/5
+        //POST: /RoomCategory/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-
-            CsCountryOverView csCountryOver = new CsCountryOverView();
-
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("CountryOverView/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
-                {
-                    var apiResponse = await response.Content.ReadAsStreamAsync();
-                    csCountryOver = await System.Text.Json.JsonSerializer.DeserializeAsync<CsCountryOverView>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                }
-            }
-            Task<string> TDeleteImage1 = null;
-            Task<string> TDeleteImage2 = null;
-            Task<string> TDeleteImage3 = null;
-            if (csCountryOver.AirportImage != null)
-            {
-                TDeleteImage1 = ryCsImage.DeleteImage(csCountryOver.AirportImageName, TokenKey, "CountryOverView");
-            }
-            if (csCountryOver.TerrainImage != null)
-            {
-                TDeleteImage2 = ryCsImage.DeleteImage(csCountryOver.TerrainImageName, TokenKey, "CountryOverView");
-            }
-            if (csCountryOver.ActivityImage != null)
-            {
-                TDeleteImage3 = ryCsImage.DeleteImage(csCountryOver.ActivityImageName, TokenKey, "CountryOverView");
-            }
-           
-            //Delete the Images from the folder
-            Task.WaitAll(TDeleteImage1, TDeleteImage2, TDeleteImage3);
-
-            if (TDeleteImage1.Result == "Error" || TDeleteImage2.Result == "Error" || TDeleteImage3.Result == "Error")
-            {
-                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
-            }
-
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("CountryOverView/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("RoomCategory/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
@@ -718,12 +597,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             model.CompId = CompID;
             if (model.ActionName == "Verify" || model.ActionName == "UnVerify") { model.VerifiedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
             if (model.ActionName == "Activate" || model.ActionName == "Inactivate") { model.ActivatedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
-			CsCountryOverView CsCountryOverView = new CsCountryOverView();
+			CsRoomCategory CsRoomCategory = new CsRoomCategory();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
 				StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("CountryOverView/verifydata/" , content))
+                using (var response = await client.PostAsync("RoomCategory/verifydata/" , content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
@@ -751,7 +630,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             starUnstar.Id = Id;
             starUnstar.Host = Request.Scheme + "://" + Request.Host;
             starUnstar.AreaName = "ColorStays";
-            starUnstar.ControllerName = "CountryOverView";
+            starUnstar.ControllerName = "RoomCategory";
             starUnstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
@@ -793,7 +672,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationCountryOverView(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationRoomCategory(string Name, string NameAction, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
@@ -802,7 +681,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("CountryOverView/CheckDuplicationCountryOverView/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("RoomCategory/CheckDuplicationRoomCategory/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {

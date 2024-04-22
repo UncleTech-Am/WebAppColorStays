@@ -538,7 +538,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsOffer.CompId = CompID;
             CsOffer.ModifiedBy = UserID;
             var files = HttpContext.Request.Form.Files;
-            var imagename = CsOffer.Image;
+            if (CsOffer.ImageName != null)
+            {
+                CsOffer.Image = CsOffer.ImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -551,12 +554,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                             CsOffer.Image = fileName;
                             //Delete the Images from the folder
-                            Task<string> TDeleteImage = ryCsImage.DeleteImage(imagename, TokenKey, "MustExperience");
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsOffer.ImageName, TokenKey, "Offer");
                             Task.WaitAll(TDeleteImage);
 
                             if (file.Length > 0)
                             {
-                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "MustExperience");
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Offer");
                                 Task.WaitAll(TImgUpload);
                                 if (TImgUpload.Result == "Error")
                                 {

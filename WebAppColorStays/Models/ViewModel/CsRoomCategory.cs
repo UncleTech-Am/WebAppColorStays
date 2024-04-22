@@ -1,34 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsRoomType
+    public class CsRoomCategory
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [Remote("CheckDuplicationRoomCategory", "RoomCategory", AdditionalFields = ("NameAction, Id"))]
+        [Required(ErrorMessage = "Please enter Name.")]
         public string? Name { get; set; }
-        [DisplayName("Hotel")]
-        public string? Fk_Hotel_Name { get; set; }
-        [NotMapped]
-        public string? Hotel { get; set; }
-        [DisplayName("RoomCategory")]
-        public string? Fk_RoomCategory_Name { get; set; }
-        public string? Description { get; set; }
-        public int? TotalRooms { get; set; }
-        public string? SizeArea { get; set; }
-        public string? SizeLength { get; set; }
-        public string? SizeBreadth { get; set; }
-        public bool? IsSizeFeet { get; set; }
-        public bool? IsSizeMeter { get; set; }
-        public int? OyBaseAdults { get; set; }
-        public int? OyMaxAdults { get; set; }
-        public int? OyMaxChildren { get; set; }
-        public string? OyMaxAdultChildren { get; set; }
-
-        public bool FreezeStatus { get; set; }
+        public bool? FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }

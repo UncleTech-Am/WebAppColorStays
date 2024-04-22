@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebAppColorStays.Models.ViewModel
@@ -9,6 +10,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [DisplayName("FacilityCategory")]
         public string? Fk_FacilityCategory_Name { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }

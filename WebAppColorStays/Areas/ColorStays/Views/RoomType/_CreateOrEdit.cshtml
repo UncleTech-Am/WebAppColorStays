@@ -1,0 +1,175 @@
+@model WebAppColorStays.Models.ViewModel.CsRoomType
+
+
+@{
+    Layout = null;
+    ViewData["Action"] = "RoomType";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.RowVersion)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedOn)
+@Html.HiddenFor(model => model.CompId)
+
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_RoomCategory_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_RoomCategory_Name" asp-items="@await ViewBag.RoomCategory" class="TtBxTt15" required>
+                <option value="">Select Room Category</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_RoomCategory_Name"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Hotel_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Hotel Name" type="text" id="SuggestHotel" asp-for="Hotel" autocomplete="off" required onchange="ClearData('SuggestHotel','Fk_Hotel_Name')" />
+            <input type="hidden" asp-for="Fk_Hotel_Name" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_Hotel_Name"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required/>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Name"></span></div>
+</div>
+
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TotalRooms)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.TotalRooms)" asp-for="TotalRooms" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="TotalRooms"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SizeArea)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.SizeArea)" asp-for="SizeArea" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SizeArea"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SizeLength)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.SizeLength)" asp-for="SizeLength" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SizeLength"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SizeBreadth)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.SizeBreadth)" asp-for="SizeBreadth" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SizeBreadth"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsSizeFeet)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsSizeFeet)" asp-for="IsSizeFeet" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="IsSizeFeet"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsSizeMeter)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsSizeMeter)" asp-for="IsSizeMeter" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="IsSizeMeter"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.OyBaseAdults)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.OyBaseAdults)" asp-for="OyBaseAdults" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="OyBaseAdults"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.OyMaxAdults)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.OyMaxAdults)" asp-for="OyMaxAdults" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="OyMaxAdults"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.OyMaxChildren)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.OyMaxChildren)" asp-for="OyMaxChildren" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="OyMaxChildren"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.OyMaxAdultChildren)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.OyMaxAdultChildren)" asp-for="OyMaxAdultChildren" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="OyMaxAdultChildren"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
+</div>

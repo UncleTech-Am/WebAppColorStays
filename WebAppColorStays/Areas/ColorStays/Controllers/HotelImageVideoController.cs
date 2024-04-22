@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
+using LibCommon.APICommonMethods;
 
 
 
@@ -23,10 +24,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class HotelImageVideoController : Controller
     {
         private readonly Paging paging;
+        private readonly RyCSImage ryCsImage;
 
         public HotelImageVideoController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -115,39 +118,159 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET:/HotelImageVideo/
+        //show upload the image
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
-        {         
-			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Title();
+        public async Task<IActionResult> Index(string? HotelId, string? UpdateDetail, string? ShowBtn)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+            List<CsHotelImageVideo> photosList = new List<CsHotelImageVideo>();
 
-            //Display the Dropdown of the Table fields in Search Data Popup
-            GetClassMember<CsHotelImageVideo> getClassMember = new GetClassMember<CsHotelImageVideo>();
-            CsHotelImageVideo CsHotelImageVideo = new CsHotelImageVideo();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsHotelImageVideo), "Value", "DisplayName");
-            //Ends
-
-            try //Pagination and List of data Code
+            using (HttpClient client = APIColorStays.Initial())
             {
-                Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<CsHotelImageVideo>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
-                PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-
-                ViewData["ActionName"] = "Index";
-                ViewData["FormID"] = "NoSearchID";
-                ViewData["SearchType"] = "NoSearch";
-
-                if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
-
-                return View(ReturnDataList.Result.Item2);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelImageVideo/Index/" + HotelId))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsHotelImageVideo>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
             }
-            catch(Exception ex)
-            { 
-                return View("Error");
+            if (ShowBtn == "false")
+            {
+                ViewBag.ShowBtn = "false";
             }
+            if (UpdateDetail == "Yes") { return PartialView("_AddImageDetail", photosList); }
+            return PartialView("UploadedImage", photosList);
         }
+        //ends
+
+
+        //show upload the image
+        [HttpGet]
+        public async Task<IActionResult> UploadedImage(string? HotelId, string ShowBtn)
+        {
+
+            var TokenKey = Request.Cookies["JWToken"];
+            List<CsHotelImageVideo> csHotelImages = new List<CsHotelImageVideo>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelImageVideo/UploadedImage/" + HotelId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csHotelImages = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsHotelImageVideo>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            if (ShowBtn == "false")
+            {
+                ViewBag.ShowBtn = "false";
+            }
+            return PartialView("UploadedImage", csHotelImages);
+        }
+        //ends
+
+        //Delete the upload image
+        public async Task<IActionResult> ImageDelete(string ImageID, string? HotelId, string ImgName)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelImageVideo/ImageDelete/" + ImageID + "/" + HotelId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+
+                    //Delete the Images from the folder
+                    if (HotelId != "null")
+                    {
+                        Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Hotel");
+                        Task.WaitAll(TDeleteImage);
+                    }
+                }
+            }
+
+            return RedirectToAction("UploadedImage", new { HotelId });
+        }
+        //ends
+
+
+        //show upload the image
+        [HttpGet]
+        public async Task<IActionResult> IndexVideo(string? HotelId, string? UpdateDetail, string? ShowBtn)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+            List<CsHotelImageVideo> photosList = new List<CsHotelImageVideo>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelImageVideo/Index/" + HotelId))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsHotelImageVideo>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            if (ShowBtn == "false")
+            {
+                ViewBag.ShowBtn = "false";
+            }
+            if (UpdateDetail == "Yes") { return PartialView("_AddVideoDetail", photosList); }
+            return PartialView("UploadedVideo", photosList);
+        }
+        //ends
+
+
+        //show upload the image
+        [HttpGet]
+        public async Task<IActionResult> UploadedVideo(string? HotelId, string ShowBtn)
+        {
+
+            var TokenKey = Request.Cookies["JWToken"];
+            List<CsHotelImageVideo> csHotelImages = new List<CsHotelImageVideo>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelImageVideo/UploadedVideo/" + HotelId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csHotelImages = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsHotelImageVideo>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            if (ShowBtn == "false")
+            {
+                ViewBag.ShowBtn = "false";
+            }
+            return PartialView("UploadedVideo", csHotelImages);
+        }
+        //ends
+
+        //Delete the upload image
+        public async Task<IActionResult> VideoDelete(string ImageID, string? HotelId, string ImgName)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelImageVideo/ImageDelete/" + ImageID + "/" + HotelId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+
+                    //Delete the Images from the folder
+                    if (ImgName != "null")
+                    {
+                        Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "HotelVideo");
+                        Task.WaitAll(TDeleteImage);
+                    }
+                }
+            }
+
+            return RedirectToAction("UploadedVideo", new { HotelId });
+        }
+        //ends
+
 
 
         //This standard method used in index page for getting data between 2 dates
@@ -383,20 +506,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         public async Task<IActionResult> Create()
         {
             Title();
-            ViewData["AnName"] = "Create";
-            var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            ViewData["ActionName"] = "Index";
-            ViewData["FormID"] = "NoSearchID";
-            ViewData["SearchType"] = "NoSearch";
-
-            Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-            Task<Tuple<int, List<CsHotelImageVideo>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
-            PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-            ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
-            return View();
+            return View("_CreateOrEditVideo");
         } 
         
 
@@ -546,18 +657,78 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "Show" });
+                    return RedirectToAction("Index", new { HotelId = CsHotelImageVideo.Fk_Hotel_Name });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     ViewBag.Message = "Not Found";
-                    return View("_CreateorEdit");
+                    return NotFound();
                 }
             }
-            return View("_CreateorEdit",CsHotelImageVideo);
+            return NotFound(); ;
         }
-        
-       
+
+
+
+        //POST: /HotelImageVideo/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditVideo(CsHotelImageVideo CsHotelImageVideo)
+        {
+            Title();
+            ViewData["AnName"] = "Edit";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            bool Success = false;
+            ViewData["ResponseName"] = "ShowValidation";
+            CsHotelImageVideo.CompId = CompID;
+            CsHotelImageVideo.ModifiedBy = UserID;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (HttpClient client = APIColorStays.Initial())
+                    {
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        using (var response = await client.PostAsJsonAsync<CsHotelImageVideo>("HotelImageVideo/edit", CsHotelImageVideo))
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                Tuple<CsHotelImageVideo, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsHotelImageVideo, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                if (data.Item2 != null)
+                                {
+                                    if (data.Item2.Message == "Duplicate")
+                                    {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                        ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
+                                    }
+                                    if (data.Item2.Message == "GlobalItem")
+                                    {
+                                        ViewBag.Message = "Sytem Entry, Can't Change !";
+                                    }
+                                    if (data.Item2.Message == "Verified")
+                                    {
+                                        ViewBag.Message = "You can not Edit Verified Entry !";
+                                    }
+                                }
+                                return View("_CreateorEditVideo", data.Item1);
+                            }
+                        }
+                    }
+                    return RedirectToAction("IndexVideo", new { HotelId = CsHotelImageVideo.Fk_Hotel_Name });
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    ViewBag.Message = "Not Found";
+                    return NotFound();
+                }
+            }
+            return NotFound(); ;
+        }
+
+
+
         //POST: /HotelImageVideo/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)

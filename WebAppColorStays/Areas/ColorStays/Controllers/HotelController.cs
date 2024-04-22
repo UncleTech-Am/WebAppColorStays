@@ -13,6 +13,7 @@ using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
 using WebAppColorStays.Areas.ColorStays.CommonMethods;
 using Microsoft.DotNet.Scaffolding.Shared.Project;
+using LibCommon.APICommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -22,10 +23,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class HotelController : Controller
     {
         private readonly Paging paging;
+        private readonly RyCSImage ryCsImage;
 
         public HotelController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -35,6 +38,47 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
         //Ends
 
+
+        [HttpPost]
+        public async Task<IActionResult> SaveImage(string HId)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var files = HttpContext.Request.Form.Files;
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                foreach (var file in files)
+                {
+                    var fileName = "Hotel-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                    //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("Hotel/SaveImage/?HId=" + HId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            return View("Error");
+                        }
+                    }
+
+                    if (file.Length > 0)
+                    {
+
+
+                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotel");
+                        Task.WaitAll(TImgUpload);
+                        if (TImgUpload.Result == "Error")
+                        {
+                            return View("Error");
+                        }
+                    }
+                }
+            }
+            return Json(new { Message = "Saved" });
+        }
 
         //ItemAutoComplete
         [HttpGet]
@@ -73,7 +117,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             RyCrSsDropDown ry = new RyCrSsDropDown();
             string URLChainBrand = "HotelChainBrand/DropDown/" + CompId;
             string URLHotelType = "HotelType/DropDown/" + CompId;
-            string URLCurrency = "HotelType/DropDown/" + CompId;
+            string URLCurrency = "Currency/DropDown/" + CompId;
             try
             {
                 Task<List<SelectListItem>> ChainBrand = ry.DDColorStaysAPI(URLChainBrand, Token);
@@ -169,7 +213,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //GET:/Hotel/
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
+        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string? Id)
         {         
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -190,6 +234,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
+                ViewData["HId"] = Id;
+
+                if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
 
@@ -471,12 +518,31 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsHotel.ModifiedBy = UserID;
             CsHotel.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
+            var files = HttpContext.Request.Form.Files;
             CsHotel data = new CsHotel();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    foreach (var file in files)
+                    {
+                        var fileName = "HotelCover-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+
+                        CsHotel.CoverImage = fileName;
+
+
+                        if (file.Length > 0)
+                        {
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "HotelCover");
+                            Task.WaitAll(TImgUpload);
+                            if (TImgUpload.Result == "Error")
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsHotel), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("Hotel/create", content))
                     {
@@ -498,7 +564,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
                 if (Success == true)
-                { return RedirectToAction("Index", new { PageCall = "Show" }); }
+                {
+                    data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id });
+                }
                 else { return View("_CreateOrEdit", CsHotel); }
             }
             return View("_CreateorEdit",CsHotel);                
@@ -569,14 +638,40 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             DropDown(CompID, TokenKey);
             ViewData["ResponseName"] = "ShowValidation";
             CsHotel.CompId = CompID;
-            CsHotel.ModifiedBy = UserID;   
+            CsHotel.ModifiedBy = UserID;
+            var files = HttpContext.Request.Form.Files;
+            if (CsHotel.CoverImageName != null)
+            {
+                CsHotel.CoverImage = CsHotel.CoverImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        foreach (var file in files)
+                        {
+                            var fileName = "HotelCover-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+
+                            CsHotel.CoverImage = fileName;
+                            //Delete the Images from the folder
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsHotel.CoverImageName, TokenKey, "HotelCover");
+                            Task.WaitAll(TDeleteImage);
+
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "HotelCover");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+
+
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                         using (var response = await client.PostAsJsonAsync<CsHotel>("Hotel/edit", CsHotel))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
@@ -602,7 +697,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "Show" });
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", CsHotel.Id });
                 }
                 catch (DbUpdateConcurrencyException)
                 {

@@ -16,6 +16,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Name { get; set; }
         public string? URL { get; set; }
         public bool Is360 { get; set; }
+        public bool IsYouTubeVideo { get; set; }
         public bool IsVideo { get; set; }
         public string? AltTag { get; set; }
         public bool IsWashroom { get; set; }

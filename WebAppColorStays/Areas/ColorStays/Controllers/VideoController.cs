@@ -543,7 +543,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsVideo.CompId = CompID;
             CsVideo.ModifiedBy = UserID;
             var files = HttpContext.Request.Form.Files;
-            var imagename = CsVideo.Image;
+            if (CsVideo.ImageName != null)
+            {
+                CsVideo.Image = CsVideo.ImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -556,7 +559,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                             CsVideo.Image = fileName;
                             //Delete the Images from the folder
-                            Task<string> TDeleteImage = ryCsImage.DeleteImage(imagename, TokenKey, "Video");
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsVideo.ImageName, TokenKey, "Video");
                             Task.WaitAll(TDeleteImage);
 
                             if (file.Length > 0)

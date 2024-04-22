@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,19 +12,28 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
+        [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
+        [DisplayName("State")]
         public string? Fk_State_Name { get; set; }
+        [DisplayName("Place")]
         public string? Fk_Place_Name { get; set; }
         [NotMapped]
         public string? Place { get; set; }
+        [DisplayName("HotelType")]
         public string? Fk_HotelType_Name { get; set; }
+        [DisplayName("Currency")]
         public string? Fk_Currency_Name { get; set; }
+        [DisplayName("ChainBrand")]
         public string? Fk_ChainBrand_Name { get; set; }
         public string? Label { get; set; }
         public string? Name { get; set; }
         public string? TagLine { get; set; }
         public string? CoverImage { get; set; }
+        [NotMapped]
+        public string? CoverImageName { get; set; }
         public string? Address { get; set; }
         public string? EmailAddress { get; set; }
         public string? ContactPerson { get; set; }
@@ -48,10 +58,10 @@ namespace WebAppColorStays.Models.ViewModel
         public string? CheckOutTime { get; set; }
         public int? NoOfFloors { get; set; }
         public int? NoOfRestaurant { get; set; }
-        public int? Phone { get; set; }
-        public int? Mobile { get; set; }
+        public string? Phone { get; set; }
+        public string? Mobile { get; set; }
         public string? Website { get; set; }
-        public int? CustomerCareNum { get; set; }
+        public string? CustomerCareNum { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }

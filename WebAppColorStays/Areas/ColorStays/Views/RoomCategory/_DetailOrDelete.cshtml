@@ -1,7 +1,7 @@
-@model WebAppColorStays.Models.ViewModel.CsOffer
+@model WebAppColorStays.Models.ViewModel.CsRoomCategory
 @{ 
     Layout = null; 
-    ViewData["Action"] = "Offer";
+    ViewData["Action"] = "RoomCategory";
 }
 
 <div style="display:none">responseformUT ShowData</div>
@@ -25,69 +25,6 @@
 
 		      
  
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Image)</td>
-        <td>@Model.Image</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ValidFrom)</td>
-        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", Model.ValidFrom)</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ValidTo)</td>
-        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", Model.ValidTo)</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Title)</td>
-        <td>@Model.Title</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.TagLine)</td>
-        <td>@Model.TagLine</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.DiscountPercent)</td>
-        <td>@String.Format("{0:F}", Model.DiscountPercent)</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.DiscountPrice)</td>
-        <td>@String.Format("{0:F}", Model.DiscountPrice)</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.GeneratedCode)</td>
-        <td>@Model.GeneratedCode</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CommonCode)</td>
-        <td>@Model.CommonCode</td>
-        </tr>
-
-		      
-        
         <tr>
         <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Remarks)</td>
         <td>@Model.Remarks</td>
@@ -197,8 +134,7 @@
         </tr>
 
 		      
-
-		      
+        
         </table>
     </div>
 </div>
@@ -207,7 +143,7 @@
     <div class="DyFx FxJyCtSt Gp10 Wh100p">
         @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
         {
-            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/Offer/DeleteConfirmed?Id=@Model.Id','/ColorStays/Offer');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/RoomCategory/DeleteConfirmed?Id=@Model.Id','/ColorStays/RoomCategory');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
         }
 
         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
@@ -215,20 +151,20 @@
             //  Checks which Button to Show For the Verification
             if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Offer/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/Offer')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/RoomCategory/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/RoomCategory')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
             }
             if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Offer/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/Offer')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/RoomCategory/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/RoomCategory')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
             }
             //  Checks which Button to Show For the Activation
             if (Model.ActiveStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Offer/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/Offer')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                <button type="button" onclick="VerifyData('/ColorStays/RoomCategory/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/RoomCategory')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
             }
             if (Model.ActiveStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Offer/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/Offer')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
+                <button type="button" onclick="VerifyData('/ColorStays/RoomCategory/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/RoomCategory')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
             }
         }
     </div>
