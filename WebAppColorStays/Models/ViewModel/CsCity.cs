@@ -17,14 +17,20 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
         [DisplayName("State")]
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
+
         public string? Fk_State_Name { get; set; }
         [NotMapped]
         public string? State { get; set; }
         [DisplayName("Country")]
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
+
         public string? Fk_Country_Name { get; set; }
         public string? URL { get; set; }
         [Remote("CheckDuplicationCity", "City", AdditionalFields = ("NameAction, Id"))]
         [Required(ErrorMessage = "Please enter Name.")]
+        [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
+
         public string Name { get; set; }
         [DisplayName("Video Link")]
         public string? Video { get; set; }
@@ -43,17 +49,34 @@ namespace WebAppColorStays.Models.ViewModel
         public string? ClothingToCarry { get; set; }
         public string? Footwear { get; set; }
         [DisplayName("Terrain")]
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
+
         public string? Fk_Terrain_Name { get; set; }
+        [StringLength(50, ErrorMessage = "You can enter only 50 characters long!")]
+
         public string? PeakSeason { get; set; }
+        [StringLength(50, ErrorMessage = "You can enter only 50 characters long!")]
+
         public string? OffSeason { get; set; }
+        [StringLength(50, ErrorMessage = "You can enter only 50 characters long!")]
+
         public string? MidSeason { get; set; }
         public int? Rating { get; set; }
         public double? LowestPackage { get; set; }
         public int? PinCode { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? OurTips1 { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
+
         public string? OurTips2 { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
+
         public string? OurTips3 { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
+
         public string? OutTips4 { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
+
         public string? OurTips5 { get; set; }
         public int? TelephoneCode { get; set; }
         public string? TopThingsToKnow { get; set; }
@@ -61,6 +84,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? BestTimeToVisit { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
+
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
         public bool? SelectStatus { get; set; }

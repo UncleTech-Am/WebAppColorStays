@@ -31,7 +31,7 @@
 //        //Show the Title in View
 //        private void Title()
 //        {
-//            ViewBag.Title = "RoomType";
+//            ViewBag.Title = "Room Type";
 //        }
 //        //Ends
 

@@ -54,6 +54,5 @@ namespace WebAppColorStays.Models.ViewModel
         [ConcurrencyCheck]
         public byte[]? RowVersion { get; set; }
 
-        public virtual TblHotel TblHotel { get; set; }
     }
 }
