@@ -11,7 +11,6 @@ namespace WebAppColorStays.Models.ViewModel
 
         [DisplayName("Hotel")]
         [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
-        [Required(ErrorMessage = "Please enter Hotel Name.")]
         public string? Fk_Hotel_Name { get; set; }
         public int? OwnerAttitude { get; set; }
         public int? Location { get; set; }
@@ -54,6 +53,5 @@ namespace WebAppColorStays.Models.ViewModel
         [ConcurrencyCheck]
         public byte[]? RowVersion { get; set; }
 
-        public virtual TblHotel TblHotel { get; set; }
     }
 }

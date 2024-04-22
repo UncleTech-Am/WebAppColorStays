@@ -21,8 +21,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SizeArea { get; set; }
         public string? SizeLength { get; set; }
         public string? SizeBreadth { get; set; }
-        public bool? IsSizeFeet { get; set; }
-        public bool? IsSizeMeter { get; set; }
+        public bool IsSizeFeet { get; set; }
+        public bool IsSizeMeter { get; set; }
         public int? OyBaseAdults { get; set; }
         public int? OyMaxAdults { get; set; }
         public int? OyMaxChildren { get; set; }
