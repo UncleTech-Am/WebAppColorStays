@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
@@ -8,6 +9,8 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+
+        [DisplayName("Restaurant")]
         public string? Fk_Restaurant_Name { get; set; }
         [NotMapped]
         [Required(ErrorMessage = "Please enter Restaurant Name.")]

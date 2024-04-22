@@ -34,7 +34,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "PackageItinerary";
+            ViewBag.Title = "Package Itinerary";
         }
         //Ends
 

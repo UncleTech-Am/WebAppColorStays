@@ -30,7 +30,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "PackageTypeCountryMap";
+            ViewBag.Title = "Package Type Country Map";
         }
         //Ends
 

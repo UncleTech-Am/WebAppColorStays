@@ -93,6 +93,12 @@
     string Offer = "";
     string RoomType = "";
     string RoomCategory = "";
+    string Review = "";
+    string ReviewFor = "";
+    string ReviewQuestion = "";
+
+
+
 
     switch (Action)
     {
@@ -144,6 +150,9 @@
         case "Enquiry": Enquiry = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "MustExperience": MustExperience = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "Offer": Offer = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "Review": Review = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "ReviewFor": ReviewFor = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "ReviewQuestion": ReviewQuestion = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
 
 
         case "Sightseeing": Sightseeing = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
@@ -508,7 +517,7 @@
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @MustExperience">
-                        <a href="~/ColorStays/MustExperience/Create">MustExperience</a>
+                        <a href="~/ColorStays/MustExperience/Create">Must Experience</a>
                     </div>
                     <a href="~/ColorStays/MustExperience/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/MustExperience/Index"><i class="UT-List-OLine"></i></a>
@@ -535,11 +544,40 @@
                 </div>
             </div>
 
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @Review">
+                        <a href="~/ColorStays/Review/Create">Review</a>
+                    </div>
+                    <a href="~/ColorStays/Review/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Review/Index\"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @ReviewFor">
+                        <a href="~/ColorStays/ReviewFor/Create">Review For</a>
+                    </div>
+                    <a href="~/ColorStays/ReviewFor/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/ReviewFor/Index\"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @ReviewQuestion">
+                        <a href="~/ColorStays/ReviewQuestion/Create">Review Question</a>
+                    </div>
+                    <a href="~/ColorStays/ReviewQuestion/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/ReviewQuestion/Index\"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @HowToReach">
-                        <a href="~/ColorStays/HowToReach/Create">HowToReach</a>
+                        <a href="~/ColorStays/HowToReach/Create">How To Reach</a>
                     </div>
                     <a href="~/ColorStays/HowToReach/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/HowToReach/Index"><i class="UT-List-OLine"></i></a>

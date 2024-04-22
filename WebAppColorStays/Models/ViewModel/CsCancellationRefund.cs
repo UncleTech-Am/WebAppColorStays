@@ -11,6 +11,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Id { get; set; }
         [DisplayName("CancellationPolicy")]
         [Required(ErrorMessage = "Please enter CancellationPolicy.")]
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Fk_CancellationPolicy_Name { get; set; }
         [NotMapped]
         public string? CancellationPolicy { get; set; }
@@ -20,6 +21,8 @@ namespace WebAppColorStays.Models.ViewModel
         public double? Refund { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
+
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
         public bool? SelectStatus { get; set; }

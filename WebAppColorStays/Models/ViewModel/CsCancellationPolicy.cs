@@ -10,6 +10,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Id { get; set; }
         [Required(ErrorMessage = "Please enter AccordianHeading.")]
         [Remote("CheckDuplicationCancellationPolicy", "CancellationPolicy", AdditionalFields = ("NameAction, Id"))]
+      
         public string Name { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }

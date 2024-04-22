@@ -29,7 +29,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "RTFoodTypeMap";
+            ViewBag.Title = "Restaurant Food Type Map";
         }
         //Ends
 

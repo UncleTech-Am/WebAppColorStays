@@ -75,6 +75,7 @@
     <Content Remove="Areas\ColorStays\Views\PackageItinerary\_CreatePhoto.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Railway\_AddImage.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Railway\_CreatePhoto.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\ReviewFor\_CreateOrEdit.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -704,6 +705,33 @@
     <None Include="Areas\ColorStays\Views\RoomType\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\RoomType\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\RoomType\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewFor\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewFor\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewFor\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewFor\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewFor\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewFor\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewFor\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewFor\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewFor\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewQuestion\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewQuestion\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewQuestion\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewQuestion\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewQuestion\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewQuestion\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewQuestion\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewQuestion\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewQuestion\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Review\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\Review\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Review\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\Review\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Review\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\Review\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Review\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\Review\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\Review\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\RTFoodTypeMap\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\RTFoodTypeMap\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\RTFoodTypeMap\Index.cshtml" />

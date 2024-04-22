@@ -31,7 +31,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "AnCountry";
+            ViewBag.Title = "Accordion Country";
         }
         //Ends
 

@@ -30,7 +30,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "MonthBestVisit";
+            ViewBag.Title = "Month's Best Visit";
         }
         //Ends
 
