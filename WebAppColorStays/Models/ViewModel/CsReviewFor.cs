@@ -14,8 +14,7 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
         [Remote("CheckDuplicationReviewFor", "ReviewFor", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
-
-    
+        public string? Statement { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]

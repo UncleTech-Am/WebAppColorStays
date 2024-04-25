@@ -15,40 +15,115 @@
 
 <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
     <div class="FxRw FxAnImSh">
-        <div class="Fx45 Pg3">
+        <div class="Fx50 Pg3">
+            <div id="UTabs1">
+                <div> Offer Detail</div>
+                <div> Add City</div>
+                <div>Add Hotel</div>
+                <div>Add Package</div>
+            </div>
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
-                <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
-                    <i class="UT-PenNibSmall"></i>
-                    Enter Detail
-                </h3>
-                 <form id="Create"
-                    data-ajax="true"
-                    data-ajax-url="/ColorStays/Offer/Create"
-                    data-ajax-method="POST"
-                    data-ajax-loading="#loader"
-                      enctype="multipart/form-data"
-                      data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
-                    data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
+                <div id="UTabs1Cont0">
+                    <div class="Pg12">
+                        <form id="Create"
+                              data-ajax="true"
+                              data-ajax-url="/ColorStays/Offer/Create"
+                              data-ajax-method="POST"
+                              data-ajax-loading="#loader"
+                              enctype="multipart/form-data"
+                              data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
+                              data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
 
-                    @Html.AntiForgeryToken()
+                            @Html.AntiForgeryToken()
 
-                    <input type="hidden" name="NameAction" value="C" />
+                            <input type="hidden" name="NameAction" value="C" />
 
-                    <div id="CreateOrEdit">@await Html.PartialAsync("_CreateOrEdit", Model)</div>
+                            <div id="CreateOrEdit">@await Html.PartialAsync("_CreateOrEdit", Model)</div>
 
-                    <div class="MnTp7 MnBm7 FxRw">
+                            <div class="MnTp7 MnBm7 FxRw">
+                                <div class="FxGw1">
+                                    <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                                </div>
+                                <div>
+                                    <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Offer/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="UTabs1Cont1">
+                    <div class="Pg12">
+                        <form id="CreateCity"
+                              data-ajax="true"
+                              data-ajax-url="/ColorStays/Offer/CreateCity"
+                              data-ajax-method="POST"
+                              data-ajax-loading="#loader"
+                              data-ajax-success="SuccessCity(data, status, xhr,'CreateCity','CreateOrEditCity')"
+                              data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateCity')">
+
+                            @Html.AntiForgeryToken()
+
+                            <input type="hidden" name="NameAction" value="C" />
+                            <input type="hidden" name="Fk_Offer_Name" id="OId" />
+
+                            <div id="CreateOrEditCity">
+                                @await Html.PartialAsync("_CreateOrEditCity", new WebAppColorStays.Models.ViewModel.CsOfferCityMap())
+                            </div>
+
+                            <div class="MnTp7 MnBm7 FxRw">
+                                <div class="FxGw1">
+                                    <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                                </div>
+                                <div>
+                                    <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetCityHotel()"><i class="UT-CancelCircleLine"></i>&nbsp;Next</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="UTabs1Cont2">
+                    <div id="CreateOrEditHotel" style="height: 400px;overflow: auto;"></div>
+                    <div class="Pg10 FxRw">
                         <div class="FxGw1">
-                            <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Place/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Offer/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
                         </div>
                     </div>
-                </form>
+                </div>
+
+                <div id="UTabs1Cont3">
+                    <div id="CreateOrEditPackage" style="height: 400px;overflow: auto;"></div>
+                    <div class="Pg10 FxRw">
+                        <div class="FxGw1">
+                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Place/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
+                        </div>
+                        <div>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="Fx55 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
-            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsOffer>)ViewData["EnteredDetails"])
+        <div class="Fx50 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
+            <div id="UTabs2">
+                <div>All Offers</div>
+                <div>Detail</div>
+            </div>
+            <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
+                <div id="UTabs2Cont0">
+                    <div id="Detail">
+                        @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsOffer>)ViewData["EnteredDetails"])
+                    </div>
+                </div>
+                <div id="UTabs2Cont1">
+                    <div id="Images"></div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -56,46 +131,70 @@
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
-        StartSuggestionBox(2, 'SearchHotel', '/ColorStays/Hotel/SuggestHotel', '', '', AoCeHotel);
-        StartSuggestionBox(2, 'SearchPackage', '/ColorStays/Package/SuggestPackage', '', '', AoCePackage);
+        TabsUT('UTabs1', 0, null, [1, 2, 3]);
+        TabsUT('UTabs2', 0, null, [1]);
         ShowCalender({
             RangeInput: { StartDateInput: 'ValidFrom', EndDateInput: 'ValidTo' },
         });
     });
 
+
     //Clear Autocompete data
-    function ClearData(UrNe, UrId) {
+    function ClearData(UrNe, UrId, Text1, Text2) {
         document.getElementById(UrNe).value = '';
         document.getElementById(UrId).value = '';
+        document.getElementById(Text1).value = '';
+        document.getElementById(Text2).value = '';
     }
 
-
-
-    //Autocomplete
-    function AoCePackage(event) {
+    //Autocomplete Item
+    function AoCeCity(event) {
         var InputId = event.target.InputID;
         SuggestionClose(InputId);
-        document.getElementById('Fk_Package_Name').value = event.target.Id;
+        document.getElementById('Fk_City_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
+        document.getElementById('Fk_State_Name').value = event.target.Text1;
+        document.getElementById('Fk_Country_Name').value = event.target.Text2;
     }
 
-    function AoCeHotel(event) {
-        var InputId = event.target.InputID;
-        SuggestionClose(InputId);
-        document.getElementById('Fk_Hotel_Name').value = event.target.Id;
-        document.getElementById(InputId).value = event.target.Value;
-    }
 
     function Success(data, status, xhr, FormID, FormFieldID) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
-        //Here we get the pageno,pagesize and listcount
-        var doc = new DOMParser().parseFromString(data, "text/html");
-        var pageinfo = doc.getElementById("PaginationAt");
-        var netrecord = pageinfo.getAttribute("netrecord");
-        var pageno = pageinfo.getAttribute("pagenumber");
-        var pagesize = pageinfo.getAttribute("PageSize");
-        //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/Offer/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
+        getCity();
+        //Show the Image Tab
+        ActiveTabUt('UTabs1', 1);
+        ActiveTabUt('UTabs2', 0);
+        document.getElementById('OId').value = document.getElementById('OrId').value;
+    }
+
+
+    function SuccessCity(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "Detail");
+        getCity();
+        //Show the Image Tab
+        ActiveTabUt('UTabs1', 1);
+        ActiveTabUt('UTabs2', 0);
+        document.getElementById('OrId').value = document.getElementById('OrId').value;
+    }
+
+
+    function getCity() {
+        getUT('/ColorStays/Offer/CreateCity', function (data) {
+            document.getElementById('CreateOrEditCity').innerHTML = "";
+            document.getElementById('CreateOrEditCity').innerHTML = data;
+            StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
+            HideLoader();
+        });
+    }
+
+    //Here get the list of hotel list
+    function GetCityHotel() {
+        var id = document.getElementById('OrId').value;
+        getUT('/ColorStays/Offer/GetHotel?OrId='+id, function (data) {
+            document.getElementById('CreateOrEditHotel').innerHTML = "";
+            document.getElementById('CreateOrEditHotel').innerHTML = data;
+            HideLoader();
+        });
     }
 
     //Table Search Success Function

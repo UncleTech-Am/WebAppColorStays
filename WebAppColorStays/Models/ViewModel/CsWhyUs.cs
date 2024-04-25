@@ -1,33 +1,38 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsOffer
+    public class CsWhyUs
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-
-        [StringLength(450)]
-        [Required(ErrorMessage = "Please enter Name.")]
-        [Remote("CheckDuplicationOffer", "Offer", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
+        public string? ReviewTagLine { get; set; }
         public string? Image { get; set; }
-        [NotMapped]
-        public string? ImageName { get; set; }
-        public DateTime ValidFrom { get; set; }
-        public DateTime ValidTo { get; set; }
-        public string? Title { get; set; }
-        public string? TagLine { get; set; }
-        public double? DiscountPercent { get; set; }
-        public double? DiscountPrice { get; set; }
-        public string? GeneratedCode { get; set; }
-        public string? CommonCode { get; set; }
-      
-        public bool FreezeStatus { get; set; }
+        public string? YoutubeUrl { get; set; }
+        public string? InstaId { get; set; }
+
+        [DisplayName("Country")]
+        public string? Fk_Country_Name { get; set; }
+
+        [DisplayName("State")]
+        public string? Fk_State_Name { get; set; }
+
+        [DisplayName("City")]
+        public string? Fk_City_Name { get; set; }
+
+        [DisplayName("Hotel")]
+        public string? Fk_Hotel_Name { get; set; }
+
+        [DisplayName("Package")]
+        public string? Fk_Package_Name { get; set; }
+
+        [DisplayName("Activity")]
+        public string? Fk_Activity_Name { get; set; }
+
+        public bool? FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
