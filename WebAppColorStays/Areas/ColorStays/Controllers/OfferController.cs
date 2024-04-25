@@ -13,6 +13,8 @@ using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
 using LibCommon.APICommonMethods;
+using WebAppColorStays.Areas.ColorStays.CommonMethods;
+using LibAuthService.ModelView;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -774,46 +776,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-
-
-        //GET: /Offer/CreateOrEdit
-        [HttpGet]
-        [ResponseCache(Duration = 0)]
-        public async Task<IActionResult> CreateOrEditCity(string Id)
-        {
-            var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            ViewData["ResponseName"] = "ShowValidation";
-            if (Id != null)
-            {
-                bool Success = false;
-                var data = new CsOfferCityMap();
-                using (HttpClient client = APIColorStays.Initial())
-                {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("Offer/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
-                    {
-                        var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsOfferCityMap>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        if (response.IsSuccessStatusCode)
-                        { Success = true; }
-                        else { Success = false; }
-                    }
-                }
-                if (Success == true)
-                {
-                    ViewData["ResponseName"] = "SuccessPop";
-                    return View("_CreateOrEditCity", data);
-                }
-                else { return View("Errors"); }
-            }
-            else
-            {
-                return View("_CreateOrEdit");
-            }
-        }
-
         //GET: /Offer/Create
         [HttpGet]
         public async Task<IActionResult> CreateCity()
@@ -891,114 +853,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-        //GET: /Offer/Edit/5
-        [HttpGet]
-        public async Task<ActionResult> EditCity(string id)
-        {
-            Title();
-            ViewData["AnName"] = "Edit";
-            ViewData["Id"] = id;
-            var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (id == null)
-            {
-                ViewBag.Message = "Not Founded";
-                return View();
-            }
-
-            ViewData["ActionName"] = "Index";
-            ViewData["FormID"] = "NoSearchID";
-            ViewData["SearchType"] = "NoSearch";
-
-            CsOfferCityMap CsOfferCityMap = new CsOfferCityMap();
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Offer/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
-                {
-                    var apiResponse = await response.Content.ReadAsStreamAsync();
-                    //Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    //Task<Tuple<int, List<CsOfferCityMap>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
-                    //PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-                    //ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        CsOfferCityMap = await System.Text.Json.JsonSerializer.DeserializeAsync<CsOfferCityMap>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                    }
-                    else
-                    {
-                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        if (responsemsg.Message == "NotFound")
-                        { ViewBag.Message = "Entry Not Exits!"; }
-                        if (responsemsg.Message == "GlobalItem")
-                        { ViewBag.Message = "Sytem Entry, Can't Change !"; }
-                    }
-                }
-            }
-            return View(CsOfferCityMap);
-        }
-
-
-        //POST: /Offer/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditCity(CsOfferCityMap CsOfferCityMap)
-        {
-            Title();
-            ViewData["AnName"] = "Edit";
-            var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            bool Success = false;
-            ViewData["ResponseName"] = "ShowValidation";
-            CsOfferCityMap.CompId = CompID;
-            CsOfferCityMap.ModifiedBy = UserID;
-            
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    using (HttpClient client = APIColorStays.Initial())
-                    {
-                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsOfferCityMap>("Offer/edit", CsOfferCityMap))
-                        {
-                            var apiResponse = await response.Content.ReadAsStreamAsync();
-                            if (!response.IsSuccessStatusCode)
-                            {
-                                Tuple<CsOfferCityMap, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsOfferCityMap, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                                if (data.Item2 != null)
-                                {
-                                    if (data.Item2.Message == "Duplicate")
-                                    {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
-                                        ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
-                                    }
-                                    if (data.Item2.Message == "GlobalItem")
-                                    {
-                                        ViewBag.Message = "Sytem Entry, Can't Change !";
-                                    }
-                                    if (data.Item2.Message == "Verified")
-                                    {
-                                        ViewBag.Message = "You can not Edit Verified Entry !";
-                                    }
-                                }
-                                return View("_CreateorEditCity", data.Item1);
-                            }
-                        }
-                    }
-                    return RedirectToAction("Index", new { PageCall = "Show" });
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    ViewBag.Message = "Not Found";
-                    return View("_CreateorEditCity");
-                }
-            }
-            return View("_CreateorEditCity", CsOfferCityMap);
-        }
-
         //GET: /Offer/Create
         [HttpGet]
         public async Task<IActionResult> GetCityHotel(string OrId)
@@ -1012,17 +866,70 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
-            List<CsOfferHotelPackageMap> offerHotelList = new List<CsOfferHotelPackageMap>();
+            OfferHotelPackage hotelList = new OfferHotelPackage();
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("OfferHotelPackageMap/HotelList/" + OrId, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("OfferHotelPackageMap/HotelList/" + OrId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    offerHotelList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsOfferHotelPackageMap>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    hotelList = await System.Text.Json.JsonSerializer.DeserializeAsync<OfferHotelPackage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                 }
             }
-            return View("_CreateOrEditCity");
+            return View("_CreateOrEditHotel", hotelList);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddCityHotel(OfferHotelPackage model)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            if (ModelState.IsValid)
+            {
+                using (HttpClient client = APIColorStays.Initial())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("OfferHotelPackageMap/AddCityHotel", content))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            return RedirectToAction("GetCityHotel", new { id = model.Fk_Offer_Name });
+                        }
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetHotels(string OrId)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            List<CsHotel> data = new List<CsHotel>();
+            
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("OfferHotelPackageMap/GetHotels/" + OrId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsHotel>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        ViewBag.HotelsForThisOffer = data;
+                        return View();
+                    }
+                }
+            }
+            return View("Error");
         }
     }
 }

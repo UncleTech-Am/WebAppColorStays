@@ -190,12 +190,24 @@
     //Here get the list of hotel list
     function GetCityHotel() {
         var id = document.getElementById('OrId').value;
-        getUT('/ColorStays/Offer/GetHotel?OrId='+id, function (data) {
+        getUT('/ColorStays/Offer/GetCityHotel?OrId='+id, function (data) {
             document.getElementById('CreateOrEditHotel').innerHTML = "";
             document.getElementById('CreateOrEditHotel').innerHTML = data;
             HideLoader();
         });
     }
+
+
+    function SuccessCityHotel(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "Detail");
+        getCity();
+        //Show the Image Tab
+        ActiveTabUt('UTabs1', 1);
+        ActiveTabUt('UTabs2', 0);
+        document.getElementById('OrId').value = document.getElementById('OrId').value;
+    }
+
+
 
     //Table Search Success Function
     function TableSuccessFn(data, status, xhr, FormID) {

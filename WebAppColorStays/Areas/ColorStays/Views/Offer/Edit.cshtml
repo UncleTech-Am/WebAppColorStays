@@ -21,7 +21,6 @@
                 <div> Offer Detail</div>
                 <div> Add City</div>
                 <div>Add Hotel</div>
-                <div>Add Package</div>
             </div>
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
                 <div id="UTabs1Cont0">
@@ -92,19 +91,7 @@
                 </div>
 
                 <div id="UTabs1Cont2">
-                    <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
-                    <div class="Pg10 FxRw">
-                        <div class="FxGw1">
-                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Place/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
-                        </div>
-                        <div>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
-                        </div>
-                    </div>
-                </div>
-               
-                <div id="UTabs1Cont3">
-                    <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
+                    <div id="CreateOrEditHotel" style="height: 400px;overflow: auto;"></div>
                     <div class="Pg10 FxRw">
                         <div class="FxGw1">
                             <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Place/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
@@ -121,6 +108,7 @@
             <div id="UTabs2">
                 <div>All Offers</div>
                 <div>Detail</div>
+                <div>Hotel</div>
             </div>
             <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
                 <div id="UTabs2Cont0">
@@ -130,6 +118,9 @@
                 </div>
                 <div id="UTabs2Cont1">
                     <div id="Images"></div>
+                </div>
+                <div id="UTabs2Cont2">
+                    <div id="OfferHotel"></div>
                 </div>
             </div>
 
@@ -145,13 +136,24 @@
         ShowCalender({
             RangeInput: { StartDateInput: 'ValidFrom', EndDateInput: 'ValidTo' },
         });
-        document.getElementById('OId').value = $("#Id").val();
+        var id = $("#Id").val();
+        document.getElementById('OId').value = id;
 
         //Get the Offer City
         getUT('/ColorStays/Offer/CreateCity', function (data) {
             document.getElementById('CreateOrEditCity').innerHTML = "";
             document.getElementById('CreateOrEditCity').innerHTML = data;
             StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
+            HideLoader();
+        });
+        getUT('/ColorStays/Offer/GetCityHotel?OrId=' + id, function (data) {
+            document.getElementById('CreateOrEditHotel').innerHTML = "";
+            document.getElementById('CreateOrEditHotel').innerHTML = data;
+            HideLoader();
+        });
+        getUT('/ColorStays/Offer/GetHotels?OrId=' + id, function (data) {
+            document.getElementById('OfferHotel').innerHTML = "";
+            document.getElementById('OfferHotel').innerHTML = data;
             HideLoader();
         });
     });
@@ -202,6 +204,15 @@
         });
     }
 
+    //Here get the list of hotel list
+    function GetCityHotel() {
+        var id = document.getElementById('OrId').value;
+        getUT('/ColorStays/Offer/GetCityHotel?OrId=' + id, function (data) {
+            document.getElementById('CreateOrEditHotel').innerHTML = "";
+            document.getElementById('CreateOrEditHotel').innerHTML = data;
+            HideLoader();
+        });
+    }
     //Table Search Success Function
     function TableSuccessFn(data, status, xhr, FormID) {
         //This the SuccessFunction

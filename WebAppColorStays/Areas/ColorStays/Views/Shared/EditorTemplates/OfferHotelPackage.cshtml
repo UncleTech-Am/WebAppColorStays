@@ -1,0 +1,12 @@
+﻿@model  WebAppColorStays.Areas.ColorStays.CommonMethods.OfferHotelPackage
+@Html.HiddenFor(x => x.Id)
+@Html.HiddenFor(x => x.Hotel)
+<span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
+    @Html.CheckBoxFor(x => x.IsSelected, htmlAttributes: new { id = "IsSelected", @Class = "SeIt1o14" })
+</span>
+@Html.LabelFor(x => x.IsSelected, Model.Hotel)
+<br />
+
+
+
+
