@@ -802,10 +802,6 @@
     <None Include="Areas\ColorStays\Views\WhyUs\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\WhyUs\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\WhyUs\Index.cshtml" />
-    <None Include="Areas\ColorStays\Views\WhyUs\_CreateOrEdit.cshtml" />
-    <None Include="Areas\ColorStays\Views\WhyUs\_DetailOrDelete.cshtml" />
-    <None Include="Areas\ColorStays\Views\WhyUs\_IndexData.cshtml" />
-    <None Include="Areas\ColorStays\Views\WhyUs\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\WhyUs\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\WhyUs\_SearchData.cshtml" />
     <None Include="Areas\Developer\Views\Home\Index.cshtml" />

@@ -75,22 +75,43 @@
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_Hotel_Name)</td>
-        <td>@Model.Fk_Hotel_Name</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_HotelType_Name)</td>
+        <td>@Model.Fk_HotelType_Name</td>
         </tr>
 
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_Package_Name)</td>
-        <td>@Model.Fk_Package_Name</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_PackageType_Name)</td>
+        <td>@Model.Fk_PackageType_Name</td>
         </tr>
 
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_Activity_Name)</td>
-        <td>@Model.Fk_Activity_Name</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_ActivityType_Name)</td>
+        <td>@Model.Fk_ActivityType_Name</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.IsInCountry)</td>
+        <td>@Model.IsInCountry</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.IsInState)</td>
+        <td>@Model.IsInState</td>
+        </tr>
+
+		      
+ 
+        <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.IsInCity)</td>
+        <td>@Model.IsInCity</td>
         </tr>
 
 		      
@@ -203,7 +224,9 @@
         <td>@Model.CompId</td>
         </tr>
 
-
+		      
+      
+ 
 		      
         </table>
     </div>
@@ -213,7 +236,7 @@
     <div class="DyFx FxJyCtSt Gp10 Wh100p">
         @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
         {
-            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/WhyUs/DeleteConfirmed?Id=@Model.Id','/ColorStays/WhyUs');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/Colorstays/WhyUs/DeleteConfirmed?Id=@Model.Id','/Colorstays/WhyUs');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
         }
 
         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
@@ -221,20 +244,20 @@
             //  Checks which Button to Show For the Verification
             if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/WhyUs/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/WhyUs')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                <button type="button" onclick="VerifyData('/Colorstays/WhyUs/VerifyData?Id=@Model.Id&AnName=Verify','/Colorstays/WhyUs')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
             }
             if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/WhyUs/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/WhyUs')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
+                <button type="button" onclick="VerifyData('/Colorstays/WhyUs/VerifyData?Id=@Model.Id&AnName=UnVerify','/Colorstays/WhyUs')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
             }
             //  Checks which Button to Show For the Activation
             if (Model.ActiveStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/WhyUs/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/WhyUs')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                <button type="button" onclick="VerifyData('/Colorstays/WhyUs/VerifyData?Id=@Model.Id&AnName=Activate','/Colorstays/WhyUs')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
             }
             if (Model.ActiveStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/WhyUs/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/WhyUs')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
+                <button type="button" onclick="VerifyData('/Colorstays/WhyUs/VerifyData?Id=@Model.Id&AnName=Inactivate','/Colorstays/WhyUs')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
             }
         }
     </div>

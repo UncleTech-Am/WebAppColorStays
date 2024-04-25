@@ -22,16 +22,16 @@ namespace WebAppColorStays.Models.ViewModel
 
         [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
-
-        [DisplayName("Hotel")]
-        public string? Fk_Hotel_Name { get; set; }
-
-        [DisplayName("Package")]
-        public string? Fk_Package_Name { get; set; }
-
-        [DisplayName("Activity")]
-        public string? Fk_Activity_Name { get; set; }
-
+        [DisplayName("Hotel Type")]
+        public string? Fk_HotelType_Name { get; set; }
+        [DisplayName("Package Type")]
+        public string? Fk_PackageType_Name { get; set; }
+        [DisplayName("Activity Type")]
+        public string? Fk_ActivityType_Name { get; set; }
+        public bool? IsInCountry { get; set; }
+        public bool? IsInState { get; set; }
+        public bool? IsInCity { get; set; }
+  
         public bool? FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }
