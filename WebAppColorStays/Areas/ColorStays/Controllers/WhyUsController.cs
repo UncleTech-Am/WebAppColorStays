@@ -30,7 +30,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "WhyU";
+            ViewBag.Title = "WhyUs";
         }
         //Ends
 
@@ -92,13 +92,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         public async Task<Tuple<int, List<CsWhyUs>>> AllDataList(int? PgSize, int? PgSelectedNum)
         {
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Tuple<int, List<CsWhyUs>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("WhyU/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("WhyUs/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
@@ -113,11 +113,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET:/WhyU/
+        //GET:/WhyUs/
         [HttpGet]
         public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
         {         
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+			var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Title();
 
@@ -157,7 +157,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
             int PgSize = Convert.ToInt32(fc["PageSize"]);
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             try //Pagination and List of data Code
@@ -175,7 +175,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     //Get the List of data
-                    using (var response = await client.PostAsJsonAsync("WhyU/DateSearch/", cIndex))
+                    using (var response = await client.PostAsJsonAsync("WhyUs/DateSearch/", cIndex))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsWhyUs>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -211,7 +211,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             int PgSize = Convert.ToInt32(fc["PageSize"]);
             int ListCount = 0;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Title();
 
@@ -225,7 +225,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 CsWhyUs.CompId = CompID;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(CsWhyUs), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("WhyU/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
+                using (var response = await client.PostAsync("WhyUs/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsWhyUs>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -266,7 +266,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             int ListCount = 0;
 
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Title();
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
@@ -280,7 +280,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 indexsearchfilter.PageSize = pagedata.Item1;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(indexsearchfilter), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("WhyU/FilterSearch", content))
+                using (var response = await client.PostAsync("WhyUs/FilterSearch", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsWhyUs>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -303,18 +303,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET: /WhyU/Details/5
+        //GET: /WhyUs/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+			var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             CsWhyUs CsWhyUs = new CsWhyUs();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("WhyU/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("WhyUs/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
@@ -338,13 +338,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-        //GET: /WhyU/CreateOrEdit
+        //GET: /WhyUs/CreateOrEdit
         [HttpGet]
         [ResponseCache(Duration = 0)]
         public async Task<IActionResult> CreateOrEdit(string Id)
         {
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+			var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
             if (Id != null)
@@ -354,7 +354,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("WhyU/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync("WhyUs/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsWhyUs>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
@@ -376,14 +376,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
         }
         
-        //GET: /WhyU/Create
+        //GET: /WhyUs/Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {
             Title();
             ViewData["AnName"] = "Create";
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             ViewData["ActionName"] = "Index";
@@ -398,7 +398,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         } 
         
 
-        //POST: /WhyU/Create
+        //POST: /WhyUs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(CsWhyUs CsWhyUs)
@@ -406,7 +406,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             ViewData["AnName"] = "Create";
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+			var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
             CsWhyUs.CompId = CompID;
@@ -421,7 +421,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
 				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsWhyUs), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("WhyU/create", content))
+                    using (var response = await client.PostAsync("WhyUs/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
@@ -448,7 +448,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
          }
 
 
-        //GET: /WhyU/Edit/5
+        //GET: /WhyUs/Edit/5
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
@@ -456,7 +456,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["AnName"] = "Edit";
             ViewData["Id"] = id;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (id == null)
@@ -473,7 +473,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("WhyU/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("WhyUs/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
@@ -498,7 +498,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
                 
-        //POST: /WhyU/Edit/5
+        //POST: /WhyUs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CsWhyUs CsWhyUs)
@@ -506,7 +506,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             ViewData["AnName"] = "Edit";
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+			var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
@@ -519,7 +519,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     using (HttpClient client = APIColorStays.Initial())
                     {
 						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsWhyUs>("WhyU/edit", CsWhyUs))
+                        using (var response = await client.PostAsJsonAsync<CsWhyUs>("WhyUs/edit", CsWhyUs))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)
@@ -556,17 +556,17 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
         
        
-        //POST: /WhyU/Delete/5
+        //POST: /WhyUs/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+			var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("WhyU/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("WhyUs/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
@@ -590,7 +590,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-			var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+			var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
 			VerNActViewModel model = new VerNActViewModel();
             model.Id = Id;
             model.ActionName = AnName;
@@ -602,7 +602,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
 				StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("WhyU/verifydata/" , content))
+                using (var response = await client.PostAsync("WhyUs/verifydata/" , content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
@@ -624,13 +624,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             StarUnstar starUnstar = new StarUnstar();
             starUnstar.Id = Id;
             starUnstar.Host = Request.Scheme + "://" + Request.Host;
             starUnstar.AreaName = "ColorStays";
-            starUnstar.ControllerName = "WhyU";
+            starUnstar.ControllerName = "WhyUs";
             starUnstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
@@ -652,7 +652,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             StarUnstar unstar = new StarUnstar();
             unstar.UnStarId = Id;
@@ -676,12 +676,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Request.Cookies["CompanyID"]);
+            var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             if (Id == null) { Id = "No"; }
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("WhyU/CheckDuplicationWhyU/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("WhyUs/CheckDuplicationWhyU/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
