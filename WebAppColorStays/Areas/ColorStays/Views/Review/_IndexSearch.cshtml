@@ -7,6 +7,7 @@
 }
 
 <div style="color:red; font-weight:bold; font-size:15px;"> @ViewBag.Message</div>
+<input type="hidden" name="LlId" id="LlId" value="@ViewData["LId"]" />
 
 <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
     <div id="PagenationShow">
@@ -30,12 +31,18 @@
                     </td>
 
 
-                    <td>
-                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_ReviewFor_Name)" name="Fk_ReviewFor_Name" autocomplete="off" />
-                    </td>
+
 
                     <td>
                         <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_ReviewQuestion_Name)" name="Fk_ReviewQuestion_Name" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="ReviewAnswer" name="ReviewAnswer" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_ReviewFor_Name)" name="Fk_ReviewFor_Name" autocomplete="off" />
                     </td>
 
                     <td>
@@ -60,18 +67,6 @@
 
                     <td>
                         <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_Package_Name)" name="Fk_Package_Name" autocomplete="off" />
-                    </td>
-
-                    <td>
-                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Rating)" name="Rating" autocomplete="off" />
-                    </td>
-
-                    <td>
-                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.IsBool)" name="IsBool" autocomplete="off" />
-                    </td>
-
-                    <td>
-                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Text)" name="Text" autocomplete="off" />
                     </td>
 
                     <td>
@@ -153,17 +148,15 @@
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','','','/ColorStays/Review')"><i class="UT-UnstarSolid"></i></a>
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark Star" onclick="MultiButtonFunc('Star','','','/ColorStays/Review')"> <i class="UT-StarSolid"></i></a>
                     </th>
-                    <th> @Html.DisplayNameFor(model => model.Fk_ReviewFor_Name) </th>
                     <th> @Html.DisplayNameFor(model => model.Fk_ReviewQuestion_Name) </th>
+                    <th> ReviewAnswer </th>
+                    <th> @Html.DisplayNameFor(model => model.Fk_ReviewFor_Name) </th>
                     <th> @Html.DisplayNameFor(model => model.Fk_Country_Name) </th>
                     <th> @Html.DisplayNameFor(model => model.Fk_State_Name) </th>
                     <th> @Html.DisplayNameFor(model => model.Fk_City_Name) </th>
                     <th> @Html.DisplayNameFor(model => model.Fk_Place_Name) </th>
                     <th> @Html.DisplayNameFor(model => model.Fk_Hotel_Name) </th>
                     <th> @Html.DisplayNameFor(model => model.Fk_Package_Name) </th>
-                    <th> @Html.DisplayNameFor(model => model.Rating) </th>
-                    <th> @Html.DisplayNameFor(model => model.IsBool) </th>
-                    <th> @Html.DisplayNameFor(model => model.Text) </th>
                     <th> @Html.DisplayNameFor(model => model.IsPhotoUploaded) </th>
                     <th> @Html.DisplayNameFor(model => model.IsRejected) </th>
                     <th> @Html.DisplayNameFor(model => model.Remarks) </th>
