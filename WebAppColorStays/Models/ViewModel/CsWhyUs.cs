@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -11,6 +12,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Name { get; set; }
         public string? ReviewTagLine { get; set; }
         public string? Image { get; set; }
+        [NotMapped]
+        public string? ImageName { get; set; }
         public string? YoutubeUrl { get; set; }
         public string? InstaId { get; set; }
 
@@ -22,14 +25,24 @@ namespace WebAppColorStays.Models.ViewModel
 
         [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
+
+        [NotMapped]
+        public string? City { get; set; }
+
+
         [DisplayName("Hotel Type")]
         public string? Fk_HotelType_Name { get; set; }
         [DisplayName("Package Type")]
         public string? Fk_PackageType_Name { get; set; }
         [DisplayName("Activity Type")]
         public string? Fk_ActivityType_Name { get; set; }
+   
+        [DisplayName("In Country")]
         public bool? IsInCountry { get; set; }
+        [DisplayName("In State")]
         public bool? IsInState { get; set; }
+
+        [DisplayName("In City")]
         public bool? IsInCity { get; set; }
   
         public bool? FreezeStatus { get; set; }

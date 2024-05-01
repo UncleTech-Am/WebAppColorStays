@@ -12,6 +12,8 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
+using LibCommon.APICommonMethods;
+using WebAppColorStays.Areas.ColorStays.CommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -21,10 +23,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class WhyUsController : Controller
     {
         private readonly Paging paging;
+        private readonly RyCSImage ryCsImage;
 
         public WhyUsController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -48,6 +52,26 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["NetRecords"] = paging.NetRecords;
         }
         //Ends
+        //Drop Down
+        public async void DropDown(string CompId, string Token)
+        {
+            RyCrSsDropDown ry = new RyCrSsDropDown();
+            string URLPackageType = "PackageType/DropDown/" + CompId;
+            string URLHotelType = "HotelType/DropDown/" + CompId;
+            string URLActivityType = "ActivityType/DropDown/" + CompId;
+            try
+            {
+                Task<List<SelectListItem>> PackageType = ry.DDColorStaysAPI(URLPackageType, Token);
+                Task<List<SelectListItem>> HotelType = ry.DDColorStaysAPI(URLHotelType, Token);
+                Task<List<SelectListItem>> ActivityType = ry.DDColorStaysAPI(URLActivityType, Token);
+                Task.WaitAll(PackageType, HotelType, ActivityType);
+                ViewBag.PackageType = PackageType;
+                ViewBag.HotelType = HotelType;
+                ViewBag.ActivityType = ActivityType;
+            }
+            catch (Exception ex) { }
+
+        }
 
         //Display the Pagination 
         [HttpGet]
@@ -347,6 +371,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
+            DropDown(CompID, TokenKey);
+
             if (Id != null)
             {
                 bool Success = false;
@@ -385,6 +411,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            DropDown(CompID, TokenKey);
 
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
@@ -408,6 +435,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            DropDown(CompID, TokenKey);
             bool Success = false;
             CsWhyUs.CompId = CompID;
             CsWhyUs.CreatedBy = UserID;
@@ -415,11 +443,30 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsWhyUs.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
             CsWhyUs data = new CsWhyUs();
+            var files = HttpContext.Request.Form.Files;
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    foreach (var file in files)
+                    {
+                        var fileName = "WhyUs-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+
+                        CsWhyUs.Image = fileName;
+
+
+                        if (file.Length > 0)
+                        {
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "WhyUs");
+                            Task.WaitAll(TImgUpload);
+                            if (TImgUpload.Result == "Error")
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsWhyUs), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("WhyUs/create", content))
                     {
@@ -458,6 +505,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            DropDown(CompID, TokenKey);
 
             if (id == null)
             {
@@ -508,17 +556,42 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            DropDown(CompID, TokenKey);
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
             CsWhyUs.CompId = CompID;
-            CsWhyUs.ModifiedBy = UserID;   
+            CsWhyUs.ModifiedBy = UserID;
+            var files = HttpContext.Request.Form.Files;
+            if (CsWhyUs.ImageName != null)
+            {
+                CsWhyUs.Image = CsWhyUs.ImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        foreach (var file in files)
+                        {
+                            var fileName = "WhyUs-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+
+                            CsWhyUs.Image = fileName;
+                            //Delete the Images from the folder
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsWhyUs.ImageName, TokenKey, "WhyUs");
+                            Task.WaitAll(TDeleteImage);
+
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "WhyUs");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                         using (var response = await client.PostAsJsonAsync<CsWhyUs>("WhyUs/edit", CsWhyUs))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
@@ -554,8 +627,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
             return View("_CreateorEdit",CsWhyUs);
         }
-        
-       
+
+   
         //POST: /WhyUs/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
@@ -563,6 +636,25 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID =Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            CsWhyUs csWhyUs = new CsWhyUs();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("WhyUs/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csWhyUs = await System.Text.Json.JsonSerializer.DeserializeAsync<CsWhyUs>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            //Delete the Images from the folder
+            Task<string> TDeleteImage = ryCsImage.DeleteImage(csWhyUs.ImageName, TokenKey, "Video");
+            Task.WaitAll(TDeleteImage);
+            if (TDeleteImage.Result == "Error")
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
+
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);

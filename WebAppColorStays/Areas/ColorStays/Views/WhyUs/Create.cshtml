@@ -26,6 +26,7 @@
                     data-ajax-url="/ColorStays/WhyUs/Create"
                     data-ajax-method="POST"
                     data-ajax-loading="#loader"
+                    enctype="multipart/form-data"
                     data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
                     data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
 
@@ -55,6 +56,8 @@
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
+        StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
+
     });
 
     function Success(data, status, xhr, FormID, FormFieldID) {
@@ -88,5 +91,26 @@
         var SkipCol = [0];
         StartTableSearch('TeUT', SkipRow, SkipCol);
     }
+
+
+    //Clear Autocompete data
+    function ClearData(UrNe, UrId, Text1, Text2) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+        document.getElementById(Text1).value = '';
+        document.getElementById(Text2).value = '';
+    }
+
+    //Autocomplete Item
+    function AoCeCity(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_City_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+        document.getElementById('Fk_State_Name').value = event.target.Text1;
+        document.getElementById('Fk_Country_Name').value = event.target.Text2;
+    }
+
+
 </script>
 
