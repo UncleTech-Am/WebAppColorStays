@@ -1,8 +1,8 @@
 @model WebAppColorStays.Models.ViewModel.CsFAQ
 
 
-@{ 
-    Layout = null; 
+@{
+    Layout = null;
     ViewData["Action"] = "FAQ";
 }
 
@@ -13,6 +13,7 @@
 @Html.HiddenFor(model => model.Id)
 @Html.HiddenFor(model => model.RowVersion)
 @Html.HiddenFor(model => model.CreatedBy)
+
 @Html.HiddenFor(model => model.CreatedOn)
 @Html.HiddenFor(model => model.CompId)
 
@@ -21,7 +22,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Question)<span style="color:red;"> *</span></div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Question)" asp-for="Question" autocomplete="off" required/>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Question)" asp-for="Question" autocomplete="off" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Question"></span></div>
@@ -32,7 +33,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Answer)<span style="color:red;"> *</span></div>
-            <textarea  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Answer)" asp-for="Answer" autocomplete="off" required></textarea>
+            <textarea class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Answer)" asp-for="Answer" autocomplete="off" required></textarea>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Answer"></span></div>
@@ -127,7 +128,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Remarks"></span></div>

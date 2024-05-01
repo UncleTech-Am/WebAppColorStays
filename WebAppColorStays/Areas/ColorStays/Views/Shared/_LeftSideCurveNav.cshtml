@@ -93,12 +93,13 @@
     string Offer = "";
     string RoomType = "";
     string RoomCategory = "";
-    string Review = "";
     string ReviewFor = "";
     string ReviewQuestion = "";
     string WhyUs = "";
-
-
+    string ReviewCountry = "";
+    string ReviewState = "";
+    string ReviewCity = "";
+    string ReviewPlace = "";
 
     switch (Action)
     {
@@ -150,10 +151,13 @@
         case "Enquiry": Enquiry = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "MustExperience": MustExperience = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "Offer": Offer = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
-        case "Review": Review = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "ReviewFor": ReviewFor = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "ReviewQuestion": ReviewQuestion = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "WhyUs": WhyUs = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "ReviewCountry": ReviewCountry = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "ReviewState": ReviewState = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "ReviewCity": ReviewCity = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "ReviewPlace": ReviewPlace = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
 
 
         case "Sightseeing": Sightseeing = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
@@ -547,16 +551,6 @@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @Review">
-                        <a href="~/ColorStays/Review/Create">Review</a>
-                    </div>
-                    <a href="~/ColorStays/Review/Create"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/Review/Index\"><i class="UT-List-OLine"></i></a>
-                </div>
-            </div>
-
-            <div class="SideNavSubLinkDiv">
-                <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @ReviewFor">
                         <a href="~/ColorStays/ReviewFor/Create">Review For</a>
                     </div>
@@ -574,6 +568,49 @@
                     <a href="~/ColorStays/ReviewQuestion/Index\"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @ReviewCountry">
+                        <a href="~/ColorStays/Review/CreateCountryWise">Country Review</a>
+                    </div>
+                    <a href="~/ColorStays/Review/CreateCountryWise"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Review/Index?condition=Country"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @ReviewState">
+                        <a href="~/ColorStays/Review/CreateStateWise">State Review</a>
+                    </div>
+                    <a href="~/ColorStays/Review/CreateStateWise"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Review/Index?condition=State"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @ReviewCity">
+                        <a href="~/ColorStays/Review/CreateCityWise">City Review</a>
+                    </div>
+                    <a href="~/ColorStays/Review/CreateCityWise"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Review/Index?condition=City"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @ReviewPlace">
+                        <a href="~/ColorStays/Review/CreatePlaceWise">Place Review</a>
+                    </div>
+                    <a href="~/ColorStays/Review/CreatePlaceWise"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Review/Index?condition=Place"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+
+
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @WhyUs">
@@ -701,23 +738,23 @@
                 </div>
             </div>
             @* <div class="SideNavSubLinkDiv">
-                    <div class="SideNavSubLink ">
-                        <div class="SideNavLinkText @Enquiry">
-                            <a href="~/ColorStays/Enquiry/Create">Enquiry</a>
-                        </div>
-                        <a href="~/ColorStays/Enquiry/Create"><i class="UT-AddFile"></i></a>
-                        <a href="~/ColorStays/Enquiry/Index"><i class="UT-List-OLine"></i></a>
-                    </div>
+            <div class="SideNavSubLink ">
+                <div class="SideNavLinkText @Enquiry">
+                    <a href="~/ColorStays/Enquiry/Create">Enquiry</a>
                 </div>
-                <div class="SideNavSubLinkDiv">
-                    <div class="SideNavSubLink ">
-                        <div class="SideNavLinkText @EnqCallBack">
-                            <a href="~/ColorStays/EnqCallBack/Create">EnqCallBack</a>
-                        </div>
-                        <a href="~/ColorStays/EnqCallBack/Create"><i class="UT-AddFile"></i></a>
-                        <a href="~/ColorStays/EnqCallBack/Index"><i class="UT-List-OLine"></i></a>
-                    </div>
-                </div>*@
+                <a href="~/ColorStays/Enquiry/Create"><i class="UT-AddFile"></i></a>
+                <a href="~/ColorStays/Enquiry/Index"><i class="UT-List-OLine"></i></a>
+            </div>
+        </div>
+        <div class="SideNavSubLinkDiv">
+            <div class="SideNavSubLink ">
+                <div class="SideNavLinkText @EnqCallBack">
+                    <a href="~/ColorStays/EnqCallBack/Create">EnqCallBack</a>
+                </div>
+                <a href="~/ColorStays/EnqCallBack/Create"><i class="UT-AddFile"></i></a>
+                <a href="~/ColorStays/EnqCallBack/Index"><i class="UT-List-OLine"></i></a>
+            </div>
+        </div>*@
         </div>
     </div>
 
@@ -919,7 +956,7 @@
                         <a href="~/ColorStays/Festival/CreateStateWise">State Festival</a>
                     </div>
                     <a href="~/ColorStays/Festival/CreateStateWise"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/Festival/Index"><i class="UT-List-OLine"></i></a>
+                    <a href="~/ColorStays/Festival/Index?condition=State"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
 
@@ -929,7 +966,7 @@
                         <a href="~/ColorStays/Festival/CreateCityWise">City Festival</a>
                     </div>
                     <a href="~/ColorStays/Festival/CreateCityWise"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/Festival/Index"><i class="UT-List-OLine"></i></a>
+                    <a href="~/ColorStays/Festival/Index?condition=City"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
 
@@ -939,7 +976,7 @@
                         <a href="~/ColorStays/Festival/CreatePlaceWise">Place Festival</a>
                     </div>
                     <a href="~/ColorStays/Festival/CreatePlaceWise"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/Festival/Index"><i class="UT-List-OLine"></i></a>
+                    <a href="~/ColorStays/Festival/Index?condition=Place"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
         </div>

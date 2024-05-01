@@ -5,34 +5,15 @@
     ViewData["Action"] = "Review";
     int PageNoSelect = Convert.ToInt32(ViewData["PageNumberSelected"]);
     int PageSize = Convert.ToInt32(ViewData["PageRecordSize"]);
-    var Type = Convert.ToString(ViewData["Type"]);
+    var Type = ViewData["Type"];
     var allLabel = Model.DistinctBy(x => x.Label).ToList();
-
 }
 
 <b style="display:none" id="PaginationAt" pagenumber="@PageNoSelect" pagesize="@PageSize" netrecord="@ViewData["NetRecords"]">responseformUT SuccessPop</b>
 @foreach (var item in allLabel)
 {
-    <div>
-        @{
-            var Review = Model.Where(x => x.Label == item.Label).ToList();
-            var RwQnCount = 0;
-        }
-    </div>
-    @for (int i = 0; i < Model.Where(x => x.Label == item.Label).Count(); i++)
-    {
-        @if (i==0)
-        {
-            RwQnCount = Review.Count();
-        }
-        else
-        {
-            RwQnCount = 0;
-        }
-<tr>
-    @if (RwQnCount != 0)
-    {
-        <td rowspan="@RwQnCount">
+    <tr>
+        <td>
             @if (item.SelectStatus == true)
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
@@ -53,91 +34,81 @@
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Label, condition=Type })"> <i class="UT-EditFileLine FtWt800"></i> </a>
             }
         </td>
-
-    }
-
-
-    <td>@Review[i].Fk_ReviewQuestion_Name</td>
-    <td>
-        @if (Review[i].Rating != null)
+        @foreach (var item1 in Model.Where(x => x.Label == item.Label))
         {
-            @Review[i].Rating
+
+            <td>@item1.Fk_ReviewFor_Name</td>
+
+            <td>@item1.Fk_ReviewQuestion_Name</td>
+
+            <td>@item1.Fk_Country_Name</td>
+
+            <td>@item1.Fk_State_Name</td>
+
+            <td>@item1.Fk_City_Name</td>
+
+            <td>@item1.Fk_Place_Name</td>
+
+            <td>@item1.Fk_Hotel_Name</td>
+
+            <td>@item1.Fk_Package_Name</td>
+
+
+            <td>@item1.Rating</td>
+
+            <td>@item1.IsBool</td>
+
+            <td>@item1.Text</td>
+
         }
 
-        @if (Review[i].IsBool == true)
-        {
-            @Review[i].IsBool
-        }
+        <td>@item.IsPhotoUploaded</td>
 
-        @if (Review[i].Text != null)
-        {
-            @Review[i].Text
-        }
-    </td>
-    @if (RwQnCount != 0)
-    {
-        <td rowspan="@RwQnCount">@item.Fk_ReviewFor_Name</td>
+        <td>@item.IsRejected</td>
 
-        <td rowspan="@RwQnCount">@item.Fk_Country_Name</td>
+        <td>@item.Remarks</td>
 
-        <td rowspan="@RwQnCount">@item.Fk_State_Name</td>
+        <td>@item.FreezeStatus</td>
 
-        <td rowspan="@RwQnCount">@item.Fk_City_Name</td>
-
-        <td rowspan="@RwQnCount">@item.Fk_Place_Name</td>
-
-        <td rowspan="@RwQnCount">@item.Fk_Hotel_Name</td>
-
-        <td rowspan="@RwQnCount">@item.Fk_Package_Name</td>
-
-        <td rowspan="@RwQnCount">@item.IsPhotoUploaded</td>
-
-        <td rowspan="@RwQnCount">@item.IsRejected</td>
-
-        <td rowspan="@RwQnCount">@item.Remarks</td>
-
-        <td rowspan="@RwQnCount">@item.FreezeStatus</td>
-
-        <td rowspan="@RwQnCount">@item.FreezedBy</td>
-        <td rowspan="@RwQnCount">
+        <td>@item.FreezedBy</td>
+        <td>
             @if (item.VerifiedStatus == true)
             {<span>Verified</span>}
             else
             { <span>Pending-Verify</span>}
         </td>
 
-        <td rowspan="@RwQnCount">@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.VerifiedOn)</td>
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.VerifiedOn)</td>
 
-        <td rowspan="@RwQnCount">@item.VerifiedBy</td>
+        <td>@item.VerifiedBy</td>
 
-        <td rowspan="@RwQnCount">
+        <td>
             @if (item.ActiveStatus == true)
             {<span>Activated</span>}
             else
             { <span>Inactive</span>}
         </td>
 
-        <td rowspan="@RwQnCount">@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ActivatedOn)</td>
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ActivatedOn)</td>
 
-        <td rowspan="@RwQnCount">@item.ActivatedBy</td>
+        <td>@item.ActivatedBy</td>
 
-        <td rowspan="@RwQnCount">@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.CreatedOn)</td>
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.CreatedOn)</td>
 
-        <td rowspan="@RwQnCount">@item.CreatedBy</td>
+        <td>@item.CreatedBy</td>
 
-        <td rowspan="@RwQnCount">@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ModifiedOn)</td>
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ModifiedOn)</td>
 
-        <td rowspan="@RwQnCount">@item.ModifiedBy</td>
+        <td>@item.ModifiedBy</td>
 
-        <td rowspan="@RwQnCount">@item.ModificationFrequency</td>
+        <td>@item.ModificationFrequency</td>
 
-        <td rowspan="@RwQnCount">@item.GCompId</td>
+        <td>@item.GCompId</td>
 
-        <td rowspan="@RwQnCount">@item.CompId</td>
-    }
+        <td>@item.CompId</td>
+
+
     </tr>
-    }
-
 }
 
 

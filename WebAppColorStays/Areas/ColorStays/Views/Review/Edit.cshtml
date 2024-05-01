@@ -1,81 +1,209 @@
-@model WebAppColorStays.Models.ViewModel.CsReview
+@model WebAppColorStays.CommonMethod.CsReviewPost
 
 @{
     Layout = "_Layout";
-    ViewData["Action"] = "Review";
+    var fields = Convert.ToString(ViewData["Fields"]);
+    ViewData["Action"] = "Review" + fields;
+    var actionname = "Create" + fields + "Wise";
 }
 
 <div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
-    <div class="CrTeTtLt FxGw1"> <h1>Edit @ViewBag.Title</h1></div>
+    <div class="CrTeTtLt FxGw1"> <h1>Edit @fields @ViewBag.Title</h1></div>
     <div>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/Review/Create'"><i class="UT-AddFile FtSz18"></i></button>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/Review/Index'"><i class="UT-List-OLine FtSz18"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/Review/Index?condition=@fields'"><i class="UT-List-OLine FtSz18"></i></button>
     </div>
 
 </div>
 
 <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
     <div class="FxRw FxAnImSh">
-        <div class="Fx35 Pg3">
+        <div class="Fx45 Pg3">
+            <div id="UTabs1">
+                <div> Detail</div>
+                <div> Add Image</div>
+                <div>Set Up</div>
+            </div>
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
-                <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
-                    <i class="UT-PenNibSmall"></i>
-                    Edit Detail
-                </h3>
+                <div id="UTabs1Cont0">
+                    <div class="Pg12">
 
-                <form id="Edit"
-                      data-ajax="true"
-                      data-ajax-url="/ColorStays/Review/Edit"
-                      data-ajax-method="POST"
-                      data-ajax-loading="#loader"
-                      data-ajax-success="Success(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/Review/CreateOrEdit?id=@Model.Id')"
-                      data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')">
+                        <form id="Edit"
+                              data-ajax="true"
+                              data-ajax-url="/ColorStays/Review/Edit"
+                              data-ajax-method="POST"
+                              data-ajax-loading="#loader"
+                              data-ajax-success="Success(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/Review/CreateOrEdit?id=@Model.Label')"
+                              data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')">
 
-                    @Html.AntiForgeryToken()
+                            @Html.AntiForgeryToken()
 
-                    <h3 class="MnBm10"><span style="color:red">@ViewBag.Verified @ViewBag.Message</span></h3>
+                            <h3 class="MnBm10"><span style="color:red">@ViewBag.Verified @ViewBag.Message</span></h3>
 
-                    @Html.ValidationSummary(true)
+                            @Html.ValidationSummary(true)
 
-                    <input type="hidden" name="NameAction" value="E" />
+                            <input type="hidden" name="NameAction" value="E" />
 
-                    <div id="CreateOrEdit">
-                        @await Html.PartialAsync("_CreateOrEdit", Model)
+                            <div id="CreateOrEdit">
+                                @await Html.PartialAsync("_CreateOrEdit", Model)
+                            </div>
+
+                            <div class="MnTp7 MnBm7 FxRw">
+                                <div class="FxGw1">
+                                    <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-EditFileLine"></i>&nbsp;Edit</button>
+                                </div>
+                                <div>
+                                    <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Review/Index?condition=@fields'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
+                </div>
 
-                    <div class="MnTp7 MnBm7 FxRw">
+                <div id="UTabs1Cont1">
+                    <div class="Pg12">
+                        <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
+                            <i class="UT-ImageLine"></i>
+                            Upload Cover Image
+                        </h3>
+                        <form action="/" enctype="multipart/form-data" method="POST">
+                            <input type="hidden" name="LId" id="LId" />
+
+                            <div class="dropzone" id="myDropzone">
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple />
+                                </div>
+                            </div>
+                            <div class="MnTp7 MnBm7 FxRw">
+                                <div class="FxGw1">
+                                    <button type="button" id="submit-all" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-ImageLine"></i>&nbsp;Upload</button>
+                                </div>
+                                <div>
+                                    <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 2)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="UTabs1Cont2">
+                    <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
+                    <div class="Pg10 FxRw">
                         <div class="FxGw1">
-                            <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-EditFileLine"></i>&nbsp;Edit</button>
+                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Review/@actionname'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Review/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-ArrowLeft"></i>&nbsp;Back</button>
                         </div>
                     </div>
-                </form>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="Fx55 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
+            <div id="UTabs2">
+                <div>All</div>
+                <div>Image</div>
+            </div>
+            <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
+                <div id="UTabs2Cont0">
+                    <div id="Detail">
+                        @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsReview>)ViewData["EnteredDetails"])
+                    </div>
+                </div>
+                <div id="UTabs2Cont1">
+                    <div id="Images"></div>
+                </div>
             </div>
         </div>
-
-        <div class="Fx65 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
-            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsReview>)ViewData["EnteredDetails"])
-        </div>
-    </div>
 </div>
 
+<link href="~/lib/dropzone/min/dropzone.min.css" rel="stylesheet" />
+<script src="~/lib/dropzone/min/dropzone.min.js"></script>
 <script>
     $(document).ready(function () {
+        TabsUT('UTabs1', 0, null, []);
+        TabsUT('UTabs2', 0, null, []);
         IntializeTableSearch();
+        if ('@fields' == "Country") {
+            StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
+        }
+        if ('@fields' == "State") {
+            StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
+        }
+        if ('@fields' == "City") {
+            StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
+        }
+        if ('@fields' == "Place") {
+            StartSuggestionBox(2, 'SearchPlace', '/ColorStays/Place/SuggestPlace', '', '', AoCePlace);
+        }
+        //Show Image
+        var LId = $("#Label").val();
+        getUT('/ColorStays/ReviewPhotoVideo/Index?LId=' + LId, function (data) {
+            document.getElementById('Images').innerHTML = "";
+            document.getElementById('Images').innerHTML = data;
+        });
+        //Show the Images in LHS for Update
+        
+        getUT('/ColorStays/ReviewPhotoVideo/Index?LId=' + LId + '&UpdateDetail=Yes', function (data) {
+            document.getElementById('AddImgDetail').innerHTML = "";
+            document.getElementById('AddImgDetail').innerHTML = data;
+        });
+        //Ends
     });
 
-    function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateEditDiv", "Def", FormFieldURL);
-        //Here we get the pageno,pagesize and listcount
-        var doc = new DOMParser().parseFromString(data, "text/html");
-        var pageinfo = doc.getElementById("PaginationAt");
-        var netrecord = pageinfo.getAttribute("netrecord");
-        var pageno = pageinfo.getAttribute("pagenumber");
-        var pagesize = pageinfo.getAttribute("PageSize");
-        //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/Review/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
+    //Clear Autocompete data
+    function ClearData(UrNe, UrId) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+    }
+
+    //Autocomplete country
+    function AoCeCountry(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Country_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+
+    }
+    //Autocomplete state
+    function AoCeState(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_State_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
+    //Autocomplete City
+    function AoCeCity(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_City_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
+    //Autocomplete Item
+    function AoCePlace(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Place_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
+
+    function Success(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
+        //Show the Image Tab
+        ActiveTabUt('UTabs1', 1);
+        ActiveTabUt('UTabs2', 0);
+        document.getElementById('LId').value = document.getElementById('LlId').value;
+    }
+
+    function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "Images");
+        ShowUploads();
+        ActiveTabUt('UTabs2', 1);
     }
 
     //Table Search Success Function
@@ -97,5 +225,88 @@
         var SkipCol = [0];
         StartTableSearch('TeUT', SkipRow, SkipCol);
     }
+
+    //Upload the Images
+    Dropzone.options.myDropzone = {
+        url: '/ColorStays/Review/SaveImage',
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        parallelUploads: 5,
+        maxFiles: 10,
+        acceptedFiles: 'image/*',
+        addRemoveLinks: true,
+        error: function (file, response) {
+            if ($.type(response) === "string")
+                var message = response; //dropzone sends it's own error messages in string
+            else
+                var message = response.message;
+            file.previewElement.classList.add("dz-error");
+            _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                node = _ref[_i];
+                _results.push(node.textContent = message);
+            }
+            HideLoader();
+            return _results;
+        },
+        init: function () {
+            dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
+            // for Dropzone to process the queue (instead of default form behavior):
+            document.getElementById("submit-all").addEventListener("click", function (e) {
+                // Make sure that the form isn't actually being sent.
+                e.preventDefault();
+                e.stopPropagation();
+                dzClosure.processQueue();
+            });
+
+            //send all the form data along with the files:
+            this.on("sendingmultiple", function (data, xhr, formData) {
+                formData.append("LId", jQuery("#LId").val());
+                ShowLoader();
+            });
+
+            this.on("success", function () {
+                ShowUploads();
+            });
+        }
+    }
+    //Ends
+
+    //Show the Uploaded Image in the Tab.......................
+    function ShowUploads() {
+        var LId = $("#Label").val();
+        getUT('/ColorStays/ReviewPhotoVideo/UploadedImage?LId=' + LId + '&ShowBtn=' + true, function (data) {
+            document.getElementById('Images').innerHTML = "";
+            document.getElementById('Images').innerHTML = data;
+            ActiveTabUt('UTabs2', 1);
+            document.getElementById('SwTb3').style.display = "block";
+            HideLoader();
+        });
+        //Show the Images in LHS for Update
+        getUT('/ColorStays/ReviewPhotoVideo/Index?LId=' + LId + '&UpdateDetail=Yes', function (data) {
+            document.getElementById('AddImgDetail').innerHTML = "";
+            document.getElementById('AddImgDetail').innerHTML = data;
+        });
+    };
+    //Ends.............................
+
+    //Delete the Image
+    function DeleteImg(id, LId, imgname) {
+        ShowLoader();
+        getUT('/ColorStays/ReviewPhotoVideo/ImageDelete?ImageID=' + id + '&LId=' + LId + '&ImgName=' + imgname, function (data) {
+            document.getElementById('Images').innerHTML = "";
+            document.getElementById('Images').innerHTML = data;
+            ActiveTabUt('UTabs2', 1);
+            //Show the Images in LHS for Update
+            getUT('/ColorStays/ReviewPhotoVideo/Index?LId=' + LId + '&UpdateDetail=Yes', function (data) {
+                document.getElementById('AddImgDetail').innerHTML = "";
+                document.getElementById('AddImgDetail').innerHTML = data;
+            });
+            HideLoader();
+        });
+
+    };
+    //Ends
 </script>
 

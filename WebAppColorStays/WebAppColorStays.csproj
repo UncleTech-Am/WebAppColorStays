@@ -78,6 +78,7 @@
     <Content Remove="Areas\ColorStays\Views\Railway\_AddImage.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Railway\_CreatePhoto.cshtml" />
     <Content Remove="Areas\ColorStays\Views\ReviewFor\_CreateOrEdit.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\Review\_IndexData - Copy.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -691,6 +692,16 @@
     <None Include="Areas\ColorStays\Views\RestaurantVideo\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\RestaurantVideo\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\RestaurantVideo\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewPhotoVideo\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewPhotoVideo\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewPhotoVideo\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewPhotoVideo\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewPhotoVideo\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewPhotoVideo\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewPhotoVideo\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewPhotoVideo\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\ReviewPhotoVideo\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Review\_IndexData - Copy.cshtml" />
     <None Include="Areas\ColorStays\Views\RoomCategory\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\RoomCategory\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\RoomCategory\Index.cshtml" />
