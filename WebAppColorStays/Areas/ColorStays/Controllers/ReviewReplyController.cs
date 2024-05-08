@@ -12,70 +12,27 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
-using WebAppColorStays.CommonMethod;
-using LibCommon.APICommonMethods;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
     [Area("ColorStays")]
     [SessionCheck]
     [Authorize]
-    public class ReviewController : Controller
+    public class ReviewReplyController : Controller
     {
         private readonly Paging paging;
-        private readonly RyCSImage ryCsImage;
 
-        public ReviewController()
+        public ReviewReplyController()
         {
             paging = new Paging();
-            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "Review";
+            ViewBag.Title = "ReviewReply";
         }
         //Ends
-
-
-        [HttpPost]
-        public async Task<IActionResult> SaveImage(string LId)
-        {
-            var TokenKey = Request.Cookies["JWToken"];
-
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var files = HttpContext.Request.Form.Files;
-
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                foreach (var file in files)
-                {
-                    var fileName = "Review-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
-                    using (var response = await client.PostAsync("Review/SaveImage/?LId=" + LId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
-                    {
-                        var apiResponse = await response.Content.ReadAsStreamAsync();
-                        if (!response.IsSuccessStatusCode)
-                        {
-                            return View("Error");
-                        }
-                    }
-
-                    if (file.Length > 0)
-                    {
-                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Review");
-                        Task.WaitAll(TImgUpload);
-                        if (TImgUpload.Result == "Error")
-                        {
-                            return View("Error");
-                        }
-                    }
-                }
-            }
-            return Json(new { Message = "Saved" });
-        }
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -132,21 +89,21 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
         //Give the list of the data
-        public async Task<Tuple<int, List<CsReview>>> AllDataList(int? PgSize, int? PgSelectedNum, string condition)
+        public async Task<Tuple<int, List<CsReviewReply>>> AllDataList(int? PgSize, int? PgSelectedNum)
         {
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Tuple<int, List<CsReview>> list;
+            Tuple<int, List<CsReviewReply>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Review/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID + "/" + condition, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("ReviewReply/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsReview>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsReviewReply>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else{ list = null; }
                 }
@@ -156,34 +113,29 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET:/Review/
+        //GET:/ReviewReply/
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string condition, string Label)
+        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
         {         
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Title();
 
             //Display the Dropdown of the Table fields in Search Data Popup
-            GetClassMember<CsReview> getClassMember = new GetClassMember<CsReview>();
-            CsReview CsReview = new CsReview();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsReview), "Value", "DisplayName");
+            GetClassMember<CsReviewReply> getClassMember = new GetClassMember<CsReviewReply>();
+            CsReviewReply CsReviewReply = new CsReviewReply();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsReviewReply), "Value", "DisplayName");
             //Ends
 
             try //Pagination and List of data Code
             {
                 Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<CsReview>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2, condition);//Give the List of data
+                Task<Tuple<int, List<CsReviewReply>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                 PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
 
                 ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
-                ViewData["Action"] = "Review" + condition;
-                ViewData["Type"] = condition;
-                ViewData["LId"] = Label;
-
-                if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
 
@@ -218,15 +170,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 cIndex.PageSize = pagedata.Item1;
                 cIndex.PageSelectedNum = pagedata.Item2;
                 cIndex.CompId = CompID;
-                Tuple<int, List<CsReview>> list;
+                Tuple<int, List<CsReviewReply>> list;
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     //Get the List of data
-                    using (var response = await client.PostAsJsonAsync("Review/DateSearch/", cIndex))
+                    using (var response = await client.PostAsJsonAsync("ReviewReply/DateSearch/", cIndex))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsReview>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsReviewReply>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else{ Success = false; }
@@ -252,7 +204,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //Search the Data according to the table fileds in the Index
         [HttpPost]
-        public async Task<IActionResult> TableSearch(CsReview CsReview, IFormCollection fc)
+        public async Task<IActionResult> TableSearch(CsReviewReply CsReviewReply, IFormCollection fc)
         {
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
@@ -265,18 +217,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsReview>> list;
+            Tuple<int, List<CsReviewReply>> list;
 
             using (HttpClient client = APIColorStays.Initial())
             {
-                CsReview.CreatedBy = UserID;
-                CsReview.CompId = CompID;
+                CsReviewReply.CreatedBy = UserID;
+                CsReviewReply.CompId = CompID;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(CsReview), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Review/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
+                StringContent content = new StringContent(JsonSerializer.Serialize(CsReviewReply), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync("ReviewReply/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsReview>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsReviewReply>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -299,11 +251,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         [HttpPost]
         public async Task<IActionResult> FilterSearch(CIndexSearchFilter indexsearchfilter, IFormCollection fc)
         {
-            GetClassMember<CsReview> getClassMember = new GetClassMember<CsReview>();
-            CsReview CsReview = new CsReview();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsReview), "Value", "DisplayName");
+            GetClassMember<CsReviewReply> getClassMember = new GetClassMember<CsReviewReply>();
+            CsReviewReply CsReviewReply = new CsReviewReply();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsReviewReply), "Value", "DisplayName");
             //Creating Search Filter List with class member Property Name
-            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsReview);
+            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsReviewReply);
             foreach (var item in indexsearchfilter.IndexSearchList)
             { item.Name = fields[item.Name]; }
             //Ends
@@ -319,7 +271,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsReview>> list;
+            Tuple<int, List<CsReviewReply>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                indexsearchfilter.CurrentUserId = UserID;
@@ -328,10 +280,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 indexsearchfilter.PageSize = pagedata.Item1;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(indexsearchfilter), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Review/FilterSearch", content))
+                using (var response = await client.PostAsync("ReviewReply/FilterSearch", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsReview>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsReviewReply>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -351,29 +303,28 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET: /Review/Details/5
+        //GET: /ReviewReply/Details/5
         [HttpGet]
-        public async Task<IActionResult> Details(string id, string condition)
+        public async Task<IActionResult> Details(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            CsReview CsReview = new CsReview();
+            CsReviewReply CsReviewReply = new CsReviewReply();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Review/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("ReviewReply/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        CsReview = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReview>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        ViewData["Type"] = condition;
-                        return View("_DetailOrDelete",CsReview);
+                        CsReviewReply = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReviewReply>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        return View("_DetailOrDelete",CsReviewReply);
                     }
                     else
                     {
-                        Tuple<CsReview, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsReview, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Tuple<CsReviewReply, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsReviewReply, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (data.Item2 != null && data.Item2.Message == "GlobalItem")
                         {
                             ViewBag.Message = "Sytem Entry, Can't be Changed !";
@@ -387,7 +338,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-        //GET: /Review/CreateOrEdit
+        //GET: /ReviewReply/CreateOrEdit
         [HttpGet]
         [ResponseCache(Duration = 0)]
         public async Task<IActionResult> CreateOrEdit(string Id)
@@ -399,14 +350,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Id != null)
             {
                 bool Success = false;
-                var data = new CsReview();
+                var data = new CsReviewReply();
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("Review/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync("ReviewReply/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReview>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReviewReply>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else { Success = false; }
@@ -425,155 +376,32 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
         }
         
+        //GET: /ReviewReply/Create
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+
+            Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
+            Task<Tuple<int, List<CsReviewReply>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+            PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
+            ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
+            return View();
+        } 
         
 
-        //GET: /Festival/Create
-        [HttpGet]
-        public async Task<IActionResult> CreateCountryWise()
-        {
-            Title();
-            ViewData["AnName"] = "Create";
-            ViewData["Fields"] = "Country";
-
-            var TokenKey = Request.Cookies["JWToken"];
-            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            ViewData["ActionName"] = "Index";
-            ViewData["FormID"] = "NoSearchID";
-            ViewData["SearchType"] = "NoSearch";
-            CsReviewPost csReviewPost = new CsReviewPost();
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Review/Create/"+ CompId+"/"+"Country", HttpCompletionOption.ResponseHeadersRead))
-                {
-                    var apiResponse = await response.Content.ReadAsStreamAsync();
-                    Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsReview>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2, "Country");//Give the List of data
-                    PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        csReviewPost = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReviewPost>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                    }
-                }
-            }
-            ViewData["Type"] = "Country";
-            csReviewPost.Condition = "Country";
-            ViewData["Action"] = "ReviewCountry";
-            return View("Create", csReviewPost);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> CreateStateWise()
-        {
-            Title();
-            ViewData["AnName"] = "Create";
-            ViewData["Fields"] = "State";
-
-            var TokenKey = Request.Cookies["JWToken"];
-            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            ViewData["ActionName"] = "Index";
-            ViewData["FormID"] = "NoSearchID";
-            ViewData["SearchType"] = "NoSearch";
-            CsReviewPost csReviewPost = new CsReviewPost();
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Review/Create/" + CompId + "/" + "State", HttpCompletionOption.ResponseHeadersRead))
-                {
-                    var apiResponse = await response.Content.ReadAsStreamAsync();
-                    Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsReview>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2, "State");//Give the List of data
-                    PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        csReviewPost = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReviewPost>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                    }
-                }
-            }
-            ViewData["Type"] = "State";
-            csReviewPost.Condition = "State";
-            ViewData["Action"] = "ReviewState";
-            return View("Create", csReviewPost);
-        }
-        [HttpGet]
-        public async Task<IActionResult> CreateCityWise()
-        {
-            Title();
-            ViewData["AnName"] = "Create";
-            ViewData["Fields"] = "City";
-
-            var TokenKey = Request.Cookies["JWToken"];
-            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            ViewData["ActionName"] = "Index";
-            ViewData["FormID"] = "NoSearchID";
-            ViewData["SearchType"] = "NoSearch";
-            CsReviewPost csReviewPost = new CsReviewPost();
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Review/Create/" + CompId + "/" + "City", HttpCompletionOption.ResponseHeadersRead))
-                {
-                    var apiResponse = await response.Content.ReadAsStreamAsync();
-                    Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsReview>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2, "City");//Give the List of data
-                    PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        csReviewPost = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReviewPost>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                    }
-                }
-            }
-            ViewData["Type"] = "City";
-            csReviewPost.Condition = "City";
-            ViewData["Action"] = "ReviewCity";
-            return View("Create", csReviewPost);
-        }
-        [HttpGet]
-        public async Task<IActionResult> CreatePlaceWise()
-        {
-            Title();
-            ViewData["AnName"] = "Create";
-            ViewData["Fields"] = "Place";
-
-            var TokenKey = Request.Cookies["JWToken"];
-            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            ViewData["ActionName"] = "Index";
-            ViewData["FormID"] = "NoSearchID";
-            ViewData["SearchType"] = "NoSearch";
-            CsReviewPost csReviewPost = new CsReviewPost();
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Review/Create/" + CompId + "/" + "Place", HttpCompletionOption.ResponseHeadersRead))
-                {
-                    var apiResponse = await response.Content.ReadAsStreamAsync();
-                    Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsReview>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2, "Place");//Give the List of data
-                    PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        csReviewPost = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReviewPost>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                    }
-                }
-            }
-            ViewData["Type"] = "CountPlacery";
-            csReviewPost.Condition = "Place";
-            ViewData["Action"] = "ReviewPlace";
-            return View("Create", csReviewPost);
-        }
-
-        //POST: /Review/Create
+        //POST: /ReviewReply/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create(CsReviewPost csReviewPost)
+		public async Task<IActionResult> Create(CsReviewReply CsReviewReply)
         {       
             Title();
             ViewData["AnName"] = "Create";
@@ -581,23 +409,24 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            csReviewPost.CompId = CompID;
-            csReviewPost.CreatedBy = UserID;
-            csReviewPost.ModifiedBy = UserID;
+            CsReviewReply.CompId = CompID;
+            CsReviewReply.CreatedBy = UserID;
+            CsReviewReply.ModifiedBy = UserID;
+            CsReviewReply.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
-            CsReview data = new CsReview();
+            CsReviewReply data = new CsReviewReply();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
 				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    StringContent content = new StringContent(JsonSerializer.Serialize(csReviewPost), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("Review/create", content))
+                    StringContent content = new StringContent(JsonSerializer.Serialize(CsReviewReply), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("ReviewReply/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
                         {
-                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReview>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReviewReply>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             Success = true;
                         }
                         else
@@ -612,24 +441,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
                 if (Success == true)
-                {
-                    
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", condition = csReviewPost.Condition, Label = data.Label }); 
-                }
-                else { return View("_CreateOrEdit", csReviewPost); }
+                { return RedirectToAction("Index", new { PageCall = "Show" }); }
+                else { return View("_CreateOrEdit", CsReviewReply); }
             }
-            return View("_CreateorEdit", csReviewPost);                
+            return View("_CreateorEdit",CsReviewReply);                
          }
 
 
-        //GET: /Review/Edit/5
+        //GET: /ReviewReply/Edit/5
         [HttpGet]
-        public async Task<ActionResult> Edit(string id, string condition)
+        public async Task<ActionResult> Edit(string id)
         {
             Title();
             ViewData["AnName"] = "Edit";
             ViewData["Id"] = id;
-            
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -644,20 +469,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
-            CsReviewPost CsReview = new CsReviewPost();
+            CsReviewReply CsReviewReply = new CsReviewReply();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Review/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("ReviewReply/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsReview>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2, condition);//Give the List of data
+                    Task<Tuple<int, List<CsReviewReply>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                     PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
                     ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;                   
                     if (response.IsSuccessStatusCode)
                     {
-                        CsReview = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReviewPost>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsReviewReply = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReviewReply>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else
                     {
@@ -669,19 +494,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
             }
-            ViewData["Type"] = condition;
-            ViewData["Fields"] = condition;
-            ViewData["Action"] = "Review"+condition;
-            CsReview.Condition = condition;
-
-            return View(CsReview);
+            return View(CsReviewReply);
         }
 
                 
-        //POST: /Review/Edit/5
+        //POST: /ReviewReply/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CsReviewPost CsReview)
+        public async Task<IActionResult> Edit(CsReviewReply CsReviewReply)
         {
             Title();
             ViewData["AnName"] = "Edit";
@@ -690,8 +510,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
-            CsReview.CompId = CompID;
-            CsReview.ModifiedBy = UserID;
+            CsReviewReply.CompId = CompID;
+            CsReviewReply.ModifiedBy = UserID;   
             if (ModelState.IsValid)
             {
                 try
@@ -699,12 +519,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     using (HttpClient client = APIColorStays.Initial())
                     {
 						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsReviewPost>("Review/edit", CsReview))
+                        using (var response = await client.PostAsJsonAsync<CsReviewReply>("ReviewReply/edit", CsReviewReply))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)
                             {
-                                Tuple<CsReviewPost, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsReviewPost,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Tuple<CsReviewReply, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsReviewReply,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                                 if (data.Item2 != null)
                                 {
                                     if (data.Item2.Message == "Duplicate")
@@ -724,7 +544,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", condition = CsReview.Condition, Label = CsReview.Label });
+                    return RedirectToAction("Index", new { PageCall = "Show" });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -732,13 +552,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     return View("_CreateorEdit");
                 }
             }
-            return View("_CreateorEdit",CsReview);
+            return View("_CreateorEdit",CsReviewReply);
         }
         
        
-        //POST: /Review/Delete/5
+        //POST: /ReviewReply/Delete/5
         [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(string id , string condition)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
@@ -746,12 +566,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Review/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("ReviewReply/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index", new { PageCall = "Show", condition = condition });
+                        return RedirectToAction("Index", new { PageCall="Show"});
                     }
                     else
                     {
@@ -777,12 +597,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             model.CompId = CompID;
             if (model.ActionName == "Verify" || model.ActionName == "UnVerify") { model.VerifiedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
             if (model.ActionName == "Activate" || model.ActionName == "Inactivate") { model.ActivatedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
-			CsReview CsReview = new CsReview();
+			CsReviewReply CsReviewReply = new CsReviewReply();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
 				StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Review/verifydata/" , content))
+                using (var response = await client.PostAsync("ReviewReply/verifydata/" , content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
@@ -810,7 +630,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             starUnstar.Id = Id;
             starUnstar.Host = Request.Scheme + "://" + Request.Host;
             starUnstar.AreaName = "ColorStays";
-            starUnstar.ControllerName = "Review";
+            starUnstar.ControllerName = "ReviewReply";
             starUnstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
@@ -852,7 +672,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationReview(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationReviewReply(string Name, string NameAction, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
@@ -861,7 +681,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Review/CheckDuplicationReview/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("ReviewReply/CheckDuplicationReviewReply/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {

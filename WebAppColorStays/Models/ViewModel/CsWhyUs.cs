@@ -37,15 +37,15 @@ namespace WebAppColorStays.Models.ViewModel
         [DisplayName("Activity Type")]
         public string? Fk_ActivityType_Name { get; set; }
    
-        [DisplayName("In Country")]
-        public bool? IsInCountry { get; set; }
-        [DisplayName("In State")]
-        public bool? IsInState { get; set; }
+        [DisplayName("InCountry")]
+        public bool IsInCountry { get; set; }
+        [DisplayName("InState")]
+        public bool IsInState { get; set; }
 
-        [DisplayName("In City")]
-        public bool? IsInCity { get; set; }
+        [DisplayName("InCity")]
+        public bool IsInCity { get; set; }
   
-        public bool? FreezeStatus { get; set; }
+        public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }

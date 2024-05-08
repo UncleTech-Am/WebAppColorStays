@@ -1266,7 +1266,7 @@ function RefreshPagination(URL) {
 //Show the PopUp of Surity to Delete Data
 function Delete(DeleteURL, ListShowURL) {
     document.getElementById("PopUpTop").style.display = "block";//Show the PopUp
-    document.getElementById("DeleteUrl").innerHTML = DeleteURL;//Store the URL of the DeleteComfirmed Action with Id
+    document.getElementById("DeleteUrl").value = DeleteURL;//Store the URL of the DeleteComfirmed Action with Id
     document.getElementById("ListUrl").innerHTML = ListShowURL;//Store the URL of the List Action
 }
 //Ends
@@ -1348,7 +1348,7 @@ function VerifyData(VUrl, listurl) {
 //Go to the DeleteConfirmed Action to delete the data
 function DeleteConfirmed() {
     document.getElementById("loader").style.display = "flex";//Show the Loader
-    var deleteurl = document.getElementById("DeleteUrl").innerHTML;//Pick the Stored URL of the DeleteComfirmed Action with Id
+    var deleteurl = document.getElementById("DeleteUrl").value;//Pick the Stored URL of the DeleteComfirmed Action with Id
     var listurl = document.getElementById("ListUrl").innerHTML;//Pick the Stored URL of the Index Action
     //Post Method Start
     var xhrget = new XMLHttpRequest();

@@ -81,19 +81,31 @@
         <div class="VnRd"><span asp-validation-for="Fk_Country_Name"></span></div>
     </div>
 }
-@for (int i = 0; i < Model.QuestionList.OrderBy(x => x.Type).Count(); i++)
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)</div>
+            <input class="TtBxTt14" placeholder="@Html.DisplayNameFor(model => model.Name)" type="text" asp-for="Name" autocomplete="off" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Name"></span></div>
+</div>
+
+@for (int i = 0; i < Model.QuestionList.OrderBy(x => x.SrNo).Count(); i++)
 {
+    <input type="hidden" asp-for="@Model.QuestionList[i].IsText" />
+    <input type="hidden" asp-for="@Model.QuestionList[i].IsRating" />
+    <input type="hidden" asp-for="@Model.QuestionList[i].IsBool" />
 
     @if (Model.QuestionList[i].IsRating == true)
     {
-
         <div class="FxRw">
             <div class="Fx50 Pg2 MnTp7 MnBm7">
                 <div class="TtBxFlStDiv">
                     <div class="TtBxFlSt">
                         <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rating)</div>
-                        <select asp-for="@Model.QuestionList[i].Rating" class="TtBxTt15" required>
-                            <option value="">Select Rating</option>
+                        <select asp-for="@Model.QuestionList[i].Rating" class="TtBxTt15">
+                            <option value="0">Select Rating</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -176,13 +188,3 @@
 
     }
 }
-
-@*<div class="MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" name="IsRejected" checked>
-                &nbsp;Is Rejected
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsRejected"></span></div>
-    </div>*@

@@ -10,6 +10,8 @@
 <div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
     <div class="CrTeTtLt FxGw1"> <h1>Edit @fields @ViewBag.Title</h1></div>
     <div>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/Review/@actionname'"><i class="UT-AddFile FtSz18"></i></button>
+
         <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/Review/Index?condition=@fields'"><i class="UT-List-OLine FtSz18"></i></button>
     </div>
 
@@ -117,11 +119,11 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 
-<link href="~/lib/dropzone/min/dropzone.min.css" rel="stylesheet" />
-<script src="~/lib/dropzone/min/dropzone.min.js"></script>
-<script>
+    <link href="~/lib/dropzone/min/dropzone.min.css" rel="stylesheet" />
+    <script src="~/lib/dropzone/min/dropzone.min.js"></script>
+    <script>
     $(document).ready(function () {
         TabsUT('UTabs1', 0, null, []);
         TabsUT('UTabs2', 0, null, []);
@@ -145,7 +147,7 @@
             document.getElementById('Images').innerHTML = data;
         });
         //Show the Images in LHS for Update
-        
+
         getUT('/ColorStays/ReviewPhotoVideo/Index?LId=' + LId + '&UpdateDetail=Yes', function (data) {
             document.getElementById('AddImgDetail').innerHTML = "";
             document.getElementById('AddImgDetail').innerHTML = data;
@@ -308,5 +310,56 @@
 
     };
     //Ends
-</script>
+    </script>
 
+<script>
+    function ShowDPopUp(ActionTak, Message, DeleteUrl, ListShowURL) {
+        document.getElementById("PopUpDelete").style.display = "block";//Show the PopUp
+        document.getElementById('DeleteButtonAction').setAttribute("onclick", ActionTak + "('" + DeleteUrl + "','" + ListShowURL + "')");
+        document.getElementById('DeleteMessage').innerHTML = Message;
+    }
+
+    function HideDPopUp(Id) {
+        if (Id != null) {
+            CloseForm(Id);
+        }
+        document.getElementById("PopUpDelete").style.display = "none";//Show the PopUp
+
+    }
+
+    function DeleteReview(deleteurl, listurl) {
+        document.getElementById("loader").style.display = "flex";//Show the Loader
+        HideDPopUp();
+
+        //Post Method Start
+        var xhrget = new XMLHttpRequest();
+        xhrget.open('POST', deleteurl, true);
+        xhrget.onload = function () {
+            if (xhrget.responseText.includes("SuccessPop")) {
+                HideDPopUp();//Hide the TopPopUp
+                HidePopUp();//Hide the Main PopUp
+                document.getElementById("loader").style.display = "none";//Hide the Loader
+                //PopUpAutoSucess();
+                //Refresh the Pagination Div
+                var PgNo = document.getElementById("PgNum").innerHTML;
+                var PgSize = document.getElementById("TablePageSizeID").value;
+                var SearchForm = document.getElementById("SearchFormID").innerHTML;
+                var SearchType = document.getElementById("SearchType").innerHTML;
+
+                var URLIndex = listurl + '&PageCall=Show';
+                getUT(URLIndex, Done);
+                function Done(data) {
+                    FormAjaxSuccess(data, '', '', "UpdateDivNoFReset", "Def");
+
+                }
+            }
+            if (xhrget.responseText.includes("Error")) {
+                HidePopUpTop();//Hide the TopPopUp
+                HideDPopUp();//Hide the Main PopUp
+                PopUpUpdate(xhrget.responseText);
+            }
+        };
+        xhrget.send(null);
+        //Ends
+    }
+</script>

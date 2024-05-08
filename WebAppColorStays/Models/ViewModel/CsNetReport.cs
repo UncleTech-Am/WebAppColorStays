@@ -1,33 +1,44 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsReviewQuestion
+    public class CsNetReport
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
 
-        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
-        [Remote("CheckDuplicationReviewQuestion", "ReviewQuestion", AdditionalFields = ("NameAction, Fk_ReviewFor_Name, Id"))]
-        public string Name { get; set; }
-
-        [Required(ErrorMessage = "Please enter Name.")]
         [DisplayName("ReviewFor")]
-        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Fk_ReviewFor_Name { get; set; }
-        [NotMapped]
-        public string? ReviewFor { get; set; }
-        public bool IsRating { get; set; }
-        public bool IsBool { get; set; }
-        public bool IsText { get; set; }
-        public int? SrNo { get; set; }
-        public bool FreezeStatus { get; set; }
+
+        [DisplayName("ReviewQuestion")]
+        public string? Fk_ReviewQuestion_Name { get; set; }
+
+        [DisplayName("Package")]
+        public string? Fk_Package_Name { get; set; }
+
+        [DisplayName("Hotel")]
+        public string? Fk_Hotel_Name { get; set; }
+
+        [DisplayName("Place")]
+        public string? Fk_Place_Name { get; set; }
+
+        [DisplayName("City")]
+        public string? Fk_City_Name { get; set; }
+
+        [DisplayName("State")]
+        public string? Fk_State_Name { get; set; }
+
+        [DisplayName("Country")]
+        public string? Fk_Country_Name { get; set; }
+        public int? ReviewCount { get; set; }
+        public double? TotalRating { get; set; }
+        public double? ScoredRating { get; set; }
+        public double? TotalBool { get; set; }
+        public double? TotalTrueBool { get; set; }
+        public bool? FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
-        [StringLength(450)]
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
         public bool? SelectStatus { get; set; }

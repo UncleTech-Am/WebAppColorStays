@@ -1,8 +1,8 @@
 @model WebAppColorStays.Models.ViewModel.CsReviewQuestion
 
 
-@{ 
-    Layout = null; 
+@{
+    Layout = null;
     ViewData["Action"] = "ReviewQuestion";
 }
 
@@ -17,68 +17,97 @@
 @Html.HiddenFor(model => model.CompId)
 
 
-<div class="MnTp7 MnBm7">
+@if (Model != null)
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_ReviewFor_Name)<span style="color:red;"> *</span></div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ReviewFor)" asp-for="ReviewFor" autocomplete="off" required readonly/>
+                <input type="hidden" asp-for="Fk_ReviewFor_Name"/>
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Fk_ReviewFor_Name"></span></div>
+    </div>
+}
+else
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_ReviewFor_Name)<span style="color:red;"> *</span></div>
+                <select asp-for="Fk_ReviewFor_Name" asp-items="@await ViewBag.ReviewFor" class="TtBxTt15" required>
+                    <option value="">Select ReviewFor</option>
+                </select>
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Fk_ReviewFor_Name"></span></div>
+    </div>
+}
+
+
+
+
+<div class="MnTp7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_ReviewFor_Name)<span style="color:red;"> *</span></div>
-            <select asp-for="Fk_ReviewFor_Name" asp-items="@await ViewBag.ReviewFor" class="TtBxTt15" required>
-                <option value="">Select ReviewFor</option>
-            </select>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SrNo)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.SrNo)" asp-for="SrNo" autocomplete="off" required />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Fk_ReviewFor_Name"></span></div>
+    <div class="VnRd"><span asp-validation-for="SrNo"></span></div>
 </div>
 
 <div class="MnTp7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
 </div>
 
-<div class="FxRw"> 
+<div class="FxRw">
 
     <div class="Pg2 MnTp7 MnBm7 Fx33">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <input class="SeIt1o15" type="checkbox" asp-for="IsRating">
-            &nbsp;Is Rating
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsRating">
+                &nbsp;Is Rating
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="IsRating"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="IsRating"></span></div>
-</div>
 
     <div class="Pg2 MnTp7 MnBm7 Fx33">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <input class="SeIt1o15" type="checkbox" asp-for="IsBool">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsBool">
 
-            &nbsp;Is Bool
+                &nbsp;Is Bool
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="IsBool"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="IsBool"></span></div>
-</div>
 
     <div class="Pg2 MnTp7 MnBm7 Fx33">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <input class="SeIt1o15" type="checkbox" asp-for="IsText">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsText">
 
-            &nbsp;Is Text
+                &nbsp;Is Text
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="IsText"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="IsText"></span></div>
-</div>
 
 </div>
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Remarks"></span></div>

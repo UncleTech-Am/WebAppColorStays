@@ -1,8 +1,8 @@
-@model IEnumerable<WebAppColorStays.Models.ViewModel.CsReviewQuestion>
+@model IEnumerable<WebAppColorStays.Models.ViewModel.CsReviewReply>
 
 @{
     Layout = null;
-    ViewData["Action"] = "ReviewQuestion";
+    ViewData["Action"] = "ReviewReply";
     int PageNoSelect = Convert.ToInt32(ViewData["PageNumberSelected"]);
     int PageSize = Convert.ToInt32(ViewData["PageRecordSize"]);
 }
@@ -18,32 +18,25 @@
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
                     <input type="checkbox" ClipStatus ="Selected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
-                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.Name','/ColorStays/ReviewQuestion')"><i class="UT-StarSolid"> </i> </a>
+                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.Name','/ColorStays/ReviewReply')"><i class="UT-StarSolid"> </i> </a>
             }
             else
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
                     <input type="checkbox" ClipStatus ="UnSelected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
-                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Name','/ColorStays/ReviewQuestion')"><i class="UT-UnstarSolid"></i></a>
+                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Name','/ColorStays/ReviewReply')"><i class="UT-UnstarSolid"></i></a>
             }
-            <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('/ColorStays/ReviewQuestion/Details?Id=@item.Id')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i> </a>
+            <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('/ColorStays/ReviewReply/Details?Id=@item.Id')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i> </a>
             @if (item.VerifiedStatus == false && item.ActiveStatus == false && item.GlobalStatus == false)
             {
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Id })"> <i class="UT-EditFileLine FtWt800"></i> </a>
             }
         </td>
-        <td>@item.Fk_ReviewFor_Name</td>
-
-        <td>@item.SrNo</td>
-
+         
 	    <td>@item.Name</td>
          
-	    <td>@item.IsRating</td>
-         
-	    <td>@item.IsBool</td>
-         
-	    <td>@item.IsText</td>
+	    <td>@item.Fk_Review_Id</td>
          
 	    <td>@item.Remarks</td>
          
@@ -76,7 +69,6 @@
          
 	    <td>@item.CompId</td>
          
-	 
             </tr>
 }
 

@@ -75,7 +75,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name) <span style="color:red;"> *</span></div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" />
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
@@ -86,7 +86,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ReviewTagLine) <span style="color:red;"> *</span></div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ReviewTagLine)" asp-for="ReviewTagLine" autocomplete="off" />
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ReviewTagLine)" asp-for="ReviewTagLine" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="ReviewTagLine"></span></div>
@@ -98,8 +98,8 @@
     <div class="MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt Pg15">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Image) <span style="color:red;"> *</span></div>
-                    <img src="@Model.Image" class="Wh100p BrRs20" style="height:150px;object-fit:cover" />
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Image)</div>
+                    <img src="@Model.Image" class="Wh50p BrRs20" style="height:150px;object-fit:cover" />
                 <input asp-for="ImageName" type="hidden" />
             </div>
         </div>
@@ -122,7 +122,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.YoutubeUrl)<span style="color:red;"> *</span></div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.YoutubeUrl)" asp-for="YoutubeUrl" autocomplete="off" />
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.YoutubeUrl)" asp-for="YoutubeUrl" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="YoutubeUrl"></span></div>
@@ -133,46 +133,42 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.InstaId)<span style="color:red;"> *</span></div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.InstaId)" asp-for="InstaId" autocomplete="off" />
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.InstaId)" asp-for="InstaId" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="InstaId"></span></div>
 </div>
 
 
-<div class="DyFx Gp2"> 
+<div class="FxRw"> 
 
-<div class="MnTp7 MnBm7">
+<div class="Fx33 Pg2 MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsInCountry)</div>
-                <input class="SeIt1o15" type="checkbox" data-val="true" data-val-required="The IsRating field is required." id="IsRating" name="IsRating" value="true">
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsInCountry)" asp-for="IsInCountry" autocomplete="off" />
+            @Html.CheckBoxFor(x => x.IsInCountry, htmlAttributes: new { id = "IsInCountry", @Class = "TtBxTt15" })
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="IsInCountry"></span></div>
 </div>
 
 
-<div class="MnTp7 MnBm7">
+<div class="Fx33 Pg2 MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsInState)</div>
-                <input class="SeIt1o15" type="checkbox" data-val="true" data-val-required="The IsRating field is required." id="IsRating" name="IsRating" value="true">
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsInState)" asp-for="IsInState" autocomplete="off" />
+            @Html.CheckBoxFor(x => x.IsInState, htmlAttributes: new { id = "IsInState", @Class = "TtBxTt15" })
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="IsInState"></span></div>
 </div>
 
 
-<div class="MnTp7 MnBm7">
+<div class="Fx33 Pg2 MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsInCity)</div>
-                <input class="SeIt1o15" type="checkbox" data-val="true" data-val-required="The IsRating field is required." id="IsRating" name="IsRating" value="true">
-
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsInCity)" asp-for="IsInCity" autocomplete="off" />
+            @Html.CheckBoxFor(x => x.IsInCity, htmlAttributes: new { id = "IsInCity", @Class = "TtBxTt15" })
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="IsInCity"></span></div>

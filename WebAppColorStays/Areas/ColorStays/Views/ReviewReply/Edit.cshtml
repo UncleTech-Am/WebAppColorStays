@@ -1,22 +1,22 @@
-@model WebAppColorStays.Models.ViewModel.CsWhyUs
+@model WebAppColorStays.Models.ViewModel.CsReviewReply
 
 @{
     Layout = "_Layout";
-    ViewData["Action"] = "WhyUs";
+    ViewData["Action"] = "ReviewReply";
 }
 
 <div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
     <div class="CrTeTtLt FxGw1"> <h1>Edit @ViewBag.Title</h1></div>
     <div>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/WhyUs/Create'"><i class="UT-AddFile FtSz18"></i></button>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/WhyUs/Index'"><i class="UT-List-OLine FtSz18"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/ReviewReply/Create'"><i class="UT-AddFile FtSz18"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/ReviewReply/Index'"><i class="UT-List-OLine FtSz18"></i></button>
     </div>
 
 </div>
 
 <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
     <div class="FxRw FxAnImSh">
-        <div class="Fx45 Pg3">
+        <div class="Fx35 Pg3">
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
                 <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
                     <i class="UT-PenNibSmall"></i>
@@ -25,11 +25,10 @@
 
                 <form id="Edit"
                       data-ajax="true"
-                      data-ajax-url="/ColorStays/WhyUs/Edit"
+                      data-ajax-url="/ColorStays/ReviewReply/Edit"
                       data-ajax-method="POST"
                       data-ajax-loading="#loader"
-                      enctype="multipart/form-data"
-                      data-ajax-success="Success(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/WhyUs/CreateOrEdit?id=@Model.Id')"
+                      data-ajax-success="Success(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/ReviewReply/CreateOrEdit?id=@Model.Id')"
                       data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')">
 
                     @Html.AntiForgeryToken()
@@ -49,15 +48,15 @@
                             <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-EditFileLine"></i>&nbsp;Edit</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/WhyUs/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/ReviewReply/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div class="Fx55 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
-            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsWhyUs>)ViewData["EnteredDetails"])
+        <div class="Fx65 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
+            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsReviewReply>)ViewData["EnteredDetails"])
         </div>
     </div>
 </div>
@@ -76,7 +75,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/WhyUs/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/ReviewReply/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
     }
 
     //Table Search Success Function
@@ -90,7 +89,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/WhyUs/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/ReviewReply/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
     }
 
     function IntializeTableSearch() {

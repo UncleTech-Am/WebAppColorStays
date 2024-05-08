@@ -13,11 +13,14 @@ namespace WebAppColorStays.CommonMethod
         [Key]
         [StringLength(450)]
         public string? QuestionId { get; set; }
+        [DisplayName("ReviewerName")]
+        public string? Name { get; set; }
         public string? Label { get; set; }
         public string? QuestionName { get; set; }
         public string? Fk_ReviewFor_Name { get; set; }
         public string? ReviewFor { get; set; }
         public bool? IsRating { get; set; }
+        public int? SrNo { get; set; }
         public bool? IsBool { get; set; }
         public bool? IsText { get; set; }
         public string? Type { get; set; }
@@ -27,10 +30,13 @@ namespace WebAppColorStays.CommonMethod
         public string? Fk_ReviewQuestion_Name { get; set; }
         public string? Fk_Package_Name { get; set; }
         public string? Fk_Hotel_Name { get; set; }
+        [DisplayName("Place")]
         public string? Fk_Place_Name { get; set; }
         public string? Place { get; set; }
+        [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
         public string? City { get; set; }
+        [DisplayName("State")]
         public string? Fk_State_Name { get; set; }
         public string? State { get; set; }
         [DisplayName("Country")]

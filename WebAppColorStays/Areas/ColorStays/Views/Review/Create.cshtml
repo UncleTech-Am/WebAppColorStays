@@ -290,4 +290,54 @@
     };
     //Ends
 </script>
+<script>
+    function ShowDPopUp(ActionTak, Message, DeleteUrl, ListShowURL) {
+        document.getElementById("PopUpDelete").style.display = "block";//Show the PopUp
+        document.getElementById('DeleteButtonAction').setAttribute("onclick", ActionTak + "('" + DeleteUrl + "','" + ListShowURL + "')");
+        document.getElementById('DeleteMessage').innerHTML = Message;
+    }
 
+    function HideDPopUp(Id) {
+        if (Id != null) {
+            CloseForm(Id);
+        }
+        document.getElementById("PopUpDelete").style.display = "none";//Show the PopUp
+
+    }
+
+    function DeleteReview(deleteurl, listurl) {
+        document.getElementById("loader").style.display = "flex";//Show the Loader
+        HideDPopUp();
+
+        //Post Method Start
+        var xhrget = new XMLHttpRequest();
+        xhrget.open('POST', deleteurl, true);
+        xhrget.onload = function () {
+            if (xhrget.responseText.includes("SuccessPop")) {
+                HideDPopUp();//Hide the TopPopUp
+                HidePopUp();//Hide the Main PopUp
+                document.getElementById("loader").style.display = "none";//Hide the Loader
+                //PopUpAutoSucess();
+                //Refresh the Pagination Div
+                var PgNo = document.getElementById("PgNum").innerHTML;
+                var PgSize = document.getElementById("TablePageSizeID").value;
+                var SearchForm = document.getElementById("SearchFormID").innerHTML;
+                var SearchType = document.getElementById("SearchType").innerHTML;
+
+                var URLIndex = listurl + '&PageCall=Show';
+                getUT(URLIndex, Done);
+                function Done(data) {
+                    FormAjaxSuccess(data, '', '', "UpdateDivNoFReset", "Def");
+
+                }
+            }
+            if (xhrget.responseText.includes("Error")) {
+                HidePopUpTop();//Hide the TopPopUp
+                HideDPopUp();//Hide the Main PopUp
+                PopUpUpdate(xhrget.responseText);
+            }
+        };
+        xhrget.send(null);
+        //Ends
+    }
+</script>

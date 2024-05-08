@@ -1,33 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsReviewQuestion
+    public class CsReviewReply
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-
-        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
-        [Remote("CheckDuplicationReviewQuestion", "ReviewQuestion", AdditionalFields = ("NameAction, Fk_ReviewFor_Name, Id"))]
-        public string Name { get; set; }
-
-        [Required(ErrorMessage = "Please enter Name.")]
-        [DisplayName("ReviewFor")]
-        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
-        public string? Fk_ReviewFor_Name { get; set; }
-        [NotMapped]
-        public string? ReviewFor { get; set; }
-        public bool IsRating { get; set; }
-        public bool IsBool { get; set; }
-        public bool IsText { get; set; }
-        public int? SrNo { get; set; }
+        public string? Name { get; set; }
+        [DisplayName("Review")]
+        public string? Fk_Review_Id { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
-        [StringLength(450)]
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
         public bool? SelectStatus { get; set; }
