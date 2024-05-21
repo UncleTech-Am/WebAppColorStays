@@ -573,7 +573,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             {
                                 CsCountryOverView.AirportImage = fileName;
                                 //Delete the Images from the folder
-                                Task<string> TDeleteImage = ryCsImage.DeleteImage(imageAirport, TokenKey, "CountryOverView");
+                                Task<string> TDeleteImage = ryCsImage.DeleteImage(CsCountryOverView.ActivityImageName, TokenKey, "CountryOverView");
                                 Task.WaitAll(TDeleteImage);
 
                             }
@@ -581,7 +581,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             {
                                 CsCountryOverView.TerrainImage = fileName;
                                 //Delete the Images from the folder
-                                Task<string> TDeleteImage = ryCsImage.DeleteImage(imageTerrain, TokenKey, "CountryOverView");
+                                Task<string> TDeleteImage = ryCsImage.DeleteImage(CsCountryOverView.TerrainImageName, TokenKey, "CountryOverView");
                                 Task.WaitAll(TDeleteImage);
                             }
 
@@ -589,7 +589,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             {
                                 CsCountryOverView.ActivityImage = fileName;
                                 //Delete the Images from the folder
-                                Task<string> TDeleteImage = ryCsImage.DeleteImage(imageActivity, TokenKey, "CountryOverView");
+                                Task<string> TDeleteImage = ryCsImage.DeleteImage(CsCountryOverView.ActivityImageName, TokenKey, "CountryOverView");
                                 Task.WaitAll(TDeleteImage);
                             }
                             if (file.Length > 0)

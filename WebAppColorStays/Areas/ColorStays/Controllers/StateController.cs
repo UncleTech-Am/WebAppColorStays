@@ -492,11 +492,30 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsState.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
             CsState data = new CsState();
+            var files = HttpContext.Request.Form.Files;
+
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    foreach (var file in files)
+                    {
+                        var fileName = "State-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+
+                        CsState.Image = fileName;
+
+                        if (file.Length > 0)
+                        {
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "State");
+                            Task.WaitAll(TImgUpload);
+                            if (TImgUpload.Result == "Error")
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsState), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("State/create", content))
                     {
@@ -590,14 +609,38 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
             CsState.CompId = CompID;
-            CsState.ModifiedBy = UserID;   
+            CsState.ModifiedBy = UserID;
+            var files = HttpContext.Request.Form.Files;
+            if (CsState.ImageName != null)
+            {
+                CsState.Image = CsState.ImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        foreach (var file in files)
+                        {
+                            var fileName = "State-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+
+                            CsState.Image = fileName;
+                            //Delete the Images from the folder
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsState.ImageName, TokenKey, "State");
+                            Task.WaitAll(TDeleteImage);
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "State");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                         using (var response = await client.PostAsJsonAsync<CsState>("State/edit", CsState))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
@@ -654,6 +697,17 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPhoto>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                 }
             }
+            CsState photo = new CsState();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("State/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photo = await System.Text.Json.JsonSerializer.DeserializeAsync<CsState>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+
             //Delete the Images from the folder
             List<string> image = new List<string>();
             foreach (var item in photosList)
@@ -662,6 +716,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 img = item.Title;
                 image.Add(img);
             }
+            image.Add(photo.ImageName);
             Task<string> TDeleteImage = ryCsImage.DeleteMultiImage(image, "State", TokenKey);
             Task.WaitAll(TDeleteImage);
 

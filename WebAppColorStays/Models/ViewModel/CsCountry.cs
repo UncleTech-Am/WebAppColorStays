@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -21,6 +22,9 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationCountry", "Country", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
+        public string? Image { get; set; }
+        [NotMapped]
+        public string? ImageName { get; set; }
         public string? History { get; set; }
         public string? Quote { get; set; }
         public string? Quote1 { get; set; }

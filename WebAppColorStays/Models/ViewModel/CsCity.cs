@@ -30,8 +30,10 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationCity", "City", AdditionalFields = ("NameAction, Id"))]
         [Required(ErrorMessage = "Please enter Name.")]
         [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
-
         public string Name { get; set; }
+        public string? Image { get; set; }
+        [NotMapped]
+        public string? ImageName { get; set; }
         [DisplayName("Video Link")]
         public string? Video { get; set; }
         public string? Area { get; set; }
@@ -45,25 +47,34 @@ namespace WebAppColorStays.Models.ViewModel
         public int? Rank { get; set; }
         public int? NoOfDays { get; set; }
         public int? NoOfPlaces { get; set; }
-        public string? MonthTemperature { get; set; }
+        [StringLength(100, ErrorMessage = "You can enter only 100 characters long!")]
+        public string? TagLine { get; set; }
         public string? ClothingToCarry { get; set; }
         public string? Footwear { get; set; }
         [DisplayName("Terrain")]
         [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
-
         public string? Fk_Terrain_Name { get; set; }
         [StringLength(50, ErrorMessage = "You can enter only 50 characters long!")]
-
         public string? PeakSeason { get; set; }
         [StringLength(50, ErrorMessage = "You can enter only 50 characters long!")]
-
         public string? OffSeason { get; set; }
         [StringLength(50, ErrorMessage = "You can enter only 50 characters long!")]
-
         public string? MidSeason { get; set; }
         public int? Rating { get; set; }
         public double? LowestPackage { get; set; }
         public int? PinCode { get; set; }
+        public bool January { get; set; }
+        public bool February { get; set; }
+        public bool March { get; set; }
+        public bool April { get; set; }
+        public bool May { get; set; }
+        public bool June { get; set; }
+        public bool July { get; set; }
+        public bool August { get; set; }
+        public bool September { get; set; }
+        public bool October { get; set; }
+        public bool November { get; set; }
+        public bool December { get; set; }
         [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? OurTips1 { get; set; }
         [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]

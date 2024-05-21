@@ -24,6 +24,9 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationState", "State", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
+        public string? Image { get; set; }
+        [NotMapped]
+        public string? ImageName { get; set; }
         public string? Region { get; set; }
         public string? History { get; set; }
         public string? Quote { get; set; }
