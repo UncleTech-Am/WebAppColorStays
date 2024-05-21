@@ -104,7 +104,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 foreach (var file in files)
                 {
 
-                    var fileName = "Country-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                    var fileName = "-" + file.FileName + Path.GetExtension(file.FileName);
                     //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("Country/SaveImage/?CId=" + CId + "&CompId=" + CompID+ "&UserId=" + UserID + "&FileName=" + fileName, null))
                     {
@@ -525,7 +525,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     foreach (var file in files)
                     {
-                        var fileName = "Country-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                        var fileName = CsCountry.Name + "-" + file.FileName + Path.GetExtension(file.FileName);
 
                         CsCountry.Image = fileName;
 
@@ -650,7 +650,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         foreach (var file in files)
                         {
-                            var fileName = "Country-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                            var fileName = CsCountry.Name + "-" + file.FileName + Path.GetExtension(file.FileName);
 
                             CsCountry.Image = fileName;
                             //Delete the Images from the folder
