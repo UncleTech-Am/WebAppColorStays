@@ -520,7 +520,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     foreach (var file in files)
                     {
-                        var fileName = "City-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                        var fileName = CsCity.Name+ "-" + file.FileName + Path.GetExtension(file.FileName);
 
                         CsCity.Image = fileName;
                        
@@ -647,7 +647,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         foreach (var file in files)
                         {
-                            var fileName = "City-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                            var fileName = CsCity.Name + "-" + file.FileName + Path.GetExtension(file.FileName);
 
                             CsCity.Image = fileName;
                             //Delete the Images from the folder

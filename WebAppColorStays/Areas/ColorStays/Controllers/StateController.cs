@@ -500,7 +500,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     foreach (var file in files)
                     {
-                        var fileName = "State-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                        var fileName = CsState.Name + "-" + file.FileName + Path.GetExtension(file.FileName);
 
                         CsState.Image = fileName;
 
@@ -623,7 +623,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         foreach (var file in files)
                         {
-                            var fileName = "State-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                            var fileName = CsState.Name + "-" + file.FileName + Path.GetExtension(file.FileName);
 
                             CsState.Image = fileName;
                             //Delete the Images from the folder
