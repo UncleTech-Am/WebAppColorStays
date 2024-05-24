@@ -424,7 +424,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsVideo.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
             var files = HttpContext.Request.Form.Files;
-
+            
             CsVideo data = new CsVideo();
             if (ModelState.IsValid)
             {
@@ -432,7 +432,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     foreach (var file in files)
                     {
-                        var fileName = "Video-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                        var fileName = "ClipsCoverImage-" + file.FileName + Path.GetExtension(file.FileName);
 
                         CsVideo.Image = fileName;
 
@@ -555,7 +555,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         foreach (var file in files)
                         {
-                            var fileName = "Video-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                            var fileName = "ClipsCoverImage-" + file.FileName + Path.GetExtension(file.FileName);
 
                             CsVideo.Image = fileName;
                             //Delete the Images from the folder
