@@ -522,7 +522,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                         var fileName = CsPlace.Name + "-" + file.FileName + Path.GetExtension(file.FileName);
 
                         CsPlace.Image = fileName;
-
+                        CsPlace.AltTag = CsPlace.Name + "-" + file.FileName;
                         if (file.Length > 0)
                         {
                             Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Place");
@@ -647,6 +647,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             var fileName = CsPlace.Name + "-" + file.FileName + Path.GetExtension(file.FileName);
 
                             CsPlace.Image = fileName;
+                            CsPlace.AltTag = CsPlace.Name + "-" + file.FileName;
                             //Delete the Images from the folder
                             Task<string> TDeleteImage = ryCsImage.DeleteImage(CsPlace.ImageName, TokenKey, "Place");
                             Task.WaitAll(TDeleteImage);

@@ -499,10 +499,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     foreach (var file in files)
                     {
-                        var fileName = "RestaurantCover-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                        var fileName = CsRestaurant.Name + "-Restaurant-" + file.FileName + Path.GetExtension(file.FileName);
 
                         CsRestaurant.Image = fileName;
-
+                        CsRestaurant.AltTag = CsRestaurant.Name + "-Restaurant-" + file.FileName;
                         if (file.Length > 0)
                         {
                             Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "RestaurantCover");
@@ -623,9 +623,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         foreach (var file in files)
                         {
-                            var fileName = "RestaurantCover-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                            var fileName = CsRestaurant.Name + "-Restaurant-" + file.FileName + Path.GetExtension(file.FileName);
 
                             CsRestaurant.Image = fileName;
+                            CsRestaurant.AltTag = CsRestaurant.Name + "-Restaurant-" + file.FileName;
                             //Delete the Images from the folder
                             Task<string> TDeleteImage = ryCsImage.DeleteImage(CsRestaurant.ImageName, TokenKey, "RestaurantCover");
                             Task.WaitAll(TDeleteImage);

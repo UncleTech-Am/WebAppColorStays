@@ -426,19 +426,25 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                     foreach (var file in files)
                     {
-                        var fileName = "CountryOverView-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                        string fileName = null;
 
                         if ("AirportImage" == file.Name)
                         {
+                            fileName = "AllAirport" + Path.GetExtension(file.FileName);
                             CsCountryOverView.AirportImage = fileName;
+                            CsCountryOverView.AirportAltTag = "AllAirport";
                         }
                         if ("TerrainImage" == file.Name)
                         {
+                            fileName = "AllTerrain" + Path.GetExtension(file.FileName);
                             CsCountryOverView.TerrainImage = fileName;
+                            CsCountryOverView.TerrainAltTag = "AllTrrrain";
                         }
                         if ("ActivityImage" == file.Name)
                         {
+                            fileName = "AllActivity" + Path.GetExtension(file.FileName);
                             CsCountryOverView.ActivityImage = fileName;
+                            CsCountryOverView.ActivityAltTag = "AllActivity";
                         }
                         if (file.Length > 0)
                         {
@@ -567,11 +573,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         foreach (var file in files)
                         {
-                            var fileName = "CountryOverView-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                            string fileName = null;
 
                             if ("AirportImage" == file.Name)
                             {
+                                fileName = "AllAirport" + Path.GetExtension(file.FileName);
                                 CsCountryOverView.AirportImage = fileName;
+                                CsCountryOverView.AirportAltTag = "AllAirport";
                                 //Delete the Images from the folder
                                 Task<string> TDeleteImage = ryCsImage.DeleteImage(CsCountryOverView.ActivityImageName, TokenKey, "CountryOverView");
                                 Task.WaitAll(TDeleteImage);
@@ -579,15 +587,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                             if ("TerrainImage" == file.Name)
                             {
+                                fileName = "AllTerrain" + Path.GetExtension(file.FileName);
                                 CsCountryOverView.TerrainImage = fileName;
+                                CsCountryOverView.TerrainAltTag = "AllTrrrain";
                                 //Delete the Images from the folder
                                 Task<string> TDeleteImage = ryCsImage.DeleteImage(CsCountryOverView.TerrainImageName, TokenKey, "CountryOverView");
                                 Task.WaitAll(TDeleteImage);
                             }
-
                             if ("ActivityImage" == file.Name)
                             {
+                                fileName = "AllActivity" + Path.GetExtension(file.FileName);
                                 CsCountryOverView.ActivityImage = fileName;
+                                CsCountryOverView.ActivityAltTag = "AllActivity";
                                 //Delete the Images from the folder
                                 Task<string> TDeleteImage = ryCsImage.DeleteImage(CsCountryOverView.ActivityImageName, TokenKey, "CountryOverView");
                                 Task.WaitAll(TDeleteImage);

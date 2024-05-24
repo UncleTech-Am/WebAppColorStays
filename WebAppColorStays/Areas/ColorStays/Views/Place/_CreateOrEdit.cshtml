@@ -71,6 +71,7 @@
                     <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Image)</div>
                     <img src="@Model.Image" class="Wh60p" />
                     <input asp-for="ImageName" type="hidden" />
+                    <input asp-for="AltTag" type="hidden" />
                 </div>
             </div>
             <div class="VnRd"><span asp-validation-for="Image"></span></div>
