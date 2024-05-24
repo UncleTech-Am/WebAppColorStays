@@ -89,7 +89,7 @@
                         </h3>
                         <form action="/" enctype="multipart/form-data" method="POST">
                             <input type="hidden" name="PId" id="PId" />
-
+                            <input type="hidden" name="PName" id="PName" />
                             <div class="dropzone" id="myDropzone">
                                 <div class="fallback">
                                     <input name="file" type="file" multiple />
@@ -222,6 +222,7 @@
         ActiveTabUt('UTabs1', 1);
         ActiveTabUt('UTabs2', 0);
         document.getElementById('PId').value = document.getElementById('PeId').value;
+        document.getElementById('PName').value = document.getElementById('PeName').value;
     }
 
     function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {
@@ -287,6 +288,7 @@
             //send all the form data along with the files:
             this.on("sendingmultiple", function (data, xhr, formData) {
                 formData.append("PId", jQuery("#PId").val());
+                formData.append("PName", jQuery("#PName").val());
                 ShowLoader();
             });
 

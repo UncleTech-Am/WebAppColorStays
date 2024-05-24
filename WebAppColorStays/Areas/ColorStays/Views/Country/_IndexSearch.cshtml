@@ -7,6 +7,7 @@
 
 <div style="color:red; font-weight:bold; font-size:15px;"> @ViewBag.Message</div>
 <input type="hidden" name="CyId" id="CyId" value="@ViewData["CId"]" />
+<input type="hidden" name="CyName" id="CyName" value="@ViewData["CName"]" />
 <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
     <div id="PagenationShow">
         @await Html.PartialAsync("_Pagination")

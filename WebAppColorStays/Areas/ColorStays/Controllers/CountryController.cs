@@ -16,6 +16,7 @@ using WebAppColorStays.Areas.ColorStays.CommonMethods;
 using System.Diagnostics.Metrics;
 using System.Net.Http;
 using LibCommon.APICommonMethods;
+using System.Xml.Linq;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -88,7 +89,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
         [HttpPost]
-        public async Task<IActionResult> SaveImage(string CId)
+        public async Task<IActionResult> SaveImage(string CId, string CName)
         {
             var TokenKey = Request.Cookies["JWToken"];
 
@@ -104,7 +105,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 foreach (var file in files)
                 {
 
-                    var fileName = "-" + file.FileName + Path.GetExtension(file.FileName);
+                    var fileName = CName + "-" + file.FileName + Path.GetExtension(file.FileName);
                     //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("Country/SaveImage/?CId=" + CId + "&CompId=" + CompID+ "&UserId=" + UserID + "&FileName=" + fileName, null))
                     {
@@ -211,7 +212,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //GET:/Country/
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string? Id)
+        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string? Id, string? Name)
         {         
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -233,7 +234,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
                 ViewData["CId"] = Id;
-
+                ViewData["CName"] = Name;
                 if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
@@ -564,7 +565,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 if (Success == true)
                 {
                     data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id }); 
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id, data.Name }); 
                 }
                 else { return View("_CreateOrEdit", CsCountry); }
             }
@@ -694,7 +695,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", CsCountry.Id });
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", CsCountry.Id, CsCountry.Name });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
