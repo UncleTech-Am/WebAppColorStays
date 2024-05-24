@@ -29,6 +29,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Image { get; set; }
         [NotMapped]
         public string? ImageName { get; set; }
+        public string? AltTag { get; set; }
         public int? PhoneNumber { get; set; }
         public string? LandMark { get; set; }
         public string? DistanceFromLandMark { get; set; }

@@ -18,16 +18,19 @@ namespace WebAppColorStays.Models.ViewModel
         public string? AirportImage { get; set; }
         [NotMapped]
         public string? AirportImageName { get; set; }
+        public string? AirportAltTag { get; set; }
         public string? TerrainTagLine { get; set; }
         public string? TerrainDescription { get; set; }
         public string? TerrainImage { get; set; }
         [NotMapped]
         public string? TerrainImageName { get; set; }
+        public string? TerrainAltTag { get; set; }
         public string? ActivityTagLine { get; set; }
         public string? ActivityDescription { get; set; }
         public string? ActivityImage { get; set; }
         [NotMapped]
         public string? ActivityImageName { get; set; }
+        public string? ActivityAltTag { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]

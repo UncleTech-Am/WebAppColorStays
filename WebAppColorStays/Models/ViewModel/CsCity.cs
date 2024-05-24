@@ -34,6 +34,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Image { get; set; }
         [NotMapped]
         public string? ImageName { get; set; }
+        public string? AltTag { get; set; }
         [DisplayName("Video Link")]
         public string? Video { get; set; }
         public string? Area { get; set; }

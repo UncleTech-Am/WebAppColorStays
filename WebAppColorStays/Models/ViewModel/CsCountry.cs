@@ -25,6 +25,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Image { get; set; }
         [NotMapped]
         public string? ImageName { get; set; }
+        public string? AltTag { get; set; }
         public string? History { get; set; }
         public string? Quote { get; set; }
         public string? Quote1 { get; set; }
