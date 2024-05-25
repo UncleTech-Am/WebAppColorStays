@@ -15,109 +15,46 @@
 
 <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
     <div class="FxRw FxAnImSh">
-        <div class="Fx50 Pg3">
-            <div id="UTabs1">
-                <div> Detail</div>
-                <div>Add Image</div>
-                <div>SetUp</div>
-            </div>
+        <div class="Fx35 Pg3">
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
-                <div id="UTabs1Cont0">
-                    <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
-                        <i class="UT-PenNibSmall"></i>
-                        Enter Detail
-                    </h3>
-                    <form id="Create"
-                          data-ajax="true"
-                          data-ajax-url="/ColorStays/ActivityType/Create"
-                          data-ajax-method="POST"
-                          data-ajax-loading="#loader"
-                          contentType="multipart/form-data"
-                          data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
-                          data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
+                <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
+                    <i class="UT-PenNibSmall"></i>
+                    Enter Detail
+                </h3>
+                 <form id="Create"
+                    data-ajax="true"
+                    data-ajax-url="/ColorStays/ActivityType/Create"
+                    data-ajax-method="POST"
+                    data-ajax-loading="#loader"
+                      enctype="multipart/form-data"
+                    data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
+                    data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
 
-                        @Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken()
 
-                        <input type="hidden" name="NameAction" value="C" />
+                    <input type="hidden" name="NameAction" value="C" />
 
-                        <div id="CreateOrEdit">@await Html.PartialAsync("_CreateOrEdit", Model)</div>
-                        <div class="MnTp7 MnBm7" style="height:66vh;">
-                            <div>
-                                <div class="MaxMinDv">
-                                    <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.Description)" asp-for="Description" autocomplete="off"></textarea>
-                                </div>
+                    <div id="CreateOrEdit">@await Html.PartialAsync("_CreateOrEdit", Model)</div>
+                    <div class="MnTp7 MnBm7" style="height:66vh;">
+                        <div>
+                            <div class="MaxMinDv">
+                                <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.Description)" asp-for="Description" autocomplete="off"></textarea>
                             </div>
                         </div>
-                        <div class="MnTp7 MnBm7 FxRw">
-                            <div class="FxGw1">
-                                <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
-                            </div>
-                            <div>
-                                <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/ActivityType/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div id="UTabs1Cont1">
-                    <div class="Pg12">
-                        <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
-                            <i class="UT-ImageLine"></i>
-                            Upload Image
-                        </h3>
-                        <form id="CreateDn"
-                              data-ajax="true"
-                              data-ajax-url="/ColorStays/ActivityType/SaveImage"
-                              data-ajax-method="POST"
-                              data-ajax-loading="#loader"
-                              enctype="multipart/form-data"
-                              data-ajax-success="SuccessDn(data, status, xhr,'CreateDn','AddImage')"
-                              data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateDn')">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="NameAction" value="E" />
-                            <div id="AddImage"></div>
-
-                            <div class="MnTp7 MnBm7 FxRw">
-                                <div class="FxGw1">
-                                    <button type="submit" id="submit-all" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-ImageLine"></i>&nbsp;Upload</button>
-                                </div>
-                                <div>
-                                    <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 2)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
-                </div>
-
-                <div id="UTabs1Cont2">
-                    <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
-                    <div class="Pg10 FxRw">
+                    <div class="MnTp7 MnBm7 FxRw">
                         <div class="FxGw1">
-                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/ActivityType/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
+                            <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
+                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/ActivityType/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
                         </div>
                     </div>
-                </div>
-
+                </form>
             </div>
         </div>
-        <div class="Fx50 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
-            <div id="UTabs2">
-                <div>All Activity Type </div>
-                <div>Image</div>
-            </div>
-            <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
-                <div id="UTabs2Cont0">
-                    <div id="Detail">
-                        @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsActivityType>)ViewData["EnteredDetails"])
-                    </div>
-                </div>
-                <div id="UTabs2Cont1">
-                    <div id="Images"></div>
-                </div>
-            </div>
-
+        <div class="Fx65 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
+            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsActivityType>)ViewData["EnteredDetails"])
         </div>
     </div>
 </div>
@@ -125,13 +62,8 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-        TabsUT('UTabs1', 0, null, [1, 2]);
-        TabsUT('UTabs2', 0, null, [1]);
-
         IntializeTableSearch();
-        MaxMin();
     });
-
     tinymce.init({
         selector: '#Description',
         plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
@@ -162,92 +94,36 @@
             { title: 'English (US)', code: 'en_US' },
         ],
         content_style: `
-                    img {
-                        height: auto;
-                    margin: auto;
-                    padding: 10px;
-                    display: block;
-                                        }
-                    img.medium {
-                        max - width: 25%;
-                                        }
-                    `
+                            img {
+                                height: auto;
+                            margin: auto;
+                            padding: 10px;
+                            display: block;
+                                                }
+                            img.medium {
+                                max - width: 25%;
+                                                }
+                            `
     });
+
     function Success(data, status, xhr, FormID, FormFieldID) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
-        ShowImage(document.getElementById('ATId').value);
-        ActiveTabUt('UTabs2', 0);
-
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
+        //Here we get the pageno,pagesize and listcount
+        var doc = new DOMParser().parseFromString(data, "text/html");
+        var pageinfo = doc.getElementById("PaginationAt");
+        var netrecord = pageinfo.getAttribute("netrecord");
+        var pageno = pageinfo.getAttribute("pagenumber");
+        var pagesize = pageinfo.getAttribute("PageSize");
+        //Refresh the Pagination Div with new Values
+        RefreshPagination('/ColorStays/ActivityType/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
     }
-
-
-    function ShowImage(Id) {
-        ShowLoader();
-        getUT('/ColorStays/ActivityType/AddImage?Id=' + Id, function (data) {
-            document.getElementById('AddImage').innerHTML = "";
-            document.getElementById('AddImage').innerHTML = data;
-            ActiveTabUt('UTabs1', 1);
-            HideLoader();
-        });
-    }
-
-    function SuccessDn(data, status, xhr, FormID, FormFieldID) {
-        //FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "Images");
-        document.getElementById('SwTb3').style.display = "block";
-        ShowUploads();
-        ActiveTabUt('UTabs2', 1);
-    }
-
-    function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "Images");
-        ShowUploads();
-        ActiveTabUt('UTabs2', 1);
-    }
-
-
-    //Show the Uploaded Image in the Tab.......................
-    function ShowUploads() {
-        var Id = $("#ATId").val();
-        getUT('/ColorStays/ActivityType/UploadedImage?Id=' + Id + '&ShowBtn=' + true, function (data) {
-            document.getElementById('Images').innerHTML = "";
-            document.getElementById('Images').innerHTML = data;
-            ActiveTabUt('UTabs2', 1);
-            document.getElementById('SwTb3').style.display = "block";
-            HideLoader();
-        });
-        //Show the Images in LHS for Update
-        getUT('/ColorStays/ActivityType/UploadedImage?Id=' + Id + '&UpdateDetail=Yes', function (data) {
-            document.getElementById('AddImgDetail').innerHTML = "";
-            document.getElementById('AddImgDetail').innerHTML = data;
-        });
-    };
-    //Ends.............................
-
-    //Delete the Image
-    function DeleteImg(id, imgname) {
-        ShowLoader();
-        getUT('/ColorStays/ActivityType/ImageDelete?Id=' + id + '&ImgName=' + imgname, function (data) {
-            document.getElementById('Images').innerHTML = "";
-            document.getElementById('Images').innerHTML = data;
-            ActiveTabUt('UTabs2', 1);
-            //Show the Images in LHS for Update
-            getUT('/ColorStays/ActivityType/UploadedImage?Id=' + id + '&UpdateDetail=Yes', function (data) {
-                document.getElementById('AddImgDetail').innerHTML = "";
-                document.getElementById('AddImgDetail').innerHTML = data;
-            });
-            HideLoader();
-        });
-
-    };
-    //Ends
-
 
     //Table Search Success Function
     function TableSuccessFn(data, status, xhr, FormID) {
         //This the SuccessFunction
         FormAjaxSuccess(data, FormID, '', "UpdateDivNoFReset", "Def");
         //Here we update the pageno,pagesize and listcount
-        var doc = new DOMParser().parseFromString(data, "text/html");
+        var doc = new DOMParser().parseFromString(data,"text/html");
         var pageinfo = doc.getElementById("PaginationAt");
         var netrecord = pageinfo.getAttribute("netrecord");
         var pageno = pageinfo.getAttribute("pagenumber");

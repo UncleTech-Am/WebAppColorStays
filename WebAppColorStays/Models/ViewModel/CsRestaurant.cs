@@ -30,7 +30,7 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? ImageName { get; set; }
         public string? AltTag { get; set; }
-        public int? PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         public string? LandMark { get; set; }
         public string? DistanceFromLandMark { get; set; }
         public string? TagLine { get; set; }
@@ -41,13 +41,15 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
         public bool Chinese { get; set; }
+        public bool NorgthIndian { get; set; }
+        public bool Barbeque { get; set; }
         public bool SouthIndian { get; set; }
         public bool Italion { get; set; }
         public bool Gujrati { get; set; }
         public bool PureVeg { get; set; }
         public bool Bakery { get; set; }
         public bool Sweets { get; set; }
-        public int? ContactNumber { get; set; }
+        public string? ContactNumber { get; set; }
         public string? About { get; set; }
         public bool Alcohal { get; set; }
         public bool WashRoom { get; set; }

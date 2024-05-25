@@ -15,24 +15,62 @@
 @Html.HiddenFor(model => model.CreatedBy)
 @Html.HiddenFor(model => model.CreatedOn)
 @Html.HiddenFor(model => model.CompId)
-@Html.HiddenFor(model => model.ImageName)
-@Html.HiddenFor(model => model.AltTag)
+
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required/>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
 </div>
 
+
+@if (Model != null)
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ImageName)</div>
+                <img src="@Model.ImageName" class="Wh60p" />
+                <input asp-for="ImageUrl" type="hidden" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="ImageName"></span></div>
+    </div>
+
+}
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ImageName)</div>
+            <input asp-for="ImageName" type="file" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="ImageName"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag)" asp-for="AltTag" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="AltTag"></span></div>
+</div>
+
+
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">TagLine</div>
-            <input  class="TtBxTt15" placeholder="TagLine" asp-for="Icon" autocomplete="off" />
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Icon)" asp-for="Icon" autocomplete="off" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Icon"></span></div>
