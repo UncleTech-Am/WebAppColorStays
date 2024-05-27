@@ -41,7 +41,7 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
         public bool Chinese { get; set; }
-        public bool NorgthIndian { get; set; }
+        public bool NorthIndian { get; set; }
         public bool Barbeque { get; set; }
         public bool SouthIndian { get; set; }
         public bool Italion { get; set; }
