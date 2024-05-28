@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
@@ -9,18 +10,21 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(450)]
         public string? Id { get; set; }
         public string? Name { get; set; }
-        public string? Fk_Place_Name { get; set; }
         [NotMapped]
-        public string? Place { get; set; }
+        public string? Condition { get; set; }
+        [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
         [NotMapped]
         public string? City { get; set; }
+        [DisplayName("State")]
         public string? Fk_State_Name { get; set; }
         [NotMapped]
         public string? State { get; set; }
+        [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
         [NotMapped]
         public string? Country { get; set; }
+        [DisplayName("FestivalType")]
         public string? Fk_FestivalType_Name { get; set; }
         public string? PopularReligion { get; set; }
         public string? History { get; set; }
@@ -36,6 +40,10 @@ namespace WebAppColorStays.Models.ViewModel
         public bool ShowCityFestival { get; set; }
         public bool ShowStateFestival { get; set; }
         public bool ShowCountryFestival { get; set; }
+        public string? Image { get; set; }
+        public string? AltTag { get; set; }
+        [NotMapped]
+        public string? ImageName { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]

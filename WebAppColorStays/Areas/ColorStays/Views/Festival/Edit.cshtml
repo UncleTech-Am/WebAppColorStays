@@ -2,22 +2,23 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Action"] = "Festival";
-    var fields = ViewData["Fields"];
+    var fields = Convert.ToString(ViewData["Fields"]);
+    ViewData["Action"] = fields + "Festival";
+    var actionname = "Create" + fields + "Wise";
 }
 
 <div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
     <div class="CrTeTtLt FxGw1"> <h1>Edit @fields @ViewBag.Title</h1></div>
     <div>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/Festival/Create'"><i class="UT-AddFile FtSz18"></i></button>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/Festival/Index'"><i class="UT-List-OLine FtSz18"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/Festival/@actionname'"><i class="UT-AddFile FtSz18"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/Festival/Index?condition=@fields'"><i class="UT-List-OLine FtSz18"></i></button>
     </div>
 
 </div>
 
 <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
     <div class="FxRw FxAnImSh">
-        <div class="Fx35 Pg3">
+        <div class="Fx45 Pg3">
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
                 <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
                     <i class="UT-PenNibSmall"></i>
@@ -29,6 +30,7 @@
                       data-ajax-url="/ColorStays/Festival/Edit"
                       data-ajax-method="POST"
                       data-ajax-loading="#loader"
+                      enctype="multipart/form-data"
                       data-ajax-success="Success(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/Festival/CreateOrEdit?id=@Model.Id')"
                       data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')">
 
@@ -43,24 +45,60 @@
                     <div id="CreateOrEdit">
                         @await Html.PartialAsync("_CreateOrEdit", Model)
                     </div>
-
+                    <div class="MnTp7 MnBm7" style="height:66vh;">
+                        <div>
+                            <div class="MaxMinDv">
+                                <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.History)" asp-for="History" autocomplete="off"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="MnTp7 MnBm7" style="height:66vh;">
+                        <div>
+                            <div class="MaxMinDv">
+                                <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.Description)" asp-for="Description" autocomplete="off"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="MnTp7 MnBm7" style="height:66vh;">
+                        <div>
+                            <div class="MaxMinDv">
+                                <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SpecialAboutFestival)" asp-for="SpecialAboutFestival" autocomplete="off"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="MnTp7 MnBm7" style="height:66vh;">
+                        <div>
+                            <div class="MaxMinDv">
+                                <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.Rituals)" asp-for="Rituals" autocomplete="off"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="MnTp7 MnBm7" style="height:66vh;">
+                        <div>
+                            <div class="MaxMinDv">
+                                <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.Facts)" asp-for="Facts" autocomplete="off"></textarea>
+                            </div>
+                        </div>
+                    </div>
                     <div class="MnTp7 MnBm7 FxRw">
                         <div class="FxGw1">
                             <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-EditFileLine"></i>&nbsp;Edit</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Festival/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Festival/Index?condition=@fields'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div class="Fx65 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
+        <div class="Fx55 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
             @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsFestival>)ViewData["EnteredDetails"])
         </div>
     </div>
 </div>
+<script src="~/js/tinymce_6.2.0/tinymce/js/tinymce/tinymce.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -74,15 +112,59 @@
         if ('@fields' == "City") {
             StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
         }
-        if ('@fields' == "Place") {
-            StartSuggestionBox(2, 'SearchPlace', '/ColorStays/Place/SuggestPlace', '', '', AoCePlace);
-        }
+        MaxMin();
+
     });
 
+    tinymce.init({
+        selector: '#History, #Description, #Facts, #SpecialAboutFestival, #Rituals',
+        plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
+        toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
+        a11ychecker_level: 'aaa',
+        style_formats: [
+            { title: 'Heading 1', block: 'h1' },
+            { title: 'Heading 2', block: 'h2' },
+            { title: 'Paragraph', block: 'p' },
+            { title: 'Blockquote', block: 'blockquote' },
+            { title: 'Image formats' },
+            { title: 'Medium', selector: 'img', classes: 'medium' },
+        ],
+        object_resizing: true,
+        valid_classes: {
+            'img': 'medium',
+            'div': 'related-content'
+        },
+        image_caption: true,
+        templates: [
+            {
+                title: 'Related content',
+                description: 'This template inserts a related content block',
+                content: '<div class="related-content"><h3>Related content</h3><p><strong>{$rel_lede}</strong> {$rel_body}</p></div>'
+            }
+        ],
+        content_langs: [
+            { title: 'English (US)', code: 'en_US' },
+        ],
+        content_style: `
+                                    img {
+                                        height: auto;
+                                    margin: auto;
+                                    padding: 10px;
+                                    display: block;
+                                                        }
+                                    img.medium {
+                                        max - width: 25%;
+                                                        }
+                                    `
+    });
+
+
     //Clear Autocompete data
-    function ClearData(UrNe, UrId) {
+    function ClearData(UrNe, UrId, Text1, Text2) {
         document.getElementById(UrNe).value = '';
         document.getElementById(UrId).value = '';
+        document.getElementById(Text1).value = '';
+        document.getElementById(Text2).value = '';
     }
 
     //Autocomplete country
@@ -99,6 +181,7 @@
         SuggestionClose(InputId);
         document.getElementById('Fk_State_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
+        document.getElementById('Fk_Country_Name').value = event.target.Text;
     }
 
     //Autocomplete City
@@ -107,15 +190,12 @@
         SuggestionClose(InputId);
         document.getElementById('Fk_City_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
+        document.getElementById('Fk_State_Name').value = event.target.Text1;
+        document.getElementById('Fk_Country_Name').value = event.target.Text2;
+
     }
 
-    //Autocomplete Item
-    function AoCePlace(event) {
-        var InputId = event.target.InputID;
-        SuggestionClose(InputId);
-        document.getElementById('Fk_Place_Name').value = event.target.Id;
-        document.getElementById(InputId).value = event.target.Value;
-    }
+   
     function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateEditDiv", "Def", FormFieldURL);
         //Here we get the pageno,pagesize and listcount

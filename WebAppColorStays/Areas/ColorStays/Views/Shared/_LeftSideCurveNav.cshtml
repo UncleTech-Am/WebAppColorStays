@@ -73,7 +73,6 @@
     string PackageTypeStateMap = " ";
     string MainLink6 = " ";
     string DrownLink6 = " ";
-    string Festival = "";
     string FestivalType = "";
     string MainLink7 = " ";
     string DrownLink7 = " ";
@@ -101,6 +100,12 @@
     string ReviewCity = "";
     string ReviewPlace = "";
     string ReviewReply = "";
+
+    string CountryFestival = "";
+    string StateFestival = "";
+    string CityFestival = "";
+
+
     switch (Action)
     {
         case "CompanyNav": CompanyNav = "SideNavActive"; break;
@@ -178,7 +183,9 @@
         case "RTFoodTypeMap": RTFoodTypeMap = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
 
         case "FestivalType": FestivalType = "SideSubLinkActive"; MainLink6 = "SideNavActive"; DrownLink6 = "SideSubNavActive"; break;
-        case "Festival": Festival = "SideSubLinkActive"; MainLink6 = "SideNavActive"; DrownLink6 = "SideSubNavActive"; break;
+        case "CountryFestival": CountryFestival = "SideSubLinkActive"; MainLink6 = "SideNavActive"; DrownLink6 = "SideSubNavActive"; break;
+        case "StateFestival": StateFestival = "SideSubLinkActive"; MainLink6 = "SideNavActive"; DrownLink6 = "SideSubNavActive"; break;
+        case "CityFestival": CityFestival = "SideSubLinkActive"; MainLink6 = "SideNavActive"; DrownLink6 = "SideSubNavActive"; break;
 
         case "Highlight": Highlight = "SideSubLinkActive"; MainLink7 = "SideNavActive"; DrownLink7 = "SideSubNavActive"; break;
 
@@ -926,7 +933,7 @@
         </div>
     </div>
 
-    @*<div class="SideNavContainer">
+    <div class="SideNavContainer">
         <div class="SideNavLinkDiv">
             <div class="SideNavLink @MainLink6">
                 <i class="UT-CategoryLine  FtSz20"></i>
@@ -951,7 +958,7 @@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @Festival">
+                    <div class="SideNavLinkText @CountryFestival">
                         <a href="~/ColorStays/Festival/CreateCountryWise">Country Festival</a>
                     </div>
                     <a href="~/ColorStays/Festival/CreateCountryWise"><i class="UT-AddFile"></i></a>
@@ -961,7 +968,7 @@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @Festival">
+                    <div class="SideNavLinkText @StateFestival">
                         <a href="~/ColorStays/Festival/CreateStateWise">State Festival</a>
                     </div>
                     <a href="~/ColorStays/Festival/CreateStateWise"><i class="UT-AddFile"></i></a>
@@ -971,7 +978,7 @@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @Festival">
+                    <div class="SideNavLinkText @CityFestival">
                         <a href="~/ColorStays/Festival/CreateCityWise">City Festival</a>
                     </div>
                     <a href="~/ColorStays/Festival/CreateCityWise"><i class="UT-AddFile"></i></a>
@@ -979,7 +986,7 @@
                 </div>
             </div>
 
-            <div class="SideNavSubLinkDiv">
+           @*  <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @Festival">
                         <a href="~/ColorStays/Festival/CreatePlaceWise">Place Festival</a>
@@ -987,12 +994,12 @@
                     <a href="~/ColorStays/Festival/CreatePlaceWise"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/Festival/Index?condition=Place"><i class="UT-List-OLine"></i></a>
                 </div>
-            </div>
+            </div> *@
         </div>
     </div>
 
 
-    <div class="SideNavContainer">
+    @*<div class="SideNavContainer">
         <div class="SideNavLinkDiv">
             <div class="SideNavLink @MainLink8">
                 <i class="UT-CategoryLine  FtSz20"></i>

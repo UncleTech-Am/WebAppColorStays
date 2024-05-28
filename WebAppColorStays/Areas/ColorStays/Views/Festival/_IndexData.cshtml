@@ -5,7 +5,7 @@
     ViewData["Action"] = "Festival";
     int PageNoSelect = Convert.ToInt32(ViewData["PageNumberSelected"]);
     int PageSize = Convert.ToInt32(ViewData["PageRecordSize"]);
-    var Type = ViewData["Type"];
+    var Type = Convert.ToString(ViewData["Type"]);
 }
 
 <b style="display:none" id="PaginationAt" pagenumber="@PageNoSelect" pagesize="@PageSize" netrecord="@ViewData["NetRecords"]">responseformUT SuccessPop</b>
@@ -35,9 +35,7 @@
         </td>
          
 	    <td>@item.Name</td>
-         
-	    <td>@item.Fk_Place_Name</td>
-         
+                  
 	    <td>@item.Fk_City_Name</td>
          
 	    <td>@item.Fk_State_Name</td>

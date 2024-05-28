@@ -4,12 +4,13 @@
 @{
     Layout = null;
     ViewData["Action"] = "Festival";
-    var fields = ViewData["Fields"];
+    var fields = Convert.ToString(ViewData["Fields"]);
 }
 
 <div style="display:none">responseformUT @ViewData["ResponseName"]</div>
 
 <h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+<input type="hidden" asp-for="Condition" required />
 
 @Html.HiddenFor(model => model.Id)
 @Html.HiddenFor(model => model.RowVersion)
@@ -40,25 +41,6 @@
     </div>
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
 </div>
-
-@if (fields == "Place")
-{
-    <div class="MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Place_Name)<span style="color:red;"> *</span></div>
-                <input class="TtBxTt14" placeholder="Place Name" type="text" id="SearchPlace" asp-for="Place" autocomplete="off" required onchange="ClearData('SearchPlace', 'Fk_Place_Name','Fk_City_Name', 'Fk_State_Name', 'Fk_Country_Name')" />
-                <input type="hidden" asp-for="Fk_Place_Name" required />
-                <input type="hidden" asp-for="Fk_City_Name" required />
-                <input type="hidden" asp-for="Fk_State_Name" required />
-                <input type="hidden" asp-for="Fk_Country_Name" required />
-                <input type="hidden" asp-for="ShowPlaceFestival" value="true" />
-
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="Fk_Place_Name"></span></div>
-    </div>
-}
 
 @if (fields == "City")
 {
@@ -114,16 +96,6 @@
 
 
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.History)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.History)" asp-for="History" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="History"></span></div>
-</div>
-
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -168,66 +140,44 @@
     </div>
     <div class="VnRd"><span asp-validation-for="TotalDays"></span></div>
 </div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Description)" asp-for="Description" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Description"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Facts)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Facts)" asp-for="Facts" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Facts"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rituals)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Rituals)" asp-for="Rituals" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Rituals"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SpecialAboutFestival)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.SpecialAboutFestival)" asp-for="SpecialAboutFestival" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="SpecialAboutFestival"></span></div>
-</div>
-
-
-@if (fields == "Place")
+@if (Model != null)
 {
-    <div class="MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="ShowCityFestival">
-
-                &nbsp;Show In City Festival
+    @if (Model.Image != null)
+    {
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Image)</div>
+                    <img src="@Model.Image" class="Wh60p" />
+                    <input asp-for="ImageName" type="hidden" />
+                </div>
             </div>
+            <div class="VnRd"><span asp-validation-for="Image"></span></div>
         </div>
-        <div class="VnRd"><span asp-validation-for="ShowCityFestival"></span></div>
-    </div>
+    }
 }
 
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Image)</div>
+            <input asp-for="Image" type="file" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Image"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag)" asp-for="AltTag" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="AltTag"></span></div>
+</div>
 
 @if (fields != "Country" && fields != "State")
 {

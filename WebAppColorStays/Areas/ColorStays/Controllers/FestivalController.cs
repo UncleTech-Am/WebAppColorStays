@@ -12,6 +12,8 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
 using WebAppColorStays.Areas.ColorStays.CommonMethods;
+using LibCommon.APICommonMethods;
+using WebAppColorStays.CommonMethod;
 
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
@@ -22,10 +24,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class FestivalController : Controller
     {
         private readonly Paging paging;
-
+        private readonly RyCSImage ryCsImage;
         public FestivalController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -152,6 +155,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
+                ViewData["Action"] = condition + "Festival";
+
                 ViewData["Type"] = condition;
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
@@ -415,7 +420,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Task<Tuple<int, List<CsFestival>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2, "Country");//Give the List of data
             PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
             ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
-            return View("Create");
+            ViewData["Action"] = "CountryFestival";
+            ViewData["Type"] = "Country";
+            CsFestival csFestival = new CsFestival();
+            csFestival.Condition = "Country";
+            return View("Create", csFestival);
         }
 
         [HttpGet]
@@ -437,7 +446,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Task<Tuple<int, List<CsFestival>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2, "State");//Give the List of data
             PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
             ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
-            return View("Create");
+            ViewData["Action"] = "StateFestival";
+            ViewData["Type"] = "State";
+            CsFestival csFestival = new CsFestival();
+            csFestival.Condition = "State";
+            return View("Create", csFestival);
         }
         [HttpGet]
         public async Task<IActionResult> CreateCityWise()
@@ -458,29 +471,33 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Task<Tuple<int, List<CsFestival>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2, "City");//Give the List of data
             PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
             ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
-            return View("Create");
+            ViewData["Action"] = "CityFestival";
+            ViewData["Type"] = "City";
+            CsFestival csFestival = new CsFestival();
+            csFestival.Condition = "City";
+            return View("Create", csFestival);
         }
-        [HttpGet]
-        public async Task<IActionResult> CreatePlaceWise()
-        {
-            Title();
-            ViewData["AnName"] = "Create";
-            ViewData["Fields"] = "Place";
-            var TokenKey = Request.Cookies["JWToken"];
-            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            DropDown(CompId, TokenKey);
+        //[HttpGet]
+        //public async Task<IActionResult> CreatePlaceWise()
+        //{
+        //    Title();
+        //    ViewData["AnName"] = "Create";
+        //    ViewData["Fields"] = "Place";
+        //    var TokenKey = Request.Cookies["JWToken"];
+        //    var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+        //    var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    DropDown(CompId, TokenKey);
 
-            ViewData["ActionName"] = "Index";
-            ViewData["FormID"] = "NoSearchID";
-            ViewData["SearchType"] = "NoSearch";
+        //    ViewData["ActionName"] = "Index";
+        //    ViewData["FormID"] = "NoSearchID";
+        //    ViewData["SearchType"] = "NoSearch";
 
-            Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-            Task<Tuple<int, List<CsFestival>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2, "Place");//Give the List of data
-            PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-            ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
-            return View("Create");
-        }
+        //    Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
+        //    Task<Tuple<int, List<CsFestival>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2, "Place");//Give the List of data
+        //    PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
+        //    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
+        //    return View("Create");
+        //}
         //POST: /Festival/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -499,12 +516,29 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsFestival.ModifiedBy = UserID;
             CsFestival.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
+            var files = HttpContext.Request.Form.Files;
             CsFestival data = new CsFestival();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    foreach (var file in files)
+                    {
+                        var fileName = CsFestival.Name + "-" + file.FileName;
+
+                        CsFestival.Image = fileName;
+                        if (file.Length > 0)
+                        {
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Festival");
+                            Task.WaitAll(TImgUpload);
+                            if (TImgUpload.Result == "Error")
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsFestival), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("Festival/create", content))
                     {
@@ -526,7 +560,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
                 if (Success == true)
-                { return RedirectToAction("Index", new { PageCall = "Show" }); }
+                { return RedirectToAction("Index", new { PageCall = "Show", condition = CsFestival.Condition }); }
                 else { return View("_CreateOrEdit", CsFestival); }
             }
             return View("_CreateorEdit",CsFestival);                
@@ -582,6 +616,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
             }
+            ViewData["Type"] = condition;
+            ViewData["Fields"] = condition;
+            ViewData["Action"] = condition +" Festival";
+            CsFestival.Condition = condition;
             return View(CsFestival);
         }
 
@@ -601,14 +639,38 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
             ViewData["ResponseName"] = "ShowValidation";
             CsFestival.CompId = CompId;
-            CsFestival.ModifiedBy = UserID;   
+            CsFestival.ModifiedBy = UserID;
+            var files = HttpContext.Request.Form.Files;
+            if (CsFestival.ImageName != null)
+            {
+                CsFestival.Image = CsFestival.ImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        foreach (var file in files)
+                        {
+                            var fileName = CsFestival.Name + "-" + file.FileName;
+
+                            CsFestival.Image = fileName;
+                            //Delete the Images from the folder
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsFestival.ImageName, TokenKey, "Festival");
+                            Task.WaitAll(TDeleteImage);
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Festival");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                         using (var response = await client.PostAsJsonAsync<CsFestival>("Festival/edit", CsFestival))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
@@ -634,7 +696,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "Show" });
+                    return RedirectToAction("Index", new { PageCall = "Show", condition = CsFestival.Condition });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -653,6 +715,24 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            CsFestival csFestival = new CsFestival();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Festival/edit/" + id + "/" + CompId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csFestival = await System.Text.Json.JsonSerializer.DeserializeAsync<CsFestival>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            //Delete the Images from the folder
+            Task<string> TDeleteImage = ryCsImage.DeleteImage(csFestival.ImageName, TokenKey, "Festival");
+            Task.WaitAll(TDeleteImage);
+            if (TDeleteImage.Result == "Error")
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
