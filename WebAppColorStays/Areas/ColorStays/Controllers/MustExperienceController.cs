@@ -426,10 +426,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     foreach (var file in files)
                     {
-                        var fileName = CsMustExperience.Name+ "-" + file.FileName + Path.GetExtension(file.FileName);
+                        var fileName = CsMustExperience.Name+ "-" + file.FileName;
 
                         CsMustExperience.Image = fileName;
-                        CsMustExperience.AltTag = CsMustExperience.Name + "-" + file.FileName;
 
                         if (file.Length > 0)
                         {
@@ -548,10 +547,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         foreach (var file in files)
                         {
-                            var fileName = CsMustExperience.Name + "-" + file.FileName + Path.GetExtension(file.FileName);
+                            var fileName = CsMustExperience.Name + "-" + file.FileName;
 
                             CsMustExperience.Image = fileName;
-                            CsMustExperience.AltTag = CsMustExperience.Name + "-" + file.FileName;
                             //Delete the Images from the folder
                             Task<string> TDeleteImage = ryCsImage.DeleteImage(CsMustExperience.ImageName, TokenKey, "MustExperience");
                             Task.WaitAll(TDeleteImage);

@@ -47,7 +47,6 @@
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AirportImage)</div>
                 <img src="@Model.AirportImage" class="Wh60p" />
                 <input asp-for="AirportImageName" type="hidden" />
-                <input asp-for="AirportAltTag" type="hidden" />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="AirportImage"></span></div>
@@ -64,7 +63,15 @@
     </div>
     <div class="VnRd"><span asp-validation-for="AirportImage"></span></div>
 </div>
-
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AirportAltTag)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AirportAltTag)" asp-for="AirportAltTag" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="AirportAltTag"></span></div>
+</div>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -84,7 +91,6 @@
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TerrainImage)</div>
                 <img src="@Model.TerrainImage" class="Wh60p" />
                 <input asp-for="TerrainImageName" type="hidden" />
-                <input asp-for="TerrainAltTag" type="hidden" />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="TerrainImage"></span></div>
@@ -101,7 +107,15 @@
     </div>
     <div class="VnRd"><span asp-validation-for="TerrainImage"></span></div>
 </div>
-
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TerrainAltTag)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.TerrainAltTag)" asp-for="TerrainAltTag" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="TerrainAltTag"></span></div>
+</div>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -121,7 +135,6 @@
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ActivityImage)</div>
                 <img src="@Model.ActivityImage" class="Wh60p" />
                 <input asp-for="ActivityImageName" type="hidden" />
-                <input asp-for="ActivityAltTag" type="hidden" />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="ActivityImage"></span></div>
@@ -137,6 +150,16 @@
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="ActivityImage"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ActivityAltTag)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ActivityAltTag)" asp-for="ActivityAltTag" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="ActivityAltTag"></span></div>
 </div>
 
 <div class="MnTp7 MnBm7">

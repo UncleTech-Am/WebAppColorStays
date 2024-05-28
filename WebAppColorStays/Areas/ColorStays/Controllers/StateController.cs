@@ -83,7 +83,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 foreach (var file in files)
                 {
-                    var fileName = SName+ "-" + file.FileName + Path.GetExtension(file.FileName);
+                    var fileName = SName+ "-" + file.FileName;
                     using (var response = await client.PostAsync("State/SaveImage/?SId=" + SId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
@@ -500,10 +500,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     foreach (var file in files)
                     {
-                        var fileName = CsState.Name + "-" + file.FileName + Path.GetExtension(file.FileName);
+                        var fileName = CsState.Name + "-" + file.FileName;
 
                         CsState.Image = fileName;
-                        CsState.AltTag = CsState.Name + "-" + file.FileName;
                         if (file.Length > 0)
                         {
                             Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "State");
@@ -623,10 +622,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         foreach (var file in files)
                         {
-                            var fileName = CsState.Name + "-" + file.FileName + Path.GetExtension(file.FileName);
+                            var fileName = CsState.Name + "-" + file.FileName;
 
                             CsState.Image = fileName;
-                            CsState.AltTag = CsState.Name + "-" + file.FileName;
                             //Delete the Images from the folder
                             Task<string> TDeleteImage = ryCsImage.DeleteImage(CsState.ImageName, TokenKey, "State");
                             Task.WaitAll(TDeleteImage);

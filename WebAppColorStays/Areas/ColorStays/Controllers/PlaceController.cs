@@ -100,7 +100,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 foreach (var file in files)
                 {
-                    var fileName = PName + "-" + file.FileName + Path.GetExtension(file.FileName);
+                    var fileName = PName + "-" + file.FileName;
                     //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("Place/SaveImage/?PId=" + PId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
                     {
@@ -519,10 +519,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     foreach (var file in files)
                     {
-                        var fileName = CsPlace.Name + "-" + file.FileName + Path.GetExtension(file.FileName);
+                        var fileName = CsPlace.Name + "-" + file.FileName;
 
                         CsPlace.Image = fileName;
-                        CsPlace.AltTag = CsPlace.Name + "-" + file.FileName;
                         if (file.Length > 0)
                         {
                             Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Place");
@@ -644,10 +643,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         foreach (var file in files)
                         {
-                            var fileName = CsPlace.Name + "-" + file.FileName + Path.GetExtension(file.FileName);
+                            var fileName = CsPlace.Name + "-" + file.FileName ;
 
                             CsPlace.Image = fileName;
-                            CsPlace.AltTag = CsPlace.Name + "-" + file.FileName;
                             //Delete the Images from the folder
                             Task<string> TDeleteImage = ryCsImage.DeleteImage(CsPlace.ImageName, TokenKey, "Place");
                             Task.WaitAll(TDeleteImage);

@@ -432,7 +432,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     foreach (var file in files)
                     {
-                        var fileName = "ClipsCoverImage-" + file.FileName + Path.GetExtension(file.FileName);
+                        var fileName = "ClipsCoverImage-" + file.FileName ;
 
                         CsVideo.Image = fileName;
 
@@ -555,7 +555,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         foreach (var file in files)
                         {
-                            var fileName = "ClipsCoverImage-" + file.FileName + Path.GetExtension(file.FileName);
+                            var fileName = "ClipsCoverImage-" + file.FileName;
 
                             CsVideo.Image = fileName;
                             //Delete the Images from the folder

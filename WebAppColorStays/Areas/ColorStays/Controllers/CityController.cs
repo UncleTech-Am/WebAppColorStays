@@ -100,7 +100,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 foreach (var file in files)
                 {
 
-                    var fileName = CName+ "-" + file.FileName + Path.GetExtension(file.FileName);
+                    var fileName = CName+ "-" + file.FileName;
                     //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("City/SaveImage/?CId=" + CId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
                     {
@@ -520,10 +520,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     foreach (var file in files)
                     {
-                        var fileName = CsCity.Name+ "-" + file.FileName + Path.GetExtension(file.FileName);
+                        var fileName = CsCity.Name+ "-" + file.FileName;
 
                         CsCity.Image = fileName;
-                        CsCity.AltTag = CsCity.Name + "-" + file.FileName;
                         if (file.Length > 0)
                         {
                             Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "City");
@@ -647,10 +646,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         foreach (var file in files)
                         {
-                            var fileName = CsCity.Name + "-" + file.FileName + Path.GetExtension(file.FileName);
+                            var fileName = CsCity.Name + "-" + file.FileName;
 
                             CsCity.Image = fileName;
-                            CsCity.AltTag = CsCity.Name + "-" + file.FileName;
                             //Delete the Images from the folder
                             Task<string> TDeleteImage = ryCsImage.DeleteImage(CsCity.ImageName, TokenKey, "City");
                             Task.WaitAll(TDeleteImage);
