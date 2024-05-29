@@ -36,7 +36,6 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Rituals { get; set; }
         public string? SpecialAboutFestival { get; set; }
         public int? TotalDays { get; set; }
-        public bool ShowPlaceFestival { get; set; }
         public bool ShowCityFestival { get; set; }
         public bool ShowStateFestival { get; set; }
         public bool ShowCountryFestival { get; set; }

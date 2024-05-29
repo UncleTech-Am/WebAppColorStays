@@ -9,19 +9,21 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(450)]
         public string? Id { get; set; }
         public string? Name { get; set; }
-        [ForeignKey("TblPlace")]
-        public string? Fk_Place_Name { get; set; }
-        [NotMapped]
-        public string? Place { get; set; }
+     
         [ForeignKey("TblCity")]
         public string? Fk_City_Name { get; set; }
+        [NotMapped]
+        public string? City { get; set; }
         [ForeignKey("TblState")]
         public string? Fk_State_Name { get; set; }
         [ForeignKey("TblCountry")]
         public string? Fk_Country_Name { get; set; }
         [ForeignKey("TblPlaceType")]
         public string? Fk_PlaceType_Name { get; set; }
-        public bool ShowPlaceHighlight { get; set; }
+        public string? Image { get; set; }
+        public string? AltTag { get; set; }
+        [NotMapped]
+        public string? ImageName { get; set; }
         public bool ShowCityHighlight { get; set; }
         public bool ShowStateHighlight { get; set; }
         public bool ShowCountryHighlight { get; set; }

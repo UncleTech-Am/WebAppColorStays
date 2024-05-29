@@ -159,7 +159,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 foreach (var file in files)
                 {
 
-                    var fileName = "News-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                    var fileName = CsNews.Title + "-News-" + file.FileName;
                     if ("Photo1" == file.Name)
                     {
                         CsNews.Photo1 = fileName;

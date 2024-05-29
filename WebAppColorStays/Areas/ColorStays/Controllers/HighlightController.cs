@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
+using WebAppColorStays.Areas.ColorStays.CommonMethods;
+using LibCommon.APICommonMethods;
 
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
@@ -21,10 +23,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class HighlightController : Controller
     {
         private readonly Paging paging;
+        private readonly RyCSImage ryCsImage;
 
         public HighlightController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -33,6 +37,22 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Title = "Highlight";
         }
         //Ends
+
+        //Drop Down
+        public async void DropDown(string CompId, string Token)
+        {
+            RyCrSsDropDown ry = new RyCrSsDropDown();
+            string URLPlaceType = "PlaceType/DropDown/" + CompId;
+            try
+            {
+                Task<List<SelectListItem>> PlaceType = ry.DDColorStaysAPI(URLPlaceType, Token);
+                Task.WaitAll(PlaceType);
+                ViewBag.PlaceType = PlaceType;
+            }
+            catch (Exception ex) { }
+
+        }
+
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -347,6 +367,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
+
+            DropDown(CompId, TokenKey);
             if (Id != null)
             {
                 bool Success = false;
@@ -385,7 +407,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            DropDown(CompId, TokenKey);
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
@@ -409,17 +431,34 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
+            DropDown(CompId, TokenKey);
             CsHighlight.CompId = CompId;
             CsHighlight.CreatedBy = UserID;
             CsHighlight.ModifiedBy = UserID;
             CsHighlight.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
             CsHighlight data = new CsHighlight();
+            var files = HttpContext.Request.Form.Files;
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    foreach (var file in files)
+                    {
+                        var fileName = CsHighlight.Name + "-" + file.FileName;
+
+                        CsHighlight.Image = fileName;
+                        if (file.Length > 0)
+                        {
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "HighLight");
+                            Task.WaitAll(TImgUpload);
+                            if (TImgUpload.Result == "Error")
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsHighlight), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("Highlight/create", content))
                     {
@@ -458,7 +497,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            DropDown(CompId, TokenKey);
             if (id == null)
             {
                 ViewBag.Message = "Not Founded";
@@ -509,16 +548,41 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
+            DropDown(CompId, TokenKey);
             ViewData["ResponseName"] = "ShowValidation";
             CsHighlight.CompId = CompId;
-            CsHighlight.ModifiedBy = UserID;   
+            CsHighlight.ModifiedBy = UserID;
+            var files = HttpContext.Request.Form.Files;
+            if (CsHighlight.ImageName != null)
+            {
+                CsHighlight.Image = CsHighlight.ImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        foreach (var file in files)
+                        {
+                            var fileName = CsHighlight.Name + "-" + file.FileName;
+
+                            CsHighlight.Image = fileName;
+                            //Delete the Images from the folder
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsHighlight.ImageName, TokenKey, "HighLight");
+                            Task.WaitAll(TDeleteImage);
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "HighLight");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                         using (var response = await client.PostAsJsonAsync<CsHighlight>("Highlight/edit", CsHighlight))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
@@ -563,6 +627,25 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            CsHighlight csHighlight = new CsHighlight();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Highlight/edit/" + id + "/" + CompId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csHighlight = await System.Text.Json.JsonSerializer.DeserializeAsync<CsHighlight>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            //Delete the Images from the folder
+            Task<string> TDeleteImage = ryCsImage.DeleteImage(csHighlight.ImageName, TokenKey, "HighLight");
+            Task.WaitAll(TDeleteImage);
+            if (TDeleteImage.Result == "Error")
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
+
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
