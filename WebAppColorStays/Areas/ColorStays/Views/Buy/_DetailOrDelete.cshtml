@@ -1,7 +1,7 @@
-@model WebAppColorStays.Models.ViewModel.CsHighlight
+@model WebAppColorStays.Models.ViewModel.CsBuy
 @{ 
     Layout = null; 
-    ViewData["Action"] = "Highlight";
+    ViewData["Action"] = "Buy";
 }
 
 <div style="display:none">responseformUT ShowData</div>
@@ -26,6 +26,13 @@
 		   
  
         <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_Place_Name)</td>
+        <td>@Model.Fk_Place_Name</td>
+        </tr>
+
+		      
+ 
+        <tr>
         <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_City_Name)</td>
         <td>@Model.Fk_City_Name</td>
         </tr>
@@ -47,95 +54,34 @@
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_PlaceType_Name)</td>
-        <td>@Model.Fk_PlaceType_Name</td>
-        </tr>
-
-		 
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ShowCityHighlight)</td>
-        <td>@Model.ShowCityHighlight</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Image)</td>
+        <td>@Model.Image</td>
         </tr>
 
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ShowStateHighlight)</td>
-        <td>@Model.ShowStateHighlight</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.AltTag)</td>
+        <td>@Model.AltTag</td>
         </tr>
 
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ShowCountryHighlight)</td>
-        <td>@Model.ShowCountryHighlight</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.TimeToVisit)</td>
-        <td>@Model.TimeToVisit</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Crowd)</td>
-        <td>@Model.Crowd</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Seasonal)</td>
-        <td>@Model.Seasonal</td>
-        </tr>
-
-		    
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Ratings)</td>
-        <td>@Model.Ratings</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ShowInCity)</td>
+        <td>@Model.ShowInCity</td>
         </tr>
 
 		  
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Rank)</td>
-        <td>@Model.Rank</td>
+         <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ShowInState)</td>
+        <td>@Model.ShowInState</td>
         </tr>
 
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.History)</td>
-        <td>@Model.History</td>
+         <tr>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ShowInCountry)</td>
+        <td>@Model.ShowInCountry</td>
         </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Facts)</td>
-        <td>@Model.Facts</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Stories)</td>
-        <td>@Model.Stories</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.TopThingsToKnow)</td>
-        <td>@Model.TopThingsToKnow</td>
-        </tr>
-
-		      
  
         <tr>
         <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Description)</td>
@@ -262,7 +208,7 @@
     <div class="DyFx FxJyCtSt Gp10 Wh100p">
         @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
         {
-            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/Highlight/DeleteConfirmed?Id=@Model.Id','/ColorStays/Highlight');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/Buy/DeleteConfirmed?Id=@Model.Id','/ColorStays/Buy');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
         }
 
         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
@@ -270,20 +216,20 @@
             //  Checks which Button to Show For the Verification
             if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Highlight/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/Highlight')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/Buy/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/Buy')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
             }
             if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Highlight/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/Highlight')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/Buy/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/Buy')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
             }
             //  Checks which Button to Show For the Activation
             if (Model.ActiveStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Highlight/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/Highlight')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                <button type="button" onclick="VerifyData('/ColorStays/Buy/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/Buy')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
             }
             if (Model.ActiveStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Highlight/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/Highlight')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
+                <button type="button" onclick="VerifyData('/ColorStays/Buy/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/Buy')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
             }
         }
     </div>

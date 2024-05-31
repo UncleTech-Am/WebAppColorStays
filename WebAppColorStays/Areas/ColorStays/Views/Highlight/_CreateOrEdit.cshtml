@@ -19,6 +19,18 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_PlaceType_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_PlaceType_Name" asp-items="@await ViewBag.PlaceType" class="TtBxTt15" required>
+                <option value="">Select PlaceType</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_PlaceType_Name"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_City_Name)<span style="color:red;"> *</span></div>
             <input class="TtBxTt14" placeholder="City Name" type="text" id="SearchCity" asp-for="City" autocomplete="off" required onchange="ClearData('SearchCity','Fk_City_Name', 'Fk_State_Name', 'Fk_Country_Name')" />
             <input type="hidden" asp-for="Fk_City_Name" required />
@@ -30,18 +42,6 @@
     <div class="VnRd"><span asp-validation-for="Fk_City_Name"></span></div>
 </div>
 
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_PlaceType_Name)<span style="color:red;"> *</span></div>
-            <select asp-for="Fk_PlaceType_Name" asp-items="@await ViewBag.PlaceType" class="TtBxTt15" required>
-                <option value="">Select PlaceType</option>
-            </select>
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Fk_PlaceType_Name"></span></div>
-</div>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -100,7 +100,7 @@
             <div class="TtBxFlSt">
                 <input class="SeIt1o15" type="checkbox" asp-for="ShowStateHighlight">
 
-                &nbsp;Show In State Highlight
+                &nbsp;Show State Highlight
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="ShowStateHighlight"></span></div>
@@ -111,7 +111,7 @@
             <div class="TtBxFlSt">
                 <input class="SeIt1o15" type="checkbox" asp-for="ShowCountryHighlight">
 
-                &nbsp;Show In Country Highlight
+                &nbsp;Show Country Highlight
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="ShowCountryHighlight"></span></div>
@@ -156,44 +156,18 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Longitude)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Longitude)" asp-for="Longitude" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Longitude"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Latitude)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Latitude)" asp-for="Latitude" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Latitude"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Ratings)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Ratings)" asp-for="Ratings" autocomplete="off" />
+            <select asp-for="Ratings" class="TtBxTt15" required>
+                <option value="">Select Rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Ratings"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PinCode)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PinCode)" asp-for="PinCode" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="PinCode"></span></div>
 </div>
 
 

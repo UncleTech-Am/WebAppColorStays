@@ -104,7 +104,7 @@
     string CountryFestival = "";
     string StateFestival = "";
     string CityFestival = "";
-
+    string Buy = "";
 
     switch (Action)
     {
@@ -188,6 +188,7 @@
         case "CityFestival": CityFestival = "SideSubLinkActive"; MainLink6 = "SideNavActive"; DrownLink6 = "SideSubNavActive"; break;
 
         case "Highlight": Highlight = "SideSubLinkActive"; MainLink7 = "SideNavActive"; DrownLink7 = "SideSubNavActive"; break;
+        case "Buy": Buy = "SideSubLinkActive"; MainLink7 = "SideNavActive"; DrownLink7 = "SideSubNavActive"; break;
 
         case "HotelType": HotelType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "HotelFacility": HotelFacility = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
@@ -993,6 +994,15 @@
                     </div>
                     <a href="~/ColorStays/Highlight/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/Highlight/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @Buy">
+                        <a href="~/ColorStays/Buy/Create">Buy</a>
+                    </div>
+                    <a href="~/ColorStays/Buy/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Buy/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
         </div>

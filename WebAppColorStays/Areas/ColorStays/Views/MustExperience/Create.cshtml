@@ -65,9 +65,6 @@
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
-        StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
-        StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
-        StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
         MaxMin();
     });
 
@@ -114,37 +111,7 @@
     });
 
 
-    //Clear Autocompete data
-    function ClearData(UrNe, UrId) {
-        document.getElementById(UrNe).value = '';
-        document.getElementById(UrId).value = '';
-    }
-
-    //Autocomplete Country
-    function AoCeCountry(event) {
-        var InputId = event.target.InputID;
-        SuggestionClose(InputId);
-        document.getElementById('Fk_Country_Name').value = event.target.Id;
-        document.getElementById(InputId).value = event.target.Value;
-
-    }
-
-    //Autocomplete State
-    function AoCeState(event) {
-        var InputId = event.target.InputID;
-        SuggestionClose(InputId);
-        document.getElementById('Fk_State_Name').value = event.target.Id;
-        document.getElementById(InputId).value = event.target.Value;
-    }
-
-    //Autocomplete City
-    function AoCeCity(event) {
-        var InputId = event.target.InputID;
-        SuggestionClose(InputId);
-        document.getElementById('Fk_City_Name').value = event.target.Id;
-        document.getElementById(InputId).value = event.target.Value;
-    }
-
+   
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
         //Here we get the pageno,pagesize and listcount

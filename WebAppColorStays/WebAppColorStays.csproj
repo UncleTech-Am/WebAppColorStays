@@ -79,6 +79,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\ColorStays\Views\Buy\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\Buy\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Buy\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\Buy\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Buy\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\Buy\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Buy\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\Buy\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\Buy\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\CountryOverView\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\CountryOverView\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\CountryOverView\Index.cshtml" />

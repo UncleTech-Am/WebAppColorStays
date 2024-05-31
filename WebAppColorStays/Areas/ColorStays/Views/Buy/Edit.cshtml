@@ -1,15 +1,15 @@
-@model WebAppColorStays.Models.ViewModel.CsMustExperience
+@model WebAppColorStays.Models.ViewModel.CsBuy
 
 @{
     Layout = "_Layout";
-    ViewData["Action"] = "MustExperience";
+    ViewData["Action"] = "Buy";
 }
 
 <div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
     <div class="CrTeTtLt FxGw1"> <h1>Edit @ViewBag.Title</h1></div>
     <div>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/MustExperience/Create'"><i class="UT-AddFile FtSz18"></i></button>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/MustExperience/Index'"><i class="UT-List-OLine FtSz18"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/Buy/Create'"><i class="UT-AddFile FtSz18"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/Buy/Index'"><i class="UT-List-OLine FtSz18"></i></button>
     </div>
 
 </div>
@@ -25,11 +25,11 @@
 
                 <form id="Edit"
                       data-ajax="true"
-                      data-ajax-url="/ColorStays/MustExperience/Edit"
+                      data-ajax-url="/ColorStays/Buy/Edit"
                       data-ajax-method="POST"
                       data-ajax-loading="#loader"
                       enctype="multipart/form-data"
-                      data-ajax-success="Success(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/MustExperience/CreateOrEdit?id=@Model.Id')"
+                      data-ajax-success="Success(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/Buy/CreateOrEdit?id=@Model.Id')"
                       data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')">
 
                     @Html.AntiForgeryToken()
@@ -43,7 +43,6 @@
                     <div id="CreateOrEdit">
                         @await Html.PartialAsync("_CreateOrEdit", Model)
                     </div>
-
                     <div class="MnTp7 MnBm7" style="height:66vh;">
                         <div>
                             <div class="MaxMinDv">
@@ -56,7 +55,7 @@
                             <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-EditFileLine"></i>&nbsp;Edit</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/MustExperience/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Buy/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
                         </div>
                     </div>
                 </form>
@@ -64,16 +63,18 @@
         </div>
 
         <div class="Fx55 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
-            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsMustExperience>)ViewData["EnteredDetails"])
+            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsBuy>)ViewData["EnteredDetails"])
         </div>
     </div>
 </div>
+
 <script src="~/js/tinymce_6.2.0/tinymce/js/tinymce/tinymce.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
+        StartSuggestionBox(2, 'SearchPlace', '/ColorStays/Place/SuggestPlace', '', '', AoCePlace);
+
         MaxMin();
     });
 
@@ -107,18 +108,37 @@
             { title: 'English (US)', code: 'en_US' },
         ],
         content_style: `
-                        img {
-                            height: auto;
-                        margin: auto;
-                        padding: 10px;
-                        display: block;
-                                            }
-                        img.medium {
-                            max - width: 25%;
-                                            }
-                        `
+                                img {
+                                    height: auto;
+                                margin: auto;
+                                padding: 10px;
+                                display: block;
+                                                    }
+                                img.medium {
+                                    max - width: 25%;
+                                                    }
+                                `
     });
- 
+
+    //Clear Autocompete data
+    function ClearData(UrNe, UrId, Text1, Text2, Text3) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+        document.getElementById(Text1).value = '';
+        document.getElementById(Text2).value = '';
+        document.getElementById(Text3).value = '';
+    }
+
+    //Autocomplete Item
+    function AoCePlace(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Place_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+        document.getElementById('Fk_City_Name').value = event.target.Text1;
+        document.getElementById('Fk_State_Name').value = event.target.Text2;
+        document.getElementById('Fk_Country_Name').value = event.target.Text3;
+    }
     function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateEditDiv", "Def", FormFieldURL);
         //Here we get the pageno,pagesize and listcount
@@ -128,7 +148,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/MustExperience/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/Buy/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
     }
 
     //Table Search Success Function
@@ -136,13 +156,13 @@
         //This the SuccessFunction
         FormAjaxSuccess(data, FormID, '', "UpdateDivNoFReset", "Def");
         //Here we get the pageno,pagesize and listcount
-        var doc = new DOMParser().parseFromString(data, "text/html");
+        var doc = new DOMParser().parseFromString(data,"text/html");
         var pageinfo = doc.getElementById("PaginationAt");
         var netrecord = pageinfo.getAttribute("netrecord");
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/MustExperience/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/Buy/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
     }
 
     function IntializeTableSearch() {

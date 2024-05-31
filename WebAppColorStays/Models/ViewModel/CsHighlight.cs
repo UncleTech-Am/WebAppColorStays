@@ -31,10 +31,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? TimeToVisit { get; set; }
         public string? Crowd { get; set; }
         public string? Seasonal { get; set; }
-        public string? Longitude { get; set; }
-        public string? Latitude { get; set; }
-        public string? Ratings { get; set; }
-        public string? PinCode { get; set; }
+        public int? Ratings { get; set; }
         public int? Rank { get; set; }
         public string? History { get; set; }
         public string? Facts { get; set; }

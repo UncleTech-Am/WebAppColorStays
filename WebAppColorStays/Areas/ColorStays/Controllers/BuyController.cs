@@ -10,21 +10,20 @@ using LibCompanyService.Models.ViewCompany;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
+
 using WebAppColorStays.Models.ViewModel;
 using LibCommon.APICommonMethods;
-using SixLabors.ImageSharp;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
-{
+{   
     [Area("ColorStays")]
     [SessionCheck]
     [Authorize]
-    public class RestaurantController : Controller
+    public class BuyController : Controller
     {
         private readonly Paging paging;
         private readonly RyCSImage ryCsImage;
-
-        public RestaurantController()
+        public BuyController()
         {
             paging = new Paging();
             ryCsImage = new RyCSImage();
@@ -33,80 +32,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "Restaurant";
+            ViewBag.Title = "Buy";
         }
         //Ends
-
-        //ItemAutoComplete
-        [HttpGet]
-        public async Task<JsonResult> SuggestRestaurant(string term)
-        {
-            var TokenKey = Request.Cookies["JWToken"];
-            var UserID = Request.Cookies["UserID"];
-            List<CsAutocomplete> list = new List<CsAutocomplete>();
-            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                HttpResponseMessage res = await client.GetAsync("Restaurant/SuggestRestaurant/" + term + "/" + CompId, HttpCompletionOption.ResponseHeadersRead);
-                if (res.IsSuccessStatusCode)
-                {
-                    var results = res.Content.ReadAsStreamAsync().Result;
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsAutocomplete>>(results, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                    var data = list.Select(x => new
-                    {
-                        id = Base64UrlEncoder.Encode(Process.Encrypt(x.Id)),
-                        value = x.Value,
-                        label = x.Label,
-
-                    }).ToList();
-                    return Json(data);
-                }
-            }
-            return null;
-        }
-        //Ends
-
-        [HttpPost]
-        public async Task<IActionResult> SaveImage(string RId, string RName)
-        {
-            var TokenKey = Request.Cookies["JWToken"];
-
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var files = HttpContext.Request.Form.Files;
-            //var uploads = Path.Combine(Environment.WebRootPath, "Image\\Country");
-
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                foreach (var file in files)
-                {
-                    var fileName = RName+ "-Restaurant-" + file.FileName;
-                    //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("Restaurant/SaveImage/?RId=" + RId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
-                    {
-                        var apiResponse = await response.Content.ReadAsStreamAsync();
-                        if (!response.IsSuccessStatusCode)
-                        {
-                            return View("Error");
-                        }
-                    }
-
-                    if (file.Length > 0)
-                    {
-                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Restaurant");
-                        Task.WaitAll(TImgUpload);
-                        if (TImgUpload.Result == "Error")
-                        {
-                            return View("Error");
-                        }
-                    }
-                }
-            }
-            return Json(new { Message = "Saved" });
-        }
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -126,8 +54,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Display the Pagination 
         [HttpGet]
         public IActionResult Pagination(int? PgSelectedNum, int? PgSize, string SearchType, string NetRecords)
-        {
-            Title();
+        {         
+			Title();
             switch (SearchType)
             {
                 case "DateSearch":
@@ -163,23 +91,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
         //Give the list of the data
-        public async Task<Tuple<int, List<CsRestaurant>>> AllDataList(int? PgSize, int? PgSelectedNum)
+        public async Task<Tuple<int, List<CsBuy>>> AllDataList(int? PgSize, int? PgSelectedNum)
         {
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Tuple<int, List<CsRestaurant>> list;
+            Tuple<int, List<CsBuy>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Restaurant/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Buy/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRestaurant>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsBuy>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
-                    else { list = null; }
+                    else{ list = null; }
                 }
             }
             return list;
@@ -187,39 +115,36 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET:/Restaurant/
+        //GET:/Buy/
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string? Id, string? Name)
-        {
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
+        {         
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Title();
 
             //Display the Dropdown of the Table fields in Search Data Popup
-            GetClassMember<CsRestaurant> getClassMember = new GetClassMember<CsRestaurant>();
-            CsRestaurant CsRestaurant = new CsRestaurant();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsRestaurant), "Value", "DisplayName");
+            GetClassMember<CsBuy> getClassMember = new GetClassMember<CsBuy>();
+            CsBuy CsBuy = new CsBuy();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsBuy), "Value", "DisplayName");
             //Ends
 
             try //Pagination and List of data Code
             {
                 Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<CsRestaurant>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                Task<Tuple<int, List<CsBuy>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                 PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
 
                 ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
-                ViewData["RId"] = Id;
-                ViewData["RName"] = Name;
-                if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
 
                 return View(ReturnDataList.Result.Item2);
             }
-            catch (Exception ex)
-            {
+            catch(Exception ex)
+            { 
                 return View("Error");
             }
         }
@@ -247,18 +172,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 cIndex.PageSize = pagedata.Item1;
                 cIndex.PageSelectedNum = pagedata.Item2;
                 cIndex.CompId = CompID;
-                Tuple<int, List<CsRestaurant>> list;
+                Tuple<int, List<CsBuy>> list;
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     //Get the List of data
-                    using (var response = await client.PostAsJsonAsync("Restaurant/DateSearch/", cIndex))
+                    using (var response = await client.PostAsJsonAsync("Buy/DateSearch/", cIndex))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRestaurant>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsBuy>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
-                        else { Success = false; }
+                        else{ Success = false; }
                     }
                 }
                 if (Success == true)
@@ -281,7 +206,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //Search the Data according to the table fileds in the Index
         [HttpPost]
-        public async Task<IActionResult> TableSearch(CsRestaurant CsRestaurant, IFormCollection fc)
+        public async Task<IActionResult> TableSearch(CsBuy CsBuy, IFormCollection fc)
         {
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
@@ -294,18 +219,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsRestaurant>> list;
+            Tuple<int, List<CsBuy>> list;
 
             using (HttpClient client = APIColorStays.Initial())
             {
-                CsRestaurant.CreatedBy = UserID;
-                CsRestaurant.CompId = CompID;
+                CsBuy.CreatedBy = UserID;
+                CsBuy.CompId = CompID;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(CsRestaurant), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Restaurant/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
+                StringContent content = new StringContent(JsonSerializer.Serialize(CsBuy), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync("Buy/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRestaurant>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsBuy>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -323,20 +248,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
         //Ends
 
-
+        
         //Search the Data according to the Fields Selected in Search Data View
         [HttpPost]
         public async Task<IActionResult> FilterSearch(CIndexSearchFilter indexsearchfilter, IFormCollection fc)
         {
-            GetClassMember<CsRestaurant> getClassMember = new GetClassMember<CsRestaurant>();
-            CsRestaurant CsRestaurant = new CsRestaurant();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsRestaurant), "Value", "DisplayName");
+            GetClassMember<CsBuy> getClassMember = new GetClassMember<CsBuy>();
+            CsBuy CsBuy = new CsBuy();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsBuy), "Value", "DisplayName");
             //Creating Search Filter List with class member Property Name
-            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsRestaurant);
+            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsBuy);
             foreach (var item in indexsearchfilter.IndexSearchList)
             { item.Name = fields[item.Name]; }
             //Ends
-
+            
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
             int PgSize = Convert.ToInt32(fc["PageSize"]);
@@ -348,19 +273,19 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsRestaurant>> list;
+            Tuple<int, List<CsBuy>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
-                indexsearchfilter.CurrentUserId = UserID;
+               indexsearchfilter.CurrentUserId = UserID;
                 indexsearchfilter.CompId = CompID;
                 indexsearchfilter.PageSelectedNum = pagedata.Item2;
                 indexsearchfilter.PageSize = pagedata.Item1;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(indexsearchfilter), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Restaurant/FilterSearch", content))
+                using (var response = await client.PostAsync("Buy/FilterSearch", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsRestaurant>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsBuy>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -380,32 +305,32 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET: /Restaurant/Details/5
+        //GET: /Buy/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            CsRestaurant CsRestaurant = new CsRestaurant();
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            CsBuy CsBuy = new CsBuy();
             using (HttpClient client = APIColorStays.Initial())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Restaurant/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Buy/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        CsRestaurant = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRestaurant>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        return View("_DetailOrDelete", CsRestaurant);
+                        CsBuy = await System.Text.Json.JsonSerializer.DeserializeAsync<CsBuy>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        return View("_DetailOrDelete",CsBuy);
                     }
                     else
                     {
-                        Tuple<CsRestaurant, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsRestaurant, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Tuple<CsBuy, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsBuy, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (data.Item2 != null && data.Item2.Message == "GlobalItem")
                         {
                             ViewBag.Message = "Sytem Entry, Can't be Changed !";
-                            return View("_DetailOrDelete", data.Item1);
+                            return View("_DetailOrDelete",data.Item1);
                         }
                         if (data.Item1 == null && data.Item2 == null) { ViewData["ErrorMessage"] = "Entry Could not be Found!"; return View("_ErrorGeneric"); }
                     }
@@ -415,26 +340,26 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-        //GET: /Restaurant/CreateOrEdit
+        //GET: /Buy/CreateOrEdit
         [HttpGet]
         [ResponseCache(Duration = 0)]
         public async Task<IActionResult> CreateOrEdit(string Id)
         {
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
             if (Id != null)
             {
                 bool Success = false;
-                var data = new CsRestaurant();
+                var data = new CsBuy();
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("Restaurant/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync("Buy/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRestaurant>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsBuy>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else { Success = false; }
@@ -452,8 +377,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 return View("_CreateOrEdit");
             }
         }
-
-        //GET: /Restaurant/Create
+        
+        //GET: /Buy/Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -468,44 +393,43 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["SearchType"] = "NoSearch";
 
             Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-            Task<Tuple<int, List<CsRestaurant>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+            Task<Tuple<int, List<CsBuy>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
             PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
             ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
             return View();
-        }
+        } 
+        
 
-
-        //POST: /Restaurant/Create
+        //POST: /Buy/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CsRestaurant CsRestaurant)
-        {
+		public async Task<IActionResult> Create(CsBuy CsBuy)
+        {       
             Title();
             ViewData["AnName"] = "Create";
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            CsRestaurant.CompId = CompID;
-            CsRestaurant.CreatedBy = UserID;
-            CsRestaurant.ModifiedBy = UserID;
-            CsRestaurant.Id = Guid.NewGuid().ToString();
+            CsBuy.CompId = CompID;
+            CsBuy.CreatedBy = UserID;
+            CsBuy.ModifiedBy = UserID;
+            CsBuy.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
-            CsRestaurant data = new CsRestaurant();
             var files = HttpContext.Request.Form.Files;
-
+            CsBuy data = new CsBuy();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     foreach (var file in files)
                     {
-                        var fileName = CsRestaurant.Name + "-Restaurant-" + file.FileName;
+                        var fileName = CsBuy.Name + "-" + file.FileName;
 
-                        CsRestaurant.Image = fileName;
+                        CsBuy.Image = fileName;
                         if (file.Length > 0)
                         {
-                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "RestaurantCover");
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "WhatToBuy");
                             Task.WaitAll(TImgUpload);
                             if (TImgUpload.Result == "Error")
                             {
@@ -515,13 +439,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
 
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    StringContent content = new StringContent(JsonSerializer.Serialize(CsRestaurant), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("Restaurant/create", content))
+                    StringContent content = new StringContent(JsonSerializer.Serialize(CsBuy), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("Buy/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
                         {
-                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRestaurant>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsBuy>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             Success = true;
                         }
                         else
@@ -536,17 +460,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
                 if (Success == true)
-                {
-                    data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id, data.Name });
-                }
-                else { return View("_CreateOrEdit", CsRestaurant); }
+                { return RedirectToAction("Index", new { PageCall = "Show" }); }
+                else { return View("_CreateOrEdit", CsBuy); }
             }
-            return View("_CreateorEdit", CsRestaurant);
-        }
+            return View("_CreateorEdit",CsBuy);                
+         }
 
 
-        //GET: /Restaurant/Edit/5
+        //GET: /Buy/Edit/5
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
@@ -567,53 +488,53 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
-            CsRestaurant CsRestaurant = new CsRestaurant();
+            CsBuy CsBuy = new CsBuy();
             using (HttpClient client = APIColorStays.Initial())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Restaurant/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Buy/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsRestaurant>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                    Task<Tuple<int, List<CsBuy>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                     PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
-                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
+                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;                   
                     if (response.IsSuccessStatusCode)
                     {
-                        CsRestaurant = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRestaurant>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsBuy = await System.Text.Json.JsonSerializer.DeserializeAsync<CsBuy>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else
                     {
                         Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        if (responsemsg.Message == "NotFound")
+                        if (responsemsg.Message == "NotFound") 
                         { ViewBag.Message = "Entry Not Exits!"; }
                         if (responsemsg.Message == "GlobalItem")
                         { ViewBag.Message = "Sytem Entry, Can't Change !"; }
                     }
                 }
             }
-            return View(CsRestaurant);
+            return View(CsBuy);
         }
 
-
-        //POST: /Restaurant/Edit/5
+                
+        //POST: /Buy/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CsRestaurant CsRestaurant)
+        public async Task<IActionResult> Edit(CsBuy CsBuy)
         {
             Title();
             ViewData["AnName"] = "Edit";
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
-            CsRestaurant.CompId = CompID;
-            CsRestaurant.ModifiedBy = UserID;
+            CsBuy.CompId = CompID;
+            CsBuy.ModifiedBy = UserID;
             var files = HttpContext.Request.Form.Files;
-            if (CsRestaurant.ImageName != null)
+            if (CsBuy.ImageName != null)
             {
-                CsRestaurant.Image = CsRestaurant.ImageName;
+                CsBuy.Image = CsBuy.ImageName;
             }
             if (ModelState.IsValid)
             {
@@ -623,16 +544,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         foreach (var file in files)
                         {
-                            var fileName = CsRestaurant.Name + "-Restaurant-" + file.FileName;
+                            var fileName = CsBuy.Name + "-" + file.FileName;
 
-                            CsRestaurant.Image = fileName;
+                            CsBuy.Image = fileName;
                             //Delete the Images from the folder
-                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsRestaurant.ImageName, TokenKey, "RestaurantCover");
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsBuy.ImageName, TokenKey, "WhatToBuy");
                             Task.WaitAll(TDeleteImage);
-
                             if (file.Length > 0)
                             {
-                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "RestaurantCover");
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "WhatToBuy");
                                 Task.WaitAll(TImgUpload);
                                 if (TImgUpload.Result == "Error")
                                 {
@@ -642,12 +562,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                         }
 
                         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsRestaurant>("Restaurant/edit", CsRestaurant))
+                        using (var response = await client.PostAsJsonAsync<CsBuy>("Buy/edit", CsBuy))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)
                             {
-                                Tuple<CsRestaurant, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsRestaurant, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Tuple<CsBuy, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsBuy,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                                 if (data.Item2 != null)
                                 {
                                     if (data.Item2.Message == "Duplicate")
@@ -667,7 +587,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", CsRestaurant.Id, CsRestaurant.Name });
+                    return RedirectToAction("Index", new { PageCall = "Show" });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -675,67 +595,45 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     return View("_CreateorEdit");
                 }
             }
-            return View("_CreateorEdit", CsRestaurant);
+            return View("_CreateorEdit",CsBuy);
         }
-
-
-        //POST: /Restaurant/Delete/5
+        
+       
+        //POST: /Buy/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-
-            List<CsRestaurantImage> photosList = new List<CsRestaurantImage>();
-
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("RestaurantImage/Index/" + id))
-                {
-                    var apiResponse = await response.Content.ReadAsStreamAsync();
-                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsRestaurantImage>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                }
-            }
-
-            CsRestaurant csRestaurant = new CsRestaurant();
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            CsBuy csBuy = new CsBuy();
 
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Restaurant/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Festival/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    csRestaurant = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRestaurant>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    csBuy = await System.Text.Json.JsonSerializer.DeserializeAsync<CsBuy>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                 }
             }
             //Delete the Images from the folder
-            List<string> image = new List<string>();
-            foreach (var item in photosList)
-            {
-                string img;
-                img = item.Title;
-                image.Add(img);
-            }
-            Task<string> TDeleteImage = ryCsImage.DeleteImage(csRestaurant.ImageName, TokenKey, "RestaurantCover");
-
-            Task<string> TDeleteImageList = ryCsImage.DeleteMultiImage(image, "Restaurant", TokenKey);
-            Task.WaitAll(TDeleteImage, TDeleteImageList);
-            if (TDeleteImage.Result == "Error" || TDeleteImageList.Result == "Error")
+            Task<string> TDeleteImage = ryCsImage.DeleteImage(csBuy.ImageName, TokenKey, "WhatToBuy");
+            Task.WaitAll(TDeleteImage);
+            if (TDeleteImage.Result == "Error")
             {
                 ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
             }
 
             using (HttpClient client = APIColorStays.Initial())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Restaurant/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Buy/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index", new { PageCall = "Show" });
+                        return RedirectToAction("Index", new { PageCall="Show"});
                     }
                     else
                     {
@@ -750,23 +648,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //POST: >Verify/5
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> VerifyData(string Id, string AnName)
+        public async Task<IActionResult> VerifyData(string Id, string AnName)          
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            VerNActViewModel model = new VerNActViewModel();
+			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+			VerNActViewModel model = new VerNActViewModel();
             model.Id = Id;
             model.ActionName = AnName;
             model.CompId = CompID;
             if (model.ActionName == "Verify" || model.ActionName == "UnVerify") { model.VerifiedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
             if (model.ActionName == "Activate" || model.ActionName == "Inactivate") { model.ActivatedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
-            CsRestaurant CsRestaurant = new CsRestaurant();
+			CsBuy CsBuy = new CsBuy();
             using (HttpClient client = APIColorStays.Initial())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("Restaurant/verifydata/", content))
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+				StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync("Buy/verifydata/" , content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
@@ -794,7 +692,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             starUnstar.Id = Id;
             starUnstar.Host = Request.Scheme + "://" + Request.Host;
             starUnstar.AreaName = "ColorStays";
-            starUnstar.ControllerName = "Restaurant";
+            starUnstar.ControllerName = "Buy";
             starUnstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
@@ -823,7 +721,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             unstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(unstar), Encoding.UTF8, "application/json");
                 using (var response = await client.PostAsync("UserClip/unmarkstar/", content))
                 {
@@ -835,27 +733,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             else { return View("Error"); }
         }
 
-        //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationRestaurant(string Name, string NameAction, string Fk_Place_Name, string Id)
+         //This method is to check duplicate values for specific columns......
+        public async Task<JsonResult> CheckDuplicationBuy(string Name, string NameAction, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             if (Id == null) { Id = "No"; }
-            if (Fk_Place_Name == null)
-            {
-                Fk_Place_Name = "No";
-            }
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Restaurant/CheckDuplicationRestaurant/" + Name + "/" + NameAction + "/" + Fk_Place_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Buy/CheckDuplicationBuy/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         Success = true;
                     }
-                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
                         return Json("Sorry, this " + Name + " already exists");
                     }
@@ -864,35 +758,5 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
-
-        public async Task<JsonResult> CheckDuplicationRestaurantRank(int Rank, string NameAction, string Fk_Place_Name, string Id)
-        {
-            bool Success = false;
-            var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            if (Id == null) { Id = "No"; }
-            if (Fk_Place_Name == null)
-            {
-                Fk_Place_Name = "No";
-            }
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Restaurant/CheckDuplicationRestaurantRank/" + Rank + "/" + NameAction + "/" + Fk_Place_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
-                {
-                    if (response.IsSuccessStatusCode)
-                    {
-                        Success = true;
-                    }
-                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-                    {
-                        return Json("Sorry, this " + Rank + " already exists");
-                    }
-                }
-            }
-            if (Success == true) { return Json(true); }
-            else { return Json("Some Error!"); }
-        }
-
     }
 }
