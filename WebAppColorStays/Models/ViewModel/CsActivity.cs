@@ -46,6 +46,10 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter Activity Name.")]
         [Remote("CheckDuplicationActivity", "Activity", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]
         public string Name { get; set; }
+        public string? Image { get; set; }
+        [NotMapped]
+        public string? ImageName { get; set; }
+        public string? AltTag { get; set; }
         public string? Description { get; set; }
         [DisplayName("Video Link")]
         [StringLength(500, ErrorMessage = "You can enter only 500 characters long!")]
