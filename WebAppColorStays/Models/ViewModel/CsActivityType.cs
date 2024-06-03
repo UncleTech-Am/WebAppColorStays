@@ -20,7 +20,6 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
         public string? AltTag { get; set; }
 
-        [StringLength(500, ErrorMessage = "You can enter only 500 characters long!")]
         public string? Description { get; set; }
 
         [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]

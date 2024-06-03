@@ -143,7 +143,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
                 ViewData["ATId"] = Id;
-                if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
+               // if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
 
@@ -543,7 +543,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsActivityType.CompId = CompID;
             CsActivityType.ModifiedBy = UserID;
             var files = HttpContext.Request.Form.Files;
-            if (CsActivityType.ImageName != null)
+            if (CsActivityType.ImageUrl != null)
             {
                 CsActivityType.ImageName = CsActivityType.ImageUrl;
             }

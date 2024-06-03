@@ -22,7 +22,7 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_FestivalType_Name)</div>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_FestivalType_Name)<span style="color:red;"> *</span></div>
             <select asp-for="Fk_FestivalType_Name" asp-items="@await ViewBag.FestivalType" class="TtBxTt15" required>
                 <option value="">Select Festival Type</option>
             </select>
@@ -35,8 +35,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
@@ -100,8 +100,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CelebratedFor)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.CelebratedFor)" asp-for="CelebratedFor" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CelebratedFor) <span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.CelebratedFor)" asp-for="CelebratedFor" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="CelebratedFor"></span></div>
@@ -111,8 +111,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Month)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Month)" asp-for="Month" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Month) <span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Month)" asp-for="Month" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Month"></span></div>
@@ -122,8 +122,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Region)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Region)" asp-for="Region" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Region)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Region)" asp-for="Region" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Region"></span></div>
@@ -132,8 +132,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PopularReligion)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PopularReligion)" asp-for="PopularReligion" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PopularReligion)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PopularReligion)" asp-for="PopularReligion" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="PopularReligion"></span></div>
@@ -142,8 +142,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TotalDays)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.TotalDays)" asp-for="TotalDays" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TotalDays)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.TotalDays)" asp-for="TotalDays" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="TotalDays"></span></div>
@@ -180,8 +180,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag)" asp-for="AltTag" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag)" asp-for="AltTag" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="AltTag"></span></div>
