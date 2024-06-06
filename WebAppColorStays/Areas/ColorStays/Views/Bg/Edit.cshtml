@@ -1,0 +1,440 @@
+@model WebAppColorStays.Model.ViewModel.CsBlog
+
+@{
+    Layout = "_Layout";
+    ViewData["Action"] = "Bg";
+}
+
+<div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
+    <div class="CrTeTtLt FxGw1"> <h1>Edit @ViewBag.Title</h1></div>
+    <div>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/Bg/Create'"><i class="UT-AddFile FtSz18"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/Bg/Index'"><i class="UT-List-OLine FtSz18"></i></button>
+    </div>
+
+</div>
+
+<div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
+    <div class="FxRw FxAnImSh">
+        <div class="Fx50 Pg3 FormSideView" id="FormSideView">
+            <div id="UTabs1">
+                <div>SEO</div>
+                <div><i class="UT-ImageLine FtSz18 MnLtRt2"></i> Add</div>
+                <div>Content</div>
+                <div><i class="UT-ImageLine FtSz18 MnLtRt2"></i> Set-Up</div>
+
+            </div>
+            <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
+                <div id="UTabs1Cont0">
+                    <div class="Pg10">
+                        <form id="Edit"
+                              data-ajax="true"
+                              data-ajax-url="/ColorStays/Bg/Edit"
+                              data-ajax-method="POST"
+                              data-ajax-loading="#loader"
+                              data-ajax-success="Success(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/Bg/CreateOrEdit?id=@Model.Id')"
+                              data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')">
+                            @Html.AntiForgeryToken()
+
+                            <h3 class="MnBm10"><span style="color:red">@ViewBag.Verified @ViewBag.Message</span></h3>
+
+                            @Html.ValidationSummary(true)
+
+                            <input type="hidden" name="NameAction" value="E" />
+
+                            <div id="CreateOrEdit">@await Html.PartialAsync("_CreateOrEdit", Model)</div>
+
+                            <div class="FxRw">
+                                <div class="FxGw1">
+                                    <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" @*onclick="ActiveTabUt('UTabs1', 1)"*@><i class="UT-AddFile"></i>&nbsp;Next</button>
+                                </div>
+                                <div>
+                                    <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Bg/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div id="UTabs1Cont1">
+                    <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
+                        <i class="UT-ImageLine"></i>
+                        Upload all Blog Images
+                    </h3>
+                    <form action="/" enctype="multipart/form-data" method="POST">
+                        <div class="Pg5">
+                            <div class="dropzone" id="myDropzone">
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Pg10 FxRw">
+                            <div class="FxGw1">
+                                <button type="button" id="submit-all" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                            </div>
+                            <div>
+                                <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 2)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                            </div>
+                            <div>
+                                <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 0)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="UTabs1Cont2">
+                    <form id="CreateDn"
+                          data-ajax="true"
+                          data-ajax-url="/ColorStays/Bg/Edit"
+                          data-ajax-method="POST"
+                          data-ajax-loading="#loader"
+                          data-ajax-success="SuccessDn(data, status, xhr,'CreateDn','CreateOrEditDn','/ColorStays/Bg/CreateOrEdit?id=@Model.Id')"
+                          data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateDn')">
+                        @Html.AntiForgeryToken()
+
+                        <div id="CreateOrEditDn" class="PgTpBm15">@await Html.PartialAsync("_CreateOrEditDn", Model)</div>
+
+                        <div class="Pg10 FxRw">
+                            <div class="FxGw1">
+                                <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                            </div>
+                            <div>
+                                <button id="SwTb4" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 3)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                            </div>
+                            <div>
+                                <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="UTabs1Cont3">
+                    <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
+                    <div class="Pg10 FxRw">
+                        <div class="FxGw1">
+                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Bg/Index'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
+                        </div>
+                        <div>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 2)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="Fx50 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
+            <div id="UTabs2">
+                <div>Blog</div>
+                <div><i class="UT-ImageLine FtSz18 MnLtRt2"></i></div>
+                <div>List</div>
+            </div>
+            <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
+                <div id="UTabs2Cont0">
+                    <div id="Deatil">
+                    </div>
+                </div>
+                <div id="UTabs2Cont1">
+                    <div id="Images"></div>
+                </div>
+                <div id="UTabs2Cont2">
+                    @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Model.ViewModel.CsBlog>)ViewData["EnteredDetails"])
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/lib/dropzone/min/dropzone.min.css" rel="stylesheet" />
+<script src="~/lib/dropzone/min/dropzone.min.js"></script>
+<script src="~/js/tinymce_6.2.0/tinymce/js/tinymce/tinymce.min.js"></script>
+<script>
+    $(document).ready(function () {
+        ShowLoader();
+        TabsUT('UTabs1', 0, [1, 2, 3], []);
+        TabsUT('UTabs2', 0, null, []);
+
+        //Show Image
+        var blogid = $("#Id").val();
+        getUT('/ColorStays/BgImage/Index?BlogId=' + blogid, function (data) {
+            document.getElementById('Images').innerHTML = "";
+            document.getElementById('Images').innerHTML = data;
+            document.getElementById('SwTb3').style.display = "block";
+            document.getElementById('DesBgId').value = blogid;
+        });
+        //Show the Images in LHS for Update
+        getUT('/ColorStays/BgImage/Index?BlogId=' + blogid + '&UpdateDetail=Yes', function (data) {
+            document.getElementById('AddImgDetail').innerHTML = "";
+            document.getElementById('AddImgDetail').innerHTML = data;
+        });
+        //Ends
+
+        //Show the blog detail view in RHS
+        var blogid = $("#Id").val();
+        getUT('/ColorStays/Bg/Details?id=' + blogid + '&AnName=Create', function (data) {
+            document.getElementById('Deatil').innerHTML = "";
+            document.getElementById('Deatil').innerHTML = data;
+            ActiveTabUt('UTabs2', 0);
+            HideLoader();
+        });
+
+
+        //Show the Blog Tags
+        StOnTs = document.getElementById('Tags');
+        getUT('/ColorStays/Bg/DpDnTags', function (data) {
+            var json = JSON.parse(data);
+            var selectedtag = "";
+            getUT('/ColorStays/Bg/DpDnBgTags?BlogId=' + blogid, function (data2) {
+                selectedtag = JSON.parse(data2);
+                for (var i = 0; i < json.length; i++) {
+                    var obj = json[i];
+                    var newOption = new Option(obj.Text, obj.Value);
+                    for (var j = 0; j < selectedtag.length; j++) {
+                        var val = selectedtag[j];
+                        if (val.Text == obj.Text) {
+                            newOption.selected = true;
+                        }
+                    }
+                    StOnTs.add(newOption, undefined);
+                }
+            });
+            $('.js-example-basic-multiple').select2();
+        });
+        //Ends
+    });
+
+
+    function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateEditDiv", "Deatil", FormFieldURL);
+        ActiveTabUt('UTabs1', 1);
+        ShowTagsSd();
+    }
+
+    function ShowTagsSd() {
+        //Show the Blog Tags
+        StOnTs = document.getElementById('Tags');
+        var blogid = $("#Id").val();
+        getUT('/ColorStays/Bg/DpDnTags', function (data) {
+            var json = JSON.parse(data);
+            var selectedtag = "";
+            getUT('/ColorStays/Bg/DpDnBgTags?BlogId=' + blogid, function (data2) {
+                selectedtag = JSON.parse(data2);
+                for (var i = 0; i < json.length; i++) {
+                    var obj = json[i];
+                    var newOption = new Option(obj.Text, obj.Value);
+                    for (var j = 0; j < selectedtag.length; j++) {
+                        var val = selectedtag[j];
+                        if (val.Text == obj.Text) {
+                            newOption.selected = true;
+                        }
+                    }
+                    StOnTs.add(newOption, undefined);
+                }
+                $('.js-example-basic-multiple').select2();
+            });
+        });
+        //Ends
+    }
+
+    function SuccessDn(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "Deatil");
+        document.getElementById('SwTb4').style.display = "block";
+        ActiveTabUt('UTabs2', 0);
+        var idinput = document.getElementById('Description').value;
+        tinymce.activeEditor.setProgressState(true);
+        tinymce.activeEditor.setProgressState(false, 300);
+        setTimeout(() => { tinymce.activeEditor.setContent(idinput) }, 200);
+    }
+
+    function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "Images");
+        ActiveTabUt('UTabs2', 1);
+    }
+
+    //Table Search Success Function
+    function TableSuccessFn(data, status, xhr, FormID) {
+        //This the SuccessFunction
+        FormAjaxSuccess(data, FormID, '', "UpdateDivNoFReset", "Def");
+        //Here we get the pageno,pagesize and listcount
+        var doc = new DOMParser().parseFromString(data, "text/html");
+        var pageinfo = doc.getElementById("PaginationAt");
+        var netrecord = pageinfo.getAttribute("netrecord");
+        var pageno = pageinfo.getAttribute("pagenumber");
+        var pagesize = pageinfo.getAttribute("PageSize");
+        //Refresh the Pagination Div with new Values
+        RefreshPagination('/ColorStays/Bg/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
+    }
+
+    function IntializeTableSearch() {
+        var SkipRow = [0, 1];
+        var SkipCol = [0];
+        StartTableSearch('TeUT', SkipRow, SkipCol);
+    }
+
+    //Upload the Images
+    Dropzone.options.myDropzone = {
+        url: '/ColorStays/BgImage/Create',
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        parallelUploads: 5,
+        maxFiles: 10,
+        acceptedFiles: 'image/*',
+        addRemoveLinks: true,
+        error: function (file, response) {
+            if ($.type(response) === "string")
+                var message = response; //dropzone sends it's own error messages in string
+            else
+                var message = response.message;
+            file.previewElement.classList.add("dz-error");
+            _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                node = _ref[_i];
+                _results.push(node.textContent = message);
+            }
+            HideLoader();
+            return _results;
+        },
+        init: function () {
+            dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
+            // for Dropzone to process the queue (instead of default form behavior):
+            document.getElementById("submit-all").addEventListener("click", function (e) {
+                // Make sure that the form isn't actually being sent.
+                e.preventDefault();
+                e.stopPropagation();
+                dzClosure.processQueue();
+            });
+
+            //send all the form data along with the files:
+            this.on("sendingmultiple", function (data, xhr, formData) {
+                formData.append("BlogId", jQuery("#BlogId").html());
+                formData.append("Title", jQuery("#BlogTitle").html());
+                ShowLoader();
+            });
+
+            this.on("success", function () {
+                ShowUploads();
+            });
+        }
+    }
+    //Ends
+
+    //Show the Uploaded Image in the Tab.......................
+    function ShowUploads() {
+        var blogid = $("#Id").val();
+        getUT('/ColorStays/BgImage/Index?BlogId=' + blogid, function (data) {
+            document.getElementById('Images').innerHTML = "";
+            document.getElementById('Images').innerHTML = data;
+            ActiveTabUt('UTabs2', 1);
+            document.getElementById('SwTb3').style.display = "block";
+            document.getElementById('DesBgId').value = blogid;
+            HideLoader();
+        });
+        //Show the Images in LHS for Update
+        getUT('/ColorStays/BgImage/Index?BlogId=' + blogid + '&UpdateDetail=Yes', function (data) {
+            document.getElementById('AddImgDetail').innerHTML = "";
+            document.getElementById('AddImgDetail').innerHTML = data;
+        });
+    };
+    //Ends.............................
+
+    //Delete the Image
+    function DeleteImg(id, blogid, imgname) {
+        ShowLoader();
+        getUT('/ColorStays/BgImage/DeleteConfirmed?id=' + id + '&BlogId=' + blogid + "&ImgName=" + imgname, function (data) {
+            document.getElementById('Images').innerHTML = "";
+            document.getElementById('Images').innerHTML = data;
+            ActiveTabUt('UTabs2', 1);
+            //Show the Images in LHS for Update
+            getUT('/ColorStays/BgImage/Index?BlogId=' + blogid + '&UpdateDetail=Yes', function (data) {
+                document.getElementById('AddImgDetail').innerHTML = "";
+                document.getElementById('AddImgDetail').innerHTML = data;
+            });
+            HideLoader();
+        });
+
+
+    };
+    //Ends
+
+
+
+    function StOnRemove(IdStg) {
+        var St = document.getElementById(IdStg);
+        var i, L = St.options.length - 1;
+        for (i = L; i >= 1; i--) {
+            St.remove(i);
+        }
+    }
+
+    function UeCategory(id) {
+        //Remove Option
+        StOnRemove('CyDpDn');
+        StOnRemove('Tags');
+        StOnCy = document.getElementById('CyDpDn');
+        getUT('/ColorStays/Bg/DpDnCategory', function (data) {
+            var json = JSON.parse(data);
+            for (var i = 0; i < json.length; i++) {
+                var obj = json[i];
+                var newOption = new Option(obj.Text, obj.Value);
+                StOnCy.add(newOption, undefined);
+            }
+        });
+
+        StOnTs = document.getElementById('Tags');
+        getUT('/ColorStays/Bg/DpDnTags', function (data) {
+            var json = JSON.parse(data);
+            for (var i = 0; i < json.length; i++) {
+                var obj = json[i];
+                var newOption = new Option(obj.Text, obj.Value);
+                StOnTs.add(newOption, undefined);
+            }
+            $('.js-example-basic-multiple').select2();
+
+        });
+    }
+
+    tinymce.init({
+        selector: '#Description',
+        plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
+        toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code',
+        a11ychecker_level: 'aaa',
+        style_formats: [
+            { title: 'Heading 1', block: 'h1' },
+            { title: 'Heading 2', block: 'h2' },
+            { title: 'Paragraph', block: 'p' },
+            { title: 'Blockquote', block: 'blockquote' },
+            { title: 'Image formats' },
+            { title: 'Medium', selector: 'img', classes: 'medium' },
+        ],
+        object_resizing: true,
+        valid_classes: {
+            'img': 'medium',
+            'div': 'related-content'
+        },
+        image_caption: true,
+        templates: [
+            {
+                title: 'Related content',
+                description: 'This template inserts a related content block',
+                content: '<div class="related-content"><h3>Related content</h3><p><strong>{$rel_lede}</strong> {$rel_body}</p></div>'
+            }
+        ],
+        content_langs: [
+            { title: 'English (US)', code: 'en_US' },
+        ],
+        height: 540,
+        content_style: `
+            img {
+                    height: auto;
+                    margin: auto;
+                    padding: 10px;
+                    display: block;
+                }
+            img.medium {
+                max-width: 25%;
+            `
+    });
+</script>
+

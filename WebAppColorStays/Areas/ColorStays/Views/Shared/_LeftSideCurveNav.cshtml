@@ -106,6 +106,18 @@
     string CityFestival = "";
     string Buy = "";
 
+    string BlogLink = " ";
+    string BlogSubLink = " ";
+    string BgCategory = " ";
+    string BgTags = " ";
+    string BgSeo = " ";
+    string Bg = " ";
+    string BgComment = " ";
+    string BgCommentReply = " ";
+    string BgImage = " ";
+    string BgVideo = " ";
+    string BgAuthor = " ";
+
     switch (Action)
     {
         case "CompanyNav": CompanyNav = "SideNavActive"; break;
@@ -198,6 +210,15 @@
         case "HotelFacilityMap": HotelFacilityMap = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "RoomCategory": RoomCategory = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "RoomType": RoomType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
+
+        case "BgCategory": BgCategory = "SideSubLinkActive"; BlogLink = "SideNavActive"; BlogSubLink = "SideSubNavActive"; break;
+        case "BgTags": BgTags = "SideSubLinkActive"; BlogLink = "SideNavActive"; BlogSubLink = "SideSubNavActive"; break;
+        case "BgSeo": BgSeo = "SideSubLinkActive"; BlogLink = "SideNavActive"; BlogSubLink = "SideSubNavActive"; break;
+        case "BgComment": BgComment = "SideSubLinkActive"; BlogLink = "SideNavActive"; BlogSubLink = "SideSubNavActive"; break;
+        case "BgCommentReply": BgCommentReply = "SideSubLinkActive"; BlogLink = "SideNavActive"; BlogSubLink = "SideSubNavActive"; break;
+        case "Bg": Bg = "SideSubLinkActive"; BlogLink = "SideNavActive"; BlogSubLink = "SideSubNavActive"; break;
+        case "BgAuthor": BgAuthor = "SideSubLinkActive"; BlogLink = "SideNavActive"; BlogSubLink = "SideSubNavActive"; break;
+
 
         default: break;
     }
@@ -1098,4 +1119,92 @@
         </div>
     </div>*@
 
+
+    <div class="SideNavContainer">
+        <div class="SideNavLinkDiv">
+            <div class="SideNavLink @BlogLink">
+                <i class="UT-BlogCircleLine FtSz20 "></i>
+                <div class="SideNavLinkText">
+                    <a href=#>Blog Setup</a>
+                </div>
+                <a href=#><i class="UT-ArrowDownCircleSolid"></i></a>
+
+            </div>
+        </div>
+        <div class="SideSubNavContainer @BlogSubLink">
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @Bg">
+                        <a href="~/ColorStays/Bg/Index">New Blog</a>
+                    </div>
+                    <a href="~/ColorStays/Bg/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Bg/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @BgCategory">
+                        <a href="@Url.Action("Index", "BgCategory", new { Area = "ColorStays" })">Category</a>
+
+                    </div>
+                    <a href="~/ColorStays/BgCategory/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/BgCategory/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @BgTags">
+                        <a href="~/ColorStays/BgTags/Index">Tags</a>
+                    </div>
+                    <a href="~/ColorStays/BgTags/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/BgTags/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @BgAuthor">
+                        <a href="~/ColorStays/BgAuthor/Index">Authors</a>
+                    </div>
+                    <a href="~/ColorStays/BgAuthor/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/BgAuthor/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @BgSeo">
+                        <a href="~/ColorStays/BgSEO/Index">S.E.O</a>
+                    </div>
+                    <a href="~/ColorStays/BgSEO/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/BgSEO/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @BgComment">
+                        <a href="~/ColorStays/BgComment/Index">Comments</a>
+                    </div>
+                    <a href="~/ColorStays/BgComment/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @BgCommentReply">
+                        <a href="~/ColorStays/BgCommentReply/Index">Comment Reply</a>
+                    </div>
+                    <a href="~/ColorStays/BgCommentReply/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 </div>

@@ -1,0 +1,119 @@
+@model WebAppColorStays.Model.ViewModel.CsBlogAuthor
+
+
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "BgAuthor";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.RowVersion)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedOn)
+@Html.HiddenFor(model => model.CompId)
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">User Detail<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Fk_An_AspNetUsers_FullName)" asp-for="Fk_An_AspNetUsers_FullName" required autocomplete="off" type="hidden" />
+            <input class="TtBxTt15" placeholder="Company User will be Author" asp-for="EmployeeName" autocomplete="off" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="EmployeeName"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Name"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ImageUrl) &nbsp;Max file size is 5MB</div>
+            <input class="BnRd14 CrTeTtLT HrTmSeo94" value="Choose File" type="file" id="myFile" multiple size="50" onchange="myFunction()">
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="ImageUrl"></span></div>
+    <div id="demo" style="display:none;">h</div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.About) &nbsp;</div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.About)" asp-for="About" autocomplete="off"></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="About"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.WordsFrom) &nbsp;</div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.WordsFrom)" asp-for="WordsFrom" autocomplete="off"></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="WordsFrom"></span></div>
+</div>
+
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Facebook)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Facebook)" asp-for="Facebook" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Facebook"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Instagram)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Instagram)" asp-for="Instagram" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Instagram"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.LinkedIn)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.LinkedIn)" asp-for="LinkedIn" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="LinkedIn"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
+</div>
+

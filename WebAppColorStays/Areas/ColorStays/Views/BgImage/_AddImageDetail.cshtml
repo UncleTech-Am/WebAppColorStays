@@ -1,0 +1,29 @@
+﻿@model IEnumerable<WebAppColorStays.Model.ViewModel.CsBlogImage>
+
+
+@{
+    Layout = null;
+    ViewData["Action"] = "BgImage";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<div>
+    @foreach (var item in Model)
+    {
+        <div class="FxRw FxAnImSh">
+            <div class="Fx50">
+                <div class="MnTp10 MnBm18 TtAnCr Pg7">
+                    <img src="@item.Url" class="img-responsive" style="width:200px; height:200px;">
+                </div>
+            </div>
+            <div class="Fx50" id="CreateOrEdit2">
+                @await Html.PartialAsync("_CreateOrEdit", item)
+            </div>
+        </div>
+
+
+    }
+</div>
+
+
