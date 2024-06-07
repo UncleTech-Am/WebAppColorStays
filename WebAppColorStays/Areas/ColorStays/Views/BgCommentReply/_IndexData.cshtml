@@ -28,10 +28,10 @@
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Name','/ColorStays/BgCommentReply')"><i class="UT-UnstarSolid"></i></a>
             }
             <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('/ColorStays/BgCommentReply/Details?Id=@item.Id')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i> </a>
-            @if (item.VerifiedStatus == false && item.ActiveStatus == false && item.GlobalStatus == false)
+            @* @if (item.VerifiedStatus == false && item.ActiveStatus == false && item.GlobalStatus == false)
             {
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Id })"> <i class="UT-EditFileLine FtWt800"></i> </a>
-            }
+            } *@
         </td>
          
 	    <td>@item.Fk_Blog_Id</td>
