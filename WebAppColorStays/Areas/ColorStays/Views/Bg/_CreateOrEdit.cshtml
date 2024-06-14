@@ -19,7 +19,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_BlogAuthor_Name)<span style="color:red;"> *</span></div>
-            <select asp-for="Fk_BlogAuthor_Name" asp-items="@ViewBag.DDAuthor" class="TtBxTt15">
+            <select asp-for="Fk_BlogAuthor_Name" asp-items="@await ViewBag.DDAuthor" class="TtBxTt15" required>
                 <option value="">Select Author</option>
             </select>
         </div>
@@ -70,7 +70,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_BlogCategory_Name)<span style="color:red;"> *</span></div>
-            <select asp-for="Fk_BlogCategory_Name" asp-items="@ViewBag.CategoryList" class="TtBxTt15" id="CyDpDn">
+            <select asp-for="Fk_BlogCategory_Name" asp-items="@await ViewBag.CategoryList" class="TtBxTt15" required>
                 <option value="">Select Category</option>
             </select>
         </div>

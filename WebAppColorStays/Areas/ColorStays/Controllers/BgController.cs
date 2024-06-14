@@ -45,10 +45,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
             string URLAuthor = "BgAuthor/DropDownAuthor/" + CompId;
             string URLCategory = "BgCategory/DropDownCategory/" + CompId;
-            string URLTagList = "BgTags/DropdownTagList/" + CompId;
-            ViewBag.DDAuthor = await ry.DDColorStaysAPI(URLAuthor, Token);
-            ViewBag.CategoryList = await ry.DDColorStaysAPI(URLCategory, Token);
-            //ViewBag.TagList = await ry.DDColorStaysAPI(URLTagList, Token);
+            Task<List<SelectListItem>> Author = ry.DDColorStaysAPI(URLAuthor, Token);
+            Task<List<SelectListItem>> Category = ry.DDColorStaysAPI(URLCategory, Token);
+            Task.WaitAll(Author, Category);
+            ViewBag.DDAuthor = Author;
+            ViewBag.CategoryList = Category;
             List<SelectListItem> list = new List<SelectListItem>();
             ViewBag.TagList = list;
         }
