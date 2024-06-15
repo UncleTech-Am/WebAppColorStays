@@ -25,13 +25,12 @@
         @Html.HiddenFor(model => model.CreatedOn)
         @Html.HiddenFor(model => model.CompId)
         @Html.HiddenFor(model => model.Fk_Blog_Id)
-        @Html.HiddenFor(model => model.Url)
 
         <div class="MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
                     <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ImageName)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ImageName)" asp-for="ImageName" autocomplete="off" />
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ImageName)" asp-for="ImageName" autocomplete="off" readonly/>
                 </div>
             </div>
             <div class="VnRd"><span asp-validation-for="ImageName"></span></div>

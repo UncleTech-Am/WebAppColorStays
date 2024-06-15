@@ -18,8 +18,10 @@
         <div class="Fx50 Pg3">
             <div id="UTabs1">
                 <div> Hotel Detail</div>
+                <div> Hotel Amenities</div>
                 <div> Hotel Image</div>
                 <div>SetUp Image</div>
+                <div>Hotel Video</div>
             </div>
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
                 <div id="UTabs1Cont0">
@@ -57,8 +59,19 @@
                     </div>
                 </div>
 
-
                 <div id="UTabs1Cont1">
+                    <div id="CreateOrEditHotel" style="height: 400px;overflow: auto;"></div>
+                    <div class="Pg10 FxRw">
+                        <div class="FxGw1">
+                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Place/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
+                        </div>
+                        <div>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="UTabs1Cont2">
                     <div class="Pg12">
                         <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
                             <i class="UT-ImageLine"></i>
@@ -85,7 +98,7 @@
                     </div>
                 </div>
 
-                <div id="UTabs1Cont2">
+                <div id="UTabs1Cont3">
                     <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
                     <div class="Pg10 FxRw">
                         <div class="FxGw1">
@@ -97,7 +110,17 @@
                     </div>
                 </div>
 
-                
+                <div id="UTabs1Cont3">
+                    <div id="AddVideoDetail" style="height: 400px;overflow: auto;"></div>
+                    <div class="Pg10 FxRw">
+                        <div class="FxGw1">
+                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick=""><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
+                        </div>
+                        <div>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 2)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -127,7 +150,7 @@
 
 <script>
     $(document).ready(function () {
-        TabsUT('UTabs1', 0, null, [1, 2]);
+        TabsUT('UTabs1', 0, null, [1, 2, 3]);
         TabsUT('UTabs2', 0, null, [1]);
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchPlace', '/ColorStays/Place/SuggestPlace', '', '', AoCePlace);
@@ -201,8 +224,30 @@
         //Show the Image Tab
         ActiveTabUt('UTabs1', 1);
         ActiveTabUt('UTabs2', 0);
+        GetHotelFacility();
         document.getElementById('HId').value = document.getElementById('HlId').value;
     }
+
+    //Here get the list of hotel list
+    function GetHotelFacility() {
+        var id = document.getElementById('HlId').value;
+        getUT('/ColorStays/Hotel/HotelFacilityList?HlId=' + id, function (data) {
+            document.getElementById('CreateOrEditHotel').innerHTML = "";
+            document.getElementById('CreateOrEditHotel').innerHTML = data;
+            HideLoader();
+        });
+    }
+
+
+    function SuccessHotelFacility(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "Detail");
+        getCity();
+        //Show the Image Tab
+        ActiveTabUt('UTabs1', 1);
+        ActiveTabUt('UTabs2', 0);
+        document.getElementById('HlId').value = document.getElementById('HlId').value;
+    }
+
 
     function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "Images");

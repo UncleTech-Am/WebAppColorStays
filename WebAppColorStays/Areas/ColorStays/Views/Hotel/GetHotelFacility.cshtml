@@ -1,0 +1,26 @@
+﻿@model IEnumerable<WebAppColorStays.Models.ViewModel.CsHotelFacility>
+@{
+    Layout = null;
+    ViewData["Action"] = "Hotel";
+}
+
+
+<table class="TeStrip TeBr TeFxCl1">
+    <thead class="TeFxHd">
+        <tr>
+            <th>Existing Hotels Of The Offer</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in @ViewBag.HotelFacility)
+        {
+            <tr class="gradeX">
+
+                <td>
+                    @item.Name
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

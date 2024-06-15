@@ -58,7 +58,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         if (file.Length > 0)
                         {
-                            var fileName = "Bg-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                            var fileName = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + file.FileName;
 
                             using (var response = await client.GetAsync("BgImage/Create/" + BlogId + "/" + CompID + "/" + UserID + "/" + fileName, HttpCompletionOption.ResponseHeadersRead))
                             {

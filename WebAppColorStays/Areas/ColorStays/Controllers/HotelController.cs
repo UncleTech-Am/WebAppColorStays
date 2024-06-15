@@ -79,7 +79,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
             return Json(new { Message = "Saved" });
         }
-
+        
         //ItemAutoComplete
         [HttpGet]
         public async Task<JsonResult> SuggestHotel(string term)
@@ -849,5 +849,88 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
+
+        //GET: /Offer/Create
+        [HttpGet]
+        public async Task<IActionResult> HotelFacilityList(string HlId)
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+            HotelFacilityCheckbox facilityList = new HotelFacilityCheckbox();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelFacilityMap/HotelFacilityList/" + HlId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    facilityList = await System.Text.Json.JsonSerializer.DeserializeAsync<HotelFacilityCheckbox>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            return View("_CreateOrEditHotelFacility", facilityList);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddHotelFacility(HotelFacilityCheckbox model)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            model.CompId = CompID;
+
+            if (ModelState.IsValid)
+            {
+                using (HttpClient client = APIColorStays.Initial())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("HotelFacilityMap/AddHotelFacility", content))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            return RedirectToAction("GetHotelFacility", new { id = model.Fk_Hotel_Name });
+                        }
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetHotelFacility(string HlId)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            List<CsHotelFacility> data = new List<CsHotelFacility>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelFacilityMap/GetHotelFacility/" + HlId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsHotelFacility>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        ViewBag.HotelsForThisOffer = data;
+                        return View();
+                    }
+                }
+            }
+            return View("Error");
+        }
+
     }
 }
