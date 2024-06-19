@@ -28,12 +28,13 @@
         @Html.HiddenFor(model => model.CompId)
         @Html.HiddenFor(model => model.Fk_Hotel_Name)
         @Html.HiddenFor(model => model.IsHotel)
-
+        @Html.HiddenFor(model => model.Fk_Room_Name)
+        @Html.HiddenFor(model => model.IsRoom)
         <div class="MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
                     <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" />
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" readonly/>
                 </div>
             </div>
             <div class="VnRd"><span asp-validation-for="Name"></span></div>
@@ -76,7 +77,7 @@
         <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
         @if (Model.Fk_Hotel_Name != null)
         {
-            <input type="button" onclick="DeleteImg('@Model.Id','@Model.Fk_Hotel_Name','@Model.Name')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+            <input type="button" onclick="DeleteImg('@Model.Id','@Model.Fk_Hotel_Name','@Model.Fk_Room_Name','@Model.Name')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
         }
         
     </div>

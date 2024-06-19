@@ -19,6 +19,7 @@
     <Compile Remove="Areas\ColorStays\Views\BgSeo1\**" />
     <Compile Remove="Areas\ColorStays\Views\BgTags1\**" />
     <Compile Remove="Areas\ColorStays\Views\BgVideo1\**" />
+    <Compile Remove="Areas\ColorStays\Views\RoomTypeFacilityMap\**" />
     <Compile Remove="bin\obj\**" />
     <Content Remove="Areas\ColorStays\Views\Bg1\**" />
     <Content Remove="Areas\ColorStays\Views\BgAuthor1\**" />
@@ -30,6 +31,7 @@
     <Content Remove="Areas\ColorStays\Views\BgSeo1\**" />
     <Content Remove="Areas\ColorStays\Views\BgTags1\**" />
     <Content Remove="Areas\ColorStays\Views\BgVideo1\**" />
+    <Content Remove="Areas\ColorStays\Views\RoomTypeFacilityMap\**" />
     <Content Remove="bin\obj\**" />
     <EmbeddedResource Remove="Areas\ColorStays\Views\Bg1\**" />
     <EmbeddedResource Remove="Areas\ColorStays\Views\BgAuthor1\**" />
@@ -41,6 +43,7 @@
     <EmbeddedResource Remove="Areas\ColorStays\Views\BgSeo1\**" />
     <EmbeddedResource Remove="Areas\ColorStays\Views\BgTags1\**" />
     <EmbeddedResource Remove="Areas\ColorStays\Views\BgVideo1\**" />
+    <EmbeddedResource Remove="Areas\ColorStays\Views\RoomTypeFacilityMap\**" />
     <EmbeddedResource Remove="bin\obj\**" />
     <None Remove="Areas\ColorStays\Views\Bg1\**" />
     <None Remove="Areas\ColorStays\Views\BgAuthor1\**" />
@@ -52,8 +55,10 @@
     <None Remove="Areas\ColorStays\Views\BgSeo1\**" />
     <None Remove="Areas\ColorStays\Views\BgTags1\**" />
     <None Remove="Areas\ColorStays\Views\BgVideo1\**" />
+    <None Remove="Areas\ColorStays\Views\RoomTypeFacilityMap\**" />
     <None Remove="bin\obj\**" />
     <TypeScriptCompile Remove="Areas\ColorStays\Views\Bg1\**" />
+    <TypeScriptCompile Remove="Areas\ColorStays\Views\RoomTypeFacilityMap\**" />
     <TypeScriptCompile Remove="bin\obj\**" />
   </ItemGroup>
 
@@ -843,6 +848,15 @@
     <None Include="Areas\ColorStays\Views\ReviewReply\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\ReviewReply\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\Review\_IndexData - Copy.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomBedType\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomBedType\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomBedType\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomBedType\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomBedType\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomBedType\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomBedType\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomBedType\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomBedType\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\RoomCategory\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\RoomCategory\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\RoomCategory\Index.cshtml" />
@@ -879,6 +893,15 @@
     <None Include="Areas\ColorStays\Views\Review\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\Review\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\Review\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomView\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomView\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomView\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomView\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomView\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomView\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomView\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomView\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\RoomView\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\RTFoodTypeMap\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\RTFoodTypeMap\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\RTFoodTypeMap\Index.cshtml" />

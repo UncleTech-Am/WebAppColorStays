@@ -12,6 +12,7 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
 using WebAppColorStays.Areas.ColorStays.CommonMethods;
+using LibCommon.APICommonMethods;
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {
     [Area("ColorStays")]
@@ -20,10 +21,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class RoomTypeController : Controller
     {
         private readonly Paging paging;
+        private readonly RyCSImage ryCsImage;
 
         public RoomTypeController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -39,14 +42,84 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             RyCrSsDropDown ry = new RyCrSsDropDown();
             string URLRoomCategory = "RoomCategory/DropDown/" + CompId;
+            string URLRoomView = "RoomView/DropDown/" + CompId;
+            string URLRoomBedType = "RoomBedType/DropDown/" + CompId;
             try
             {
                 Task<List<SelectListItem>> RoomCategory = ry.DDColorStaysAPI(URLRoomCategory, Token);
-                Task.WaitAll(RoomCategory);
+                Task<List<SelectListItem>> RoomView = ry.DDColorStaysAPI(URLRoomView, Token);
+                Task<List<SelectListItem>> RoomBedType = ry.DDColorStaysAPI(URLRoomBedType, Token);
+                Task.WaitAll(RoomCategory, RoomView, RoomBedType);
                 ViewBag.RoomCategory = RoomCategory;
+                ViewBag.RoomView = RoomView;
+                ViewBag.RoomBedType = RoomBedType;
             }
             catch (Exception ex) { }
 
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveImage(string RId, string HId)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var files = HttpContext.Request.Form.Files;
+            List<CsHotelImageVideo> photosList = new List<CsHotelImageVideo>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelImageVideo/Index/" + HId +"/"+ RId))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsHotelImageVideo>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+                List<string> ExistingImageList = null;
+                List<string> NewImageList;
+                if (photosList != null)
+                {
+                    ExistingImageList = photosList.Select(x => x.Name).ToList();
+                }
+                NewImageList = files.Select(x => x.FileName).ToList();
+
+                var a = ExistingImageList.Intersect(NewImageList);
+
+                foreach (var file in files)
+                {
+                    if (a.Contains(file.FileName))
+                    {
+                        var data = a.Select(x => new
+                        {
+                            id = x
+                        }).ToList();
+                        return Json(data);
+                    }
+                    var fileName = file.FileName;
+                    //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("RoomType/SaveImage/?HId=" + HId + "&RId=" + RId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            return View("Error");
+                        }
+                    }
+
+                    if (file.Length > 0)
+                    {
+                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotel");
+                        Task.WaitAll(TImgUpload);
+                        if (TImgUpload.Result == "Error")
+                        {
+                            return View("Error");
+                        }
+                    }
+                }
+            }
+            return Json(new { Message = "Saved" });
         }
 
 
@@ -132,7 +205,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //GET:/RoomType/
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
+        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string? Id, string? Fk_Hotel_Name)
         {
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -153,6 +226,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
+                ViewData["RId"] = Id;
+                ViewData["HId"] = Fk_Hotel_Name;
+                if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
 
@@ -460,7 +536,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
                 if (Success == true)
-                { return RedirectToAction("Index", new { PageCall = "Show" }); }
+                {
+                    data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id, CsRoomType.Fk_Hotel_Name });
+                }
                 else { return View("_CreateOrEdit", CsRoomType); }
             }
             return View("_CreateorEdit", CsRoomType);
@@ -564,7 +643,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             }
                         }
                     }
-                    return RedirectToAction("Index", new { PageCall = "Show" });
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", CsRoomType.Id, CsRoomType.Fk_Hotel_Name });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -716,5 +795,109 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
+
+        //GET: /Offer/Create
+        [HttpGet]
+        public async Task<IActionResult> RoomFacilityList(string HlId, string RTId)
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+            HotelFacilityCheckbox facilityList = new HotelFacilityCheckbox();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("RoomTypeFacilityMap/RoomFacilityList/" + HlId + "/" + RTId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    facilityList = await System.Text.Json.JsonSerializer.DeserializeAsync<HotelFacilityCheckbox>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            return View("_CreateOrEditRoomFacility", facilityList);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddRoomFacility(HotelFacilityCheckbox model)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            model.CompId = CompID;
+
+            if (ModelState.IsValid)
+            {
+                using (HttpClient client = APIColorStays.Initial())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("RoomTypeFacilityMap/AddRoomFacility", content))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            return RedirectToAction("GetRoomFacility", new { id = model.Fk_Hotel_Name });
+                        }
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetRoomFacility(string RTId)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            List<CsRoomTypeFacilityMap> data = new List<CsRoomTypeFacilityMap>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("RoomTypeFacilityMap/GetRoomFacility/" + RTId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsRoomTypeFacilityMap>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        ViewBag.RoomFacility = data;
+                        return View();
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteFacilityOfRoom(string RTId, string Id)
+        {
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("RoomTypeFacilityMap/DeleteConfirmed/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("GetRoomFacility", new { id = RTId });
+                    }
+                }
+            }
+            return View("Error");
+        }
+
     }
 }

@@ -3,7 +3,7 @@
 
 @{
     Layout = null;
-    ViewData["Action"] = "Hotel";
+    ViewData["Action"] = "RoomType";
 }
 
 <div style="display:none">responseformUT @ViewData["ResponseName"]</div>
@@ -18,10 +18,10 @@
 
 <form id="CreateHotelFacility"
       data-ajax="true"
-      data-ajax-url="/ColorStays/Hotel/AddHotelFacility"
+      data-ajax-url="/ColorStays/RoomType/AddRoomFacility"
       data-ajax-method="POST"
       data-ajax-loading="#loader"
-      data-ajax-success="SuccessHotelFacility(data, status, xhr,'CreateHotelFacility','CreateOrEditFacility')"
+      data-ajax-success="SuccessRoomFacility(data, status, xhr,'CreateHotelFacility','CreateOrEditFacility')"
       data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateHotelFacility')">
 
     @Html.AntiForgeryToken()
@@ -29,6 +29,7 @@
     <input type="hidden" name="NameAction" value="C" />
     <input type="hidden" name="Id" id="Id" />
     <input type="hidden" asp-for="Fk_Hotel_Name" />
+    <input type="hidden" asp-for="Fk_RoomType_Name" />
     <div class="MnTp7 MnBm7">
         <div>
             <div class="FxGw1" TtBx="TtBxMe">

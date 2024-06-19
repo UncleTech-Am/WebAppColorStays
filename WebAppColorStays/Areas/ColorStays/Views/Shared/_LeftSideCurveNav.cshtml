@@ -92,6 +92,8 @@
     string Offer = "";
     string RoomType = "";
     string RoomCategory = "";
+    string RoomBedType = "";
+    string RoomView = "";
     string ReviewFor = "";
     string ReviewQuestion = "";
     string WhyUs = "";
@@ -117,6 +119,7 @@
     string BgImage = " ";
     string BgVideo = " ";
     string BgAuthor = " ";
+
 
     switch (Action)
     {
@@ -209,6 +212,8 @@
         case "FacilityCategory": FacilityCategory = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "HotelFacilityMap": HotelFacilityMap = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "RoomCategory": RoomCategory = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
+        case "RoomBedType": RoomBedType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
+        case "RoomView": RoomView = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "RoomType": RoomType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
 
         case "BgCategory": BgCategory = "SideSubLinkActive"; BlogLink = "SideNavActive"; BlogSubLink = "SideSubNavActive"; break;
@@ -1105,6 +1110,25 @@
                 </div>
             </div>
 
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @RoomBedType">
+                        <a href="~/ColorStays/RoomBedType/Create">RoomBedType</a>
+                    </div>
+                    <a href="~/ColorStays/RoomBedType/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/RoomBedType/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @RoomView">
+                        <a href="~/ColorStays/RoomView/Create">RoomView</a>
+                    </div>
+                    <a href="~/ColorStays/RoomView/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/RoomView/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">

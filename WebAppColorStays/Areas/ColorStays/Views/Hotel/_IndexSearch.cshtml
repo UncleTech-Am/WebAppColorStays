@@ -8,6 +8,7 @@
 
 <div style="color:red; font-weight:bold; font-size:15px;"> @ViewBag.Message</div>
 <input type="hidden" name="HlId" id="HlId" value="@ViewData["HId"]" />
+<input type="hidden" name="HlName" id="HlName" value="@ViewData["HName"]" />
 
 <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
     <div id="PagenationShow">
@@ -254,7 +255,7 @@
                     <th> @Html.DisplayNameFor(model => model.Fk_State_Name) </th>
                     <th> @Html.DisplayNameFor(model => model.Fk_Place_Name) </th>
                     <th> @Html.DisplayNameFor(model => model.Name) </th>
-                    <th> @Html.DisplayNameFor(model => model.TagLine) </th>
+                    <th style="min-width: 250px;"> @Html.DisplayNameFor(model => model.TagLine) </th>
                     <th> @Html.DisplayNameFor(model => model.CoverImage) </th>
                     <th> @Html.DisplayNameFor(model => model.Address) </th>
                     <th> @Html.DisplayNameFor(model => model.EmailAddress) </th>
@@ -269,7 +270,7 @@
                     <th> @Html.DisplayNameFor(model => model.IsNoPrePayment) </th>
                     <th> @Html.DisplayNameFor(model => model.Fk_ChainBrand_Name) </th>
                     <th> @Html.DisplayNameFor(model => model.IsFeaturedProperty) </th>
-                    <th> @Html.DisplayNameFor(model => model.Description) </th>
+                    <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.Description) </th>
                     <th> @Html.DisplayNameFor(model => model.PropertyCode) </th>
                     <th> @Html.DisplayNameFor(model => model.Latitude) </th>
                     <th> @Html.DisplayNameFor(model => model.Longitude) </th>
@@ -312,3 +313,15 @@
     </div>
 </div>
 
+<script>
+    function ShowData(element) {
+        var popup = document.getElementById('PopUpScript');
+        popup.style.minHeight = "50%";
+        popup.style.left = "25%";
+        popup.style.top = "18%";
+        popup.style.width = "50%";
+        popup.style.overflowX = "auto";
+        document.getElementById('PopUpScript').style.display = 'block';
+        document.getElementById('PopUpScriptDetailContentID').innerHTML = element.innerHTML;
+    }
+</script>

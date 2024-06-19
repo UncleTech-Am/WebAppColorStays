@@ -1,0 +1,95 @@
+@model IEnumerable<WebAppColorStays.Models.ViewModel.CsRoomView>
+
+@{
+    Layout = "_Layout";
+    ViewData["Action"] = "RoomView";
+}
+
+<div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
+    <div class="CrTeTtLt FxGw1"> <h1>Entered @ViewBag.Title</h1></div>
+    <div>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/RoomView/Create'"><i class="UT-AddFile FtSz18"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="ShowHide('PopUpSearch');"><i class="UT-SearchLeftSolid FtSz18"></i></button>
+    </div>
+
+</div>
+
+<div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
+    <div class="FxRw FxAnImSh">
+        <div class="Fx100 Pg3">
+            @await Html.PartialAsync("_IndexSearch", Model)
+        </div>
+    </div>
+</div>
+
+<div class="PopUp BrRs10  Br1_Cr CrBrTe SwBxIt1Dv-Vn1 " style="display:none;" id="PopUpSearch">
+    <div id="PopUpSearchID" class="PopUpDetail Pg8 PnRe">
+        <div class="PopUpTopCloseButton">
+            <button class="BnCe35 HrTmRe360Se1o5 SwBxIt1Dv-Vn1" onclick="ShowHide('PopUpSearch');"><i class="UT-CrossLine"></i></button>
+        </div>
+        <div class="LineDiv"></div>
+        <div  class="PgLtRt20 PgTp5">
+            @await Html.PartialAsync("_SearchData", new LibCommon.Service.CIndexSearchFilter())
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        IntializeTableSearch();
+        UTabHz('UTabs', 'UTabsContent');
+    });
+
+    function IntializeTableSearch() {
+        var SkipRow = [0, 1];
+        var SkipCol = [0];
+        StartTableSearch('TeUT', SkipRow, SkipCol);
+    }
+
+    //Table Search Success Function
+    function TableSuccessFn(data, status, xhr, FormID) {
+        //This the SuccessFunction
+        FormAjaxSuccess(data, FormID, '', "UpdateDivNoFReset", "Def");
+        //Here we update the pageno,pagesize and listcount
+        var doc = new DOMParser().parseFromString(data,"text/html");
+        var pageinfo = doc.getElementById("PaginationAt");
+        var netrecord = pageinfo.getAttribute("netrecord");
+        var pageno = pageinfo.getAttribute("pagenumber");
+        var pagesize = pageinfo.getAttribute("PageSize");
+        //Refresh the Pagination Div with new Values
+        RefreshPagination('/ColorStays/RoomView/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
+    }
+
+    //Date Search Success Function
+    function DateSuccessFn(data, status, xhr, FormID, PgSelected) {
+         //This the SuccessFunction
+        FormAjaxSuccess(data, FormID, '', "UpdateDivNoFReset", "Def");
+        //Close the Search PopUp
+        document.getElementById("PopUpSearch").style.display = "none";
+        //Here we update the pageno,pagesize and listcount
+        var doc = new DOMParser().parseFromString(data,"text/html");
+        var pageinfo = doc.getElementById("PaginationAt");
+        var netrecord = pageinfo.getAttribute("netrecord");
+        var pageno = pageinfo.getAttribute("pagenumber");
+        var pagesize = pageinfo.getAttribute("PageSize");
+        //Refresh the Pagination Div with new Values
+        RefreshPagination('/ColorStays/RoomView/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=DateSearch&NetRecords=' + netrecord);
+    }
+
+    //Filter Search Success Function
+    function FilterSuccessFn(data, status, xhr, FormID) {
+        //This the SuccessFunction
+        FormAjaxSuccess(data, FormID, '', "UpdateDivNoFReset", "Def");
+        //Close the Search PopUp
+        document.getElementById("PopUpSearch").style.display = "none";
+        //Here we update the pageno,pagesize and listcount
+        var doc = new DOMParser().parseFromString(data, "text/html");
+        var pageinfo = doc.getElementById("PaginationAt");
+        var netrecord = pageinfo.getAttribute("netrecord");
+        var pageno = pageinfo.getAttribute("pagenumber");
+        var pagesize = pageinfo.getAttribute("PageSize");
+        //Refresh the Pagination Div with new Values
+        RefreshPagination('/ColorStays/RoomView/Pagination?PgSelectedNum=' + pageno + 'PgSize=' + pagesize + '&SearchType=FilterSearch&NetRecords=' + netrecord);
+    }
+</script>
+

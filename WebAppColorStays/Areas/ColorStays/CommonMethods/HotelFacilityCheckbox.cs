@@ -8,11 +8,12 @@ namespace WebAppColorStays.Areas.ColorStays.CommonMethods
         public string? Id { get; set; }
         [DisplayName("Hotel")]
         public string? Fk_Hotel_Name { get; set; }
-
         public string? Hotel { get; set; }
+        [DisplayName("RoomType")]
+        public string? Fk_RoomType_Name { get; set; }
+        public string? RoomType { get; set; }
         [DisplayName("HotelFacility")]
         public string? Fk_HotelFacility_Name { get; set; }
-
         public string? HotelFacility { get; set; }
         public HotelFacilityCheckbox()
         {

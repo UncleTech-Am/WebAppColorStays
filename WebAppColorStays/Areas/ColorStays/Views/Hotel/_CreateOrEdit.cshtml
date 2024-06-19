@@ -156,8 +156,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ContactPerson)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ContactPerson)" asp-for="ContactPerson" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ContactPerson)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ContactPerson)" asp-for="ContactPerson" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="ContactPerson"></span></div>
@@ -285,6 +285,15 @@
     <div class="VnRd"><span asp-validation-for="FileHotelRegistration"></span></div>
 </div> *@
 
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Video)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Video)" asp-for="Video" autocomplete="off" required/>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Video"></span></div>
+</div>
 
 <div class="FxRw">
     <div class="Fx50 Pg2 MnTp7 MnBm7">

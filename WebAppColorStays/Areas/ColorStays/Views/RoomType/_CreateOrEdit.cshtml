@@ -33,6 +33,29 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_RoomView_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_RoomView_Name" asp-items="@await ViewBag.RoomView" class="TtBxTt15" required>
+                <option value="">Select Room View</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_RoomView_Name"></span></div>
+</div>
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_RoomBedType_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_RoomBedType_Name" asp-items="@await ViewBag.RoomBedType" class="TtBxTt15" required>
+                <option value="">Select Room Bedtype</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_RoomBedType_Name"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Hotel_Name)<span style="color:red;"> *</span></div>
             <input class="TtBxTt14" placeholder="Hotel Name" type="text" id="SuggestHotel" asp-for="Hotel" autocomplete="off" required onchange="ClearData('SuggestHotel','Fk_Hotel_Name')" />
             <input type="hidden" asp-for="Fk_Hotel_Name" required />
