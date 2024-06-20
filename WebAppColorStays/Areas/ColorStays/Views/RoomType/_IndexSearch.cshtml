@@ -32,9 +32,21 @@
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Name)" name="Name" autocomplete="off"/>
                         </td>
-                        
+                         
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_Hotel_Name)" name="Fk_Hotel_Name" autocomplete="off"/>
+                        </td>
+
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_RoomCategory_Name)" name="Fk_RoomCategory_Name" autocomplete="off"/>
+                        </td>
+
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_RoomBedType_Name)" name="Fk_RoomBedType_Name" autocomplete="off" />
+                        </td>
+
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_RoomView_Name)" name="Fk_RoomView_Name" autocomplete="off" />
                         </td>
                         
                         <td>
@@ -147,8 +159,11 @@
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','','','/ColorStays/RoomType')"><i class="UT-UnstarSolid"></i></a>
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark Star" onclick="MultiButtonFunc('Star','','','/ColorStays/RoomType')"> <i class="UT-StarSolid"></i></a>
                     </th>
-                                        <th> @Html.DisplayNameFor(model => model.Name) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Fk_RoomCategory_Name) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Name) </th>
+                                        <th> @Html.DisplayNameFor(model => model.Fk_Hotel_Name) </th>
+                                        <th> @Html.DisplayNameFor(model => model.Fk_RoomCategory_Name) </th>
+                                        <th> @Html.DisplayNameFor(model => model.Fk_RoomBedType_Name) </th>
+                                        <th> @Html.DisplayNameFor(model => model.Fk_RoomView_Name) </th>
                                         <th> @Html.DisplayNameFor(model => model.TotalRooms) </th>       
                                         <th> @Html.DisplayNameFor(model => model.SizeArea) </th>       
                                         <th> @Html.DisplayNameFor(model => model.SizeLength) </th>       

@@ -713,12 +713,38 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Festival/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Activity/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     csActivity = await System.Text.Json.JsonSerializer.DeserializeAsync<CsActivity>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                 }
             }
+
+
+            List<CsActivityImage> photosList = new List<CsActivityImage>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("ActivityImage/Index/" + id))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsActivityImage>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+
+           
+            //Delete the Images from the folder
+            List<string> image = new List<string>();
+            foreach (var item in photosList)
+            {
+                string img;
+                img = item.Title;
+                image.Add(img);
+            }
+            //Delete the Images from the folder
+            image.Add(csActivity.ImageName);
+           
             //Delete the Images from the folder
             Task<string> TDeleteImage = ryCsImage.DeleteImage(csActivity.ImageName, TokenKey, "Activity");
             Task.WaitAll(TDeleteImage);

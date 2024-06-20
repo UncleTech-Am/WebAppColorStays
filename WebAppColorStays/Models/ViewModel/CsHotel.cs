@@ -30,10 +30,11 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_ChainBrand_Name { get; set; }
         public string? Label { get; set; }
         public string? Name { get; set; }
-        public string? MapLocation { get; set; }
         public string? Video { get; set; }
         public string? TagLine { get; set; }
+        public string? URL { get; set; }
         public string? CoverImage { get; set; }
+        public string? CoverAltTag { get; set; }
         [NotMapped]
         public string? CoverImageName { get; set; }
         public string? Address { get; set; }

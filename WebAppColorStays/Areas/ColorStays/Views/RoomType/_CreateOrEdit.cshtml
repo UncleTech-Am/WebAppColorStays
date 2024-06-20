@@ -75,6 +75,29 @@
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
 </div>
 
+@if (Model != null)
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverImage)</div>
+                <img src="@Model.CoverImage" class="Wh60p" />
+                <input asp-for="CoverImageName" type="hidden" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="CoverImage"></span></div>
+    </div>
+}
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverImage)</div>
+            <input asp-for="CoverImage" type="file" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="CoverImage"></span></div>
+</div>
 
 <div class="FxRw">
     <div class="Fx50 Pg2 MnTp7 MnBm7">

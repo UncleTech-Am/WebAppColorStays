@@ -510,10 +510,31 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsRoomType.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
             CsRoomType data = new CsRoomType();
+            var files = HttpContext.Request.Form.Files;
+
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
+                    foreach (var file in files)
+                    {
+                        var fileName = file.FileName;
+
+                        CsRoomType.CoverImage = fileName;
+
+
+                        if (file.Length > 0)
+                        {
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotel");
+                            Task.WaitAll(TImgUpload);
+                            if (TImgUpload.Result == "Error")
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+
+
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsRoomType), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("RoomType/create", content))
@@ -611,12 +632,39 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["ResponseName"] = "ShowValidation";
             CsRoomType.CompId = CompID;
             CsRoomType.ModifiedBy = UserID;
+            var files = HttpContext.Request.Form.Files;
+            if (CsRoomType.CoverImageName != null)
+            {
+                CsRoomType.CoverImage = CsRoomType.CoverImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
+
+                        foreach (var file in files)
+                        {
+                            var fileName = file.FileName;
+
+                            CsRoomType.CoverImage = fileName;
+                            //Delete the Images from the folder
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsRoomType.CoverImageName, TokenKey, "Hotel");
+                            Task.WaitAll(TDeleteImage);
+
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotel");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+
+
                         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                         using (var response = await client.PostAsJsonAsync<CsRoomType>("RoomType/edit", CsRoomType))
                         {
@@ -662,6 +710,47 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            List<CsHotelImageVideo> photosList = new List<CsHotelImageVideo>();
+            CsRoomType photo = new CsRoomType();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("RoomType/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photo = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelImageVideo/Index/" + photo.Fk_Hotel_Name + "/" + id))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsHotelImageVideo>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+
+            //Delete the Images from the folder
+            List<string> image = new List<string>();
+            foreach (var item in photosList)
+            {
+                string img;
+                img = item.Name;
+                image.Add(img);
+            }
+            //Delete the Images from the folder
+            image.Add(photo.CoverImageName);
+            Task<string> TDeleteImage = ryCsImage.DeleteMultiImage(image, "Hotel", TokenKey);
+            Task.WaitAll(TDeleteImage);
+
+            if (TDeleteImage.Result == "Error")
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
+
+
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);

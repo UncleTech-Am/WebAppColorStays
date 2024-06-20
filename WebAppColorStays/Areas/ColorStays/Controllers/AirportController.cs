@@ -103,7 +103,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 foreach (var file in files)
                 {
-                    var fileName = "Airport-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                    var fileName = "Airport-"+ file.FileName;
                     if ("Photo1" == file.Name)
                     {
                         CsAirport.Photo1 = fileName;

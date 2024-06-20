@@ -20,6 +20,10 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_RoomBedType_Name { get; set; }
         [DisplayName("RoomView")]
         public string? Fk_RoomView_Name { get; set; }
+        public string? CoverImage { get; set; }
+        public string? CoverAltTag { get; set; }
+        [NotMapped]
+        public string? CoverImageName { get; set; }
         public string? Description { get; set; }
         public int? TotalRooms { get; set; }
         public string? SizeArea { get; set; }
