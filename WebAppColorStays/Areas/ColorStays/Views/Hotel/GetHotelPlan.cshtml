@@ -1,0 +1,32 @@
+﻿@model IEnumerable<WebAppColorStays.Models.ViewModel.CsHotelPlanTypeMap>
+@{
+    Layout = null;
+    ViewData["Action"] = "Hotel";
+}
+
+
+<table class="TeStrip TeBr TeFxCl1">
+    <thead class="TeFxHd">
+        <tr>
+            <th>Remove</th>
+            <th>Selected Plan of Hotel</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in @ViewBag.HotelPlan)
+        {
+            <tr class="gradeX">
+                <td>
+                    @{
+                        string id = @item.Id;
+                    }
+                    <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" onclick="DeletePlan('@item.Fk_Hotel_Name', '@id')" style="margin-left:8px"> <i class="UT-DeletePageSolid"> </i> </a>
+                </td>
+                <td>
+                    @item.Fk_PlanType_Name
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

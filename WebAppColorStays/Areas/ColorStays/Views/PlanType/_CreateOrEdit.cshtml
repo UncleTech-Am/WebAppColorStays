@@ -1,0 +1,81 @@
+@model WebAppColorStays.Models.ViewModel.CsPlanType
+
+
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "PlanType";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.RowVersion)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedOn)
+@Html.HiddenFor(model => model.CompId)
+<input type="hidden" asp-for="StayOnly" value="true" />
+
+
+<div class="Fx100 Pg2 MnTp3 MnBm3">
+	<div class="TtBxFlStDiv">
+		<div class="TtBxFlSt">
+			<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;">*</span></div>
+			<input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" />
+		</div>
+	</div>
+	<div class="VnRd"><span asp-validation-for="Name"></span></div>
+</div>
+
+
+<div class="Fx100 Pg2 MnTp3 MnBm3">
+	<div class="TtBxFlStDiv">
+		<div class="TtBxFlSt">
+			<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Code)<span style="color:red;">*</span></div>
+			<input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Code)" asp-for="Code" autocomplete="off" />
+		</div>
+	</div>
+	<div class="VnRd"><span asp-validation-for="Code"></span></div>
+</div>
+
+
+<div class="Fx100 MnTp3 MnBm10">
+	<div class="TtBxFlStDiv FxRw Pg10">
+		<div class="FxGw1">
+			@Html.CheckBoxFor(x => x.BreakFast, htmlAttributes: new { id = "BreakFast", @Class = "SeIt1o15" })
+			&nbsp;@Html.DisplayNameFor(model => model.BreakFast)
+		</div>
+	</div>
+</div>
+
+
+<div class="Fx100 MnTp3 MnBm10">
+	<div class="TtBxFlStDiv FxRw Pg10">
+		<div class="FxGw1">
+			@Html.CheckBoxFor(x => x.Lunch, htmlAttributes: new { id = "Lunch", @Class = "SeIt1o15" })
+			&nbsp;@Html.DisplayNameFor(model => model.Lunch)
+		</div>
+	</div>
+</div>
+
+
+<div class="Fx100 MnTp3 MnBm10">
+	<div class="TtBxFlStDiv FxRw Pg10">
+		<div class="FxGw1">
+			@Html.CheckBoxFor(x => x.Dinner, htmlAttributes: new { id = "Dinner", @Class = "SeIt1o15" })
+			&nbsp;@Html.DisplayNameFor(model => model.Dinner)
+		</div>
+	</div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
+</div>

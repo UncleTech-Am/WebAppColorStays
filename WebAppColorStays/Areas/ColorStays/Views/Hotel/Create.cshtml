@@ -19,6 +19,7 @@
             <div id="UTabs1">
                 <div> Hotel Detail</div>
                 <div> Hotel Amenities</div>
+                <div>Hotel Plan</div>
                 <div> Hotel Image</div>
                 <div>SetUp Image</div>
             </div>
@@ -62,15 +63,28 @@
                     <div id="CreateOrEditHotel" style="height: 400px;overflow: auto;"></div>
                     <div class="Pg10 FxRw">
                         <div class="FxGw1">
-                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Hotel/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
+                            @* <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Hotel/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button> *@
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 2)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetHotelPlan()"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
                         </div>
                     </div>
                 </div>
 
                 <div id="UTabs1Cont2">
+                    <div id="CreateOrEditPlan" style="height: 400px;overflow: auto;"></div>
+                    <div class="Pg10 FxRw">
+                        <div class="FxGw1">
+                            @* <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Hotel/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button> *@
+                        </div>
+                        <div>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 3)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="UTabs1Cont3">
                     <div class="Pg12">
                         <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
                             <i class="UT-ImageLine"></i>
@@ -98,7 +112,7 @@
                     </div>
                 </div>
 
-                <div id="UTabs1Cont3">
+                <div id="UTabs1Cont4">
                     <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
                     <div class="Pg10 FxRw">
                         <div class="FxGw1">
@@ -117,6 +131,7 @@
             <div id="UTabs2">
                 <div>All Hotels</div>
                 <div>Hotel Facility</div>
+                <div>Hotel Plan</div>
                 <div>Hotel Images</div>
             </div>
 
@@ -130,6 +145,9 @@
                     <div id="Facility"></div>
                 </div>
                 <div id="UTabs2Cont2">
+                    <div id="Plan"></div>
+                </div>
+                <div id="UTabs2Cont3">
                     <div id="Images"></div>
                 </div>
             </div>
@@ -143,8 +161,8 @@
 
 <script>
     $(document).ready(function () {
-        TabsUT('UTabs1', 0, null, [1, 2, 3]);
-        TabsUT('UTabs2', 0, null, [1, 2]);
+        TabsUT('UTabs1', 0, null, [1, 2, 3, 4]);
+        TabsUT('UTabs2', 0, null, [1, 2, 3]);
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchPlace', '/ColorStays/Place/SuggestPlace', '', '', AoCePlace);
         MaxMin();
@@ -261,9 +279,45 @@
     function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "Images");
         ShowUploads();
-        ActiveTabUt('UTabs2', 2);
+        ActiveTabUt('UTabs2', 3);
     }
 
+    //Here get the list of hotel list
+    function GetHotelPlan() {
+        var id = document.getElementById('HlId').value;
+        ActiveTabUt('UTabs1', 2);
+        getUT('/ColorStays/Hotel/HotelPlanList?HlId=' + id, function (data) {
+            document.getElementById('CreateOrEditPlan').innerHTML = "";
+            document.getElementById('CreateOrEditPlan').innerHTML = data;
+            HideLoader();
+        });
+    }
+
+    function SuccessHotelPlan(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "Detail");
+        //Show the Image Tab
+        ActiveTabUt('UTabs1', 1);
+        ActiveTabUt('UTabs2', 2);
+        GetHotelPlan();
+        GetSelectedPlan();
+        document.getElementById('HlId').value = document.getElementById('HlId').value;
+    }
+
+    function GetSelectedPlan() {
+        var HotelId = document.getElementById('HlId').value;
+        getUT('/ColorStays/Hotel/GetHotelPlan?HlId=' + HotelId, function (data) {
+            document.getElementById('Plan').innerHTML = "";
+            document.getElementById('Plan').innerHTML = data;
+        });
+    }
+
+    //Delete Hotel Facility
+    function DeletePlan(HlId, Id) {
+        getUT('/ColorStays/Hotel/DeletePlanOfHotel?HlId=' + HlId + '&Id=' + Id, function (data) {
+            GetHotelPlan();
+            GetSelectedPlan();
+        });
+    }
 
     //Table Search Success Function
     function TableSuccessFn(data, status, xhr, FormID) {
@@ -341,7 +395,7 @@
         getUT('/ColorStays/HotelImageVideo/UploadedImage?HotelId=' + HotelId  + '&ShowBtn=' + true, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
-            ActiveTabUt('UTabs2', 2);
+            ActiveTabUt('UTabs2', 3);
             document.getElementById('SwTb3').style.display = "block";
             HideLoader();
         });
@@ -359,7 +413,7 @@
         getUT('/ColorStays/HotelImageVideo/ImageDelete?ImageID=' + id + '&HotelId=' + HotelId+ '&ImgName=' + imgname, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
-            ActiveTabUt('UTabs2', 2);
+            ActiveTabUt('UTabs2', 3);
             //Show the Images in LHS for Update
             getUT('/ColorStays/HotelImageVideo/Index?HotelId=' + HotelId + '&UpdateDetail=Yes', function (data) {
                 document.getElementById('AddImgDetail').innerHTML = "";

@@ -28,6 +28,12 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_Currency_Name { get; set; }
         [DisplayName("ChainBrand")]
         public string? Fk_ChainBrand_Name { get; set; }
+        [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
+        public string? SEOTitle { get; set; }
+        [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]
+        public string? SEODescription { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
+        public string? SEOKeywords { get; set; }
         public string? Label { get; set; }
         public string? Name { get; set; }
         public string? Video { get; set; }

@@ -218,6 +218,21 @@
     </div>
 </div>
 
+@for (int i = 0; i < Model.OccupancyList.Count; i++)
+{
+    <div class="Fx50 Pg2">
+        <div class="MnBm4">
+            <div class="TtBxFlStDiv FxRw Pg10">
+                <div class="FxGw1">
+                    <input type="hidden" asp-for="@Model.OccupancyList[i].Id" />
+                    @Html.CheckBoxFor(Model => Model.OccupancyList[i].IsSelected, htmlAttributes: new { id = "IsSelected", @Class = "SeIt1o14" })
+                    &nbsp;@Model.OccupancyList[i].Name
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">

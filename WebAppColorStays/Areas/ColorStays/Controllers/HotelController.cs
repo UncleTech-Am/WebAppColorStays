@@ -557,7 +557,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                         if (file.Length > 0)
                         {
-                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "HotelCover");
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "HotelBanner");
                             Task.WaitAll(TImgUpload);
                             if (TImgUpload.Result == "Error")
                             {
@@ -680,12 +680,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                             CsHotel.CoverImage = fileName;
                             //Delete the Images from the folder
-                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsHotel.CoverImageName, TokenKey, "HotelCover");
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsHotel.CoverImageName, TokenKey, "HotelBanner");
                             Task.WaitAll(TDeleteImage);
 
                             if (file.Length > 0)
                             {
-                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "HotelCover");
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "HotelBanner");
                                 Task.WaitAll(TImgUpload);
                                 if (TImgUpload.Result == "Error")
                                 {
@@ -780,7 +780,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
                 }
             }
-            Task<string> TDeleteImage1 = ryCsImage.DeleteImage(photo.CoverImageName, TokenKey, "HotelCover");
+            Task<string> TDeleteImage1 = ryCsImage.DeleteImage(photo.CoverImageName, TokenKey, "HotelBanner");
 
             Task.WaitAll(TDeleteImage1);
 
@@ -1020,6 +1020,110 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         return RedirectToAction("GetHotelFacility", new { id = HlId });
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
+        //GET: /Offer/Create
+        [HttpGet]
+        public async Task<IActionResult> HotelPlanList(string HlId)
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+            HotelPlanCheckbox facilityList = new HotelPlanCheckbox();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelPlanTypeMap/HotelPlanList/" + HlId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    facilityList = await System.Text.Json.JsonSerializer.DeserializeAsync<HotelPlanCheckbox>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            return View("_CreateOrEditHotelPlan", facilityList);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddHotelPlan(HotelPlanCheckbox model)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            model.CompId = CompID;
+
+            if (ModelState.IsValid)
+            {
+                using (HttpClient client = APIColorStays.Initial())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("HotelPlanTypeMap/AddHotelPlan", content))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            return RedirectToAction("GetHotelPlan", new { id = model.Fk_Hotel_Name });
+                        }
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetHotelPlan(string HlId)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            List<CsHotelPlanTypeMap> data = new List<CsHotelPlanTypeMap>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelPlanTypeMap/GetHotelPlan/" + HlId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsHotelPlanTypeMap>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        ViewBag.HotelPlan = data;
+                        return View();
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DeletePlanOfHotel(string HlId, string Id)
+        {
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelPlanTypeMap/DeleteConfirmed/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("GetHotelPlan", new { id = HlId });
                     }
                 }
             }

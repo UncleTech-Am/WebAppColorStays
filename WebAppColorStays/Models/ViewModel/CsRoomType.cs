@@ -68,5 +68,8 @@ namespace WebAppColorStays.Models.ViewModel
         [Timestamp]
         [ConcurrencyCheck]
         public byte[]? RowVersion { get; set; }
+
+        public List<CsOccupancyType>? OccupancyList { get; set; }
+
     }
 }
