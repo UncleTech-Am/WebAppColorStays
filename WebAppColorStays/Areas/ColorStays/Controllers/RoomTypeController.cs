@@ -478,7 +478,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Tuple<int, List<CsOccupancyType>> list;
-            using (HttpClient client = APIHl.Initial())
+            using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 using (var response = await client.GetAsync("OccupancyType/index/" + CompID + "/" + 0 + "/" + 0 + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
@@ -517,7 +517,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsRoomType csroomtype = new CsRoomType();
             csroomtype.OccupancyList = ReturnOccList.Result.Item2;
 
-            return View();
+            return View(csroomtype);
         }
 
 
@@ -889,7 +889,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
         //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationRoomType(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationRoomType(string Name, string NameAction, string Id, string Fk_Hotel_Name)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
@@ -898,7 +898,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("RoomType/CheckDuplicationRoomType/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("RoomType/CheckDuplicationRoomType/" + Name + "/" + NameAction + "/" + Fk_Hotel_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {

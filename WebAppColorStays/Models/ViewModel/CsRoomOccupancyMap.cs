@@ -10,6 +10,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Label { get; set; }
         public string? Fk_RoomType_Name { get; set; }
         public string? Fk_OccupancyType_Name { get; set; }
+        public string? Fk_Hotel_Name { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }

@@ -45,5 +45,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Timestamp]
         [ConcurrencyCheck]
         public byte[]? RowVersion { get; set; }
+        public bool IsSelected { get; set; }
+        public double? OccCost { get; set; }
     }
 }

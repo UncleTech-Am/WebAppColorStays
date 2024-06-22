@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+    ViewData["Action"] = "HRmTariffNInventory";
+}
+
+<div id="HotelIds" style="display:none;"></div>
+<div id="RoomBlocks" style="display:none;"></div>
+<div id="Dateds" style="display:none;"></div>
+<div id="RoomTypeIds" style="display:none;"></div>
+
+<div class="PopUpTop BrRs10  Br1_Cr CrBrTe SwBxIt1Dv-Vn1 " id="PopUpRmBk">
+    <div class="Wh100p TtAnCr">
+        <div class="LineDiv"></div>
+        <h2 class="PgBm10">Are you Sure?</h2>
+        <h3 class="PgBm10">To Block/Unblock the Rooms! </h3>
+    </div>
+    <div id="DeleteUrl" style="display:none;"></div>@*Store the Path of the DeleteConfirmed Action*@
+    <div id="ListUrl" style="display:none;"></div>@*Store the Path of the List Action*@
+    <div class="DyFx FxJyCtCr Gp10 Wh100p PgTp20">
+        <div><button class="BnRd14 CrBdGy60 HrCrTe" onclick="BlockAllRooms();"><i class="UT-DeletePageSolid"></i>&nbsp;Yes</button>  </div>
+        <div><button class="BnRd14 CrBdRd40 HrCrTe" onclick='HidePopUpRmBk()'><i class="UT-CrossLine"></i>&nbsp;No</button></div>
+    </div>
+</div>

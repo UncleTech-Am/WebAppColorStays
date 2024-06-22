@@ -1,48 +1,48 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsRoomTariff
+    public class CsRoomTariff : CsRoomInventory
     {
-        [Key]
-        [StringLength(450)]
-        public string? Id { get; set; }
-        public string? Label { get; set; }
-        public string? SeasonID { get; set; }
-        public DateTime? Dated { get; set; }
-        public string? Fk_RoomType_Name { get; set; }
+        public CsRoomTariff()
+        {
+            RoomTariffList = new List<CsRoomInventory>();
+            PlanList = new List<CsHotelPlanTypeMap>();
+            PriceList = new List<CsRoomTariff>();
+            RoomTypeList = new List<CsRoomType>();
+            RoomOccMapList = new List<CsOccupancyType>();
+        }
+        public List<CsRoomInventory>? RoomTariffList { get; set; }
+        public List<CsHotelPlanTypeMap>? PlanList { get; set; }
+        public List<CsRoomTariff>? PriceList { get; set; }
+        public List<CsRoomType>? RoomTypeList { get; set; }
+        public List<CsOccupancyType>? RoomOccMapList { get; set; }
+        public int? DayCount { get; set; }
+        public int? BookedRoom { get; set; }
+        public string? RoomTariffId { get; set; }
+        public string? InventoryId { get; set; }
+        public string? SeasonId { get; set; }
+        [Required(ErrorMessage = "This Field is Required!")]
         public string? Fk_PlanType_Name { get; set; }
+        public string? PlanType { get; set; }
+        [Required(ErrorMessage = "This Field is Required!")]
+        public Nullable<double> XAdultCost { get; set; }
+        [Required(ErrorMessage = "This Field is Required!")]
+        public Nullable<double> XChildCost { get; set; }
+        public Nullable<int> RoomCount { get; set; }
+        [Required(ErrorMessage = "This Field is Required!")]
+        public DateTime? ToDate { get; set; }
+        [Required(ErrorMessage = "This Field is Required!")]
+        public DateTime? FromDate { get; set; }
+        public string? HotelName { get; set; }
+        public string? Message { get; set; }
+        public string? RoomType { get; set; }
         public string? Fk_OccupancyType_Name { get; set; }
         public double? OccupancyCost { get; set; }
-        public double? XAdultCost { get; set; }
-        public double? XChildCost { get; set; }
-        public bool FreezeStatus { get; set; }
-        public string? FreezedBy { get; set; }
-        public string? Remarks { get; set; }
-        public bool? GlobalStatus { get; set; }
-        public bool? SelectStatus { get; set; }
-        public bool? VerifiedStatus { get; set; }
-        public DateTime? VerifiedOn { get; set; }
-        [StringLength(450)]
-        public string? VerifiedBy { get; set; }
-        public bool? ActiveStatus { get; set; }
-        public DateTime? ActivatedOn { get; set; }
-        [StringLength(450)]
-        public string? ActivatedBy { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        [StringLength(450)]
-        public string? CreatedBy { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        [StringLength(450)]
-        public string? ModifiedBy { get; set; }
-        public int? ModificationFrequency { get; set; }
-        [StringLength(450)]
-        public string? GCompId { get; set; }
-
-        [StringLength(450)]
-        public string? CompId { get; set; }
-        [Timestamp]
-        [ConcurrencyCheck]
-        public byte[]? RowVersion { get; set; }
+        [NotMapped]
+        public string? ShowXAdult { get; set; }
+        [NotMapped]
+        public string? ShowXChild { get; set; }
     }
 }

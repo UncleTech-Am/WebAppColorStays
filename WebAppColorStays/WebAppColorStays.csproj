@@ -323,6 +323,11 @@
     <None Include="Areas\ColorStays\Views\Hotel\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\Hotel\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\Hotel\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\HRmTariffNInventory\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\HRmTariffNInventory\_BulkInventoryUpdate.cshtml" />
+    <None Include="Areas\ColorStays\Views\HRmTariffNInventory\_BulkTariffUpdate.cshtml" />
+    <None Include="Areas\ColorStays\Views\HRmTariffNInventory\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\HRmTariffNInventory\_PopUpRmBk.cshtml" />
     <None Include="Areas\ColorStays\Views\MustExperience\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\MustExperience\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\MustExperience\Index.cshtml" />
@@ -911,15 +916,6 @@
     <None Include="Areas\ColorStays\Views\RoomOccupancyMap\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\RoomOccupancyMap\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\RoomOccupancyMap\_SearchData.cshtml" />
-    <None Include="Areas\ColorStays\Views\RoomTariff\Create.cshtml" />
-    <None Include="Areas\ColorStays\Views\RoomTariff\Edit.cshtml" />
-    <None Include="Areas\ColorStays\Views\RoomTariff\Index.cshtml" />
-    <None Include="Areas\ColorStays\Views\RoomTariff\_CreateOrEdit.cshtml" />
-    <None Include="Areas\ColorStays\Views\RoomTariff\_DetailOrDelete.cshtml" />
-    <None Include="Areas\ColorStays\Views\RoomTariff\_IndexData.cshtml" />
-    <None Include="Areas\ColorStays\Views\RoomTariff\_IndexSearch.cshtml" />
-    <None Include="Areas\ColorStays\Views\RoomTariff\_Pagination.cshtml" />
-    <None Include="Areas\ColorStays\Views\RoomTariff\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\RoomType\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\RoomType\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\RoomType\Index.cshtml" />

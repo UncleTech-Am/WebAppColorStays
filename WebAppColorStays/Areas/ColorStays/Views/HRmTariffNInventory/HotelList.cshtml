@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WebAppColorStays.Models.ViewModel.CsHotel>
+@using System.Web
+@using LibCommon.Service
+@using UncleTech.Encryption
+
+@{
+    Layout = "_Layout";
+    ViewData["Action"] = "HRmTariffNInventory";
+    List<string> colorlist = new List<string>() { "CrBdPk97", "CrBdYw60", "CrBdBe60", "CrBdGn60", "CrBdBe40", "CrBdGn40", "CrBdOe50", "CrBdBk40", "CrBdYw40", "CrBdGy40", "CrBdVt40", "CrBdBe40" };
+    var i = 0;
+}
+
+
+
+<div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
+    <div class="FxRw">
+        <div class="CrTeTtLt Fx80"> <h1>Hotel</h1></div>
+    </div>
+</div>
+
+<div class="SwBx1Dv-Vn1 CrBdWe85 Pg15 BrRs15" style="min-height:80vh">
+    <div class="FxRw" id="TeUT">
+        @foreach (var item in Model)
+        {
+            <div class="Fx25 Pg15">
+                <div class="DyFx FxDnCn FxJyCtCr FxAnImCr Pg10 @colorlist[i] BrRs8">
+                    <a href="~/ColorStays/HRmTariffNInventory/Index?HotelId=@item.Id">
+                        <div class="FtSzRm4"><i class="UT-HotelwithMountain"></i> </div>
+                    </a>
+                    <a href="~/ColorStays/HRmTariffNInventory/Index?HotelId=@item.Id">
+                        <div class="FtSz18">@item.Name</div>
+                    </a>
+                </div>
+            </div>
+            i++;
+            @if (i > 11) { i = 0; }
+        }
+    </div>
+</div>

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -9,7 +10,9 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        public string? Name { get; set; }
+		[Remote("CheckDuplicationRoomType", "RoomType", AdditionalFields = ("NameAction, Id, Fk_Hotel_Name"))]
+
+		public string? Name { get; set; }
         [DisplayName("Hotel")]
         public string? Fk_Hotel_Name { get; set; }
         [NotMapped]
@@ -25,7 +28,7 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? CoverImageName { get; set; }
         public string? Description { get; set; }
-        public int? TotalRooms { get; set; }
+        public int TotalRooms { get; set; }
         public string? SizeArea { get; set; }
         public string? SizeLength { get; set; }
         public string? SizeBreadth { get; set; }

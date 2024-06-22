@@ -1,0 +1,220 @@
+@using LibCommon.Service
+@using UncleTech.Encryption
+@model WebAppColorStays.Models.ViewModel.CsRoomTariff
+
+@{
+	Layout = null;
+	ViewData["Action"] = "HRmTariffNInventory";
+	var count = 0;
+	DateTime todaydate = Convert.ToDateTime(ViewData["TodayDate"]);
+	string trreadonly = "";
+}
+<div style="display:none">responseformUT SuccessPop</div>
+
+<div style="color:red; font-weight:bold; font-size:15px;"> @ViewBag.Message</div>
+
+@if (Model == null)
+{
+	<div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
+		<div class="Wh100p OwAo TtAnCr MnTp20 FtSz22 FtWt800" style="height:70vh;">
+			You Can Search the Tariff and Inventory by selecting Hotel Only.<br /><br />
+			Or You Can Search Tariff and Inventory of a Particular Hotel with From Date - To Date.<br /><br />
+			Thank You!
+		</div>
+	</div>
+}
+else
+{
+	if (Model.RoomTypeList.Count() == 0)
+	{
+		<div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
+			<div class="Wh100p OwAo TtAnCr MnTp20 FtSz22 FtWt800" style="height:70vh;">
+				Please first Create the Room Type and Room No of this Hotel.<br /><br />
+				Thank You!
+			</div>
+		</div>
+	}
+	else if (Model.PlanList.Count() == 0)
+	{
+		<div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
+			<div class="Wh100p OwAo TtAnCr MnTp20 FtSz22 FtWt800" style="height:70vh;">
+				Please first Set the Plan Type for this Hotel.<br /><br />
+				Thank You!
+			</div>
+		</div>
+	}
+	else
+	{
+		<div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
+			<div class="Wh100p OwAo" style="height:70vh;" id="DivInventory">
+				<table class="TeStrip TeBr TeFxCl1">
+					<thead class="TeFxHd">
+						<tr style="border-bottom: 2px solid rgb(var(--CrTeRGB)/.80);">
+							<th class="CrBdWe90">Room/Date</th>
+							@{
+								var fromdate = Convert.ToDateTime(Model.FromDate).Date;
+								var todate = Convert.ToDateTime(Model.ToDate).Date;
+							}
+							@for (int i = 0; i < Model.DayCount; i++)
+							{
+								var color = "";
+								var DayofWeek = Convert.ToString(fromdate.AddDays(i).DayOfWeek);
+								if (DayofWeek == "Saturday" || DayofWeek == "Sunday") { color = "#2990cd5c"; }
+								<th style="min-width:75px;text-align:center;background-color:@color; cursor:pointer;"> @fromdate.AddDays(i).ToString("MMM dd ddd") </th>
+							}
+						</tr>
+
+					</thead>
+
+					<tbody>
+						@foreach (var roomitem in Model.RoomTypeList)
+						{
+							count = 1 + count;
+							<tr style="border-bottom: 2px solid rgb(var(--CrTeRGB)/.80);">
+								@*Show RoomTypes..............................*@
+								<td class="CrBdTe90" style="border-bottom: solid 2px;">
+									<span class="FxRw">
+										<a id="Room-@count" onclick="ShowTariff('@count')" class="FtWt800 TtAnLt Fx90">
+											<span class="UT-ArrowDownCircleSolid"></span>
+											<span>@roomitem.Name</span>
+										</a>
+										@* <a class="Fx10" href=# onclick="InventoryPopUp('@roomitem.TotalRooms','@Base64UrlEncoder.Encode(Process.Encrypt(@roomitem.Id))','@roomitem.Name','@Model.Fk_Hotel_Name')">
+											<b class="UT-EditFileLine"></b>
+										</a> *@
+									</span>
+								</td>
+								@*Ends...........................................*@
+
+								@*Show Room Inventory.....................*@
+								@for (int i = 0; i < Model.DayCount; i++)
+								{
+									var bdcolor = "";//used for td background color
+									var blockroomread = "";//used to make readonly inventory textbox
+									bool blockroomstatus = false; //used to block the rooms
+									int OccupiedRooms = 0;//show the Occupied rooms in columns
+									int TotalInventory = 0;//show the Inventory of rooms in columns
+									var color = "";//used to set background color red when inventory is zero
+									var InventoryId = "";//used to pick inventory id if exists otherwise null
+									var bordercr = "";
+
+									DateTime currentdate = fromdate.AddDays(i).Date;
+
+									if (currentdate < todaydate)
+									{
+										blockroomread = "readonly";
+										color = "grey";
+									}
+
+									//Here Pick the Week day and according to that change the color of inventory
+									var DayofWeek = Convert.ToString(fromdate.AddDays(i).DayOfWeek);
+									if (DayofWeek == "Saturday" || DayofWeek == "Sunday") { bdcolor = "#2990cd5c"; }
+									//Here Check the Current Room and date Inventory in the Inventory table
+									var data = Model.RoomTariffList.FirstOrDefault(x => x.Fk_RoomType_Name == roomitem.Id && x.Dated == currentdate);
+									//if Invnetory is present in Inventory table then pick values from the Invnetory table
+									//else Pick the value from the RoomType table
+									@* if (data != null)
+									{
+										if (data.TotalInventory == 0)
+										{
+											color = "#e11919";
+											bordercr = "solid 2px #e11919";
+										}
+										if (data.RoomBlock == true)
+										{
+											blockroomread = "readonly";
+											color = "#51a51894";
+											bordercr = "solid 2px #51a51894";
+										}
+										blockroomstatus = data.RoomBlock;
+										OccupiedRooms = data.OccupiedRooms;
+										TotalInventory = data.TotalInventory;
+										InventoryId = @Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
+									} *@
+									
+										OccupiedRooms = 0;
+										TotalInventory = roomitem.TotalRooms;
+									/////////////////////////////////////////////////////////////////////
+									
+									<td style="text-align:center;background-color:@bdcolor;border:@bordercr;cursor:pointer;" value=@roomitem.Id >
+										<div class="TtBxFlStDiv RdOyTtBx" style="background-color:@color">
+											<input class="TtBxTt15 TtAnCr" @blockroomread id="RoomA" name="RoomA" type="text" autocomplete="off" value=@TotalInventory  readonly/>
+										</div>
+									</td>
+								}
+								@*Ends........................................*@
+							</tr>
+
+							//Show Food Plans................................
+							foreach (var planitem in Model.PlanList)
+							{
+								<!--Show the Plan Name-->
+								<tr class="showtd-h-Room-@count" style="display:none;">
+									<td style="background-color: #10101114;">
+										<h4 class="FxRw">
+											<span class="Fx80">@planitem.Fk_PlanType_Name</span>
+											<a class="Fx20" href=# onclick="TariffPopUp('@Base64UrlEncoder.Encode(Process.Encrypt(@planitem.Id))','@planitem.Fk_PlanType_Name','@Base64UrlEncoder.Encode(Process.Encrypt(@roomitem.Id))','@roomitem.Name','@Model.Fk_Hotel_Name','@count')">
+												<b class="UT-EditFileLine"></b>
+											</a>
+										</h4>
+									</td>
+								</tr>
+
+								<!--Show the SingelOccPrice from the Database-->
+								@foreach (var occitem in roomitem.OccupancyList)
+								{
+									<tr class="showtd-h-Room-@count" style="display:none;">
+										<td><b class="UT-UserMSolid" style="padding-right: 5px; font-size: 16px;"> @occitem.Name</b></td>
+										@for (int x = 0; x < Model.DayCount; x++)
+										{
+											var bdcolor = "";
+											var color = "";
+											double? OccPrice = 0;
+											string PriceId = "";
+											var blockroomread = "";
+
+											DateTime currentdate = fromdate.AddDays(x).Date;
+											if (currentdate < todaydate)
+											{
+												blockroomread = "readonly";
+												color = "grey";
+											}
+											
+											var DayofWeek = Convert.ToString(fromdate.AddDays(x).DayOfWeek);
+											if (DayofWeek == "Saturday" || DayofWeek == "Sunday") { bdcolor = "#2990cd5c"; }
+											var pricedata = Model.PriceList.FirstOrDefault(x => x.Fk_RoomType_Name == roomitem.Id
+											&& x.Fk_PlanType_Name == planitem.Id && x.Dated == currentdate
+											&& x.Fk_OccupancyType_Name == occitem.Id);
+											@if (pricedata != null)
+											{
+												OccPrice = @pricedata.OccupancyCost;
+												PriceId = @Base64UrlEncoder.Encode(Process.Encrypt(pricedata.Id));
+											}
+											//Here Check the Current Room and date Inventory in the Inventory table
+											var data = Model.RoomTariffList.FirstOrDefault(x => x.Fk_RoomType_Name == roomitem.Id && x.Dated == currentdate);
+											//if Invnetory is present in Inventory table then pick values from the Invnetory table
+											//else Pick the value from the RoomType table
+											if (data != null)
+											{
+												if (data.RoomBlock == true)
+												{
+													blockroomread = "readonly";
+													color = "#51a51894";
+												}
+											}
+											<td style="background-color:@bdcolor">
+												<div class="TtBxFlStDiv" style="background-color:@color">
+													<input class="TtBxTt15 TtAnCr" @blockroomread id="RoomA" name="@occitem.Name" autocomplete="off" type="text" value=@OccPrice onchange="OccPriceSave('@PriceId','@occitem.Id',this,'@currentdate','@Base64UrlEncoder.Encode(Process.Encrypt(roomitem.Id))','@Base64UrlEncoder.Encode(Process.Encrypt(@planitem.Id))','@Model.Fk_Hotel_Name','@count')" />
+												</div>
+											</td>
+										}
+									</tr>
+								}
+							}
+							//Ends...........................
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	}
+}

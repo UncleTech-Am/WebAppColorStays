@@ -1,0 +1,99 @@
+﻿@model WebAppColorStays.Models.ViewModel.CsRoomTariff
+
+@{
+    Layout = null;
+    ViewData["Action"] = "HRmTariffNInventory";
+}
+
+<div class="TtAnCr">
+    <h3>@Model.RoomType</h3>
+    <h3>Add Price for @Model.PlanType</h3>
+    <form id="Create"
+          data-ajax="true"
+          data-ajax-url="/ColorStays/HRmTariffNInventory/BulkTariffUpdate"
+          data-ajax-method="post"
+          data-ajax-loading="#loader"
+          data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
+          data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
+
+        @Html.AntiForgeryToken()
+
+        <div id="CreateOrEdit">
+            @Html.HiddenFor(model => model.Fk_PlanType_Name)
+            @Html.HiddenFor(model => model.Fk_RoomType_Name)
+            @Html.HiddenFor(model => model.CompId)
+            @Html.HiddenFor(model => model.Fk_Hotel_Name)
+
+            <div class="FxRw">
+                <div class="Fx50 Pg5">
+                    <div class="MnTp20 ">
+                        <div class="TtBxFlStDiv">
+                            <div class="TtBxFlSt">
+                                <div class="TtBxFlStLl15">From Date</div>
+                                <input class="TtBxTt15" placeholder="From Date" asp-for="FromDate" id="FromDate2" type="text" autocomplete="off" required readonly />
+                                <div class="PgRt5 Cr-uPr" onclick="Empty('FromDate2')"><i class="UT-DeletePageSolid"></i></div>
+                            </div>
+                        </div>
+                        <div class="VnRd"><span asp-validation-for="FromDate"></span></div>
+                    </div>
+                </div>
+                <div class="Fx50 Pg5">
+                    <div class="MnTp20">
+                        <div class="TtBxFlStDiv">
+                            <div class="TtBxFlSt">
+                                <div class="TtBxFlStLl15">To Date</div>
+                                <input class="TtBxTt15" placeholder="To Date" asp-for="ToDate" id="ToDate2" type="text" autocomplete="off" required readonly />
+                                <div class="PgRt5 Cr-uPr" onclick="Empty('ToDate2')"><i class="UT-DeletePageSolid"></i></div>
+                            </div>
+                        </div>
+                        <div class="VnRd"><span asp-validation-for="ToDate"></span></div>
+                    </div>
+                </div>
+
+                @for (int i = 0; i < Model.RoomOccMapList.Count; i++)
+                {
+                    <div class="Fx50 Pg5">
+                        <div class="MnTp7 ">
+                            <div class="TtBxFlStDiv">
+                                <div class="TtBxFlSt">
+                                    <div class="TtBxFlStLl15">@Model.RoomOccMapList[i].Name</div>
+                                    <input type="hidden" asp-for="@Model.RoomOccMapList[i].Id" />
+                                    <input class="TtBxTt15" placeholder="@Model.RoomOccMapList[i].Name Price" asp-for="@Model.RoomOccMapList[i].OccCost" autocomplete="off" required />
+                                </div>
+                            </div>
+                            <div class="VnRd"><span asp-validation-for="@Model.RoomOccMapList[i].OccCost"></span></div>
+                        </div>
+                    </div>
+                }
+
+
+                <div class="Fx50 Pg5">
+                    <div class="MnTp7 ">
+                        <div class="TtBxFlStDiv">
+                            <div class="TtBxFlSt">
+                                <div class="TtBxFlStLl15">X-Adult</div>
+                                <input class="TtBxTt15" placeholder="X-Adult Price" asp-for="XAdultCost" autocomplete="off" required />
+                            </div>
+                        </div>
+                        <div class="VnRd"><span asp-validation-for="XAdultCost"></span></div>
+                    </div>
+                </div>
+                <div class="Fx50 Pg5">
+                    <div class="MnTp7 ">
+                        <div class="TtBxFlStDiv">
+                            <div class="TtBxFlSt">
+                                <div class="TtBxFlStLl15">X-Child</div>
+                                <input class="TtBxTt15" placeholder="X-Child Price" asp-for="XChildCost" autocomplete="off" required />
+                            </div>
+                        </div>
+                        <div class="VnRd"><span asp-validation-for="XChildCost"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="MnTp7 ">
+            <button type="submit" class="BnRd17 CrBdTe CrTeTtLt BnWh100  SwBxIt2TtBx-Vn1 HrTmSeo94">Save</button>
+        </div>
+    </form>
+</div>

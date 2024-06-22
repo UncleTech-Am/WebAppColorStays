@@ -77,16 +77,19 @@
 
 @if (Model != null)
 {
-    <div class="MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverImage)</div>
-                <img src="@Model.CoverImage" class="Wh60p" />
-                <input asp-for="CoverImageName" type="hidden" />
+    @if (Model.CoverImage != null)
+    {
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverImage)</div>
+                    <img src="@Model.CoverImage" class="Wh60p" />
+                    <input asp-for="CoverImageName" type="hidden" />
+                </div>
             </div>
+            <div class="VnRd"><span asp-validation-for="CoverImage"></span></div>
         </div>
-        <div class="VnRd"><span asp-validation-for="CoverImage"></span></div>
-    </div>
+    }
 }
 
 <div class="MnTp7 MnBm7">
@@ -218,21 +221,24 @@
     </div>
 </div>
 
-@for (int i = 0; i < Model.OccupancyList.Count; i++)
-{
-    <div class="Fx50 Pg2">
-        <div class="MnBm4">
-            <div class="TtBxFlStDiv FxRw Pg10">
-                <div class="FxGw1">
-                    <input type="hidden" asp-for="@Model.OccupancyList[i].Id" />
-                    @Html.CheckBoxFor(Model => Model.OccupancyList[i].IsSelected, htmlAttributes: new { id = "IsSelected", @Class = "SeIt1o14" })
-                    &nbsp;@Model.OccupancyList[i].Name
+<div class="FxRw">
+    @for (int i = 0; i < Model.OccupancyList.Count; i++)
+    {
+        <div class="Fx50 Pg2">
+            <div class="MnBm4">
+                <div class="TtBxFlStDiv FxRw Pg10">
+                    <div class="FxGw1">
+                        <input type="hidden" asp-for="@Model.OccupancyList[i].Id" />
+                        @Html.CheckBoxFor(Model => Model.OccupancyList[i].IsSelected, htmlAttributes: new { id = "IsSelected", @Class = "SeIt1o14" })
+                        &nbsp;@Model.OccupancyList[i].Name
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-}
+    }
+</div>
+
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">

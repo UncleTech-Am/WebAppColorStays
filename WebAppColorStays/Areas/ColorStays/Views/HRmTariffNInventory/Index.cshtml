@@ -1,0 +1,421 @@
+@model WebAppColorStays.Models.ViewModel.CsRoomTariff
+@using LibCommon.Service
+@using UncleTech.Encryption
+
+@{
+	Layout = "_Layout";
+	ViewData["Action"] = "HRmTariffNInventory";
+}
+
+<div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
+	<div class="CrTeTtLt FxGw1"> <h1> @ViewBag.Title</h1></div>
+	<div>
+		<button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/HRmTariffNInventory/Index?HotelId='@Model.Fk_Hotel_Name'"><i class="UT-CommentLeftSolid FtSz18"></i></button>
+	</div>
+</div>
+
+<div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
+	<div class="FxRw FxAnImSh">
+		<div class="Fx100 Pg3">
+			<form id="DateSearchID">
+				@Html.AntiForgeryToken()
+				<div class="FxRw">
+					
+					<input type="hidden" asp-for="Fk_Hotel_Name" value="@@Model.Id" />
+
+					<div class="Fx25 Pg2">
+						<div class="MnTp7 MnBm7">
+							<div class="TtBxFlStDiv">
+								<div class="TtBxFlSt">
+									<div class="TtBxFlStLl15">From Date<span style="color:red;"> *</span></div>
+									<input class="TtBxTt14" placeholder="From Date" Name="FromDate" id="FromDate" type="text" readonly autocomplete="off" required="required" />
+									<div class="PgRt5 Cr-uPr" onclick="Empty('FromDate')"><i class="UT-DeletePageSolid"></i></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="Fx25 Pg2">
+						<div class="MnTp7 MnBm7">
+							<div class="TtBxFlStDiv">
+								<div class="TtBxFlSt">
+									<div class="TtBxFlStLl15">To Date<span style="color:red;"> *</span></div>
+									<input class="TtBxTt14" placeholder="To Date" Name="ToDate" id="ToDate" type="text" readonly autocomplete="off" required="required" />
+									<div class="PgRt5 Cr-uPr" onclick="Empty('ToDate')"><i class="UT-DeletePageSolid"></i></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="Fx10 Pg2">
+						<div class="MnTp7 MnBm7">
+							<button class="BnRd17 CrBdTeBn HrCrTe SwBxIt1Dv-Vn1 HrTmSeo94 Wh100p FtSz18" type="button" onclick="FormSubmit('/ColorStays/HRmTariffNInventory/Search','DateSearchID',DateSuccessFn)">Search</button>
+						</div>
+					</div>
+					<div class="Fx10 Pg2">
+						<div class="MnTp7 MnBm7">
+							<button class="BnRd17 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 Wh100p FtSz18" type="button" onclick="location.href='/ColorStays/HRmTariffNInventory/Index'">Reset</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="Fx100 Pg3 CrBdWe">
+			<div class="DyFx Wh100p FxJyCtCr FxAnImCr">
+				<div class="FxGw1 DyFx FxAnImCr">
+					<div class="Pg3" style="background-color:#e11919;min-width:2%;height:18px;">
+					</div>
+					<h4 class="Pg3" style="max-width:8%;margin-top:0px;">Sold Out</h4>
+					<div class="Pg3" style="background-color:#2990cd5c;min-width:2%;height:18px;">
+					</div>
+					<h4 class="Pg3" style="max-width:8%;margin-top:0px;">Holiday</h4>
+					<div class="Pg3" style="background-color:#51a51894;min-width:2%;height:18px;">
+					</div>
+					<h4 class="Pg3" style="margin-top:0px;">Room Blocked</h4>
+				</div>
+				<div class="DyFx FxAnImCr">
+					<button title="Left Scroll" class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1 Mn5" onclick="ScrollClick('DivInventory','Left')" onmousedown="Scroll('DivInventory', 'Left')" onmouseup="clearInterval(ScrollInterval);">
+						<i class="UT-ArrowLeft FtSz18"></i>
+					</button>
+
+					<button title="Right Scroll" class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1 Mn5" onclick="ScrollClick('DivInventory','Right')" onmousedown="Scroll('DivInventory', 'Right')" onmouseup="clearInterval(ScrollInterval);">
+						<i class="UT-ArrowRight FtWt800 FtSz18"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="Fx100 Pg3" id="Def">
+			@await Html.PartialAsync("_IndexSearch", Model)
+		</div>
+	</div>
+</div>
+
+@*Used to show open div when updating Bulk Tariff*@
+<div id="ToggleDivId" style="display:none"></div>
+
+
+@*Show the popup to Block or Unblock the Rooms*@
+<div class="PopUpTop BrRs10  Br1_Cr CrBrTe SwBxIt1Dv-Vn1 " id="PopUpRmBk" style="left:36%;">
+	<div id="HotelIds" style="display:none;"></div>
+	<div id="RoomBlocks" style="display:none;"></div>
+	<div id="Dateds" style="display:none;"></div>
+	<div id="RoomTypeIds" style="display:none;"></div>
+	<div id="TotalRoomCounts" style="display:none;"></div>
+	<div class="Wh100p TtAnCr">
+		<div class="LineDiv"></div>
+		<h2 class="PgBm10">Are you Sure?</h2>
+		<h3 class="PgBm10" id="Blockmsg"> </h3>
+	</div>
+	<div id="DeleteUrl" style="display:none;"></div>@*Store the Path of the DeleteConfirmed Action*@
+	<div id="ListUrl" style="display:none;"></div>@*Store the Path of the List Action*@
+	<div class="DyFx FxJyCtCr Gp10 Wh100p PgTp20">
+		<div><button class="BnRd14 CrBdGy60 HrCrTe" onclick="BlockAllRooms();"><i class="UT-DeletePageSolid"></i>&nbsp;Yes</button>  </div>
+		<div><button class="BnRd14 CrBdRd40 HrCrTe" onclick='HidePopUpRmBk()'><i class="UT-CrossLine"></i>&nbsp;No</button></div>
+	</div>
+</div>
+
+
+@* Show the Popup with CallBackFunc on Inventory Change *@
+@*PopUp to show from Script directly*@
+<div class="PopUp BrRs10  Br1_Cr CrBrTe SwBxIt1Dv-Vn1 " id="PopUpScriptInv" style="z-index:1000000000;">
+	<div class="PopUpDetail Pg8 PnRe">
+		<div class="PopUpTopCloseButton">
+			<button class="BnCe35 HrTmRe360Se1o5 SwBxIt1Dv-Vn1" onclick='HidePopUpScriptInv(Refresh)'><i class="UT-CrossLine"></i></button>
+		</div>
+		<div class="LineDiv"></div>
+		<div class="PgLtRt20 PgTp20">
+			<div class="Wh100p TtAnCr">
+				<h3 id="PopUpScriptInvDetailContentID"></h3>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	$(document).ready(function () {
+		ShowCalender({
+			RangeInput: { StartDateInput: 'FromDate', EndDateInput: 'ToDate' },
+		});
+	});
+
+	//HIde the PopUp
+	function HidePopUpScriptInv(CallBackFunc) {
+		if (CallBackFunc != null && CallBackFunc != "undefined") {
+			CallBackFunc();
+		}
+		else {
+			document.getElementById('PopUpScriptInv').style.display = "none";
+		}
+	}
+	//Ends
+
+	//Function to refresh the Particular view
+	function Refresh() {
+		var FromDate = document.getElementById('FromDate').value;
+		var ToDate = document.getElementById('ToDate').value;
+
+		$.post("/ColorStays/HRmTariffNInventory/Search/", { HotelId: '@Model.Id', FromDate: FromDate, ToDate: ToDate }, function (data) {
+			document.getElementById('Def').innerHTML = "";
+			document.getElementById('Def').insertAdjacentHTML('afterbegin', data);
+			document.getElementById('PopUpScriptInv').style.display = "none";
+			HideLoader();
+		});
+	}
+	//Ends
+
+	//Scroll div on Btn Click
+	var ScrollInterval;
+	function Scroll(Id, Direction) {
+		ScrollInterval = setInterval(function () {
+			if (Direction == 'Right') {
+				document.getElementById(Id).scrollLeft += 2;
+			}
+			if (Direction == 'Left') {
+				document.getElementById(Id).scrollLeft -= 2;
+			}
+		}, 10);
+	}
+
+	function ScrollClick(Id, Direction) {
+		if (Direction == 'Right') {
+			document.getElementById(Id).scrollLeft += 50;
+		}
+		if (Direction == 'Left') {
+			document.getElementById(Id).scrollLeft -= 50;
+		}
+	}
+	//Ends
+
+	//Search Success Function
+	function DateSuccessFn(data, status, xhr, FormID, PgSelected) {
+		FormAjaxSuccess(data, FormID, '', "UpdateDivNoFReset", "Def");
+	}
+	//Ends
+
+	//Show the Tariff
+	function ShowTariff(Id) {
+		var c = ".showtd-h-Room-" + Id;
+		$(c).toggle();
+	}
+	//Ends
+
+	//Save the Inventory.......................
+	function InventorySave(id, Obj, totalroominv, roomtypeid, hotelid, dated) {
+		ShowLoader();
+		var enteredval = parseInt(Obj.value);
+		var mc = parseInt(totalroominv)
+		if (enteredval > mc) {
+			document.getElementById("PopUpScriptInvDetailContentID").innerHTML = "";
+			document.getElementById("PopUpScriptInvDetailContentID").innerHTML = "<br/><br/><i class=" + "UT-ErrorFaceLine" + " style=" + "'font-size:85px;'" + "></i> <br/><br/> <h2>Wrong Entry!</h2> <br/><br/> You are Trying to Enter Extra Inventory! You have not that Much Room's Inventory!";
+			document.getElementById("PopUpScriptInv").style.display = "block";
+			HideLoader();
+		}
+
+		if (enteredval < 0) {
+			document.getElementById("PopUpScriptInvDetailContentID").innerHTML = "";
+			document.getElementById("PopUpScriptInvDetailContentID").innerHTML = "<br/><br/><i class=" + "UT-ErrorFaceLine" + " style=" + "'font-size:85px;'" + "></i> <br/><br/> <h2>Wrong Entry!</h2> <br/><br/> You are Trying to Enter Negative Inventory!";
+			document.getElementById("PopUpScriptInv").style.display = "block";
+			HideLoader();
+		}
+
+		if (enteredval <= mc && enteredval >= 0) {
+			var FromDate = document.getElementById('FromDate').value;
+			var ToDate = document.getElementById('ToDate').value;
+			$.post("/ColorStays/HRmTariffNInventory/UpdateInventory/", { InventoryID: id, CurrentRoom: Obj.value, RoomTypeId: roomtypeid, HotelId: hotelid, Dated: dated }, function (data) {
+				$.post("/ColorStays/HRmTariffNInventory/Search/", { HotelId: hotelid, FromDate: FromDate, ToDate: ToDate }, function (data) {
+					document.getElementById('Def').innerHTML = "";
+					document.getElementById('Def').insertAdjacentHTML('afterbegin', data);
+					PopUpAutoSucess();
+					HideLoader();
+				});
+			});
+		}
+	};
+	//Ends......................................
+
+	//Save the particular price of DoubleOccupancy
+	function OccPriceSave(Id, OccTypeId, Obj, Date, RoomType, PlanType, HotelId, ToggleDivId) {
+		ShowLoader();
+		$.post('/ColorStays/HRmTariffNInventory/UpdateTariff', { RoomTariffId: Id, OccTypeId: OccTypeId, OccRate: Obj.value, Date: Date, RoomTypeId: RoomType, PlanTypeId: PlanType, HotelId: HotelId }, function (data) {
+			var FromDate = document.getElementById('FromDate').value;
+			var ToDate = document.getElementById('ToDate').value;
+
+			$.post("/ColorStays/HRmTariffNInventory/Search/", { HotelId: HotelId, FromDate: FromDate, ToDate: ToDate }, function (data) {
+				document.getElementById('Def').innerHTML = "";
+				document.getElementById('Def').insertAdjacentHTML('afterbegin', data);
+				PopUpAutoSucess();
+				HideLoader();
+				var c = ".showtd-h-Room-" + ToggleDivId;
+				$(c).toggle();
+			});
+		});
+	}
+	//Ends
+
+	//Show the Popup to Update the Bulk Tariff
+	function TariffPopUp(planid, planname, roomtypeid, roomtype, hotelid, ToggleDivId) {
+		var URL = "/ColorStays/HRmTariffNInventory/SwBkTfUePopUp?PlanId=" + planid + "&PlanName=" + planname + "&RoomTypeId=" + roomtypeid + "&RoomType=" + roomtype + "&HotelId=" + hotelid;
+		ShowLoader();
+		document.getElementById('ToggleDivId').innerHTML = ToggleDivId;
+		var GetMethod = new XMLHttpRequest();
+		GetMethod.open('GET', URL, true);
+		GetMethod.onload = function () {
+			var content = GetMethod.responseText;
+			document.getElementById("PopUpDetailID").style.display = "block";
+			document.getElementById("PopUpDetailContentID").innerHTML = "";
+			document.getElementById("PopUpDetailContentID").innerHTML = content;
+			document.getElementById("PopUpErrorID").style.display = "none";
+			document.getElementById("PopUpSuccessID").style.display = "none";
+			document.getElementById("PopUp").style.display = "block";
+			HideLoader();
+			ShowCalender({
+				RangeInput: { StartDateInput: 'FromDate2', EndDateInput: 'ToDate2' },
+				DisableCount: { Before: 1, After: 365 },
+			});
+		};
+		GetMethod.send(null);
+	};
+	//Ends
+
+	//Success Function of BulkTariffUpdate
+	function Success() {
+		var HotelId = document.getElementById('HotelId').value;
+		var FromDate = document.getElementById('FromDate').value;
+		var ToDate = document.getElementById('ToDate').value;
+
+		$.post("/ColorStays/HRmTariffNInventory/Search/", { HotelId: HotelId, FromDate: FromDate, ToDate: ToDate }, function (data) {
+			document.getElementById('Def').innerHTML = "";
+			document.getElementById('Def').insertAdjacentHTML('afterbegin', data);
+			var ToggleDivId = document.getElementById('ToggleDivId').innerHTML;
+			var c = ".showtd-h-Room-" + ToggleDivId;
+			$(c).toggle();
+			HideLoader();
+			PopUpAutoSucess();
+		});
+	}
+	//Ends
+
+	//Show the Popup to Update the Inventory
+	function InventoryPopUp(totalroomcount, roomtypeid, roomtype, hotelid) {
+		var URL = "/ColorStays/HRmTariffNInventory/SwBkIyUePopUp?&RoomTypeId=" + roomtypeid + "&Totalroomcount=" + totalroomcount + "&RoomType=" + roomtype + "&HotelId=" + hotelid;
+		ShowLoader();
+		var GetMethod = new XMLHttpRequest();
+		GetMethod.open('GET', URL, true);
+		GetMethod.onload = function () {
+			var content = GetMethod.responseText;
+			document.getElementById("PopUpDetailID").style.display = "block";
+			document.getElementById("PopUpDetailContentID").innerHTML = "";
+			document.getElementById("PopUpDetailContentID").innerHTML = content;
+			document.getElementById("PopUpErrorID").style.display = "none";
+			document.getElementById("PopUpSuccessID").style.display = "none";
+			document.getElementById("PopUp").style.display = "block";
+			HideLoader();
+			ShowCalender({
+				RangeInput: { StartDateInput: 'FromDate3', EndDateInput: 'ToDate3' },
+				DisableCount: { Before: 1, After: 365 },
+			});
+		};
+		GetMethod.send(null);
+	};
+	//Ends
+
+	//Check Room Total Count with Entered inventory Count
+	function CheckInventory(val) {
+		var Totalroomcount = document.getElementById('Totalroomcount').innerHTML;
+		enterinv = parseInt(val);
+		roominv = parseInt(Totalroomcount);
+		if (enterinv > roominv) {
+			document.getElementById("PopUpScriptInvDetailContentID").innerHTML = "";
+			document.getElementById("PopUpScriptInvDetailContentID").innerHTML = "<br/><br/><i class=" + "UT-ErrorFaceLine" + " style=" + "'font-size:85px;'" + "></i> <br/><br/> <h2>Wrong Entry!</h2> <br/><br/> You are Trying to Enter Extra Inventory! You have not that Much Room's Inventory!";
+			document.getElementById("PopUpScriptInv").style.display = "block";
+			HidePopUp();
+		}
+
+		if (enterinv < 0) {
+			document.getElementById("PopUpScriptInvDetailContentID").innerHTML = "";
+			document.getElementById("PopUpScriptInvDetailContentID").innerHTML = "<br/><br/><i class=" + "UT-ErrorFaceLine" + " style=" + "'font-size:85px;'" + "></i> <br/><br/> <h2>Wrong Entry!</h2> <br/><br/> You are Trying to Enter Negative Inventory!";
+			document.getElementById("PopUpScriptInv").style.display = "block";
+			HidePopUp();
+		}
+	}
+	//Ends
+
+	//Success Function of BulkInventoryUpdate
+	function SuccessInv() {
+		var HotelId = document.getElementById('HotelId').value;
+		var FromDate = document.getElementById('FromDate').value;
+		var ToDate = document.getElementById('ToDate').value;
+		$.post("/ColorStays/HRmTariffNInventory/Search/", { HotelId: HotelId, FromDate: FromDate, ToDate: ToDate }, function (data) {
+			if (data.includes("WrongInv")) {
+				document.getElementById("PopUpScriptInvDetailContentID").innerHTML = "";
+				document.getElementById("PopUpScriptInvDetailContentID").innerHTML = "<br/><br/><i class=" + "UT-ErrorFaceLine" + " style=" + "'font-size:85px;'" + "></i> <br/><br/> <h2>Wrong Entry!</h2> <br/><br/> You are Trying to Enter Wrong Inventory!";
+				document.getElementById("PopUpScriptInv").style.display = "block";
+			}
+			else if (data.includes("Error")) {
+				PopUpError();
+			}
+			else {
+				document.getElementById('Def').innerHTML = "";
+				document.getElementById('Def').insertAdjacentHTML('afterbegin', data);
+				var ToggleDivId = document.getElementById('ToggleDivId').innerHTML;
+				var c = ".showtd-h-Room-" + ToggleDivId;
+				$(c).toggle();
+				HideLoader();
+				PopUpAutoSucess();
+			}
+		});
+	}
+	//Ends
+
+
+	//Show the PopUp to Confirm that user want to Block/Unblock the Room or not
+	function PopUpBlockAllRooms(HotelId, RoomBlock, Dated, RoomTypeId, TotalRoomCount) {
+		document.getElementById("PopUpRmBk").style.display = "block";
+		if (RoomBlock == "False") {
+			document.getElementById("Blockmsg").innerHTML = "To Block the Rooms!";
+		}
+		if (RoomBlock == "True") {
+			document.getElementById("Blockmsg").innerHTML = "To Unblock the Rooms!";
+		}
+		document.getElementById("HotelIds").innerHTML = HotelId;
+		document.getElementById("RoomBlocks").innerHTML = RoomBlock;
+		document.getElementById("Dateds").innerHTML = Dated;
+		document.getElementById("RoomTypeIds").innerHTML = RoomTypeId;
+		document.getElementById("TotalRoomCounts").innerHTML = TotalRoomCount;
+	}
+	//Ends
+
+
+	//Hide the PopUp to Confirm that user want to Block/Unblock the Room or not
+	function HidePopUpRmBk() {
+		document.getElementById('PopUpRmBk').style.display = "none";
+	}
+	//Ends
+
+
+	//Block all the rooms of particular date
+	function BlockAllRooms() {
+		ShowLoader();
+		var HotelId = document.getElementById("HotelIds").innerHTML;
+		var RoomBlock = document.getElementById("RoomBlocks").innerHTML;
+		var Dated = document.getElementById("Dateds").innerHTML;
+		var RoomTypeId = document.getElementById("RoomTypeIds").innerHTML;
+		var TotalRoomCount = document.getElementById("TotalRoomCounts").innerHTML;
+		$.post("/ColorStays/HRmTariffNInventory/BlockAllRooms/", { HotelId: HotelId, Dated: Dated, RoomTypeId: RoomTypeId, RoomBlockStatus: RoomBlock, TotalRoomCount: TotalRoomCount }, function (data) {
+			var FromDate = document.getElementById('FromDate').value;
+			var ToDate = document.getElementById('ToDate').value;
+			$.post("/ColorStays/HRmTariffNInventory/Search/", { HotelId: HotelId, FromDate: FromDate, ToDate: ToDate }, function (data) {
+				document.getElementById('Def').innerHTML = "";
+				document.getElementById('Def').insertAdjacentHTML('afterbegin', data);
+				var ToggleDivId = document.getElementById('ToggleDivId').innerHTML;
+				var c = ".showtd-h-Room-" + ToggleDivId;
+				$(c).toggle();
+				document.getElementById('PopUpRmBk').style.display = "none";
+				HideLoader();
+				PopUpAutoSucess();
+			});
+		});
+	}
+	//Ends
+</script>
+

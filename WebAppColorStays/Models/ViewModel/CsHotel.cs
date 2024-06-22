@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -35,7 +36,8 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
         public string? Label { get; set; }
-        public string? Name { get; set; }
+		[Remote("CheckDuplicationHotel", "Hotel", AdditionalFields = ("NameAction, Id, Fk_Place_Name"))]
+		public string? Name { get; set; }
         public string? Video { get; set; }
         public string? TagLine { get; set; }
         public string? URL { get; set; }

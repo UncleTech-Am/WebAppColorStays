@@ -1,0 +1,68 @@
+﻿@model WebAppColorStays.Models.ViewModel.CsRoomInventory
+
+@{
+    Layout = null;
+    ViewData["Action"] = "HRmTariffNInventory";
+}
+
+<div class="Pg20 TtAnCr" style="margin-top:67px;">
+    <h3>Add @ViewData["RoomType"] Inventory</h3>
+    <form id="Create"
+          data-ajax="true"
+          data-ajax-url="/ColorStays/HRmTariffNInventory/BulkInventoryUpdate"
+          data-ajax-method="post"
+          data-ajax-loading="#loader"
+          data-ajax-success="SuccessInv(data, status, xhr,'Create','CreateOrEdit')"
+          data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
+
+        @Html.AntiForgeryToken()
+
+        <div id="CreateOrEdit">
+            @Html.HiddenFor(model => model.Fk_RoomType_Name)
+            @Html.HiddenFor(model => model.CompId)
+            @Html.HiddenFor(model => model.Fk_Hotel_Name)
+            <div id="Totalroomcount" style="display:none;">@ViewData["Totalroomcount"]</div>
+
+            <div class="FxRw">
+                <div class="Fx50 Pg10">
+                    <div class="MnTp7 MnBm7">
+                        <div class="TtBxFlStDiv">
+                            <div class="TtBxFlSt">
+                                <div class="TtBxFlStLl15">From Date</div>
+                                <input class="TtBxTt15" placeholder="From Date" asp-for="FromDate" id="FromDate3" type="text" autocomplete="off" required readonly />
+                                <div class="PgRt5 Cr-uPr" onclick="Empty('FromDate3')"><i class="UT-DeletePageSolid"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Fx50 Pg10">
+                    <div class="MnTp7 MnBm7">
+                        <div class="TtBxFlStDiv">
+                            <div class="TtBxFlSt">
+                                <div class="TtBxFlStLl15">To Date</div>
+                                <input class="TtBxTt15" placeholder="To Date" asp-for="ToDate" id="ToDate3" type="text" autocomplete="off" required readonly />
+                                <div class="PgRt5 Cr-uPr" onclick="Empty('ToDate3')"><i class="UT-DeletePageSolid"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Fx50 Pg10">
+                    <div class="MnTp7 MnBm7">
+                        <div class="TtBxFlStDiv">
+                            <div class="TtBxFlSt">
+                                <div class="TtBxFlStLl15">Total Inventory</div>
+                                <input class="TtBxTt15" placeholder="Total Inventory" asp-for="TotalInventory" autocomplete="off" required onchange="CheckInventory(this.value)" />
+                            </div>
+                        </div>
+                        <div class="VnRd"><span asp-validation-for="TotalInventory"></span></div>
+                    </div>
+                </div>
+
+                <div class="MnTp7 MnBm7 Fx50 Pg10">
+                    <button type="submit" class="BnRd17 CrBdTe CrTeTtLt BnWh100  SwBxIt2TtBx-Vn1 HrTmSeo94">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
