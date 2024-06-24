@@ -564,9 +564,46 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
             }
-            ViewData["Type"] = "CountPlacery";
+            ViewData["Type"] = "Place";
             csReviewPost.Condition = "Place";
             ViewData["Action"] = "ReviewPlace";
+            return View("Create", csReviewPost);
+        }
+
+        //GET: /Festival/Create
+        [HttpGet]
+        public async Task<IActionResult> CreateHotelWise()
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            ViewData["Fields"] = "Hotel";
+
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+            CsReviewPost csReviewPost = new CsReviewPost();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Review/Create/" + CompId + "/" + "Hotel", HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
+                    Task<Tuple<int, List<CsReview>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2, "Hotel");//Give the List of data
+                    PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
+                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        csReviewPost = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReviewPost>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    }
+                }
+            }
+            ViewData["Type"] = "Hotel";
+            csReviewPost.Condition = "Hotel";
+            ViewData["Action"] = "ReviewHotel";
             return View("Create", csReviewPost);
         }
 

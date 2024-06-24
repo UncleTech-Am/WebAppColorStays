@@ -94,7 +94,6 @@
     string RoomCategory = "";
     string RoomBedType = "";
     string RoomView = "";
-    string PlanType = "";
     string OccupancyType = "";
     string ReviewFor = "";
     string ReviewQuestion = "";
@@ -104,6 +103,7 @@
     string ReviewState = "";
     string ReviewCity = "";
     string ReviewPlace = "";
+    string ReviewHotel = "";
     string ReviewReply = "";
 
     string CountryFestival = "";
@@ -181,6 +181,7 @@
         case "ReviewState": ReviewState = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "ReviewCity": ReviewCity = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "ReviewPlace": ReviewPlace = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "ReviewHotel": ReviewHotel = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "ReviewReply": ReviewReply = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
 
         case "Sightseeing": Sightseeing = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
@@ -219,7 +220,6 @@
         case "RoomBedType": RoomBedType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "RoomView": RoomView = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "RoomType": RoomType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
-        case "PlanType": PlanType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "OccupancyType": OccupancyType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "HRmTariffNInventory": HRmTariffNInventory = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
 
@@ -640,7 +640,15 @@
                     <a href="~/ColorStays/Review/Index?condition=Place"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
-
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @ReviewHotel">
+                        <a href="~/ColorStays/Review/CreateHotelWise">Hotel Review</a>
+                    </div>
+                    <a href="~/ColorStays/Review/CreateHotelWise"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Review/Index?condition=Hotel"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
             @*<div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @ReviewReply">
@@ -1067,15 +1075,6 @@
                 </div>
             </div>
 
-             <div class="SideNavSubLinkDiv">
-                <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @PlanType">
-                        <a href="~/ColorStays/PlanType/Create">PlanType</a>
-                    </div>
-                    <a href="~/ColorStays/PlanType/Create"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/PlanType/Index"><i class="UT-List-OLine"></i></a>
-                </div>
-            </div>
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">

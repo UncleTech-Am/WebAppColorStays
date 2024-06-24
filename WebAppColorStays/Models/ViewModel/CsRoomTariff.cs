@@ -8,13 +8,13 @@ namespace WebAppColorStays.Models.ViewModel
         public CsRoomTariff()
         {
             RoomTariffList = new List<CsRoomInventory>();
-            PlanList = new List<CsHotelPlanTypeMap>();
+            PlanList = new List<CsPlanType>();
             PriceList = new List<CsRoomTariff>();
             RoomTypeList = new List<CsRoomType>();
             RoomOccMapList = new List<CsOccupancyType>();
         }
         public List<CsRoomInventory>? RoomTariffList { get; set; }
-        public List<CsHotelPlanTypeMap>? PlanList { get; set; }
+        public List<CsPlanType>? PlanList { get; set; }
         public List<CsRoomTariff>? PriceList { get; set; }
         public List<CsRoomType>? RoomTypeList { get; set; }
         public List<CsOccupancyType>? RoomOccMapList { get; set; }

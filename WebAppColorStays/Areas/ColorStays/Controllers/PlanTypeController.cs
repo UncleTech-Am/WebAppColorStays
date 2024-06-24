@@ -12,6 +12,7 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 
 using WebAppColorStays.Models.ViewModel;
+using System.Collections.Generic;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -115,8 +116,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //GET:/PlanType/
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
-        {         
+        public async Task<IActionResult> Index(string HlId)
+        {
+			var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Title();
@@ -125,21 +127,31 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             GetClassMember<CsPlanType> getClassMember = new GetClassMember<CsPlanType>();
             CsPlanType CsPlanType = new CsPlanType();
             ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsPlanType), "Value", "DisplayName");
-            //Ends
+			//Ends
+			Tuple<int, List<CsPlanType>> list;
 
-            try //Pagination and List of data Code
-            {
-                Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<CsPlanType>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
-                PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
+			try //Pagination and List of data Code
+			{
+				using (HttpClient client = APIColorStays.Initial())
+				{
+					client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+					using (var response = await client.GetAsync("PlanType/index/" + CompID + "/" + HlId, HttpCompletionOption.ResponseHeadersRead))
+					{
+						if (response.IsSuccessStatusCode)
+						{
+							var apiResponse = await response.Content.ReadAsStreamAsync();
+							list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsPlanType>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+						}
+						else { list = null; }
+					}
+				}
 
-                ViewData["ActionName"] = "Index";
+				ViewData["ActionName"] = "Index";
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
 
-                if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
+                return View("_IndexSearch", list.Item2); 
 
-                return View(ReturnDataList.Result.Item2);
             }
             catch(Exception ex)
             { 
@@ -558,7 +570,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
        
         //POST: /PlanType/Delete/5
         [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(string id, string HlId)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
@@ -571,7 +583,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index", new { PageCall="Show"});
+                        return RedirectToAction("Index", new { HlId= HlId });
                     }
                     else
                     {

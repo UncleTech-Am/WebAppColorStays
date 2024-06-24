@@ -296,15 +296,6 @@
     <None Include="Areas\ColorStays\Views\HotelImageVideo\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\HotelImageVideo\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\HotelImageVideo\_SearchData.cshtml" />
-    <None Include="Areas\ColorStays\Views\HotelPlanTypeMap\Create.cshtml" />
-    <None Include="Areas\ColorStays\Views\HotelPlanTypeMap\Edit.cshtml" />
-    <None Include="Areas\ColorStays\Views\HotelPlanTypeMap\Index.cshtml" />
-    <None Include="Areas\ColorStays\Views\HotelPlanTypeMap\_CreateOrEdit.cshtml" />
-    <None Include="Areas\ColorStays\Views\HotelPlanTypeMap\_DetailOrDelete.cshtml" />
-    <None Include="Areas\ColorStays\Views\HotelPlanTypeMap\_IndexData.cshtml" />
-    <None Include="Areas\ColorStays\Views\HotelPlanTypeMap\_IndexSearch.cshtml" />
-    <None Include="Areas\ColorStays\Views\HotelPlanTypeMap\_Pagination.cshtml" />
-    <None Include="Areas\ColorStays\Views\HotelPlanTypeMap\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\HotelType\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\HotelType\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\HotelType\Index.cshtml" />

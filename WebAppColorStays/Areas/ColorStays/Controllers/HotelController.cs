@@ -15,6 +15,7 @@ using WebAppColorStays.Areas.ColorStays.CommonMethods;
 using Microsoft.DotNet.Scaffolding.Shared.Project;
 using LibCommon.APICommonMethods;
 using System.Collections.Generic;
+using LibAuthService.ModelView;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -1029,7 +1030,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //GET: /Offer/Create
         [HttpGet]
-        public async Task<IActionResult> HotelPlanList(string HlId)
+        public async Task<IActionResult> HotelPlan(string HlId)
         {
             Title();
             ViewData["AnName"] = "Create";
@@ -1040,43 +1041,92 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
-            HotelPlanCheckbox facilityList = new HotelPlanCheckbox();
+            CsPlanType planType = new CsPlanType();
+            planType.Fk_Hotel_Name = HlId;
+            return View("_CreateOrEditHotelPlan", planType);
+        }
+
+        //GET: /Offer/Create
+        [HttpGet]
+        public async Task<IActionResult> EditHotelPlan(string id)
+        {
+            Title();
+            ViewData["AnName"] = "Edit";
+            ViewData["Id"] = id;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (id == null)
+            {
+                ViewBag.Message = "Not Founded";
+                return View();
+            }
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+
+            CsPlanType CsPlanType = new CsPlanType();
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("HotelPlanTypeMap/HotelPlanList/" + HlId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("PlanType/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    facilityList = await System.Text.Json.JsonSerializer.DeserializeAsync<HotelPlanCheckbox>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                   
+                    if (response.IsSuccessStatusCode)
+                    {
+                        CsPlanType = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPlanType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    }
+                    else
+                    {
+                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        if (responsemsg.Message == "NotFound")
+                        { ViewBag.Message = "Entry Not Exits!"; }
+                        if (responsemsg.Message == "GlobalItem")
+                        { ViewBag.Message = "Sytem Entry, Can't Change !"; }
+                    }
                 }
             }
-            return View("_CreateOrEditHotelPlan", facilityList);
+            return View("_CreateOrEditHotelPlan", CsPlanType);
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddHotelPlan(HotelPlanCheckbox model)
+        public async Task<IActionResult> AddHotelPlan(CsPlanType CsPlanType)
         {
             Title();
             ViewBag.Action = "RolesAssign";
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            model.CompId = CompID;
+			var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+			bool Success = false;
+			CsPlanType.CompId = CompID;
+			CsPlanType.CreatedBy = UserID;
+			CsPlanType.ModifiedBy = UserID;
+			CsPlanType.Id = Guid.NewGuid().ToString();
+			ViewData["ResponseName"] = "ShowValidation";
+			CsPlanType data = new CsPlanType();
 
-            if (ModelState.IsValid)
+			if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("HotelPlanTypeMap/AddHotelPlan", content))
-                    {
-                        if (response.IsSuccessStatusCode)
-                        {
-                            var apiResponse = await response.Content.ReadAsStreamAsync();
-                            return RedirectToAction("GetHotelPlan", new { id = model.Fk_Hotel_Name });
-                        }
-                    }
+					StringContent content = new StringContent(JsonSerializer.Serialize(CsPlanType), Encoding.UTF8, "application/json");
+                    
+					using (var response = await client.PostAsync("PlanType/create", content))
+					{
+						if (response.IsSuccessStatusCode)
+						{
+							var apiResponse = await response.Content.ReadAsStreamAsync();
+							data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPlanType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+
+							return RedirectToAction("GetHotelPlan", new { id = CsPlanType.Fk_Hotel_Name });
+						}
+					}
                 }
             }
             return View("Error");
@@ -1090,19 +1140,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Action = "RolesAssign";
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            List<CsHotelPlanTypeMap> data = new List<CsHotelPlanTypeMap>();
+            List<CsPlanType> data = new List<CsPlanType>();
 
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("HotelPlanTypeMap/GetHotelPlan/" + HlId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("PlanType/index/" + CompID + "/" + HlId, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsHotelPlanTypeMap>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        ViewBag.HotelPlan = data;
-                        return View();
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPlanType>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        return View(data);
                     }
                 }
             }
@@ -1119,7 +1168,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("HotelPlanTypeMap/DeleteConfirmed/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("PlanType/DeleteConfirmed/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {

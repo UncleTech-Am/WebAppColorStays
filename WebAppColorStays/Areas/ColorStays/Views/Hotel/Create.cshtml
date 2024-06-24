@@ -284,19 +284,29 @@
 
     //Here get the list of hotel list
     function GetHotelPlan() {
-        var id = document.getElementById('HlId').value;
+        var id = $("#Id").val();
         ActiveTabUt('UTabs1', 2);
-        getUT('/ColorStays/Hotel/HotelPlanList?HlId=' + id, function (data) {
+        getUT('/ColorStays/Hotel/HotelPlan?HlId=' + id, function (data) {
             document.getElementById('CreateOrEditPlan').innerHTML = "";
             document.getElementById('CreateOrEditPlan').innerHTML = data;
             HideLoader();
         });
     }
 
+    function EditHotelPlan(id) {
+        ActiveTabUt('UTabs1', 2);
+        getUT('/ColorStays/Hotel/EditHotelPlan?id=' + id, function (data) {
+            document.getElementById('CreateOrEditPlan').innerHTML = "";
+            document.getElementById('CreateOrEditPlan').innerHTML = data;
+            HideLoader();
+        });
+    }
+
+
     function SuccessHotelPlan(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "Detail");
         //Show the Image Tab
-        ActiveTabUt('UTabs1', 1);
+        ActiveTabUt('UTabs1', 2);
         ActiveTabUt('UTabs2', 2);
         GetHotelPlan();
         GetSelectedPlan();
@@ -304,18 +314,21 @@
     }
 
     function GetSelectedPlan() {
-        var HotelId = document.getElementById('HlId').value;
-        getUT('/ColorStays/Hotel/GetHotelPlan?HlId=' + HotelId, function (data) {
+        var HotelId = $("#Id").val();
+        getUT('/ColorStays/PlanType/Index?HlId=' + HotelId, function (data) {
             document.getElementById('Plan').innerHTML = "";
             document.getElementById('Plan').innerHTML = data;
         });
     }
 
     //Delete Hotel Facility
-    function DeletePlan(HlId, Id) {
-        getUT('/ColorStays/Hotel/DeletePlanOfHotel?HlId=' + HlId + '&Id=' + Id, function (data) {
-            GetHotelPlan();
-            GetSelectedPlan();
+    function DeletePlan(Id, HlId) {
+        ShowLoader();
+        postUT('/ColorStays/PlanType/DeleteConfirmed?id=' + Id + '&HlId=' + HlId, function (data) {
+            document.getElementById('Plan').innerHTML = "";
+            document.getElementById('Plan').innerHTML = data;
+            HidePopUp();
+            HideLoader();
         });
     }
 

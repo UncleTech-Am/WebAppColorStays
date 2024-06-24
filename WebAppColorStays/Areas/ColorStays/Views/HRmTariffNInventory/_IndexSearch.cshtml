@@ -151,8 +151,8 @@ else
 								<tr class="showtd-h-Room-@count" style="display:none;">
 									<td style="background-color: #10101114;">
 										<h4 class="FxRw">
-											<span class="Fx80">@planitem.Fk_PlanType_Name</span>
-											<a class="Fx20" href=# onclick="TariffPopUp('@Base64UrlEncoder.Encode(Process.Encrypt(@planitem.Id))','@planitem.Fk_PlanType_Name','@Base64UrlEncoder.Encode(Process.Encrypt(@roomitem.Id))','@roomitem.Name','@Model.Fk_Hotel_Name','@count')">
+											<span class="Fx80">@planitem.Name</span>
+											<a class="Fx20" href=# onclick="TariffPopUp('@Base64UrlEncoder.Encode(Process.Encrypt(@planitem.Id))','@planitem.Name','@Base64UrlEncoder.Encode(Process.Encrypt(@roomitem.Id))','@roomitem.Name','@Model.Fk_Hotel_Name','@count')">
 												<b class="UT-EditFileLine"></b>
 											</a>
 										</h4>

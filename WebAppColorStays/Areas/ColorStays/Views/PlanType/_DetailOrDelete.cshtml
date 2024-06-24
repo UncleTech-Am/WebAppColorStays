@@ -178,10 +178,10 @@
     <div class="DyFx FxJyCtSt Gp10 Wh100p">
         @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
         {
-            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/PlanType/DeleteConfirmed?Id=@Model.Id','/ColorStays/PlanType');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="DeletePlan('@Model.Id', '@Model.Fk_Hotel_Name');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
         }
 
-        @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
+@*         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
         {
             //  Checks which Button to Show For the Verification
             if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
@@ -202,7 +202,7 @@
                 <button type="button" onclick="VerifyData('/ColorStays/PlanType/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/PlanType')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
             }
         }
-    </div>
+ *@    </div>
 </div>
 
 
