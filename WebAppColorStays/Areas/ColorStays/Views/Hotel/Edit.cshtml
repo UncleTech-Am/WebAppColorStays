@@ -94,7 +94,7 @@
                     <div class="Pg12">
                         <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
                             <i class="UT-ImageLine"></i>
-                            Upload Cover Image
+                            Upload Cover Image (Size 1600 X 1066)
                         </h3>
                         <form action="/" enctype="multipart/form-data" method="POST">
                             <input type="hidden" name="HId" id="HId" />
@@ -368,11 +368,10 @@
 
 
     function SuccessHotelPlan(data, status, xhr, FormID, FormFieldID) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "Detail");
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Plan");
         //Show the Image Tab
         ActiveTabUt('UTabs1', 2);
         ActiveTabUt('UTabs2', 2);
-        GetHotelPlan();
         GetSelectedPlan();
         document.getElementById('HlId').value = document.getElementById('HlId').value;
     }

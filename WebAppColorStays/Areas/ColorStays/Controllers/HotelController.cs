@@ -1106,7 +1106,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			CsPlanType.CompId = CompID;
 			CsPlanType.CreatedBy = UserID;
 			CsPlanType.ModifiedBy = UserID;
-			CsPlanType.Id = Guid.NewGuid().ToString();
+			
 			ViewData["ResponseName"] = "ShowValidation";
 			CsPlanType data = new CsPlanType();
 
@@ -1115,21 +1115,68 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-					StringContent content = new StringContent(JsonSerializer.Serialize(CsPlanType), Encoding.UTF8, "application/json");
-                    
-					using (var response = await client.PostAsync("PlanType/create", content))
-					{
-						if (response.IsSuccessStatusCode)
-						{
-							var apiResponse = await response.Content.ReadAsStreamAsync();
-							data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPlanType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    if (CsPlanType.Id == null)
+                    {
+                        CsPlanType.Id = Guid.NewGuid().ToString();
+                        StringContent content = new StringContent(JsonSerializer.Serialize(CsPlanType), Encoding.UTF8, "application/json");
 
-							return RedirectToAction("GetHotelPlan", new { id = CsPlanType.Fk_Hotel_Name });
-						}
-					}
+                        using (var response = await client.PostAsync("PlanType/create", content))
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+
+                            if (response.IsSuccessStatusCode)
+                            {
+                                data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPlanType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Success = true;
+
+                            }
+                            else
+                            {
+                                Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                if (responsemsg != null && responsemsg.Message == "Duplicate")
+                                {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                    ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
+                                }
+                                Success = false;
+                            }
+                        }
+
+                    }
+
+                    else
+                    {
+                        StringContent content = new StringContent(JsonSerializer.Serialize(CsPlanType), Encoding.UTF8, "application/json");
+
+                        using (var response = await client.PostAsync("PlanType/edit", content))
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+
+                            if (response.IsSuccessStatusCode)
+                            {
+                                data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPlanType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Success = true;
+
+                            }
+                            else
+                            {
+                                Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                if (responsemsg != null && responsemsg.Message == "Duplicate")
+                                {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                    ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
+                                }
+                                Success = false;
+                            }
+                        }
+
+                    }
                 }
+                if (Success == true)
+                {
+                    return RedirectToAction("GetHotelPlan", new { id = CsPlanType.Fk_Hotel_Name });
+                }
+                else { return View("_CreateOrEditHotelPlan", CsPlanType); }
             }
-            return View("Error");
+            return View("_CreateOrEditHotelPlan", CsPlanType);
         }
 
 
@@ -1180,4 +1227,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
     }
+
+
 }

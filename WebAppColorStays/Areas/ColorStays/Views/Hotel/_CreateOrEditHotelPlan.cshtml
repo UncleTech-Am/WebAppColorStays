@@ -21,8 +21,10 @@
       data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateHotelPlan')">
 
     @Html.AntiForgeryToken()
+	<input type="hidden" name="NameAction" value="C" />
 
-    <input type="hidden" name="NameAction" value="C" />
+	<div id="CreateOrEditPlan">
+
     <input type="hidden" name="Id" id="Id" />
     <input type="hidden" asp-for="Fk_Hotel_Name" />
 	<input type="hidden" asp-for="StayOnly" value="true" />
@@ -83,5 +85,6 @@
             <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
         </div>
     </div>
+	</div>
 </form>
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -9,6 +10,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Id { get; set; }
         public string? Fk_Hotel_Name { get; set; }
         public string? Label { get; set; }
+        [Remote("CheckDuplicationPlanType", "PlanType", AdditionalFields = ("NameAction, Id, Fk_Hotel_Name"))]
         public string? Name { get; set; }
         public string? Code { get; set; }
         public bool BreakFast { get; set; }
