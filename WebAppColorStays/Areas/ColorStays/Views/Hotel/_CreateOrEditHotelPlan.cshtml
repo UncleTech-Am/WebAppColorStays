@@ -21,8 +21,14 @@
       data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateHotelPlan')">
 
     @Html.AntiForgeryToken()
-	<input type="hidden" name="NameAction" value="C" />
-
+	@if (Model.Id == null)
+	{
+		<input type="hidden" name="NameAction" value="C" />
+	}
+	else
+	{
+		<input type="hidden" name="NameAction" value="E" />
+	}
 	<div id="CreateOrEditPlan">
 
     <input type="hidden" name="Id" id="Id" />

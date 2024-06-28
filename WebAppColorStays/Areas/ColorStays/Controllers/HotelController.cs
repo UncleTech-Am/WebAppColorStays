@@ -40,7 +40,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
         //Ends
 
-
         [HttpPost]
         public async Task<IActionResult> SaveImage(string HId, string HName)
         {
@@ -744,15 +743,28 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
             List<CsHotelImageVideo> photosList = new List<CsHotelImageVideo>();
             CsRoomType photo = new CsRoomType();
+            CsHotel csHotel = new CsHotel();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("RoomType/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photo = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 using (var response = await client.GetAsync("Hotel/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    photo = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    csHotel = await System.Text.Json.JsonSerializer.DeserializeAsync<CsHotel>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                 }
             }
+
+
             var roomid = "null";
             using (HttpClient client = APIColorStays.Initial())
             {
@@ -781,8 +793,16 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
                 }
             }
-            Task<string> TDeleteImage1 = ryCsImage.DeleteImage(photo.CoverImageName, TokenKey, "HotelBanner");
-
+            Task<string> TDeleteImage1 = ryCsImage.DeleteImage(csHotel.CoverImageName, TokenKey, "HotelBanner");
+            if (photo != null)
+            {
+                Task<string> TDeleteImage2 = ryCsImage.DeleteImage(photo.CoverImageName, TokenKey, "Hotel");
+                Task.WaitAll(TDeleteImage2);
+                if (TDeleteImage2.Result == "Error")
+                {
+                    ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                }
+            }
             Task.WaitAll(TDeleteImage1);
 
             if (TDeleteImage1.Result == "Error")

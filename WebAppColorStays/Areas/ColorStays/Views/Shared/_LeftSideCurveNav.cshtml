@@ -89,6 +89,7 @@
     string DrownLink8 = "";
     string FacilityCategory = "";
     string HotelFacilityMap = "";
+    string HotelCityList = "";
     string Offer = "";
     string RoomType = "";
     string RoomCategory = "";
@@ -209,7 +210,8 @@
 
         case "Highlight": Highlight = "SideSubLinkActive"; MainLink6 = "SideNavActive"; DrownLink6 = "SideSubNavActive"; break;
         case "Buy": Buy = "SideSubLinkActive"; MainLink6 = "SideNavActive"; DrownLink6 = "SideSubNavActive"; break;
-
+        
+        case "HotelCityList": HotelCityList = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "HotelType": HotelType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "HotelFacility": HotelFacility = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "Hotel": Hotel = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
@@ -1064,6 +1066,16 @@
             </div>
         </div>
         <div class="SideSubNavContainer @DrownLink8">
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @HotelCityList">
+                        <a href="~/ColorStays/HotelCityList/Create">Hotel City List</a>
+                    </div>
+                    <a href="~/ColorStays/HotelCityList/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/HotelCityList/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">

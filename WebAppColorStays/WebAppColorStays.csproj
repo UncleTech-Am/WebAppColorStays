@@ -269,6 +269,15 @@
     <None Include="Areas\ColorStays\Views\HotelChainBrand\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\HotelChainBrand\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\HotelChainBrand\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\HotelCityList\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\HotelCityList\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\HotelCityList\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\HotelCityList\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\HotelCityList\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\HotelCityList\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\HotelCityList\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\HotelCityList\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\HotelCityList\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\HotelFacilityMap\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\HotelFacilityMap\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\HotelFacilityMap\Index.cshtml" />
