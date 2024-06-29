@@ -21,7 +21,7 @@
 				@Html.AntiForgeryToken()
 				<div class="FxRw">
 					
-					<input type="hidden" asp-for="Fk_Hotel_Name" value="@@Model.Id" />
+					<input type="hidden" asp-for="Fk_Hotel_Name" value="@Model.Fk_Hotel_Name" />
 
 					<div class="Fx25 Pg2">
 						<div class="MnTp7 MnBm7">
@@ -279,7 +279,7 @@
 
 	//Success Function of BulkTariffUpdate
 	function Success() {
-		var HotelId = document.getElementById('HotelId').value;
+		var HotelId = document.getElementById('Fk_Hotel_Name').value;
 		var FromDate = document.getElementById('FromDate').value;
 		var ToDate = document.getElementById('ToDate').value;
 

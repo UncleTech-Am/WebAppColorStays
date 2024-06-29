@@ -359,6 +359,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			chotelroomtariff.Fk_Hotel_Name = HotelId;
 			chotelroomtariff.CompId = CompID;
 			chotelroomtariff.ModifiedBy = UserID;
+			chotelroomtariff.FreezeStatus = false;
 			ViewData["ResponseName"] = "ShowValidation";
 			if (ModelState.IsValid)
 			{
@@ -434,7 +435,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			csroomtariff.CompId = CompID;
 			csroomtariff.ModifiedBy = UserID;
 			csroomtariff.CreatedBy = UserID;
-			
+			csroomtariff.FreezeStatus = false;
 			var TimeZone = HttpContext.User.FindFirstValue(ClaimTypes.Country);
 			DateTime TodayDate = countryTime.GetTime(TimeZone).Date;
 

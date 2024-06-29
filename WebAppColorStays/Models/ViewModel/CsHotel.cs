@@ -58,8 +58,7 @@ namespace WebAppColorStays.Models.ViewModel
         public bool IsFeaturedProperty { get; set; }
         public string? Description { get; set; }
         public int? PropertyCode { get; set; }
-        public string? Latitude { get; set; }
-        public string? Longitude { get; set; }
+        public string? MapLink { get; set; }
         public string? FileHotelRegistration { get; set; }
         public int? BuiltYear { get; set; }
         public int? NoOfRooms { get; set; }
