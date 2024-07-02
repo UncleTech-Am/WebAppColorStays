@@ -30,6 +30,8 @@ namespace WebAppColorStays.CommonMethod
         public string? Fk_ReviewQuestion_Name { get; set; }
         public string? Fk_Package_Name { get; set; }
         public string? Fk_Hotel_Name { get; set; }
+        [NotMapped]
+        public string? Hotel { get; set; }
         [DisplayName("Place")]
         public string? Fk_Place_Name { get; set; }
         public string? Place { get; set; }

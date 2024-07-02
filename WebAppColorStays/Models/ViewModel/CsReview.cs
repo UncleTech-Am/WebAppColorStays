@@ -20,6 +20,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_Package_Name { get; set; }
         [DisplayName("Hotel")]
         public string? Fk_Hotel_Name { get; set; }
+        [NotMapped]
+        public string? Hotel { get; set; }
         [DisplayName("Place")]
         public string? Fk_Place_Name { get; set; }
         [NotMapped]
