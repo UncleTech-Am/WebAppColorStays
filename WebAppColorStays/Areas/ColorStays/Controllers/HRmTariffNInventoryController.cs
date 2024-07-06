@@ -341,7 +341,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 		//Update the Traiff of a Particular Date and Room
 		//Single Update
 		[HttpPost]
-		public async Task<IActionResult> UpdateTariff(string? RoomTariffId, string OccTypeId, double OccRate, DateTime Date, string RoomTypeId, string PlanTypeId, string HotelId)
+		public async Task<IActionResult> UpdateTariff(string? RoomTariffId, string OccTypeId, double OccRate, DateTime Date, string RoomTypeId, string PlanTypeId, string HotelId, string CityId)
 		{
 			Title();
 			ViewData["AnName"] = "Create";
@@ -357,6 +357,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			chotelroomtariff.Fk_OccupancyType_Name = OccTypeId;
 			chotelroomtariff.OccupancyCost = OccRate;
 			chotelroomtariff.Fk_Hotel_Name = HotelId;
+			chotelroomtariff.Fk_City_Name = CityId;
 			chotelroomtariff.CompId = CompID;
 			chotelroomtariff.ModifiedBy = UserID;
 			chotelroomtariff.FreezeStatus = false;
@@ -396,7 +397,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
 		//Show the PopUp for Bulk Tariff Update
 		[HttpGet]
-		public async Task<IActionResult> SwBkTfUePopUp(string PlanId, string PlanName, string RoomTypeId, string RoomType, string HotelId)
+		public async Task<IActionResult> SwBkTfUePopUp(string PlanId, string PlanName, string RoomTypeId, string RoomType, string HotelId, string CityId)
 		{
 			var TokenKey = Request.Cookies["JWToken"];
 			CsRoomTariff csroomtariff = new CsRoomTariff();
@@ -404,6 +405,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			csroomtariff.PlanType = PlanName;
 			csroomtariff.Fk_RoomType_Name = RoomTypeId;
 			csroomtariff.Fk_Hotel_Name = HotelId;
+			csroomtariff.Fk_City_Name = CityId;
 			csroomtariff.CompId = Request.Cookies["CompanyID"];
 			csroomtariff.RoomType = RoomType;
 			List<CsOccupancyType> rmoymaplist = new List<CsOccupancyType>();

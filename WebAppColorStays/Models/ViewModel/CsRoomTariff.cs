@@ -35,6 +35,7 @@ namespace WebAppColorStays.Models.ViewModel
         public DateTime? ToDate { get; set; }
         [Required(ErrorMessage = "This Field is Required!")]
         public DateTime? FromDate { get; set; }
+        public string? Fk_City_Name { get; set; }
         public string? HotelName { get; set; }
         public string? Message { get; set; }
         public string? RoomType { get; set; }

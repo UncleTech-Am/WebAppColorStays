@@ -12,6 +12,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Id { get; set; }
         public string? Fk_HotelFacility_Name { get; set; }
         public string? Fk_Hotel_Name { get; set; }
+        public string? Fk_City_Name { get; set; }
         public bool IsPaid { get; set; }
         public string? Description { get; set; }
         public bool FreezeStatus { get; set; }

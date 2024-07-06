@@ -234,9 +234,9 @@
 	//Ends......................................
 
 	//Save the particular price of DoubleOccupancy
-	function OccPriceSave(Id, OccTypeId, Obj, Date, RoomType, PlanType, HotelId, ToggleDivId) {
+	function OccPriceSave(Id, OccTypeId, Obj, Date, RoomType, PlanType, HotelId, CityId, ToggleDivId) {
 		ShowLoader();
-		$.post('/ColorStays/HRmTariffNInventory/UpdateTariff', { RoomTariffId: Id, OccTypeId: OccTypeId, OccRate: Obj.value, Date: Date, RoomTypeId: RoomType, PlanTypeId: PlanType, HotelId: HotelId }, function (data) {
+		$.post('/ColorStays/HRmTariffNInventory/UpdateTariff', { RoomTariffId: Id, OccTypeId: OccTypeId, OccRate: Obj.value, Date: Date, RoomTypeId: RoomType, PlanTypeId: PlanType, HotelId: HotelId, CityId: CityId }, function (data) {
 			var FromDate = document.getElementById('FromDate').value;
 			var ToDate = document.getElementById('ToDate').value;
 
@@ -253,8 +253,8 @@
 	//Ends
 
 	//Show the Popup to Update the Bulk Tariff
-	function TariffPopUp(planid, planname, roomtypeid, roomtype, hotelid, ToggleDivId) {
-		var URL = "/ColorStays/HRmTariffNInventory/SwBkTfUePopUp?PlanId=" + planid + "&PlanName=" + planname + "&RoomTypeId=" + roomtypeid + "&RoomType=" + roomtype + "&HotelId=" + hotelid;
+	function TariffPopUp(planid, planname, roomtypeid, roomtype, hotelid, cityid, ToggleDivId) {
+		var URL = "/ColorStays/HRmTariffNInventory/SwBkTfUePopUp?PlanId=" + planid + "&PlanName=" + planname + "&RoomTypeId=" + roomtypeid + "&RoomType=" + roomtype + "&HotelId=" + hotelid + "&CityId=" + cityid;
 		ShowLoader();
 		document.getElementById('ToggleDivId').innerHTML = ToggleDivId;
 		var GetMethod = new XMLHttpRequest();

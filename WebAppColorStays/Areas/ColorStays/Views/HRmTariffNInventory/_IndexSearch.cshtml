@@ -152,7 +152,7 @@ else
 									<td style="background-color: #10101114;">
 										<h4 class="FxRw">
 											<span class="Fx80">@planitem.Name</span>
-											<a class="Fx20" href=# onclick="TariffPopUp('@Base64UrlEncoder.Encode(Process.Encrypt(@planitem.Id))','@planitem.Name','@Base64UrlEncoder.Encode(Process.Encrypt(@roomitem.Id))','@roomitem.Name','@Model.Fk_Hotel_Name','@count')">
+											<a class="Fx20" href=# onclick="TariffPopUp('@Base64UrlEncoder.Encode(Process.Encrypt(@planitem.Id))','@planitem.Name','@Base64UrlEncoder.Encode(Process.Encrypt(@roomitem.Id))','@roomitem.Name','@Model.Fk_Hotel_Name', '@Model.Fk_City_Name','@count')">
 												<b class="UT-EditFileLine"></b>
 											</a>
 										</h4>
@@ -203,7 +203,7 @@ else
 											}
 											<td style="background-color:@bdcolor">
 												<div class="TtBxFlStDiv" style="background-color:@color">
-													<input class="TtBxTt15 TtAnCr" @blockroomread id="RoomA" name="@occitem.Name" autocomplete="off" type="text" value=@OccPrice onchange="OccPriceSave('@PriceId','@occitem.Id',this,'@currentdate','@Base64UrlEncoder.Encode(Process.Encrypt(roomitem.Id))','@Base64UrlEncoder.Encode(Process.Encrypt(@planitem.Id))','@Model.Fk_Hotel_Name','@count')" />
+													<input class="TtBxTt15 TtAnCr" @blockroomread id="RoomA" name="@occitem.Name" autocomplete="off" type="text" value=@OccPrice onchange="OccPriceSave('@PriceId','@occitem.Id',this,'@currentdate','@Base64UrlEncoder.Encode(Process.Encrypt(roomitem.Id))','@Base64UrlEncoder.Encode(Process.Encrypt(@planitem.Id))','@Model.Fk_Hotel_Name', '@Model.Fk_City_Name','@count')" />
 												</div>
 											</td>
 										}
