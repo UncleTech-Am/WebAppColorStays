@@ -364,7 +364,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //GET: /Festival/CreateOrEdit
         [HttpGet]
         [ResponseCache(Duration = 0)]
-        public async Task<IActionResult> CreateOrEdit(string Id)
+        public async Task<IActionResult> CreateOrEdit(string Id, string Condition)
         {
             var TokenKey = Request.Cookies["JWToken"];
 			var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
@@ -390,6 +390,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 if (Success == true)
                 {
                     ViewData["ResponseName"] = "SuccessPop";
+                    ViewData["Type"] = Condition;
+                    ViewData["Fields"] = Condition;
+                    ViewData["Action"] = Condition + " Festival";
+                    data.Condition = Condition;
                     return View("_CreateOrEdit", data);
                 }
                 else { return View("Errors"); }

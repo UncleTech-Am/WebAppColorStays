@@ -15,6 +15,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Name { get; set; }
         public string? Description { get; set; }
         public string? Logo { get; set; }
+        public bool IsHighlighted { get; set; }
+        public bool IsBasic { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }
