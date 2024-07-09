@@ -1,0 +1,395 @@
+@model WebAppColorStays.Models.ViewModel.CsHotelOffer
+
+
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "HotelOffer";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.RowVersion)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedOn)
+@Html.HiddenFor(model => model.CompId)
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_HotelOfferType_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_HotelOfferType_Name" asp-items="@await ViewBag.HotelOfferType" class="TtBxTt15" required>
+                <option value="">Select Offer Type</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_HotelOfferType_Name"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Hotel_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Hotel Name" type="text" id="SuggestHotel" asp-for="Hotel" autocomplete="off" required onchange="ClearData('SuggestHotel','Fk_Hotel_Name')" />
+            <input type="hidden" asp-for="Fk_Hotel_Name" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_Hotel_Name"></span></div>
+</div>
+
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Name"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Title)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Title)" asp-for="Title" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Title"></span></div>
+</div>
+
+@if (Model != null)
+{
+    @if (Model.Image != null)
+    {
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Image)</div>
+                    <img src="@Model.Image" class="Wh60p" />
+                    <input asp-for="ImageName" type="hidden" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="Image"></span></div>
+        </div>
+    }    
+}
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Image)</div>
+            <input asp-for="Image" type="file" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Image"></span></div>
+</div>
+
+@if (Model != null)
+{
+    <div class="FxRw">
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SyStartDate)</div>
+                    <input class="TtBxTt15" placeholder="Start Date" Name="SyStartDate" id="SyStartDate" type="text" autocomplete="off" required readonly value="@String.Format("{0:dd MMMM,yyyy}", Model.SyStartDate)" />
+                    <div class="PgRt5 Cr-uPr" onclick="Empty('SyStartDate')"><i class="UT-DeletePageSolid"></i></div>
+
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="SyStartDate"></span></div>
+        </div>
+
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsNoSyEndDate" onchange="ShowEndDate('StayEndDate')">
+
+                    &nbsp;No End Date
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsNoSyEndDate"></span></div>
+        </div>
+
+        @if (Model.IsNoSyEndDate == false)
+        {
+            <div id="StayEndDate" class="Fx33 Pg2 MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SyEndDate)</div>
+                        <input class="TtBxTt15" placeholder="End Date" Name="SyEndDate" id="SyEndDate" type="text" autocomplete="off" required readonly value="@String.Format("{0:dd MMMM,yyyy}", Model.SyEndDate)" />
+                        <div class="PgRt5 Cr-uPr" onclick="Empty('SyEndDate')"><i class="UT-DeletePageSolid"></i></div>
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="SyEndDate"></span></div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="FxRw">
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SyStartDate)</div>
+                    <input class="TtBxTt15" placeholder="Start Date" Name="SyStartDate" id="SyStartDate" type="text" autocomplete="off" required readonly />
+                    <div class="PgRt5 Cr-uPr" onclick="Empty('SyStartDate')"><i class="UT-DeletePageSolid"></i></div>
+
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="SyStartDate"></span></div>
+        </div>
+
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsNoSyEndDate" checked="checked" onchange="ShowEndDate('StayEndDate')">
+
+                    &nbsp;No End Date
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsNoSyEndDate"></span></div>
+        </div>
+
+
+        <div id="StayEndDate" class="Fx33 Pg2 MnTp7 MnBm7 DyNe">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SyEndDate)</div>
+                    <input class="TtBxTt15" placeholder="End Date" Name="SyEndDate" id="SyEndDate" type="text" autocomplete="off" required readonly />
+                    <div class="PgRt5 Cr-uPr" onclick="Empty('SyEndDate')"><i class="UT-DeletePageSolid"></i></div>
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="SyEndDate"></span></div>
+        </div>
+    </div>
+
+}
+
+
+@if (Model != null)
+{
+    <div class="FxRw">
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgStartDate)</div>
+                    <input class="TtBxTt15" placeholder="Start Date" Name="BgStartDate" id="BgStartDate" type="text" autocomplete="off" required readonly value="@String.Format("{0:dd MMMM,yyyy}", Model.BgStartDate)" />
+                    <div class="PgRt5 Cr-uPr" onclick="Empty('BgStartDate')"><i class="UT-DeletePageSolid"></i></div>
+
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="BgStartDate"></span></div>
+        </div>
+
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsNoBgEndDate" onchange="ShowEndDate('BookingEndDate')">
+
+                    &nbsp;No End Date
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsNoBgEndDate"></span></div>
+        </div>
+
+        @if (Model.IsNoBgEndDate == false)
+        {
+            <div id="BookingEndDate" class="Fx33 Pg2 MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgEndDate)</div>
+                        <input class="TtBxTt15" placeholder="End Date" Name="BgEndDate" id="BgEndDate" type="text" autocomplete="off" required readonly value="@String.Format("{0:dd MMMM,yyyy}", Model.BgEndDate)" />
+                        <div class="PgRt5 Cr-uPr" onclick="Empty('BgEndDate')"><i class="UT-DeletePageSolid"></i></div>
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="BgEndDate"></span></div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="FxRw">
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgStartDate)</div>
+                    <input class="TtBxTt15" placeholder="Start Date" Name="BgStartDate" id="BgStartDate" type="text" autocomplete="off" required readonly />
+                    <div class="PgRt5 Cr-uPr" onclick="Empty('BgStartDate')"><i class="UT-DeletePageSolid"></i></div>
+
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="BgStartDate"></span></div>
+        </div>
+
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsNoBgEndDate" checked="checked" onchange="ShowEndDate('BookingEndDate')">
+
+                    &nbsp;No End Date
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsNoBgEndDate"></span></div>
+        </div>
+
+
+        <div id="BookingEndDate" class="Fx33 Pg2 MnTp7 MnBm7 DyNe">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgEndDate)</div>
+                    <input class="TtBxTt15" placeholder="End Date" Name="BgEndDate" id="BgEndDate" type="text" autocomplete="off" required readonly />
+                    <div class="PgRt5 Cr-uPr" onclick="Empty('BgEndDate')"><i class="UT-DeletePageSolid"></i></div>
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="BgEndDate"></span></div>
+        </div>
+    </div>
+
+}
+
+
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsRefundable">
+
+                &nbsp;Refundable
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsRefundable"></span></div>
+    </div>
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsPayAtHotel">
+
+                &nbsp;Pay At Hotel
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsPayAtHotel"></span></div>
+    </div>
+</div>
+
+
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsApplyForAll">
+
+                &nbsp;Apply For All
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsApplyForAll"></span></div>
+    </div>
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsB2C">
+
+                &nbsp;B2C
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsB2C"></span></div>
+    </div>
+</div>
+
+
+
+<div class="FxRw">
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsApplyDis" checked>
+
+                &nbsp;ApplyDis
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsApplyDis"></span></div>
+    </div>
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DiscountPercent)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DiscountPercent)" asp-for="DiscountPercent" autocomplete="off" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="DiscountPercent"></span></div>
+    </div>
+
+    <div class="Fx33 Pg2 MnTp7 MnBm7 DyNe">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FixedDiscountPrice)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FixedDiscountPrice)" asp-for="FixedDiscountPrice" autocomplete="off" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="FixedDiscountPrice"></span></div>
+    </div>
+
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DisForLoggedInUser)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DisForLoggedInUser)" asp-for="DisForLoggedInUser" autocomplete="off" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="DisForLoggedInUser"></span></div>
+    </div>
+</div>
+
+
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TagLine)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.TagLine)" asp-for="TagLine" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="TagLine"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.GeneratedCode)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.GeneratedCode)" asp-for="GeneratedCode" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="GeneratedCode"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CommonCode)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.CommonCode)" asp-for="CommonCode" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="CommonCode"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
+</div>

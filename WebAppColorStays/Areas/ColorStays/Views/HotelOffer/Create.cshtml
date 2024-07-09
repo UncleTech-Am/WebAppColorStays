@@ -1,0 +1,129 @@
+@model WebAppColorStays.Models.ViewModel.CsHotelOffer
+
+@{
+    Layout = "_Layout";
+    ViewData["Action"] = "HotelOffer";
+}
+
+
+<div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
+    <div class="CrTeTtLt FxGw1"> <h1>Add @ViewBag.Title</h1></div>
+    <div>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1"><i class="UT-List-OLine FtSz18" onclick="location.href='/ColorStays/HotelOffer/Index'"></i></button>
+    </div>
+</div>
+
+<div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
+    <div class="FxRw FxAnImSh">
+        <div class="Fx50 Pg3">
+            <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
+                <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
+                    <i class="UT-PenNibSmall"></i>
+                    Enter Detail
+                </h3>
+                 <form id="Create"
+                    data-ajax="true"
+                    data-ajax-url="/ColorStays/HotelOffer/Create"
+                    data-ajax-method="POST"
+                    data-ajax-loading="#loader"
+                    enctype="multipart/form-data"
+                    data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
+                    data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" name="NameAction" value="C" />
+
+                    <div id="CreateOrEdit">@await Html.PartialAsync("_CreateOrEdit", Model)</div>
+
+                    <div class="MnTp7 MnBm7 FxRw">
+                        <div class="FxGw1">
+                            <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                        </div>
+                        <div>
+                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/HotelOffer/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="Fx50 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
+            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsHotelOffer>)ViewData["EnteredDetails"])
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        IntializeTableSearch();
+        StartSuggestionBox(2, 'SuggestHotel', '/ColorStays/Hotel/SuggestHotel', '', '', AoCeHotel);
+        ShowCalender({
+            StartDateInput: 'SyStartDate',
+            DisableCount: { Before: 1 },
+        });
+        ShowCalender({
+            StartDateInput: 'SyEndDate',
+            DisableCount: { Before: 1 },
+        });
+        ShowCalender({
+            StartDateInput: 'BgStartDate',
+            DisableCount: { Before: 1 },
+        });
+        ShowCalender({
+            StartDateInput: 'BgEndDate',
+            DisableCount: { Before: 1 },
+        });
+    });
+
+    function ShowEndDate(id) {
+        document.getElementById(id).classList.toggle('DyNe');
+    }
+
+    //Clear Autocompete data
+    function ClearData(UrNe, UrId) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+    }
+
+    //Autocomplete Item
+    function AoCeHotel(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Hotel_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
+
+    function Success(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
+        //Here we get the pageno,pagesize and listcount
+        var doc = new DOMParser().parseFromString(data, "text/html");
+        var pageinfo = doc.getElementById("PaginationAt");
+        var netrecord = pageinfo.getAttribute("netrecord");
+        var pageno = pageinfo.getAttribute("pagenumber");
+        var pagesize = pageinfo.getAttribute("PageSize");
+        //Refresh the Pagination Div with new Values
+        RefreshPagination('/ColorStays/HotelOffer/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
+    }
+
+    //Table Search Success Function
+    function TableSuccessFn(data, status, xhr, FormID) {
+        //This the SuccessFunction
+        FormAjaxSuccess(data, FormID, '', "UpdateDivNoFReset", "Def");
+        //Here we update the pageno,pagesize and listcount
+        var doc = new DOMParser().parseFromString(data,"text/html");
+        var pageinfo = doc.getElementById("PaginationAt");
+        var netrecord = pageinfo.getAttribute("netrecord");
+        var pageno = pageinfo.getAttribute("pagenumber");
+        var pagesize = pageinfo.getAttribute("PageSize");
+        //Refresh the Pagination Div with new Values
+        RefreshPagination('/ColorStays/HotelOffer/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
+    }
+
+    function IntializeTableSearch() {
+        var SkipRow = [0, 1];
+        var SkipCol = [0];
+        StartTableSearch('TeUT', SkipRow, SkipCol);
+    }
+</script>
+

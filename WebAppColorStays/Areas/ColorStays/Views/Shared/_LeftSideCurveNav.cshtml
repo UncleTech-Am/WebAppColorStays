@@ -99,6 +99,9 @@
     string ReviewFor = "";
     string ReviewQuestion = "";
     string HRmTariffNInventory = " ";
+    string HotelOfferType = "";
+    string HotelOffer = "";
+
     string WhyUs = "";
     string ReviewCountry = "";
     string ReviewState = "";
@@ -224,6 +227,8 @@
         case "RoomType": RoomType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "OccupancyType": OccupancyType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "HRmTariffNInventory": HRmTariffNInventory = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
+        case "HotelOfferType": HotelOfferType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
+        case "HotelOffer": HotelOffer = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
 
         case "BgCategory": BgCategory = "SideSubLinkActive"; BlogLink = "SideNavActive"; BlogSubLink = "SideSubNavActive"; break;
         case "BgTags": BgTags = "SideSubLinkActive"; BlogLink = "SideNavActive"; BlogSubLink = "SideSubNavActive"; break;
@@ -1184,6 +1189,24 @@
                         <a href="~/ColorStays/HRmTariffNInventory/HotelList"> Inventory & Tariff</a>
                     </div>
                     <a href="~/ColorStays/HRmTariffNInventory/HotelList"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @HotelOfferType">
+                        <a href="~/ColorStays/HotelOfferType/Create">HotelOfferType</a>
+                    </div>
+                    <a href="~/ColorStays/HotelOfferType/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/HotelOfferType/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @HotelOffer">
+                        <a href="~/ColorStays/HotelOffer/Create">HotelOffer</a>
+                    </div>
+                    <a href="~/ColorStays/HotelOffer/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/HotelOffer/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
         </div>
