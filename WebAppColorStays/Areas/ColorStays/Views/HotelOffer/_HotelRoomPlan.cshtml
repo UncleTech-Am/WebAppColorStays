@@ -1,0 +1,35 @@
+@model Tuple<List<WebAppColorStays.Models.ViewModel.CsRoomType>, List<WebAppColorStays.Models.ViewModel.CsPlanType>>
+
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "HotelOffer";
+}
+
+@if(Model != null)
+{
+    @foreach (var item in Model.Item1)
+    {
+        <div id="RoomPlan">
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        @for (int i = 0; i < Model.Item2.Count(); i++)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <input class="SeIt1o15" type="checkbox" >
+                        <input type="hidden" />
+                        &nbsp;BlackOutDate
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}

@@ -50,7 +50,36 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewBag.HotelOfferType = HotelOfferType;
             }
             catch (Exception ex) { }
+        }
 
+        //Get The List of room and plan
+        [HttpGet]
+        public async Task<IActionResult> HotelRoomPlan(string HlId)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+            var UserID = Request.Cookies["UserID"];
+            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                HttpResponseMessage response = await client.GetAsync("HotelOffer/HotelRoomPlan/" + CompId + "/" + HlId, HttpCompletionOption.ResponseHeadersRead);
+                var apiResponse = await response.Content.ReadAsStreamAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    try
+                    {
+                        var RoomPlan = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<List<CsRoomType>, List<CsPlanType>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+
+                        return View("_HotelRoomPlan", RoomPlan);
+                    }
+                    catch (Exception e)
+                    {
+                        throw;
+                    }
+                }
+            }
+            return null;
         }
 
 

@@ -82,12 +82,23 @@
             StartDateInput: 'BgEndDate',
             DisableCount: { Before: 1 },
         });
+        if (document.getElementById('SyEndDate').value != "") {
+            document.getElementById('StayEndDate').classList.toggle('DyNe');
+        }
+        if (document.getElementById('BgEndDate').value != "") {
+            document.getElementById('BookingEndDate').classList.toggle('DyNe');
+        }
     });
 
     function ShowEndDate(id) {
         document.getElementById(id).classList.toggle('DyNe');
     }
 
+
+    function ShowFixedDis() {
+        document.getElementById('FixedDis').classList.toggle('DyNe');
+        document.getElementById('PercentDis').classList.toggle('DyNe');
+    }
 
     //Clear Autocompete data
     function ClearData(UrNe, UrId) {

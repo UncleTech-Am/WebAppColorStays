@@ -79,6 +79,11 @@
         document.getElementById(id).classList.toggle('DyNe');
     }
 
+    function ShowFixedDis() {
+        document.getElementById('FixedDis').classList.toggle('DyNe');
+        document.getElementById('PercentDis').classList.toggle('DyNe');
+    }
+
     //Clear Autocompete data
     function ClearData(UrNe, UrId) {
         document.getElementById(UrNe).value = '';
@@ -91,8 +96,17 @@
         SuggestionClose(InputId);
         document.getElementById('Fk_Hotel_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
+        ShowRoomPlan(event.target.Id);
     }
 
+    function ShowRoomPlan(HotelId) {
+        document.getElementById('RmPn').classList.toggle('DyNe');
+        getUT('/ColorStays/HotelOffer/HotelRoomPlan?HlId=' + HotelId, function (data) {
+            document.getElementById('RmPn').innerHTML = "";
+            document.getElementById('RmPn').innerHTML = data;
+            HideLoader();
+        });
+    }
 
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");

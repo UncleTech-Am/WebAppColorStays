@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -9,7 +10,13 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Id { get; set; }
         public string? Fk_HotelOffer_Name { get; set; }
         public string? Fk_Room_Name { get; set; }
+        [NotMapped]
+        public string? Room { get; set; }
         public string? Fk_PlanType_Name { get; set; }
+        [NotMapped]
+        public string? PlanType { get; set; }
+        [NotMapped]
+        public bool? SelectPlan { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
 

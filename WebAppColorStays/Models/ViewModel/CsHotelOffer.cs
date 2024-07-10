@@ -6,6 +6,13 @@ namespace WebAppColorStays.Models.ViewModel
 {
     public class CsHotelOffer
     {
+        public CsHotelOffer()
+        {
+            CsHotelOfferPlanRoom = new List<CsHotelOfferPlanRoom>();
+            CsRoomType = new List<CsRoomType>();
+            CsPlanType = new List<CsPlanType>();
+        }
+
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
@@ -29,6 +36,7 @@ namespace WebAppColorStays.Models.ViewModel
         public bool IsPayAtHotel { get; set; }
         public bool IsApplyForAll { get; set; }
         public bool IsB2C { get; set; }
+        public bool ISBlackOutDate { get; set; }
         public string Title { get; set; }
         public bool IsApplyDis { get; set; }
         public double? DiscountPercent { get; set; }
@@ -67,5 +75,12 @@ namespace WebAppColorStays.Models.ViewModel
         [Timestamp]
         [ConcurrencyCheck]
         public byte[]? RowVersion { get; set; }
+
+        [NotMapped]
+        public List<CsHotelOfferPlanRoom>? CsHotelOfferPlanRoom { get; set; }
+        [NotMapped]
+        public List<CsRoomType>? CsRoomType { get; set; }
+        [NotMapped]
+        public List<CsPlanType>? CsPlanType { get; set; }
     }
 }
