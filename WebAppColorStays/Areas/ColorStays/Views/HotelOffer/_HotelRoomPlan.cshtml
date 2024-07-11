@@ -7,29 +7,37 @@
 
 @if(Model != null)
 {
-    @foreach (var item in Model.Item1)
-    {
-        <div id="RoomPlan">
-            <div class="MnTp7 MnBm7">
-                <div class="TtBxFlStDiv">
-                    <div class="TtBxFlSt">
-                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
-                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        @for (int i = 0; i < Model.Item2.Count(); i++)
+    <div class="FxRw">
+        @for (int j = 0; j < Model.Item1.Count(); j++)
         {
-            <div class="MnTp7 MnBm7">
-                <div class="TtBxFlStDiv">
-                    <div class="TtBxFlSt">
-                        <input class="SeIt1o15" type="checkbox" >
-                        <input type="hidden" />
-                        &nbsp;BlackOutDate
+            <div class="Fx50 Pg2">
+                <div id="RoomPlan">
+                    <div class="MnTp7 MnBm7">
+                        <div class="TtBxFlStDiv">
+                            <div class="TtBxFlSt">
+                                <input class="SeIt1o15" type="checkbox" id="@Model.Item1[j].Id" asp-for="@Model.Item1[j].SelectRoom" onchange="SelectAllPlan('@Model.Item1[j].Id')">
+                                <input type="hidden" asp-for="@Model.Item1[j].Id" />
+
+                                <input class="TtBxTt15" autocomplete="off" asp-for="@Model.Item1[j].Name" readonly />
+                            </div>
+                        </div>
                     </div>
                 </div>
+                @for (int i = 0; i < Model.Item2.Count(); i++)
+                {
+                    <div class="MnTp7 MnBm7">
+                        <div class="TtBxFlStDiv">
+                            <div class="TtBxFlSt">
+                                <input class="SeIt1o15" type="checkbox" id="@Model.Item1[j].Id-@Model.Item2[i].Id" asp-for="@Model.Item2[i].SelectPlan">
+                                <input type="hidden" asp-for="@Model.Item2[i].Id" />
+                                &nbsp;@Model.Item2[i].Code
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
+       
         }
-    }
+
+    </div>
 }

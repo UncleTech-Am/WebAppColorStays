@@ -108,6 +108,24 @@
         });
     }
 
+
+   
+        function SelectAllPlan(roomName) {
+            // Construct the selector for checkboxes in the second section based on roomName
+            const checkboxes = document.querySelectorAll(`input[id^='${roomName}-']`);
+
+            // Get the state of the main checkbox
+            const mainCheckbox = document.getElementById(roomName);
+            const isChecked = mainCheckbox.checked;
+
+            // Set the state of all related checkboxes in the second section
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = isChecked;
+            });
+        }
+
+
+
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
         //Here we get the pageno,pagesize and listcount

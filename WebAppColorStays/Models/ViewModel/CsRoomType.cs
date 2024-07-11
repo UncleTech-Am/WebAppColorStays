@@ -74,5 +74,8 @@ namespace WebAppColorStays.Models.ViewModel
 
         public List<CsOccupancyType>? OccupancyList { get; set; }
 
+        [NotMapped]
+        public bool SelectRoom { get; set; }
+
     }
 }
