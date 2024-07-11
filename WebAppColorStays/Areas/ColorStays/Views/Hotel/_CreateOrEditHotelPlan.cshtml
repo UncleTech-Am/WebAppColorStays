@@ -31,10 +31,10 @@
 	}
 	<div id="CreateOrEditPlan">
 
-    <input type="hidden" name="Id" id="Id" />
+    <input type="hidden" name="Id" id="Id" asp-for="Id" />
     <input type="hidden" asp-for="Fk_Hotel_Name" />
 	<input type="hidden" asp-for="StayOnly" value="true" />
-
+		@Html.HiddenFor(model => model.RowVersion)
 
 	<div class="Fx100 Pg2 MnTp3 MnBm3">
 		<div class="TtBxFlStDiv">

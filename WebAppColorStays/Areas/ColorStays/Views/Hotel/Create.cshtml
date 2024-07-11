@@ -104,7 +104,7 @@
                                     <button type="button" id="submit-all" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-ImageLine"></i>&nbsp;Upload</button>
                                 </div>
                                 <div>
-                                    <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 3)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                                    <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 4)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
                                 </div>
 
                             </div>
@@ -284,7 +284,7 @@
 
     //Here get the list of hotel list
     function GetHotelPlan() {
-        var id = $("#Id").val();
+        var id = document.getElementById('HlId').value;
         ActiveTabUt('UTabs1', 2);
         getUT('/ColorStays/Hotel/HotelPlan?HlId=' + id, function (data) {
             document.getElementById('CreateOrEditPlan').innerHTML = "";
@@ -310,7 +310,7 @@
     }
 
     function GetSelectedPlan() {
-        var HotelId = $("#Id").val();
+        var HotelId = document.getElementById('HlId').value;
         getUT('/ColorStays/PlanType/Index?HlId=' + HotelId, function (data) {
             document.getElementById('Plan').innerHTML = "";
             document.getElementById('Plan').innerHTML = data;
