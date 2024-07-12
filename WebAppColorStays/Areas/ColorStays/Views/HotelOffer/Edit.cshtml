@@ -88,7 +88,14 @@
         if (document.getElementById('BgEndDate').value != "") {
             document.getElementById('BookingEndDate').classList.toggle('DyNe');
         }
+        var HlId = $("#Fk_Hotel_Name").val();
+        ShowRoomPlan(HlId);
+        var AyRmPn = document.getElementById('IsApplyForAll').checked;
+        if (AyRmPn == false) {
+            document.getElementById('RmPn').classList.toggle('DyNe');
+        }
     });
+
 
     function ShowEndDate(id) {
         document.getElementById(id).classList.toggle('DyNe');
@@ -112,6 +119,39 @@
         SuggestionClose(InputId);
         document.getElementById('Fk_Hotel_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
+        ShowRoomPlan(event.target.Id);
+    }
+
+
+    function ShowRoomPlan(HotelId) {
+        getUT('/ColorStays/HotelOffer/HotelRoomPlan?HlId=' + HotelId, function (data) {
+            document.getElementById('RmPn').innerHTML = "";
+            document.getElementById('RmPn').innerHTML = data;
+            HideLoader();
+        });
+    }
+
+    function ShowRoomPlanDiv() {
+        document.getElementById('RmPn').classList.toggle('DyNe');
+    }
+
+    function UnselectRoom(id) {
+        document.getElementById(id).checked = false;
+    }
+
+
+    function SelectAllPlan(roomName) {
+        // Construct the selector for checkboxes in the second section based on roomName
+        const checkboxes = document.querySelectorAll(`input[id^='${roomName}-']`);
+
+        // Get the state of the main checkbox
+        const mainCheckbox = document.getElementById(roomName);
+        const isChecked = mainCheckbox.checked;
+
+        // Set the state of all related checkboxes in the second section
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = isChecked;
+        });
     }
 
     function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {

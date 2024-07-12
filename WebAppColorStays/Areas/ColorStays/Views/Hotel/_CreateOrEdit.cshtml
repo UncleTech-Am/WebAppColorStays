@@ -131,7 +131,7 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverAltTag) (208 X 345)</div>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverAltTag)</div>
             <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.CoverAltTag)" asp-for="CoverAltTag" autocomplete="off" required />
         </div>
     </div>
@@ -195,34 +195,21 @@
     <div class="VnRd"><span asp-validation-for="Landmark"></span></div>
 </div>
 
-
-<div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ReviewRating)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ReviewRating)" asp-for="ReviewRating" autocomplete="off" />
-            </div>
+<div class="Fx50 Pg2 MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.StarRating)</div>
+            <select asp-for="StarRating" class="TtBxTt15">
+                <option value="">Select Star Rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
         </div>
-        <div class="VnRd"><span asp-validation-for="ReviewRating"></span></div>
     </div>
-
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.StarRating)</div>
-                <select asp-for="StarRating" class="TtBxTt15" required>
-                    <option value="">Select Star Rating</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="StarRating"></span></div>
-    </div>
+    <div class="VnRd"><span asp-validation-for="StarRating"></span></div>
 </div>
 
 <div class="FxRw">
@@ -272,15 +259,15 @@
 </div>
 
 
-    <div class="Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.MapLink)<span style="color:red;"> *</span></div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.MapLink)" asp-for="MapLink" autocomplete="off" required />
-            </div>
+<div class="Pg2 MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.MapLink)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.MapLink)" asp-for="MapLink" autocomplete="off" required />
         </div>
-        <div class="VnRd"><span asp-validation-for="MapLink"></span></div>
     </div>
+    <div class="VnRd"><span asp-validation-for="MapLink"></span></div>
+</div>
 
 
 
@@ -297,8 +284,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Video)<span style="color:red;"> *</span></div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Video)" asp-for="Video" autocomplete="off" required/>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Video)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Video)" asp-for="Video" autocomplete="off"/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Video"></span></div>

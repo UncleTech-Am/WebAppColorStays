@@ -100,7 +100,6 @@
     }
 
     function ShowRoomPlan(HotelId) {
-        document.getElementById('RmPn').classList.toggle('DyNe');
         getUT('/ColorStays/HotelOffer/HotelRoomPlan?HlId=' + HotelId, function (data) {
             document.getElementById('RmPn').innerHTML = "";
             document.getElementById('RmPn').innerHTML = data;
@@ -108,21 +107,28 @@
         });
     }
 
+    function ShowRoomPlanDiv(){
+        document.getElementById('RmPn').classList.toggle('DyNe');
+    }
 
-   
-        function SelectAllPlan(roomName) {
-            // Construct the selector for checkboxes in the second section based on roomName
-            const checkboxes = document.querySelectorAll(`input[id^='${roomName}-']`);
+    function UnselectRoom(id){
+        document.getElementById(id).checked = false;
+    }
 
-            // Get the state of the main checkbox
-            const mainCheckbox = document.getElementById(roomName);
-            const isChecked = mainCheckbox.checked;
 
-            // Set the state of all related checkboxes in the second section
-            checkboxes.forEach(function (checkbox) {
-                checkbox.checked = isChecked;
-            });
-        }
+    function SelectAllPlan(roomName) {
+        // Construct the selector for checkboxes in the second section based on roomName
+        const checkboxes = document.querySelectorAll(`input[id^='${roomName}-']`);
+
+        // Get the state of the main checkbox
+        const mainCheckbox = document.getElementById(roomName);
+        const isChecked = mainCheckbox.checked;
+
+        // Set the state of all related checkboxes in the second section
+        checkboxes.forEach(function (checkbox) {
+            checkbox.checked = isChecked;
+        });
+    }
 
 
 

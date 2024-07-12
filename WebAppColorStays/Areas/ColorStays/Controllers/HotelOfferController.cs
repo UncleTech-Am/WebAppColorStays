@@ -69,9 +69,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     try
                     {
-                        var RoomPlan = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<List<CsRoomType>, List<CsPlanType>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-
-                        return View("_HotelRoomPlan", RoomPlan);
+                        var RoomPlan = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsRoomType>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsHotelOffer hotelOffer = new CsHotelOffer();
+                        hotelOffer.CsRoomType = RoomPlan;
+                        return View("_HotelRoomPlan", hotelOffer);
                     }
                     catch (Exception e)
                     {

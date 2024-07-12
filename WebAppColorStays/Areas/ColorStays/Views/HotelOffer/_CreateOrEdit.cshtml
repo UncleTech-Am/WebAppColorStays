@@ -139,6 +139,130 @@
             <div class="VnRd"><span asp-validation-for="SyEndDate"></span></div>
         </div>
     </div>
+    
+    <div class="FxRw">
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgStartDate)</div>
+                    <input class="TtBxTt15" placeholder="Start Date" Name="BgStartDate" id="BgStartDate" type="text" autocomplete="off" required readonly value="@String.Format("{0:dd MMMM,yyyy}", Model.BgStartDate)" />
+                    <div class="PgRt5 Cr-uPr" onclick="Empty('BgStartDate')"><i class="UT-DeletePageSolid"></i></div>
+
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="BgStartDate"></span></div>
+        </div>
+
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsNoBgEndDate" onchange="ShowEndDate('BookingEndDate')">
+
+                    &nbsp;No End Date
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsNoBgEndDate"></span></div>
+        </div>
+
+        <div id="BookingEndDate" class="Fx33 Pg2 MnTp7 MnBm7 DyNe">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgEndDate)</div>
+                    <input class="TtBxTt15" placeholder="End Date" Name="BgEndDate" id="BgEndDate" type="text" autocomplete="off" required readonly value="@String.Format("{0:dd MMMM,yyyy}", Model.BgEndDate)" />
+                    <div class="PgRt5 Cr-uPr" onclick="Empty('BgEndDate')"><i class="UT-DeletePageSolid"></i></div>
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="BgEndDate"></span></div>
+        </div>
+    </div>
+    
+    <div class="FxRw">
+        <div class="Fx50 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsRefundable">
+
+                    &nbsp;Refundable
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsRefundable"></span></div>
+        </div>
+        <div class="Fx50 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsPayAtHotel">
+
+                    &nbsp;Pay At Hotel
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsPayAtHotel"></span></div>
+        </div>
+    </div>
+
+    <div class="FxRw">
+        <div class="Fx50 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsApplyForAll" onchange="ShowRoomPlanDiv()">
+
+                    &nbsp;Apply For All Room & Plan
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsApplyForAll"></span></div>
+        </div>
+        <div class="Fx50 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsB2C">
+
+                    &nbsp;B2C
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsB2C"></span></div>
+        </div>
+    </div>
+
+    <div class="FxRw">
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsApplyDis" onchange="ShowFixedDis()">
+
+                    &nbsp;ApplyDis
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsApplyDis"></span></div>
+        </div>
+        <div id="PercentDis" class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DiscountPercent)</div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DiscountPercent)" asp-for="DiscountPercent" autocomplete="off" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="DiscountPercent"></span></div>
+        </div>
+
+        <div id="FixedDis" class="Fx33 Pg2 MnTp7 MnBm7 DyNe">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FixedDiscountPrice)</div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FixedDiscountPrice)" asp-for="FixedDiscountPrice" autocomplete="off" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="FixedDiscountPrice"></span></div>
+        </div>
+
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DisForLoggedInUser)</div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DisForLoggedInUser)" asp-for="DisForLoggedInUser" autocomplete="off" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="DisForLoggedInUser"></span></div>
+        </div>
+    </div>
 }
 else
 {
@@ -178,49 +302,7 @@ else
             <div class="VnRd"><span asp-validation-for="SyEndDate"></span></div>
         </div>
     </div>
-}
-
-
-@if (Model != null)
-{
-    <div class="FxRw">
-        <div class="Fx33 Pg2 MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgStartDate)</div>
-                    <input class="TtBxTt15" placeholder="Start Date" Name="BgStartDate" id="BgStartDate" type="text" autocomplete="off" required readonly value="@String.Format("{0:dd MMMM,yyyy}", Model.BgStartDate)" />
-                    <div class="PgRt5 Cr-uPr" onclick="Empty('BgStartDate')"><i class="UT-DeletePageSolid"></i></div>
-
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="BgStartDate"></span></div>
-        </div>
-
-        <div class="Fx33 Pg2 MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <input class="SeIt1o15" type="checkbox" asp-for="IsNoBgEndDate" onchange="ShowEndDate('BookingEndDate')">
-
-                    &nbsp;No End Date
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="IsNoBgEndDate"></span></div>
-        </div>
-        
-        <div id="BookingEndDate" class="Fx33 Pg2 MnTp7 MnBm7 DyNe">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgEndDate)</div>
-                    <input class="TtBxTt15" placeholder="End Date" Name="BgEndDate" id="BgEndDate" type="text" autocomplete="off" required readonly value="@String.Format("{0:dd MMMM,yyyy}", Model.BgEndDate)" />
-                    <div class="PgRt5 Cr-uPr" onclick="Empty('BgEndDate')"><i class="UT-DeletePageSolid"></i></div>
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="BgEndDate"></span></div>
-        </div>
-    </div>
-}
-else
-{
+   
     <div class="FxRw">
         <div class="Fx33 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
@@ -257,99 +339,98 @@ else
             <div class="VnRd"><span asp-validation-for="BgEndDate"></span></div>
         </div>
     </div>
+    
+    <div class="FxRw">
+        <div class="Fx50 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsRefundable" checked>
 
+                    &nbsp;Refundable
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsRefundable"></span></div>
+        </div>
+        <div class="Fx50 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsPayAtHotel" checked>
+
+                    &nbsp;Pay At Hotel
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsPayAtHotel"></span></div>
+        </div>
+    </div>
+
+    <div class="FxRw">
+        <div class="Fx50 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsApplyForAll" checked onchange="ShowRoomPlanDiv()">
+
+                    &nbsp;Apply For All Room & Plan
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsApplyForAll"></span></div>
+        </div>
+        <div class="Fx50 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsB2C" checked>
+
+                    &nbsp;B2C
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsB2C"></span></div>
+        </div>
+    </div>
+
+    <div class="FxRw">
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsApplyDis" checked onchange="ShowFixedDis()">
+
+                    &nbsp;ApplyDis
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsApplyDis"></span></div>
+        </div>
+        <div id="PercentDis" class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DiscountPercent)</div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DiscountPercent)" asp-for="DiscountPercent" autocomplete="off" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="DiscountPercent"></span></div>
+        </div>
+
+        <div id="FixedDis" class="Fx33 Pg2 MnTp7 MnBm7 DyNe">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FixedDiscountPrice)</div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FixedDiscountPrice)" asp-for="FixedDiscountPrice" autocomplete="off" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="FixedDiscountPrice"></span></div>
+        </div>
+
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DisForLoggedInUser)</div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DisForLoggedInUser)" asp-for="DisForLoggedInUser" autocomplete="off" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="DisForLoggedInUser"></span></div>
+        </div>
+    </div>
 }
 
 
-<div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsRefundable" checked>
 
-                &nbsp;Refundable
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsRefundable"></span></div>
-    </div>
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsPayAtHotel" checked>
-
-                &nbsp;Pay At Hotel
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsPayAtHotel"></span></div>
-    </div>
-</div>
-
-
-<div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsApplyForAll" checked>
-
-                &nbsp;Apply For All Room
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsApplyForAll"></span></div>
-    </div>
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsB2C" checked>
-
-                &nbsp;B2C
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsB2C"></span></div>
-    </div>
-</div>
-
-
-<div class="FxRw">
-    <div class="Fx33 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsApplyDis" checked onchange="ShowFixedDis()">
-
-                &nbsp;ApplyDis
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsApplyDis"></span></div>
-    </div>
-    <div id="PercentDis" class="Fx33 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DiscountPercent)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DiscountPercent)" asp-for="DiscountPercent" autocomplete="off" />
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="DiscountPercent"></span></div>
-    </div>
-
-    <div id="FixedDis" class="Fx33 Pg2 MnTp7 MnBm7 DyNe">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FixedDiscountPrice)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FixedDiscountPrice)" asp-for="FixedDiscountPrice" autocomplete="off" />
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="FixedDiscountPrice"></span></div>
-    </div>
-
-    <div class="Fx33 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DisForLoggedInUser)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DisForLoggedInUser)" asp-for="DisForLoggedInUser" autocomplete="off" />
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="DisForLoggedInUser"></span></div>
-    </div>
-</div>
 
 
 <div id="RmPn" class="DyNe">
@@ -366,18 +447,6 @@ else
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="ISBlackOutDate"></span></div>
-</div>
-
-<div class="Fx33 Pg2 MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgStartDate)</div>
-            <input class="TtBxTt15" placeholder="Start Date" Name="BgStartDate" id="BgStartDate" type="text" autocomplete="off" required readonly />
-            <div class="PgRt5 Cr-uPr" onclick="Empty('BgStartDate')"><i class="UT-DeletePageSolid"></i></div>
-
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="BgStartDate"></span></div>
 </div>
 
 

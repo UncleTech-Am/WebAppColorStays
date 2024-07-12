@@ -7,6 +7,10 @@ namespace WebAppColorStays.Models.ViewModel
 {
     public class CsRoomType
     {
+        public CsRoomType()
+        {
+            CsPlanType = new List<CsPlanType>();
+        }
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
@@ -76,6 +80,7 @@ namespace WebAppColorStays.Models.ViewModel
 
         [NotMapped]
         public bool SelectRoom { get; set; }
-
+        [NotMapped]
+        public List<CsPlanType>? CsPlanType { get; set; }
     }
 }

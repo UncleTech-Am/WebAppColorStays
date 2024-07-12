@@ -10,7 +10,6 @@ namespace WebAppColorStays.Models.ViewModel
         {
             CsHotelOfferPlanRoom = new List<CsHotelOfferPlanRoom>();
             CsRoomType = new List<CsRoomType>();
-            CsPlanType = new List<CsPlanType>();
         }
 
         [Key]
@@ -80,7 +79,6 @@ namespace WebAppColorStays.Models.ViewModel
         public List<CsHotelOfferPlanRoom>? CsHotelOfferPlanRoom { get; set; }
         [NotMapped]
         public List<CsRoomType>? CsRoomType { get; set; }
-        [NotMapped]
-        public List<CsPlanType>? CsPlanType { get; set; }
+
     }
 }
