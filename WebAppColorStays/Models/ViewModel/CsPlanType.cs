@@ -48,6 +48,6 @@ namespace WebAppColorStays.Models.ViewModel
         public byte[]? RowVersion { get; set; }
 
         [NotMapped]
-        public bool SelectPlan { get; set; }
+        public bool? SelectPlan { get; set; }
     }
 }

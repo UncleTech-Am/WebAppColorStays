@@ -229,8 +229,49 @@
             document.getElementById('Plan').innerHTML = "";
             document.getElementById('Plan').innerHTML = data;
         });
+        if (document.getElementById('CheckInTime').value != null) {
+            var InTime = document.getElementById('CheckInTime').value;
+            document.getElementById('CheckInHours').value = InTime.substring(0, 2);
+            document.getElementById('CheckInMinutes').value = InTime.slice(-2);
+        } 
+        if (document.getElementById('CheckOutTime').value != null) {
+            var InTime = document.getElementById('CheckOutTime').value;
+            document.getElementById('CheckOutHours').value = InTime.substring(0, 2);
+            document.getElementById('CheckOutMinutes').value = InTime.slice(-2);
+        }
         MaxMin();
     });
+
+
+    function SetCheckInTime(data, id) {
+        var CheckIn = "00:00";
+        if (id == "CheckInHours") {
+            CheckIn = data + ":" + document.getElementById('CheckInMinutes').value;
+        }
+        else {
+
+            CheckIn = document.getElementById('CheckInHours').value + ":" + data;
+        }
+        document.getElementById('CheckInTime').value = CheckIn;
+    }
+    function SetCheckOutTime(data, id) {
+        var CheckIn = "00:00";
+        if (id == "CheckOutHours") {
+            CheckIn = data + ":" + document.getElementById('CheckOutMinutes').value;
+        }
+        else {
+
+            CheckIn = document.getElementById('CheckOutHours').value + ":" + data;
+        }
+        document.getElementById('CheckOutTime').value = CheckIn;
+    }
+    //SHow the Already uploaded images in Detail PopUp
+    function HotelImage(Id) {
+        getUT('/ColorStays/HotelImageVideo/Index?HotelId=' + Id + "&ShowBtn=false", function (data) {
+            PopUpUpdate(data);
+        });
+    }
+    //Ends
 
     tinymce.init({
         selector: '#Description',

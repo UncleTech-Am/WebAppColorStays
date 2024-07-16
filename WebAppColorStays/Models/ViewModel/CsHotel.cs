@@ -45,6 +45,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? CoverAltTag { get; set; }
         [NotMapped]
         public string? CoverImageName { get; set; }
+        [NotMapped]
+        public int? ImageCount { get; set; }
         public string? Address { get; set; }
         public string? EmailAddress { get; set; }
         public string? ContactPerson { get; set; }

@@ -41,7 +41,15 @@
         ShowCalender({
             RangeInput: { StartDateInput: 'FromDate', EndDateInput: 'ToDate' },
         });
-    });
+    });    
+
+    //SHow the Already uploaded images in Detail PopUp
+    function HotelImage(Id) {
+        getUT('/ColorStays/HotelImageVideo/Index?HotelId=' + Id + "&ShowBtn=false", function (data) {
+            PopUpUpdate(data);
+        });
+    }
+    //Ends
 
     function IntializeTableSearch() {
         var SkipRow = [0, 1];

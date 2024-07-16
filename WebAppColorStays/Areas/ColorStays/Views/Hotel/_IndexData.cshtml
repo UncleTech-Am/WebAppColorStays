@@ -32,6 +32,11 @@
             {
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Id })"> <i class="UT-EditFileLine FtWt800"></i> </a>
             }
+            @{
+                var cr = "CrBdRd60"; if (item.ImageCount > 0) { cr = "CrBdTeBn"; }
+            }
+            <a class="BnInSe15 @cr HrTmSeo94 Cr-1Pr" href=# onclick="HotelImage('@item.Id');" data-toggle="tooltip" data-placement="bottom" title="Hotel Image"><i class="UT-ImageLine FtWt800"></i> </a>
+
         </td>
          
 	    <td>@item.Fk_Country_Name</td>
