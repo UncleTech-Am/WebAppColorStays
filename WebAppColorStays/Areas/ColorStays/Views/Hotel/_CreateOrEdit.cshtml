@@ -131,7 +131,7 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverAltTag)</div>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverAltTag)<span style="color:red;"> *</span></div>
             <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.CoverAltTag)" asp-for="CoverAltTag" autocomplete="off" required />
         </div>
     </div>
@@ -195,11 +195,11 @@
     <div class="VnRd"><span asp-validation-for="Landmark"></span></div>
 </div>
 
-<div class="Fx50 Pg2 MnTp7 MnBm7">
+<div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.StarRating)</div>
-            <select asp-for="StarRating" class="TtBxTt15">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.StarRating)<span style="color:red;"> *</span></div>
+            <select asp-for="StarRating" class="TtBxTt15" required>
                 <option value="">Select Star Rating</option>
                 <option value="1">1</option>
                 <option value="2">2</option>

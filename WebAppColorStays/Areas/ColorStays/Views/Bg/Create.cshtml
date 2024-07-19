@@ -189,6 +189,12 @@
     function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "Images");
         ActiveTabUt('UTabs2', 1);
+        //Show the Images in LHS for Update
+        var blogid = $("#BlogId").html();
+        getUT('/ColorStays/BgImage/Index?BlogId=' + blogid + '&UpdateDetail=Yes', function (data) {
+            document.getElementById('AddImgDetail').innerHTML = "";
+            document.getElementById('AddImgDetail').innerHTML = data;
+        });
     }
 
     //Upload the Images

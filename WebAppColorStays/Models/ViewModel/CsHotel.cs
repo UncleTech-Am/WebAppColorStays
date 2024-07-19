@@ -59,6 +59,7 @@ namespace WebAppColorStays.Models.ViewModel
         public bool IsNoPrePayment { get; set; }
         public bool IsFeaturedProperty { get; set; }
         public string? Description { get; set; }
+        public string? NearByPlace { get; set; }
         public int? PropertyCode { get; set; }
         public string? MapLink { get; set; }
         public string? FileHotelRegistration { get; set; }

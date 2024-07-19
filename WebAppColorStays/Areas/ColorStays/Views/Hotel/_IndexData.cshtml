@@ -38,7 +38,11 @@
             <a class="BnInSe15 @cr HrTmSeo94 Cr-1Pr" href=# onclick="HotelImage('@item.Id');" data-toggle="tooltip" data-placement="bottom" title="Hotel Image"><i class="UT-ImageLine FtWt800"></i> </a>
 
         </td>
-         
+
+        <td>@item.Name</td>
+
+        <td>@item.TagLine</td>
+
 	    <td>@item.Fk_Country_Name</td>
          
 	    <td>@item.Fk_City_Name</td>
@@ -47,9 +51,7 @@
          
 	    <td>@item.Fk_Place_Name</td>
                   
-	    <td>@item.Name</td>
-         
-	    <td>@item.TagLine</td>
+	 
          
 	    <td>@item.CoverImage</td>
          
@@ -96,6 +98,25 @@
                 @Html.Raw(item.Description)
             }
         </td>
+
+        <td>
+            @if (item.NearByPlace != null && item.NearByPlace.Length > 50)
+            {
+                @Html.Raw(item.NearByPlace.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.NearByPlace)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.NearByPlace)
+            }
+        </td>
+
         <td>@item.PropertyCode</td>
 
         <td>@Html.Raw(item.MapLink)</td>
@@ -125,6 +146,12 @@
 	    <td>@item.Website</td>
          
 	    <td>@item.CustomerCareNum</td>
+
+	    <td>@item.SEOTitle</td>
+
+	    <td>@item.SEODescription</td>
+
+	    <td>@item.SEOKeywords</td>
          
 	    <td>@item.Remarks</td>
          

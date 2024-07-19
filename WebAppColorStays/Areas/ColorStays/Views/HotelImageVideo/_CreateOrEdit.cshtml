@@ -40,6 +40,15 @@
             <div class="VnRd"><span asp-validation-for="Name"></span></div>
         </div>
 
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverPic)</div>
+                    @Html.CheckBoxFor(x => x.CoverPic, htmlAttributes: new { id = "CoverPic", @Class = "TtBxTt15" })
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="CoverPic"></span></div>
+        </div>
 
         <div class="MnTp7 MnBm7">
             <div class="TtBxFlStDiv">

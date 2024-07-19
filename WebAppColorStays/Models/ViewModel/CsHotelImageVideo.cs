@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,6 +25,8 @@ namespace WebAppColorStays.Models.ViewModel
         public bool IsHotel { get; set; }
         public bool IsHotelFacility { get; set; }
         public string? Description { get; set; }
+        [DisplayName("BannerImg")]
+        public bool CoverPic { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }

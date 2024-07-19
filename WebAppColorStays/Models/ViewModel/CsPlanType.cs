@@ -18,7 +18,8 @@ namespace WebAppColorStays.Models.ViewModel
         public bool Lunch { get; set; }
         public bool Dinner { get; set; }
         public bool StayOnly { get; set; }
-        public bool FreezeStatus { get; set; }
+		public string? Priority { get; set; }
+		public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
