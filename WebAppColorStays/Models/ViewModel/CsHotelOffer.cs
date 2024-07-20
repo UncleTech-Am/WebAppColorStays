@@ -35,6 +35,7 @@ namespace WebAppColorStays.Models.ViewModel
         public bool IsPayAtHotel { get; set; }
         public bool IsApplyForAll { get; set; }
         public bool IsB2C { get; set; }
+        public bool IsStackable { get; set; }
         public bool ISBlackOutDate { get; set; }
         public string Title { get; set; }
         public bool IsApplyDis { get; set; }

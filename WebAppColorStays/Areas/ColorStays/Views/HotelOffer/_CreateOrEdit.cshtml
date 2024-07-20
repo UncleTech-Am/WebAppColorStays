@@ -177,7 +177,7 @@
     </div>
     
     <div class="FxRw">
-        <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
                     <input class="SeIt1o15" type="checkbox" asp-for="IsRefundable">
@@ -187,7 +187,7 @@
             </div>
             <div class="VnRd"><span asp-validation-for="IsRefundable"></span></div>
         </div>
-        <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
                     <input class="SeIt1o15" type="checkbox" asp-for="IsPayAtHotel">
@@ -196,6 +196,16 @@
                 </div>
             </div>
             <div class="VnRd"><span asp-validation-for="IsPayAtHotel"></span></div>
+        </div>
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsB2C">
+
+                    &nbsp;B2C
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsB2C"></span></div>
         </div>
     </div>
 
@@ -213,12 +223,12 @@
         <div class="Fx50 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
-                    <input class="SeIt1o15" type="checkbox" asp-for="IsB2C">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsStackable">
 
-                    &nbsp;B2C
+                    &nbsp;Is Stackable
                 </div>
             </div>
-            <div class="VnRd"><span asp-validation-for="IsB2C"></span></div>
+            <div class="VnRd"><span asp-validation-for="IsStackable"></span></div>
         </div>
     </div>
 
@@ -228,7 +238,7 @@
                 <div class="TtBxFlSt">
                     <input class="SeIt1o15" type="checkbox" asp-for="IsApplyDis" onchange="ShowFixedDis()">
 
-                    &nbsp;ApplyDis
+                    &nbsp;Discount %
                 </div>
             </div>
             <div class="VnRd"><span asp-validation-for="IsApplyDis"></span></div>
@@ -341,7 +351,7 @@ else
     </div>
     
     <div class="FxRw">
-        <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
                     <input class="SeIt1o15" type="checkbox" asp-for="IsRefundable" checked>
@@ -351,7 +361,7 @@ else
             </div>
             <div class="VnRd"><span asp-validation-for="IsRefundable"></span></div>
         </div>
-        <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
                     <input class="SeIt1o15" type="checkbox" asp-for="IsPayAtHotel" checked>
@@ -360,6 +370,16 @@ else
                 </div>
             </div>
             <div class="VnRd"><span asp-validation-for="IsPayAtHotel"></span></div>
+        </div>
+        <div class="Fx33 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsB2C" checked>
+
+                    &nbsp;B2C
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsB2C"></span></div>
         </div>
     </div>
 
@@ -377,12 +397,12 @@ else
         <div class="Fx50 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
-                    <input class="SeIt1o15" type="checkbox" asp-for="IsB2C" checked>
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsStackable" checked>
 
-                    &nbsp;B2C
+                    &nbsp;Is Stackable
                 </div>
             </div>
-            <div class="VnRd"><span asp-validation-for="IsB2C"></span></div>
+            <div class="VnRd"><span asp-validation-for="IsStackable"></span></div>
         </div>
     </div>
 
@@ -392,7 +412,7 @@ else
                 <div class="TtBxFlSt">
                     <input class="SeIt1o15" type="checkbox" asp-for="IsApplyDis" checked onchange="ShowFixedDis()">
 
-                    &nbsp;ApplyDis
+                    &nbsp;Discount %
                 </div>
             </div>
             <div class="VnRd"><span asp-validation-for="IsApplyDis"></span></div>
@@ -438,7 +458,7 @@ else
 </div>
 
 
-<div class="MnTp7 MnBm7">
+@* <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <input class="SeIt1o15" type="checkbox" asp-for="ISBlackOutDate" >
@@ -447,7 +467,7 @@ else
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="ISBlackOutDate"></span></div>
-</div>
+</div> *@
 
 
 <div class="MnTp7 MnBm7">

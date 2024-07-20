@@ -49,6 +49,7 @@ namespace WebAppColorStays.Models.ViewModel
         public bool CountryAttraction { get; set; }
         public bool StateAttraction { get; set; }
         public string? BestTimeToVisit { get; set; }
+        public string? HowToReach { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }
