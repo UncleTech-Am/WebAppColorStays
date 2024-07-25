@@ -9,6 +9,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        public string? Label { get; set; }
         public string? Name { get; set; }
         public string? URL { get; set; }
         public string? Image { get; set; }

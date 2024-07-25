@@ -10,6 +10,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        public string? Label { get; set; }
         [DisplayName("FacilityCategory")]
         public string? Fk_FacilityCategory_Name { get; set; }
         public string? Name { get; set; }

@@ -9,7 +9,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-
+        public string? Label { get; set; }
         [Required(ErrorMessage = "Please enter Name.")]
         [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
         [Remote("CheckDuplicationReviewFor", "ReviewFor", AdditionalFields = ("NameAction, Id"))]

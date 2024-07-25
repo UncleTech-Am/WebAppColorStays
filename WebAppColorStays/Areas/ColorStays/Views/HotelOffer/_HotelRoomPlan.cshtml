@@ -1,41 +1,78 @@
 @model WebAppColorStays.Models.ViewModel.CsHotelOffer
 
-@{ 
-    Layout = null; 
+@{
+    Layout = null;
     ViewData["Action"] = "HotelOffer";
+    string AnName = Convert.ToString(ViewData["AnName"]);
 }
 
 @if(Model != null)
 {
-    <div class="FxRw">
-        @for (int j = 0; j < Model.CsRoomType.Count(); j++)
-        {
-            <div class="Fx50 Pg2">
-                <div id="RoomPlan">
-                    <div class="MnTp7 MnBm7">
-                        <div class="TtBxFlStDiv">
-                            <div class="TtBxFlSt">
-                                <input class="SeIt1o15" type="checkbox" id="@Model.CsRoomType[j].Id" asp-for="@Model.CsRoomType[j].SelectRoom" onchange="SelectAllPlan('@Model.CsRoomType[j].Id')">
-                                <input type="hidden" asp-for="@Model.CsRoomType[j].Id" />
+    @if (AnName == "Edit")
+    {
+        <div class="FxRw">
+            @for (int j = 0; j < Model.CsRoomType.Count(); j++)
+            {
+                <div class="Fx50 Pg2">
+                    <div id="RoomPlan">
+                        <div class="MnTp7 MnBm7">
+                            <div class="TtBxFlStDiv">
+                                <div class="TtBxFlSt">
+                                    <input class="SeIt1o15" type="checkbox" id="@Model.CsRoomType[j].Id" asp-for="@Model.CsRoomType[j].SelectRoom" disabled readonly>
+                                    <input type="hidden" asp-for="@Model.CsRoomType[j].Id" />
 
-                                <input class="TtBxTt15" autocomplete="off" asp-for="@Model.CsRoomType[j].Name" readonly />
+                                    <input class="TtBxTt15" autocomplete="off" asp-for="@Model.CsRoomType[j].Name" readonly />
+                                </div>
                             </div>
                         </div>
                     </div>
+                    @for (int i = 0; i < Model.CsRoomType[j].CsPlanType.Count(); i++)
+                    {
+                        <div class="MnTp7 MnBm7">
+                            <div class="TtBxFlStDiv">
+                                <div class="TtBxFlSt">
+                                    <input class="SeIt1o15" type="checkbox" id="@Model.CsRoomType[j].Id-@Model.CsRoomType[j].CsPlanType[i].Id" asp-for="@Model.CsRoomType[j].CsPlanType[i].SelectPlan" disabled readonly>
+                                    <input type="hidden" asp-for="@Model.CsRoomType[j].CsPlanType[i].Id" />
+                                    &nbsp;@Model.CsRoomType[j].CsPlanType[i].Code
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
-                @for (int i = 0; i < Model.CsRoomType[j].CsPlanType.Count(); i++)
-                {
-                    <div class="MnTp7 MnBm7">
-                        <div class="TtBxFlStDiv">
-                            <div class="TtBxFlSt">
-                                <input class="SeIt1o15" type="checkbox" id="@Model.CsRoomType[j].Id-@Model.CsRoomType[j].CsPlanType[i].Id" asp-for="@Model.CsRoomType[j].CsPlanType[i].SelectPlan" onchange="UnselectRoom('@Model.CsRoomType[j].Id')">
-                                <input type="hidden" asp-for="@Model.CsRoomType[j].CsPlanType[i].Id" />
-                                &nbsp;@Model.CsRoomType[j].CsPlanType[i].Code
+            }
+        </div>
+    }
+    else{
+        <div class="FxRw">
+            @for (int j = 0; j < Model.CsRoomType.Count(); j++)
+            {
+                <div class="Fx50 Pg2">
+                    <div id="RoomPlan">
+                        <div class="MnTp7 MnBm7">
+                            <div class="TtBxFlStDiv">
+                                <div class="TtBxFlSt">
+                                    <input class="SeIt1o15" type="checkbox" id="@Model.CsRoomType[j].Id" asp-for="@Model.CsRoomType[j].SelectRoom" onchange="SelectAllPlan('@Model.CsRoomType[j].Id')">
+                                    <input type="hidden" asp-for="@Model.CsRoomType[j].Id" />
+
+                                    <input class="TtBxTt15" autocomplete="off" asp-for="@Model.CsRoomType[j].Name" readonly />
+                                </div>
                             </div>
                         </div>
                     </div>
-                }
-            </div>
-        }
-    </div>
+                    @for (int i = 0; i < Model.CsRoomType[j].CsPlanType.Count(); i++)
+                    {
+                        <div class="MnTp7 MnBm7">
+                            <div class="TtBxFlStDiv">
+                                <div class="TtBxFlSt">
+                                    <input class="SeIt1o15" type="checkbox" id="@Model.CsRoomType[j].Id-@Model.CsRoomType[j].CsPlanType[i].Id" asp-for="@Model.CsRoomType[j].CsPlanType[i].SelectPlan" onchange="UnselectRoom('@Model.CsRoomType[j].Id')">
+                                    <input type="hidden" asp-for="@Model.CsRoomType[j].CsPlanType[i].Id" />
+                                    &nbsp;@Model.CsRoomType[j].CsPlanType[i].Code
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
 }

@@ -9,6 +9,7 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(450)]
         public string? Id { get; set; }
         public string? Name { get; set; }
+        public string? Label { get; set; }
      
         [ForeignKey("TblCity")]
         public string? Fk_City_Name { get; set; }

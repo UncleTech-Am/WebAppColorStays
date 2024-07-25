@@ -27,10 +27,12 @@ namespace WebAppColorStays.Models.ViewModel
 
         public string? Fk_Country_Name { get; set; }
         public string? URL { get; set; }
-        [Remote("CheckDuplicationCity", "City", AdditionalFields = ("NameAction, Id"))]
+        [Remote("CheckDuplicationCity", "City", AdditionalFields = ("NameAction, Id, Fk_State_Name"))]
         [Required(ErrorMessage = "Please enter Name.")]
         [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
         public string Name { get; set; }
+        public string? Label { get; set; }
+        public string? RankLabel { get; set; }
         public string? Image { get; set; }
         [NotMapped]
         public string? ImageName { get; set; }

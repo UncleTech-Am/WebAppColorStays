@@ -19,6 +19,7 @@ namespace WebAppColorStays.Models.ViewModel
         [DisplayName("Continent")]
         public string? Fk_Continent_Name { get; set; }
         public string? URL { get; set; }
+        public string? Label { get; set; }
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationCountry", "Country", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }

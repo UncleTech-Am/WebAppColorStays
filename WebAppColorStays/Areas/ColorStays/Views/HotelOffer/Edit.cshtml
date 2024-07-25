@@ -88,7 +88,7 @@
         if (document.getElementById('BgEndDate').value != "") {
             document.getElementById('BookingEndDate').classList.toggle('DyNe');
         }
-        var HlId = $("#Fk_Hotel_Name").val();
+        var HlId = $("#Id").val();
         ShowRoomPlan(HlId);
         var AyRmPn = document.getElementById('IsApplyForAll').checked;
         if (AyRmPn == false) {
@@ -105,6 +105,14 @@
     function ShowFixedDis() {
         document.getElementById('FixedDis').classList.toggle('DyNe');
         document.getElementById('PercentDis').classList.toggle('DyNe');
+        if (!document.getElementById('FixedDis').classList.contains('DyNe')) {
+            document.getElementById('FixedDiscountPrice').setAttribute("required", "required");
+            document.getElementById('DiscountPercent').removeAttribute("required");
+        }
+        else {
+            document.getElementById('DiscountPercent').setAttribute("required", "required");
+            document.getElementById('FixedDiscountPrice').removeAttribute("required");
+        }
     }
 
     //Clear Autocompete data
@@ -124,7 +132,7 @@
 
 
     function ShowRoomPlan(HotelId) {
-        getUT('/ColorStays/HotelOffer/HotelRoomPlan?HlId=' + HotelId, function (data) {
+        getUT('/ColorStays/HotelOffer/HotelRoomPlanEdit?HlId=' + HotelId, function (data) {
             document.getElementById('RmPn').innerHTML = "";
             document.getElementById('RmPn').innerHTML = data;
             HideLoader();

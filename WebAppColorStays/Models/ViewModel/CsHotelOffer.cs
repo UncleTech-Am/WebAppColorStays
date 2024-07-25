@@ -15,6 +15,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        public string? Label { get; set; }
         [DisplayName("Hotel")]
         public string? Fk_Hotel_Name { get; set; }
         [NotMapped]

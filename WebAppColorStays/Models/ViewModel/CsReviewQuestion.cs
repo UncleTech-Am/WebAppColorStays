@@ -10,7 +10,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-
+        public string? Label { get; set; }
         [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         [Remote("CheckDuplicationReviewQuestion", "ReviewQuestion", AdditionalFields = ("NameAction, Fk_ReviewFor_Name, Id"))]
         public string Name { get; set; }

@@ -84,6 +84,39 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> HotelRoomPlanEdit(string HlId)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+            var UserID = Request.Cookies["UserID"];
+            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                HttpResponseMessage response = await client.GetAsync("HotelOffer/HotelRoomPlanEdit/" + CompId + "/" + HlId, HttpCompletionOption.ResponseHeadersRead);
+                var apiResponse = await response.Content.ReadAsStreamAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    try
+                    {
+                        var RoomPlan = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsRoomType>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsHotelOffer hotelOffer = new CsHotelOffer();
+                        hotelOffer.CsRoomType = RoomPlan;
+                        ViewData["AnName"] = "Edit";
+                        return View("_HotelRoomPlan", hotelOffer);
+                    }
+                    catch (Exception e)
+                    {
+                        throw;
+                    }
+                }
+            }
+            return null;
+        }
+
+
+
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
         {
@@ -790,7 +823,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationHotelOffer(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationHotelOffer(string Name, string NameAction, string Id, string Fk_Hotel_Name)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
@@ -799,7 +832,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("HotelOffer/CheckDuplicationHotelOffer/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("HotelOffer/CheckDuplicationHotelOffer/" + Name + "/" + NameAction + "/" + Fk_Hotel_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {

@@ -20,6 +20,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_State_Name { get; set; }
         [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
+        public string? Label { get; set; }
+        public string? RankLabel { get; set; }
         [Remote("CheckDuplicationRestaurantRank", "Restaurant", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]
         public int? Rank { get; set; }
         [Required(ErrorMessage = "Please enter Restaurant Name.")]

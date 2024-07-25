@@ -20,9 +20,10 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_Country_Name { get; set; }
         [NotMapped]
         public string? Country { get; set; }
+        public string? Label { get; set; }
         public string? URL { get; set; }
         [Required(ErrorMessage = "Please enter Name.")]
-        [Remote("CheckDuplicationState", "State", AdditionalFields = ("NameAction, Id"))]
+        [Remote("CheckDuplicationState", "State", AdditionalFields = ("NameAction, Id, Fk_Country_Name"))]
         public string Name { get; set; }
         public string? Image { get; set; }
         [NotMapped]

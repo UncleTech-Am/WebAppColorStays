@@ -82,6 +82,14 @@
     function ShowFixedDis() {
         document.getElementById('FixedDis').classList.toggle('DyNe');
         document.getElementById('PercentDis').classList.toggle('DyNe');
+        if (!document.getElementById('FixedDis').classList.contains('DyNe')) {
+            document.getElementById('FixedDiscountPrice').setAttribute("required", "required");
+            document.getElementById('DiscountPercent').removeAttribute("required");
+        }
+        else {
+            document.getElementById('DiscountPercent').setAttribute("required", "required");
+            document.getElementById('FixedDiscountPrice').removeAttribute("required");
+        }
     }
 
     //Clear Autocompete data

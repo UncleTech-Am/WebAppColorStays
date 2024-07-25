@@ -14,6 +14,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationAirport", "Airport", AdditionalFields = ("NameAction, Fk_Place_Name, Id"))]
         [StringLength(500, ErrorMessage = "You can enter only 500 characters long!")]
         public string Name { get; set; }
+        public string? Label { get; set; }
         public string? Description { get; set; }
         [NotMapped]
         public string? Place { get; set; }

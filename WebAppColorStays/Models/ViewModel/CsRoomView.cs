@@ -8,6 +8,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        public string? Label { get; set; }
         [Remote("CheckDuplicationRoomView", "RoomView", AdditionalFields = ("NameAction, Id"))]
         [Required(ErrorMessage = "Please enter Name.")]
         public string? Name { get; set; }

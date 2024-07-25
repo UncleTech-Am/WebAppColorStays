@@ -8,6 +8,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        public string? Label { get; set; }
         public string? Fk_State_Name { get; set; }
         [NotMapped]
         public string? State { get; set; }

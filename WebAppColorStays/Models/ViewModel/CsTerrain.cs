@@ -8,6 +8,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        public string? Label { get; set; }
         [StringLength(450)]
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationTerrain", "Terrain", AdditionalFields = ("NameAction, Id"))]

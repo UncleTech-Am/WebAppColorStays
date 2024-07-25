@@ -45,8 +45,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
@@ -56,8 +56,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Title)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Title)" asp-for="Title" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Title)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Title)" asp-for="Title" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Title"></span></div>
@@ -67,8 +67,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TagLine)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.TagLine)" asp-for="TagLine" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TagLine)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.TagLine)" asp-for="TagLine" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="TagLine"></span></div>
@@ -213,7 +213,7 @@
         <div class="Fx50 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
-                    <input class="SeIt1o15" type="checkbox" asp-for="IsApplyForAll" onchange="ShowRoomPlanDiv()">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsApplyForAll" disabled readonly>
 
                     &nbsp;Apply For All Room & Plan
                 </div>
@@ -243,25 +243,56 @@
             </div>
             <div class="VnRd"><span asp-validation-for="IsApplyDis"></span></div>
         </div>
-        <div id="PercentDis" class="Fx33 Pg2 MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DiscountPercent)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DiscountPercent)" asp-for="DiscountPercent" autocomplete="off" />
+        @if (Model.DiscountPercent != 0)
+        {
+            <div id="PercentDis" class="Fx33 Pg2 MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DiscountPercent)<span style="color:red;"> *</span></div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DiscountPercent)" asp-for="DiscountPercent" autocomplete="off" required/>
+                    </div>
                 </div>
+                <div class="VnRd"><span asp-validation-for="DiscountPercent"></span></div>
             </div>
-            <div class="VnRd"><span asp-validation-for="DiscountPercent"></span></div>
-        </div>
 
-        <div id="FixedDis" class="Fx33 Pg2 MnTp7 MnBm7 DyNe">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FixedDiscountPrice)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FixedDiscountPrice)" asp-for="FixedDiscountPrice" autocomplete="off" />
+        }
+        else
+        {
+            <div id="PercentDis" class="Fx33 Pg2 MnTp7 MnBm7 DyNe">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DiscountPercent)<span style="color:red;"> *</span></div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DiscountPercent)" asp-for="DiscountPercent" autocomplete="off" />
+                    </div>
                 </div>
+                <div class="VnRd"><span asp-validation-for="DiscountPercent"></span></div>
             </div>
-            <div class="VnRd"><span asp-validation-for="FixedDiscountPrice"></span></div>
-        </div>
+
+        }
+        @if (Model.FixedDiscountPrice != 0)
+        {
+            <div id="FixedDis" class="Fx33 Pg2 MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FixedDiscountPrice)<span style="color:red;"> *</span></div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FixedDiscountPrice)" asp-for="FixedDiscountPrice" autocomplete="off" required />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="FixedDiscountPrice"></span></div>
+            </div>
+        }
+        else
+        {
+            <div id="FixedDis" class="Fx33 Pg2 MnTp7 MnBm7 DyNe">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FixedDiscountPrice)<span style="color:red;"> *</span></div>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FixedDiscountPrice)" asp-for="FixedDiscountPrice" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="FixedDiscountPrice"></span></div>
+            </div>
+        }
 
         <div class="Fx33 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
@@ -420,8 +451,8 @@ else
         <div id="PercentDis" class="Fx33 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DiscountPercent)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DiscountPercent)" asp-for="DiscountPercent" autocomplete="off" />
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DiscountPercent)<span style="color:red;"> *</span></div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DiscountPercent)" asp-for="DiscountPercent" autocomplete="off" required/>
                 </div>
             </div>
             <div class="VnRd"><span asp-validation-for="DiscountPercent"></span></div>
@@ -430,7 +461,7 @@ else
         <div id="FixedDis" class="Fx33 Pg2 MnTp7 MnBm7 DyNe">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FixedDiscountPrice)</div>
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FixedDiscountPrice)<span style="color:red;"> *</span></div>
                     <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FixedDiscountPrice)" asp-for="FixedDiscountPrice" autocomplete="off" />
                 </div>
             </div>
@@ -451,8 +482,6 @@ else
 
 
 
-
-
 <div id="RmPn" class="DyNe">
     @await Html.PartialAsync("_HotelRoomPlan", Model) 
 </div>
@@ -470,7 +499,7 @@ else
 </div> *@
 
 
-<div class="MnTp7 MnBm7">
+@* <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.GeneratedCode)</div>
@@ -489,7 +518,7 @@ else
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="CommonCode"></span></div>
-</div>
+</div> *@
 
 
 <div class="MnTp7 MnBm7">

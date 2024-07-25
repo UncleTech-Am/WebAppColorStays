@@ -14,7 +14,8 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-		[Remote("CheckDuplicationRoomType", "RoomType", AdditionalFields = ("NameAction, Id, Fk_Hotel_Name"))]
+        public string? Label { get; set; }
+        [Remote("CheckDuplicationRoomType", "RoomType", AdditionalFields = ("NameAction, Id, Fk_Hotel_Name"))]
 
 		public string? Name { get; set; }
         [DisplayName("Hotel")]

@@ -10,6 +10,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        public string? Label { get; set; }
         [DisplayName("RestaurantFoodType")]
         [Remote("CheckDuplicationRTFoodTypeMap", "RTFoodTypeMap", AdditionalFields = ("NameAction, Fk_Restaurant_Name, Id"))]
         public string? Fk_RestaurantFoodType_Name { get; set; }

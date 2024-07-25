@@ -11,6 +11,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationFacilityCategory", "FacilityCategory", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
+        public string? Label { get; set; }
         public string? Description { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }

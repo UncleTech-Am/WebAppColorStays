@@ -10,6 +10,8 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        public string? LabelNo { get; set; }
+        public string? LabelHg { get; set; }
         [DisplayName("Restaurant")]
         [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Fk_Restaurant_Name { get; set; }

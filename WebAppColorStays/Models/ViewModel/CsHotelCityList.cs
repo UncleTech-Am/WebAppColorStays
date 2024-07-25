@@ -10,7 +10,8 @@ namespace WebAppColorStays.Models.ViewModel
 		[Key]
 		[StringLength(450)]
 		public string? Id { get; set; }
-		[DisplayName("City")]
+        public string? Label { get; set; }
+        [DisplayName("City")]
         [Remote("CheckDuplicationHotelCityList", "HotelCityList", AdditionalFields = ("NameAction, Id"))]
         public string? Fk_City_Name { get; set; }
 		[NotMapped]

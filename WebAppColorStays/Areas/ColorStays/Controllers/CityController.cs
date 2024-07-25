@@ -857,7 +857,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationCity(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationCity(string Name, string NameAction, string Id, string Fk_State_Name)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
@@ -866,7 +866,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("City/CheckDuplicationCity/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("City/CheckDuplicationCity/" + Name + "/" + NameAction + "/" + Fk_State_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
