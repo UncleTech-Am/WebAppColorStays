@@ -126,8 +126,8 @@
     <div class="Fx33 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rank)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Rank)" asp-for="Rank" autocomplete="off" />
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rank)<span style="color:red;"> *</span></div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Rank)" asp-for="Rank" autocomplete="off" required />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="Rank"></span></div>

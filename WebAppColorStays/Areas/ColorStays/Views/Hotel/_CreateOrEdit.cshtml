@@ -195,22 +195,34 @@
     <div class="VnRd"><span asp-validation-for="Landmark"></span></div>
 </div>
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.StarRating)<span style="color:red;"> *</span></div>
-            <select asp-for="StarRating" class="TtBxTt15" required>
-                <option value="">Select Star Rating</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rank)<span style="color:red;"> *</span></div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Rank)" asp-for="Rank" autocomplete="off" required />
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="Rank"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="StarRating"></span></div>
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.StarRating)<span style="color:red;"> *</span></div>
+                <select asp-for="StarRating" class="TtBxTt15" required>
+                    <option value="">Select Star Rating</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="StarRating"></span></div>
+    </div>
 </div>
+
 
 <div class="FxRw">
     <div class="Fx50 Pg2 MnTp7 MnBm7">
