@@ -36,6 +36,7 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
         public string? Label { get; set; }
+        public int? LikeCount { get; set; }
         public string? RankLabel { get; set; }
         [Remote("CheckDuplicationHotel", "Hotel", AdditionalFields = ("NameAction, Id, Fk_Place_Name"))]
 		public string? Name { get; set; }
