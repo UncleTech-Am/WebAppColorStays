@@ -20,23 +20,24 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Package_Name)<span style="color:red;"> *</span></div>
-            <input class="TtBxTt14" placeholder="Package Name" type="text" id="SearchPackage" asp-for="Package" autocomplete="off" required onchange="ClearData('SearchPackage','Fk_Package_Name')" />
-            <input type="hidden" asp-for="Fk_Package_Name" required />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Fk_Package_Name"></span></div>
+    <div class="VnRd"><span asp-validation-for="Name"></span></div>
 </div>
+
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Exclusion)<span style="color:red;"> *</span></div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Exclusion)" asp-for="Exclusion" autocomplete="off" required />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Icon)<span style="color:red;"> *</span></div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Icon)" asp-for="Icon" autocomplete="off" required/>
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Exclusion"></span></div>
+    <div class="VnRd"><span asp-validation-for="Icon"></span></div>
 </div>
+
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -47,3 +48,4 @@
     </div>
     <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
 </div>
+

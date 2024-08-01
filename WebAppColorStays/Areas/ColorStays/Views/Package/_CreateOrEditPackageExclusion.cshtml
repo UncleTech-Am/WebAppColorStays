@@ -1,0 +1,46 @@
+﻿@model WebAppColorStays.Areas.ColorStays.CommonMethods.PackageInExCheckbox
+
+
+@{
+    Layout = null;
+    ViewData["Action"] = "Package";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message </span></h3>
+
+<h3 class="MnTp7 MnBm7 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
+    Package :&nbsp;<span id="buttonid" style="display:none;">@Model.Fk_Package_Name</span>
+    <span>@Model.Package</span>
+</h3>
+
+
+<form id="CreatePackageExclusion"
+      data-ajax="true"
+      data-ajax-url="/ColorStays/Package/AddPackageExclusion"
+      data-ajax-method="POST"
+      data-ajax-loading="#loader"
+      data-ajax-success="SuccessPackageExclusion(data, status, xhr,'CreatePackageExclusion','CreateOrEditExclusion')"
+      data-ajax-failure="FormAjaxFail(xhr, status, error,'CreatePackageExclusion')">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" name="NameAction" value="C" />
+    <input type="hidden" name="Id" id="Id" />
+    <input type="hidden" asp-for="Fk_Package_Name" />
+
+    <div class="MnTp7 MnBm7">
+        <div>
+            <div class="FxGw1" TtBx="TtBxMe">
+                @Html.EditorFor(model => model.CheckInEx, new { htmlAttributes = new { @checked = false } })
+            </div>
+        </div>
+    </div>
+    <div class="MnTp7 MnBm7 FxRw">
+        <div class="FxGw1">
+            <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+        </div>
+    </div>
+</form>
+

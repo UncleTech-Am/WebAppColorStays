@@ -24,11 +24,18 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationPackage", "Package", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
+        public string? Label { get; set; }
+        public string? CoverImage { get; set; }
+        public string? CoverAltTag { get; set; }
+        [NotMapped]
+        public string? CoverImageName { get; set; }
+        public int? NoOfPerson { get; set; }
         public string? URL { get; set; }
         public string? Transport { get; set; }
         public string? Stay { get; set; }
         public string? PackageHighlight { get; set; }
         public string? Overview { get; set; }
+        [DisplayName("No_Of_Nights")]
         public int? Duration { get; set; }
         public bool Breakfast { get; set; }
         public bool Lunch { get; set; }
@@ -38,9 +45,6 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_PackageType_Name { get; set; }
         [NotMapped]
         public string? PackageType { get; set; }
-        [DisplayName("Staring From")]
-        public string? Fk_City_Name1 { get; set; }
-        public string? StaringFrom { get; set; }
         [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
         [NotMapped]

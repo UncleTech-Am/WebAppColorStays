@@ -75,7 +75,7 @@
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
 </div>
 
-<div class="MnTp7 MnBm7">
+@* <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Transport)</div>
@@ -94,37 +94,73 @@
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Stay"></span></div>
-</div>
+</div> *@
 
 
-
+@if (Model != null)
+{
+    @if (Model.CoverImage != null)
+    {
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverImage)</div>
+                    <img src="@Model.CoverImage" class="Wh60p" />
+                    <input asp-for="CoverImageName" type="hidden" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="CoverImage"></span></div>
+        </div>
+    }
+}
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Duration)</div>
-            <input  class="TtBxTt15" placeholder="No Of Night" asp-for="Duration" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverImage) (230 X 270)</div>
+            <input asp-for="CoverImage" type="file" />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Duration"></span></div>
+    <div class="VnRd"><span asp-validation-for="CoverImage"></span></div>
 </div>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_City_Name1)</div>
-            <input class="TtBxTt14" placeholder="Starting From" type="text" id="SearchPlace" asp-for="StaringFrom" autocomplete="off" onchange="ClearData('SearchPlace', 'Fk_City_Name1')" />
-            <input type="hidden" asp-for="Fk_City_Name1" required />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverAltTag)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.CoverAltTag)" asp-for="CoverAltTag" autocomplete="off" required />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Fk_City_Name1"></span></div>
+    <div class="VnRd"><span asp-validation-for="CoverAltTag"></span></div>
+</div>
+
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Duration)<span style="color:red;"> *</span></div>
+                <input  class="TtBxTt15" placeholder="No Of Night" asp-for="Duration" autocomplete="off" required/>
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Duration"></span></div>
+    </div>
+     <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.NoOfPerson)<span style="color:red;"> *</span></div>
+                <input class="TtBxTt15" placeholder="No Of Person" asp-for="NoOfPerson" autocomplete="off" required/>
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="NoOfPerson"></span></div>
+    </div>
+
 </div>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.LocationDuration)</div>
-            <input  class="TtBxTt15" placeholder="Delhi(0N)-> Shimla(2N)-> Manali(3N)" asp-for="LocationDuration" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.LocationDuration)<span style="color:red;"> * Delhi(0N)-> Shimla(2N)-> Manali(3N)</span></div>
+            <input  class="TtBxTt15" placeholder="Delhi(0N)-> Shimla(2N)-> Manali(3N)" asp-for="LocationDuration" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="LocationDuration"></span></div>
@@ -135,8 +171,8 @@
     <div class="Fx50 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Price)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Price)" asp-for="Price" autocomplete="off" />
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Price)<span style="color:red;"> *</span></div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Price)" asp-for="Price" autocomplete="off" required />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="Price"></span></div>

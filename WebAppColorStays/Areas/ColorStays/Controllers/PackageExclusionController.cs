@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-
 using LibCommon.DataTransfer;
 using LibCompanyService.Models.ViewCompany;
 using Microsoft.AspNetCore.Authorization;
@@ -31,7 +30,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "Package Exclusion";
+            ViewBag.Title = "PackageExclusion";
         }
         //Ends
 

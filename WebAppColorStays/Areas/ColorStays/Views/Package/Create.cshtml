@@ -18,6 +18,9 @@
         <div class="Fx50 Pg3">
             <div id="UTabs1">
                 <div> Package Detail</div>
+                <div>Cities</div>
+                <div> Package Inclusion</div>
+                <div> Package Exclusion</div>
                 <div> Add Image</div>
                 <div>Set Up</div>
             </div>
@@ -31,6 +34,7 @@
                     data-ajax-url="/ColorStays/Package/Create"
                     data-ajax-method="POST"
                     data-ajax-loading="#loader"
+                    enctype="multipart/form-data"
                     data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
                     data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
 
@@ -67,7 +71,46 @@
                 </form>
                     </div>
                 </div>
+
                 <div id="UTabs1Cont1">
+                    <div id="CreateOrEditCity" style="height: 400px;overflow: auto;"></div>
+                    <div class="Pg10 FxRw">
+                        <div class="FxGw1">
+                            @* <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Hotel/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button> *@
+                        </div>
+                        <div>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetExclusion()"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="UTabs1Cont2">
+                    <div id="CreateOrEditInclusion" style="height: 400px;overflow: auto;"></div>
+                    <div class="Pg10 FxRw">
+                        <div class="FxGw1">
+                            @* <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Hotel/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button> *@
+                        </div>
+                        <div>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetExclusion()"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="UTabs1Cont3">
+                    <div id="CreateOrEditExclusion" style="height: 400px;overflow: auto;"></div>
+                    <div class="Pg10 FxRw">
+                        <div class="FxGw1">
+                            @* <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Hotel/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button> *@
+                        </div>
+                        <div>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 3)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div id="UTabs1Cont4">
                     <div class="Pg12">
                         <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
                             <i class="UT-ImageLine"></i>
@@ -86,7 +129,7 @@
                                     <button type="button" id="submit-all" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-ImageLine"></i>&nbsp;Upload</button>
                                 </div>
                                 <div>
-                                    <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 2)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                                    <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 5)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
                                 </div>
 
                             </div>
@@ -94,14 +137,14 @@
                     </div>
                 </div>
 
-                <div id="UTabs1Cont2">
+                <div id="UTabs1Cont5">
                     <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
                     <div class="Pg10 FxRw">
                         <div class="FxGw1">
                             <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Package/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 4)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
                         </div>
                     </div>
                 </div>
@@ -110,6 +153,9 @@
         <div class="Fx50 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
             <div id="UTabs2">
                 <div>All Package</div>
+                <div>Package City</div>
+                <div>Package Inclusion</div>
+                <div>Package Exclusion</div>
                 <div>Image</div>
             </div>
             <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
@@ -119,6 +165,16 @@
                     </div>
                 </div>
                 <div id="UTabs2Cont1">
+                    <div id="City"></div>
+                </div>
+                <div id="UTabs2Cont2">
+                    <div id="Inclusion"></div>
+                </div>
+                <div id="UTabs2Cont3">
+                    <div id="Exclusion"></div>
+                </div>
+
+                <div id="UTabs2Cont4">
                     <div id="Images"></div>
                 </div>
             </div>
@@ -133,12 +189,11 @@
 
 <script>
     $(document).ready(function () {
-        TabsUT('UTabs1', 0, null, [1, 2]);
-        TabsUT('UTabs2', 0, null, [1]);
+        TabsUT('UTabs1', 0, null, [1, 2, 3, 4, 5]);
+        TabsUT('UTabs2', 0, null, [1, 2, 3, 4]);
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchCurrency', '/ColorStays/Currency/SuggestCurrency', '', '', AoCeCurrency);
         StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
-        StartSuggestionBox(2, 'SearchPlace', '/ColorStays/City/SuggestCity', '', '', AoCePlace);
         MaxMin();
     });
 
@@ -184,12 +239,7 @@
                             `
     });
 
-    //Clear Autocompete data
-    function ClearData(UrNe, UrId) {
-        document.getElementById(UrNe).value = '';
-        document.getElementById(UrId).value = '';
-    }
-
+   
 
 
     //Autocomplete
@@ -218,29 +268,135 @@
         document.getElementById('Fk_Country_Name').value = event.target.Text2;
     }
 
-    //Autocomplete Item
-    function AoCePlace(event) {
-        var InputId = event.target.InputID;
-        SuggestionClose(InputId);
-        document.getElementById('Fk_City_Name1').value = event.target.Id;
-        document.getElementById(InputId).value = event.target.Value;
-    }
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
-        document.getElementById('Fk_Place_Name').value = "";
-        document.getElementById('Fk_State_Name').value = "";
-        document.getElementById('Fk_City_Name').value = "";
-        document.getElementById('Fk_Country_Name').value = "";
         //Show the Image Tab
         ActiveTabUt('UTabs1', 1);
         ActiveTabUt('UTabs2', 0);
+        GetPackageCity();
         document.getElementById('PId').value = document.getElementById('PeId').value;
+    }
+
+    function GetPackageCity() {
+        var id = document.getElementById('PeId').value;
+        getUT('/ColorStays/Package/PackageCity?PeId=' + id, function (data) {
+            document.getElementById('CreateOrEditCity').innerHTML = "";
+            document.getElementById('CreateOrEditCity').innerHTML = data;
+            StartSuggestionBox(2, 'SearchCityPe', '/ColorStays/City/SuggestCity', '', '', AoCePeCity);
+            HideLoader();
+        });
+    }
+
+
+    //Delete Hotel Facility
+    function DeleteCity(PeId, Id) {
+        ShowLoader();
+        postUT('/ColorStays/Package/DeletePackageCity?id=' + Id + '&PeId=' + PeId, function (data) {
+            document.getElementById('City').innerHTML = "";
+            document.getElementById('City').innerHTML = data;
+            HidePopUp();
+            HideLoader();
+        });
+    }
+    function SuccessCity(data, status, xhr, FormID, FormFieldID) {
+        //FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "City");
+        FormReset(FormID);
+        //Show the Image Tab
+        ActiveTabUt('UTabs1', 1);
+        ActiveTabUt('UTabs2', 1);
+        document.getElementById('City').innerHTML = "";
+        document.getElementById('City').innerHTML = data; 
+        document.getElementById('PeId').value = document.getElementById('PeId').value;
+    }
+
+
+    function GetSelectedCity() {
+        var PeId = document.getElementById('PeId').value;
+        getUT('/ColorStays/Package/PackageCityList?PeId=' + PeId, function (data) {
+            document.getElementById('City').innerHTML = "";
+            document.getElementById('City').innerHTML = data;
+        });
+    }
+
+
+    //Here get the list of inclusion list
+    function GetInclusion() {
+        var id = document.getElementById('PeId').value;
+        getUT('/ColorStays/Package/PackageInclusionList?PeId=' + id, function (data) {
+            document.getElementById('CreateOrEditInclusion').innerHTML = "";
+            document.getElementById('CreateOrEditInclusion').innerHTML = data;
+            HideLoader();
+        });
+    }
+
+    function SuccessPackageInclusion(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "Detail");
+        //Show the Image Tab
+        ActiveTabUt('UTabs1', 2);
+        ActiveTabUt('UTabs2', 2);
+        GetInclusion();
+        GetSelectedInclusion();
+        document.getElementById('PeId').value = document.getElementById('PeId').value;
+    }
+
+    function GetSelectedInclusion() {
+        var PackageId = document.getElementById('PeId').value;
+        getUT('/ColorStays/Package/GetPackageInclusion?PeId=' + PackageId, function (data) {
+            document.getElementById('Inclusion').innerHTML = "";
+            document.getElementById('Inclusion').innerHTML = data;
+        });
+    }
+
+    //Delete Hotel Facility
+    function DeleteInclusion(PeId, Id) {
+        getUT('/ColorStays/Package/DeletePackageInclusion?PeId=' + PeId + '&Id=' + Id, function (data) {
+            GetInclusion();
+            GetSelectedInclusion();
+        });
+    }
+
+
+
+    //Here get the list of Exclusion list
+    function GetExclusion() {
+        var id = document.getElementById('PeId').value;
+        getUT('/ColorStays/Package/PackageExclusionList?PeId=' + id, function (data) {
+            document.getElementById('CreateOrEditExclusion').innerHTML = "";
+            document.getElementById('CreateOrEditExclusion').innerHTML = data;
+            HideLoader();
+        });
+    }
+
+    function SuccessPackageExclusion(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "Detail");
+        //Show the Image Tab
+        ActiveTabUt('UTabs1', 3);
+        ActiveTabUt('UTabs2', 3);
+        GetExclusion();
+        GetSelectedExclusion();
+        document.getElementById('PeId').value = document.getElementById('PeId').value;
+    }
+
+    function GetSelectedExclusion() {
+        var PackageId = document.getElementById('PeId').value;
+        getUT('/ColorStays/Package/GetPackageExclusion?PeId=' + PackageId, function (data) {
+            document.getElementById('Exclusion').innerHTML = "";
+            document.getElementById('Exclusion').innerHTML = data;
+        });
+    }
+
+    //Delete Hotel Facility
+    function DeleteExclusion(PeId, Id) {
+        getUT('/ColorStays/Package/DeletePackageExclusion?PeId=' + PeId + '&Id=' + Id, function (data) {
+            GetExclusion();
+            GetSelectedExclusion();
+        });
     }
 
     function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "Images");
         ShowUploads();
-        ActiveTabUt('UTabs2', 1);
+        ActiveTabUt('UTabs2', 4);
     }
 
     //Table Search Success Function
@@ -316,7 +472,7 @@
         getUT('/ColorStays/PackageImage/UploadedImage?PackageId=' + PackageId + '&ShowBtn=' + true, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
-            ActiveTabUt('UTabs2', 1);
+            ActiveTabUt('UTabs2', 4);
             document.getElementById('SwTb3').style.display = "block";
             HideLoader();
         });
@@ -334,7 +490,7 @@
         getUT('/ColorStays/PackageImage/ImageDelete?ImageID=' + id + '&PackageId=' + PackageId + '&ImgName=' + imgname, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
-            ActiveTabUt('UTabs2', 1);
+            ActiveTabUt('UTabs2', 4);
             //Show the Images in LHS for Update
             getUT('/ColorStays/PackageImage/Index?PackageId=' + PackageId + '&UpdateDetail=Yes', function (data) {
                 document.getElementById('AddImgDetail').innerHTML = "";

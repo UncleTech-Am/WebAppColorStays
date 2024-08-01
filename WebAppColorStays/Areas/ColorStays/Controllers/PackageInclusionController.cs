@@ -10,8 +10,8 @@ using LibCompanyService.Models.ViewCompany;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
-
 using WebAppColorStays.Models.ViewModel;
+
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -30,7 +30,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "Package Inclusion";
+            ViewBag.Title = "PackageInclusion";
         }
         //Ends
 

@@ -10,11 +10,10 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        [DisplayName("Package")]
-        public string? Fk_Package_Name { get; set; }
-        [NotMapped]
-        public string? Package { get; set; }
-        public string? Inclusion { get; set; }
+        [Remote("CheckDuplicationPackageInclusion", "PackageInclusion", AdditionalFields = ("NameAction, Id"))]
+        public string? Name { get; set; }
+        public string? Label { get; set; }
+        public string? Icon { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }

@@ -54,6 +54,126 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<IActionResult> PackageCity(string PeId)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+            CsPackageCityMap cityMap = new CsPackageCityMap();
+            cityMap.Fk_Package_Name = PeId;
+            return View("_CreateOrEditCity", cityMap);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddPackageCity(CsPackageCityMap csPackageCityMap)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            bool Success = false;
+            csPackageCityMap.CompId = CompID;
+            csPackageCityMap.CreatedBy = UserID;
+            csPackageCityMap.ModifiedBy = UserID;
+
+            ViewData["ResponseName"] = "ShowValidation";
+            CsPackageCityMap data = new CsPackageCityMap();
+
+            if (ModelState.IsValid)
+            {
+                using (HttpClient client = APIColorStays.Initial())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        csPackageCityMap.Id = Guid.NewGuid().ToString();
+                        StringContent content = new StringContent(JsonSerializer.Serialize(csPackageCityMap), Encoding.UTF8, "application/json");
+
+                        using (var response = await client.PostAsync("PackageCityMap/create", content))
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+
+                            if (response.IsSuccessStatusCode)
+                            {
+                                data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackageCityMap>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Success = true;
+
+                            }
+                            else
+                            {
+                                Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                if (responsemsg != null && responsemsg.Message == "Duplicate")
+                                {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                    ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
+                                }
+                                Success = false;
+                            }
+                        }
+
+                    }
+
+                if (Success == true)
+                {
+                    return RedirectToAction("PackageCityList", new { PeId = csPackageCityMap.Fk_Package_Name });
+                }
+                else { return View("_CreateOrEditCity", csPackageCityMap); }
+            }
+            return View("_CreateOrEditCity", csPackageCityMap);
+        }
+
+        //here we get the list of cities of package
+        [HttpGet]
+        public async Task<IActionResult> PackageCityList(string PeId)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageCityMap/index/" + CompID + "/" + PeId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        var data = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPackageCityMap>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        return View(data);
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+        //Delete the package city
+        [HttpGet]
+        public async Task<IActionResult> DeletePackageCity(string Id, string PeId)
+        {
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageCityMap/DeleteConfirmed/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("PackageCityList", new { PeId = PeId });
+                    }
+                }
+            }
+            return View("Error");
+        }
 
 
         //AutoComplete
@@ -102,7 +222,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 foreach (var file in files)
                 {
-                    var fileName = "Package-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                    var fileName = file.FileName;
                     //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("Package/SaveImage/?PId=" + PId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
                     {
@@ -514,11 +634,29 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsPackage.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
             CsPackage data = new CsPackage();
+            var files = HttpContext.Request.Form.Files;
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    foreach (var file in files)
+                    {
+                        var fileName = file.FileName;
+
+                        CsPackage.CoverImage = fileName;
+
+
+                        if (file.Length > 0)
+                        {
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "PackageBanner");
+                            Task.WaitAll(TImgUpload);
+                            if (TImgUpload.Result == "Error")
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsPackage), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("Package/create", content))
                     {
@@ -614,14 +752,38 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             DropDown(CompID, TokenKey);
             ViewData["ResponseName"] = "ShowValidation";
             CsPackage.CompId = CompID;
-            CsPackage.ModifiedBy = UserID;   
+            CsPackage.ModifiedBy = UserID;
+            var files = HttpContext.Request.Form.Files;
+            if (CsPackage.CoverImageName != null)
+            {
+                CsPackage.CoverImage = CsPackage.CoverImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        foreach (var file in files)
+                        {
+                            var fileName = file.FileName;
+
+                            CsPackage.CoverImage = fileName;
+                            //Delete the Images from the folder
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsPackage.CoverImageName, TokenKey, "PackageBanner");
+                            Task.WaitAll(TDeleteImage);
+
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "PackageBanner");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                         using (var response = await client.PostAsJsonAsync<CsPackage>("Package/edit", CsPackage))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
@@ -666,6 +828,57 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            CsPackage csPackage = new CsPackage();
+            List<CsPackageImage> photosList = new List<CsPackageImage>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Package/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csPackage = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackage>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageImage/Index/" + id))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPackageImage>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+
+            //Delete the Images from the folder
+            List<string> image = new List<string>();
+            foreach (var item in photosList)
+            {
+                string img;
+                img = item.Title;
+                image.Add(img);
+            }
+            if (image.Count > 0)
+            {
+                Task<string> TDeleteImage = ryCsImage.DeleteMultiImage(image, "Package", TokenKey);
+                Task.WaitAll(TDeleteImage);
+                if (TDeleteImage.Result == "Error")
+                {
+                    ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                }
+            }
+            Task<string> TDeleteImage1 = ryCsImage.DeleteImage(csPackage.CoverImageName, TokenKey, "PackageBanner");
+            
+            Task.WaitAll(TDeleteImage1);
+
+            if (TDeleteImage1.Result == "Error")
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
+
+
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
@@ -799,5 +1012,215 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
+
+
+        //Package Exclusion
+        [HttpGet]
+        public async Task<IActionResult> PackageExclusionList(string PeId)
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+            PackageInExCheckbox facilityList = new PackageInExCheckbox();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageExclusionMap/PackageExclusionList/" + PeId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    facilityList = await System.Text.Json.JsonSerializer.DeserializeAsync<PackageInExCheckbox>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            return View("_CreateOrEditPackageExclusion", facilityList);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddPackageExclusion(PackageInExCheckbox model)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            model.CompId = CompID;
+
+            if (ModelState.IsValid)
+            {
+                using (HttpClient client = APIColorStays.Initial())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("PackageExclusionMap/AddPackageExclusion", content))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            return RedirectToAction("GetPackageExclusion", new { id = model.Fk_Package_Name });
+                        }
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetPackageExclusion(string PeId)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            List<CsPackageExclusionMap> data = new List<CsPackageExclusionMap>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageExclusionMap/GetPackageExclusion/" + PeId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPackageExclusionMap>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        ViewBag.PackageExclusion = data;
+                        return View();
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DeletePackageExclusion(string PeId, string Id)
+        {
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageExclusionMap/DeleteConfirmed/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("GetPackageExclusion", new { id = PeId });
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
+        //Package Inclusion
+        [HttpGet]
+        public async Task<IActionResult> PackageInclusionList(string PeId)
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+            PackageInExCheckbox facilityList = new PackageInExCheckbox();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageInclusionMap/PackageInclusionList/" + PeId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    facilityList = await System.Text.Json.JsonSerializer.DeserializeAsync<PackageInExCheckbox>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            return View("_CreateOrEditPackageInclusion", facilityList);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddPackageInclusion(PackageInExCheckbox model)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            model.CompId = CompID;
+
+            if (ModelState.IsValid)
+            {
+                using (HttpClient client = APIColorStays.Initial())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("PackageInclusionMap/AddPackageInclusion", content))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            return RedirectToAction("GetPackageInclusion", new { id = model.Fk_Package_Name });
+                        }
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetPackageInclusion(string PeId)
+        {
+            Title();
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            List<CsPackageInclusionMap> data = new List<CsPackageInclusionMap>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageInclusionMap/GetPackageInclusion/" + PeId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPackageInclusionMap>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        ViewBag.PackageInclusion = data;
+                        return View();
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DeletePackageInclusion(string PeId, string Id)
+        {
+            ViewBag.Action = "RolesAssign";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageInclusionMap/DeleteConfirmed/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("GetPackageInclusion", new { id = PeId });
+                    }
+                }
+            }
+            return View("Error");
+        }
+
+
     }
 }
