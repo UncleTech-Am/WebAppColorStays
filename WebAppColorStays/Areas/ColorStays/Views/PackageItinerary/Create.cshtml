@@ -54,7 +54,7 @@
                                 <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
                             </div>
                             <div>
-                                <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 2)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                                <button style="display:none;" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 2)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
                             </div>
                         </div>
                     </form>
@@ -211,6 +211,7 @@
         document.getElementById('SwTb3').style.display = "block";
         ShowUploads();
         ActiveTabUt('UTabs2', 1);
+        ShowImage(document.getElementById('AId').value);
     }
 
     function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {
@@ -241,7 +242,7 @@
 
     //Show the Uploaded Image in the Tab.......................
     function ShowUploads() {
-        var Id = $("#Id").val();
+        var Id = $("#AId").val();
         getUT('/ColorStays/PackageItinerary/UploadedImage?Id=' + Id + '&ShowBtn=' + true, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;

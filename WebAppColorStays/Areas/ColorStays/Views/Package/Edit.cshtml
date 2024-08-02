@@ -79,7 +79,7 @@
                             @* <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Hotel/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button> *@
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetExclusion()"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetInclusion()"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                             @* <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Hotel/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button> *@
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 3)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 4)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                     <div class="Pg12">
                         <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
                             <i class="UT-ImageLine"></i>
-                            Upload Cover Image
+                            Upload Packge Image (800X600)
                         </h3>
                         <form action="/" enctype="multipart/form-data" method="POST">
                             <input type="hidden" name="PId" id="PId" />
@@ -235,6 +235,7 @@
             document.getElementById('Exclusion').innerHTML = "";
             document.getElementById('Exclusion').innerHTML = data;
         });
+        document.getElementById('PId').value = PackageId;
         //Ends
         StartSuggestionBox(2, 'SearchCurrency', '/ColorStays/Currency/SuggestCurrency', '', '', AoCeCurrency);
         StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
@@ -385,6 +386,7 @@
     //Here get the list of inclusion list
     function GetInclusion() {
         var id = $("#Id").val();
+        ActiveTabUt('UTabs1', 2)
         getUT('/ColorStays/Package/PackageInclusionList?PeId=' + id, function (data) {
             document.getElementById('CreateOrEditInclusion').innerHTML = "";
             document.getElementById('CreateOrEditInclusion').innerHTML = data;
@@ -422,7 +424,8 @@
 
     //Here get the list of Exclusion list
     function GetExclusion() {
-        var id = $("#Id").val();
+        var id = $("#Id").val(); 
+        ActiveTabUt('UTabs1', 3);
         getUT('/ColorStays/Package/PackageExclusionList?PeId=' + id, function (data) {
             document.getElementById('CreateOrEditExclusion').innerHTML = "";
             document.getElementById('CreateOrEditExclusion').innerHTML = data;

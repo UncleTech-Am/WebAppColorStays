@@ -607,6 +607,45 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             return View("Create", csReviewPost);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> CreatePackageWise()
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            ViewData["Fields"] = "Package";
+
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+            CsReviewPost csReviewPost = new CsReviewPost();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Review/Create/" + CompId + "/" + "Package", HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
+                    Task<Tuple<int, List<CsReview>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2, "Package");//Give the List of data
+                    PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
+                    ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        csReviewPost = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReviewPost>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    }
+                }
+            }
+            ViewData["Type"] = "Package";
+            csReviewPost.Condition = "Package";
+            ViewData["Action"] = "ReviewPackage";
+            return View("Create", csReviewPost);
+        }
+
+
+
+
         //POST: /Review/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

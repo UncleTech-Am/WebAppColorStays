@@ -28,7 +28,11 @@ namespace WebAppColorStays.CommonMethod
         public bool? IsBoolReview { get; set; }
         public string? ReviewId { get; set; }
         public string? Fk_ReviewQuestion_Name { get; set; }
+        [DisplayName("Package")]
         public string? Fk_Package_Name { get; set; }
+        [NotMapped]
+        public string? Package { get; set; }
+        [DisplayName("Hotel")]
         public string? Fk_Hotel_Name { get; set; }
         [NotMapped]
         public string? Hotel { get; set; }

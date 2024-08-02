@@ -95,6 +95,19 @@
         <div class="VnRd"><span asp-validation-for="Fk_Hotel_Name"></span></div>
     </div>
 }
+@if (fields == "Package")
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Package_Name)</div>
+                <input class="TtBxTt14" placeholder="Package Name" type="text" id="SearchPackage" asp-for="Hotel" autocomplete="off" onchange="ClearData('SearchPackage','Fk_Package_Name')" />
+                <input type="hidden" asp-for="Fk_Package_Name" required />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Fk_Package_Name"></span></div>
+    </div>
+}
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">

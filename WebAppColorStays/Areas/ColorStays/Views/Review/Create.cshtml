@@ -135,6 +135,10 @@
         if ('@fields' == "Hotel") {
             StartSuggestionBox(2, 'SearchHotel', '/ColorStays/Hotel/SuggestHotel', '', '', AoCeHotel);
         }
+        if ('@fields' == "Package") {
+            StartSuggestionBox(2, 'SearchPackage', '/ColorStays/Package/SuggestPackage', '', '', AoCePackage);
+        }
+
     });
 
     //Clear Autocompete data
@@ -175,10 +179,18 @@
         document.getElementById(InputId).value = event.target.Value;
     }
 
-     function AoCeHotel(event) {
+    function AoCeHotel(event) {
         var InputId = event.target.InputID;
         SuggestionClose(InputId);
         document.getElementById('Fk_Hotel_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
+    //Autocomplete
+    function AoCePackage(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Package_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
     }
 

@@ -108,6 +108,7 @@
     string ReviewCity = "";
     string ReviewPlace = "";
     string ReviewHotel = "";
+    string ReviewPackage = "";
     string ReviewReply = "";
 
     string CountryFestival = "";
@@ -186,6 +187,7 @@
         case "ReviewCity": ReviewCity = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "ReviewPlace": ReviewPlace = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "ReviewHotel": ReviewHotel = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
+        case "ReviewPackage": ReviewPackage = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "ReviewReply": ReviewReply = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
 
         case "Sightseeing": Sightseeing = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
@@ -656,6 +658,16 @@
                     <a href="~/ColorStays/Review/Index?condition=Hotel"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @ReviewPackage">
+                        <a href="~/ColorStays/Review/CreatePackageWise">Package Review</a>
+                    </div>
+                    <a href="~/ColorStays/Review/CreatePackageWise"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Review/Index?condition=Package"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
             @*<div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @ReviewReply">
@@ -1144,6 +1156,27 @@
                 </div>
             </div>
 
+            
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @PackageExclusion">
+                        <a href="~/ColorStays/PackageExclusion/Create">Package Exclusion</a>
+                    </div>
+                    <a href="~/ColorStays/PackageExclusion/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/PackageExclusion/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @PackageInclusion">
+                        <a href="~/ColorStays/PackageInclusion/Create">Package Inclusion</a>
+                    </div>
+                    <a href="~/ColorStays/PackageInclusion/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/PackageInclusion/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @Package">
@@ -1182,26 +1215,6 @@
                     <a href="~/ColorStays/PackageCityMap/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>*@
-
-            <div class="SideNavSubLinkDiv">
-                <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @PackageExclusion">
-                        <a href="~/ColorStays/PackageExclusion/Create">Package Exclusion</a>
-                    </div>
-                    <a href="~/ColorStays/PackageExclusion/Create"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/PackageExclusion/Index"><i class="UT-List-OLine"></i></a>
-                </div>
-            </div>
-
-            <div class="SideNavSubLinkDiv">
-                <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @PackageInclusion">
-                        <a href="~/ColorStays/PackageInclusion/Create">Package Inclusion</a>
-                    </div>
-                    <a href="~/ColorStays/PackageInclusion/Create"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/PackageInclusion/Index"><i class="UT-List-OLine"></i></a>
-                </div>
-            </div>
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
