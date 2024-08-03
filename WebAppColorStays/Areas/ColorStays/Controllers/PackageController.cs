@@ -1077,7 +1077,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Action = "RolesAssign";
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            List<CsPackageExclusionMap> data = new List<CsPackageExclusionMap>();
+            List<CsPackageInclusionMap> data = new List<CsPackageInclusionMap>();
 
             using (HttpClient client = APIColorStays.Initial())
             {
@@ -1087,7 +1087,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPackageExclusionMap>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPackageInclusionMap>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         ViewBag.PackageExclusion = data;
                         return View();
                     }

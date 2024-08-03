@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebAppColorStays.Models.ViewModel.CsPackageExclusionMap>
+﻿@model IEnumerable<WebAppColorStays.Models.ViewModel.CsPackageInclusionMap>
 @{
     Layout = null;
     ViewData["Action"] = "Package";
@@ -24,7 +24,7 @@
                     <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" onclick="DeleteExclusion('@item.Fk_Package_Name', '@id')" style="margin-left:8px"> <i class="UT-DeletePageSolid"> </i> </a>
                 </td>
                 <td>
-                    @item.Fk_PackageExclusion_Name
+                    @item.Fk_PackageInclusion_Name
                 </td>
             </tr>
         }

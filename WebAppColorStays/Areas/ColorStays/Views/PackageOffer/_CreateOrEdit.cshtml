@@ -1,9 +1,9 @@
-@model WebAppColorStays.Models.ViewModel.CsHotelOffer
+@model WebAppColorStays.Models.ViewModel.CsPackageOffer
 
 
 @{ 
     Layout = null; 
-    ViewData["Action"] = "HotelOffer";
+    ViewData["Action"] = "PackageOffer";
 }
 
 <div style="display:none">responseformUT @ViewData["ResponseName"]</div>
@@ -19,25 +19,25 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_HotelOfferType_Name)<span style="color:red;"> *</span></div>
-            <select asp-for="Fk_HotelOfferType_Name" asp-items="@await ViewBag.HotelOfferType" class="TtBxTt15" required>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_PackageOfferType_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_PackageOfferType_Name" asp-items="@await ViewBag.PackageOfferType" class="TtBxTt15" required>
                 <option value="">Select Offer Type</option>
             </select>
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Fk_HotelOfferType_Name"></span></div>
+    <div class="VnRd"><span asp-validation-for="Fk_PackageOfferType_Name"></span></div>
 </div>
 
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Hotel_Name)<span style="color:red;"> *</span></div>
-            <input class="TtBxTt14" placeholder="Hotel Name" type="text" id="SuggestHotel" asp-for="Hotel" autocomplete="off" required onchange="ClearData('SuggestHotel','Fk_Hotel_Name')" />
-            <input type="hidden" asp-for="Fk_Hotel_Name" required />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Package_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Package Name" type="text" id="SuggestPackage" asp-for="Package" autocomplete="off" required onchange="ClearData('SuggestPackage','Fk_Package_Name')" />
+            <input type="hidden" asp-for="Fk_Package_Name" required />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Fk_Hotel_Name"></span></div>
+    <div class="VnRd"><span asp-validation-for="Fk_Package_Name"></span></div>
 </div>
 
 
@@ -46,7 +46,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required />
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
@@ -57,7 +57,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Title)<span style="color:red;"> *</span></div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Title)" asp-for="Title" autocomplete="off" required/>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Title)" asp-for="Title" autocomplete="off" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Title"></span></div>
@@ -68,7 +68,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TagLine)<span style="color:red;"> *</span></div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.TagLine)" asp-for="TagLine" autocomplete="off" required/>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.TagLine)" asp-for="TagLine" autocomplete="off" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="TagLine"></span></div>
@@ -88,7 +88,7 @@
             </div>
             <div class="VnRd"><span asp-validation-for="Image"></span></div>
         </div>
-    }    
+    }
 }
 
 
@@ -102,12 +102,11 @@
     <div class="VnRd"><span asp-validation-for="Image"></span></div>
 </div>
 
-
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag)<span style="color:red;"> *</span></div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag)" asp-for="AltTag" autocomplete="off" required/>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag)" asp-for="AltTag" autocomplete="off" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="AltTag"></span></div>
@@ -119,7 +118,7 @@
         <div class="Fx33 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SyStartDate)</div>
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SyStartDate)<span style="color:red;"> *</span></div>
                     <input class="TtBxTt15" placeholder="Start Date" Name="SyStartDate" id="SyStartDate" type="text" autocomplete="off" required readonly value="@String.Format("{0:dd MMMM,yyyy}", Model.SyStartDate)" />
                     <div class="PgRt5 Cr-uPr" onclick="Empty('SyStartDate')"><i class="UT-DeletePageSolid"></i></div>
 
@@ -150,12 +149,12 @@
             <div class="VnRd"><span asp-validation-for="SyEndDate"></span></div>
         </div>
     </div>
-    
+
     <div class="FxRw">
         <div class="Fx33 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgStartDate)</div>
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgStartDate)<span style="color:red;"> *</span></div>
                     <input class="TtBxTt15" placeholder="Start Date" Name="BgStartDate" id="BgStartDate" type="text" autocomplete="off" required readonly value="@String.Format("{0:dd MMMM,yyyy}", Model.BgStartDate)" />
                     <div class="PgRt5 Cr-uPr" onclick="Empty('BgStartDate')"><i class="UT-DeletePageSolid"></i></div>
 
@@ -186,7 +185,7 @@
             <div class="VnRd"><span asp-validation-for="BgEndDate"></span></div>
         </div>
     </div>
-    
+
     <div class="FxRw">
         <div class="Fx33 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
@@ -221,16 +220,7 @@
     </div>
 
     <div class="FxRw">
-        <div class="Fx50 Pg2 MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <input class="SeIt1o15" type="checkbox" asp-for="IsApplyForAll" disabled readonly>
 
-                    &nbsp;Apply For All Room & Plan
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="IsApplyForAll"></span></div>
-        </div>
         <div class="Fx50 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
@@ -260,7 +250,7 @@
                 <div class="TtBxFlStDiv">
                     <div class="TtBxFlSt">
                         <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DiscountPercent)<span style="color:red;"> *</span></div>
-                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DiscountPercent)" asp-for="DiscountPercent" autocomplete="off" required/>
+                        <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DiscountPercent)" asp-for="DiscountPercent" autocomplete="off" required />
                     </div>
                 </div>
                 <div class="VnRd"><span asp-validation-for="DiscountPercent"></span></div>
@@ -322,7 +312,7 @@ else
         <div class="Fx33 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SyStartDate)</div>
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SyStartDate)<span style="color:red;"> *</span></div>
                     <input class="TtBxTt15" placeholder="Start Date" Name="SyStartDate" id="SyStartDate" type="text" autocomplete="off" required readonly />
                     <div class="PgRt5 Cr-uPr" onclick="Empty('SyStartDate')"><i class="UT-DeletePageSolid"></i></div>
 
@@ -354,12 +344,12 @@ else
             <div class="VnRd"><span asp-validation-for="SyEndDate"></span></div>
         </div>
     </div>
-   
+
     <div class="FxRw">
         <div class="Fx33 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgStartDate)</div>
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgStartDate)<span style="color:red;"> *</span></div>
                     <input class="TtBxTt15" placeholder="Start Date" Name="BgStartDate" id="BgStartDate" type="text" autocomplete="off" required readonly />
                     <div class="PgRt5 Cr-uPr" onclick="Empty('BgStartDate')"><i class="UT-DeletePageSolid"></i></div>
 
@@ -391,7 +381,7 @@ else
             <div class="VnRd"><span asp-validation-for="BgEndDate"></span></div>
         </div>
     </div>
-    
+
     <div class="FxRw">
         <div class="Fx33 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
@@ -426,16 +416,7 @@ else
     </div>
 
     <div class="FxRw">
-        <div class="Fx50 Pg2 MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <input class="SeIt1o15" type="checkbox" asp-for="IsApplyForAll" checked onchange="ShowRoomPlanDiv()">
-
-                    &nbsp;Apply For All Room & Plan
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="IsApplyForAll"></span></div>
-        </div>
+        
         <div class="Fx50 Pg2 MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
@@ -463,7 +444,7 @@ else
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
                     <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DiscountPercent)<span style="color:red;"> *</span></div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DiscountPercent)" asp-for="DiscountPercent" autocomplete="off" required/>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DiscountPercent)" asp-for="DiscountPercent" autocomplete="off" required />
                 </div>
             </div>
             <div class="VnRd"><span asp-validation-for="DiscountPercent"></span></div>
@@ -491,11 +472,6 @@ else
     </div>
 }
 
-
-
-<div id="RmPn" class="DyNe">
-    @await Html.PartialAsync("_HotelRoomPlan", Model) 
-</div>
 
 
 @* <div class="MnTp7 MnBm7">
@@ -536,7 +512,7 @@ else
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Remarks"></span></div>

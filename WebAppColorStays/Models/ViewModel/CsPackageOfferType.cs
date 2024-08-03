@@ -1,22 +1,20 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsPackageInclusionMap
+    public class CsPackageOfferType
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        [DisplayName("Package")]
-        public string? Fk_Package_Name { get; set; }
-        [NotMapped]
-        public string? Package { get; set; }
-        public bool? IsInclusion { get; set; }
-        public string? Fk_PackageInclusion_Name { get; set; }
+        public string? Label { get; set; }
+        [Remote("CheckDuplicationPackageOfferType", "PackageOfferType", AdditionalFields = ("NameAction, Id"))]
+        public string? Name { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
+
+        [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
         public bool? SelectStatus { get; set; }

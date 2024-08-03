@@ -69,6 +69,8 @@
     string ActivityTypeCountryMap = " ";
     string ActivityTypeStateMap = " ";
     string PackageType = " ";
+    string PackageOfferType = " ";
+    string PackageOffer = " ";
     string PackageTypeCountryMap = " ";
     string PackageTypeStateMap = " ";
     string MainLink6 = " ";
@@ -199,6 +201,8 @@
         case "PackageType": PackageType = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageTypeCountryMap": PackageTypeCountryMap = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageTypeStateMap": PackageTypeStateMap = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
+        case "PackageOfferType": PackageOfferType = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
+        case "PackageOffer": PackageOffer = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
 
         case "Restaurant": Restaurant = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
         case "RestaurantFoodType": RestaurantFoodType = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
@@ -1157,7 +1161,7 @@
             </div>
 
             
-            <div class="SideNavSubLinkDiv">
+            @* <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @PackageExclusion">
                         <a href="~/ColorStays/PackageExclusion/Create">Package Exclusion</a>
@@ -1165,7 +1169,7 @@
                     <a href="~/ColorStays/PackageExclusion/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/PackageExclusion/Index"><i class="UT-List-OLine"></i></a>
                 </div>
-            </div>
+            </div> *@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
@@ -1225,6 +1229,27 @@
                     <a href="~/ColorStays/PackageItinerary/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @PackageOfferType">
+                        <a href="~/ColorStays/PackageOfferType/Create">Package Offer Type</a>
+                    </div>
+                    <a href="~/ColorStays/PackageOfferType/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/PackageOfferType/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @PackageOffer">
+                        <a href="~/ColorStays/PackageOffer/Create">Package Offer</a>
+                    </div>
+                    <a href="~/ColorStays/PackageOffer/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/PackageOffer/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+
         </div>
     </div>
 

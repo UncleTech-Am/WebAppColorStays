@@ -17,10 +17,11 @@
     <div class="FxRw FxAnImSh">
         <div class="Fx50 Pg3">
             <div id="UTabs1">
-                <div> Package Detail</div>
+                <div> Detail</div>
                 <div>Cities</div>
-                <div> Package Inclusion</div>
-                <div> Package Exclusion</div>
+                <div onclick="GetInclusion()">Inclusion</div>
+                <div onclick="GetExclusion()">Exclusion</div>
+                <div>Itinerary</div>
                 <div> Add Image</div>
                 <div>Set Up</div>
             </div>
@@ -100,17 +101,28 @@
                     <div id="CreateOrEditExclusion" style="height: 400px;overflow: auto;"></div>
                     <div class="Pg10 FxRw">
                         <div class="FxGw1">
-                            @* <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Hotel/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button> *@
+                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetInclusion()"><i class="UT-ArrowLeftCircleLine FtWt800"></i>&nbsp;Back</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 4)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetItinerary()"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="UTabs1Cont4">
+                    <div id="CreateOrEditExclusion" style="height: 400px;overflow: auto;"></div>
+                    <div class="Pg10 FxRw">
+                        <div class="FxGw1">
+                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetExclusion()"><i class="UT-ArrowLeftCircleLine FtWt800"></i>&nbsp;Back</button>
+                        </div>
+                        <div>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 5)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
                         </div>
                     </div>
                 </div>
 
 
-
-                <div id="UTabs1Cont4">
+                <div id="UTabs1Cont5">
                     <div class="Pg12">
                         <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
                             <i class="UT-ImageLine"></i>
@@ -129,7 +141,7 @@
                                     <button type="button" id="submit-all" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-ImageLine"></i>&nbsp;Upload</button>
                                 </div>
                                 <div>
-                                    <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 5)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                                    <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 6)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
                                 </div>
 
                             </div>
@@ -137,7 +149,7 @@
                     </div>
                 </div>
 
-                <div id="UTabs1Cont5">
+                <div id="UTabs1Cont6">
                     <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
                     <div class="Pg10 FxRw">
                         <div class="FxGw1">
@@ -153,9 +165,10 @@
         <div class="Fx50 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
             <div id="UTabs2">
                 <div>All Package</div>
-                <div>Package City</div>
-                <div>Package Inclusion</div>
-                <div>Package Exclusion</div>
+                <div>City</div>
+                <div>Inclusion</div>
+                <div>Exclusion</div>
+                <div>Itinerary</div>
                 <div>Image</div>
             </div>
             <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
@@ -173,8 +186,10 @@
                 <div id="UTabs2Cont3">
                     <div id="Exclusion"></div>
                 </div>
-
                 <div id="UTabs2Cont4">
+                    <div id="Itinerary"></div>
+                </div>
+                <div id="UTabs2Cont5">
                     <div id="Images"></div>
                 </div>
             </div>
@@ -189,8 +204,8 @@
 
 <script>
     $(document).ready(function () {
-        TabsUT('UTabs1', 0, null, [1, 2, 3, 4, 5]);
-        TabsUT('UTabs2', 0, null, [1, 2, 3, 4]);
+        TabsUT('UTabs1', 0, null, [1, 2, 3, 4, 5, 6]);
+        TabsUT('UTabs2', 0, null, [1, 2, 3, 4,5]);
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchCurrency', '/ColorStays/Currency/SuggestCurrency', '', '', AoCeCurrency);
         StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
@@ -395,10 +410,33 @@
         });
     }
 
+    //Here get the list of inclusion list
+    function GetInclusion() {
+        var id = $("#Id").val();
+        ActiveTabUt('UTabs1', 2)
+        getUT('/ColorStays/Package/PackageInclusionList?PeId=' + id, function (data) {
+            document.getElementById('CreateOrEditInclusion').innerHTML = "";
+            document.getElementById('CreateOrEditInclusion').innerHTML = data;
+            HideLoader();
+        });
+    }
+
+    function SuccessPackageInclusion(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "Detail");
+        //Show the Image Tab
+        ActiveTabUt('UTabs1', 2);
+        ActiveTabUt('UTabs2', 2);
+        GetInclusion();
+        GetSelectedInclusion();
+        document.getElementById('PeId').value = document.getElementById('PeId').value;
+    }
+
+
+
     function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "Images");
         ShowUploads();
-        ActiveTabUt('UTabs2', 4);
+        ActiveTabUt('UTabs2', 5);
     }
 
     //Table Search Success Function
@@ -474,7 +512,7 @@
         getUT('/ColorStays/PackageImage/UploadedImage?PackageId=' + PackageId + '&ShowBtn=' + true, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
-            ActiveTabUt('UTabs2', 4);
+            ActiveTabUt('UTabs2', 5);
             document.getElementById('SwTb3').style.display = "block";
             HideLoader();
         });
@@ -492,7 +530,7 @@
         getUT('/ColorStays/PackageImage/ImageDelete?ImageID=' + id + '&PackageId=' + PackageId + '&ImgName=' + imgname, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
-            ActiveTabUt('UTabs2', 4);
+            ActiveTabUt('UTabs2', 5);
             //Show the Images in LHS for Update
             getUT('/ColorStays/PackageImage/Index?PackageId=' + PackageId + '&UpdateDetail=Yes', function (data) {
                 document.getElementById('AddImgDetail').innerHTML = "";

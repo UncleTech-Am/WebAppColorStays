@@ -1,27 +1,22 @@
-﻿using System.ComponentModel;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsHotelOffer
+    public class CsPackageOffer
     {
-        public CsHotelOffer()
-        {
-            CsHotelOfferPlanRoom = new List<CsHotelOfferPlanRoom>();
-            CsRoomType = new List<CsRoomType>();
-        }
-
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
         public string? Label { get; set; }
-        [DisplayName("Hotel")]
-        public string? Fk_Hotel_Name { get; set; }
+        [DisplayName("Package")]
+        public string? Fk_Package_Name { get; set; }
         [NotMapped]
-        public string? Hotel { get; set; }
-        [DisplayName("HotelOfferType")]
-        public string? Fk_HotelOfferType_Name { get; set; }
+        public string? Package { get; set; }
+        [DisplayName("PackageOfferType")]
+        public string? Fk_PackageOfferType_Name { get; set; }
+
         public string? Name { get; set; }
         public string? Image { get; set; }
         public string? AltTag { get; set; }
@@ -35,7 +30,6 @@ namespace WebAppColorStays.Models.ViewModel
         public bool IsNoBgEndDate { get; set; }
         public bool IsRefundable { get; set; }
         public bool IsPayAtHotel { get; set; }
-        public bool IsApplyForAll { get; set; }
         public bool IsB2C { get; set; }
         public bool IsStackable { get; set; }
         public bool ISBlackOutDate { get; set; }
@@ -77,11 +71,5 @@ namespace WebAppColorStays.Models.ViewModel
         [Timestamp]
         [ConcurrencyCheck]
         public byte[]? RowVersion { get; set; }
-
-        [NotMapped]
-        public List<CsHotelOfferPlanRoom>? CsHotelOfferPlanRoom { get; set; }
-        [NotMapped]
-        public List<CsRoomType>? CsRoomType { get; set; }
-
     }
 }

@@ -11,8 +11,8 @@ namespace WebAppColorStays.Areas.ColorStays.CommonMethods
         public string? Fk_Package_Name { get; set; }
         [NotMapped]
         public string? Package { get; set; }
-        public string? Fk_PackageExclusion_Name { get; set; }
         public string? Fk_PackageInclusion_Name { get; set; }
+       // public bool? IsInclusion { get; set; }
         public string? Name { get; set; }
         public PackageInExCheckbox()
         {
