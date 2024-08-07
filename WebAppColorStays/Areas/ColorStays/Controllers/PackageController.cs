@@ -15,6 +15,7 @@ using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
 using LibCommon.APICommonMethods;
 using WebAppColorStays.Areas.ColorStays.CommonMethods;
+using LibCommon.UserAgent;
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
@@ -112,7 +113,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                                 Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                                 if (responsemsg != null && responsemsg.Message == "Duplicate")
                                 {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
-                                    ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
+                                    ModelState.AddModelError("City", "Duplicate Value, Already Exists !");
                                 }
                                 Success = false;
                             }
@@ -133,10 +134,48 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         [HttpGet]
         public async Task<IActionResult> PackageCityList(string PeId)
         {
-            Title();
-            ViewBag.Action = "RolesAssign";
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Title();
+
+            //Display the Dropdown of the Table fields in Search Data Popup
+            GetClassMember<CsPackageCityMap> getClassMember = new GetClassMember<CsPackageCityMap>();
+            CsPackageCityMap CsPackageCityMap = new CsPackageCityMap();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsPackageCityMap), "Value", "DisplayName");
+            //Ends
+
+            try //Pagination and List of data Code
+            {
+                using (HttpClient client = APIColorStays.Initial())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    using (var response = await client.GetAsync("PackageCityMap/index/" + CompID + "/" + PeId, HttpCompletionOption.ResponseHeadersRead))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            var data = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsPackageCityMap>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+
+                            ViewData["ActionName"] = "Index";
+                            ViewData["FormID"] = "NoSearchID";
+                            ViewData["SearchType"] = "NoSearch";
+                            return View(data);
+                        }
+                    }
+                }
+               
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+
+
+            Title();
+            ViewBag.Action = "RolesAssign";
+           
 
             using (HttpClient client = APIColorStays.Initial())
             {
@@ -1222,5 +1261,342 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
+
+
+
+        //GET: /PackageItinerary/Create
+        [HttpGet]
+        public async Task<IActionResult> CreateItinerary(string PeId)
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+
+            CsPackageItinerary csPackageItinerary = new CsPackageItinerary();
+            csPackageItinerary.Fk_Package_Name = PeId;
+            return View("_CreateorEditPackageItinerary", csPackageItinerary);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateItinerary(CsPackageItinerary CsPackageItinerary)
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            bool Success = false;
+            CsPackageItinerary.CompId = CompID;
+            CsPackageItinerary.ModifiedBy = UserID;
+            ViewData["ResponseName"] = "ShowValidation";
+            CsPackageItinerary data = new CsPackageItinerary();
+            var files = HttpContext.Request.Form.Files;
+
+            if (ModelState.IsValid)
+            {
+                using (HttpClient client = APIColorStays.Initial())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    if (CsPackageItinerary.Id == null)
+                    {
+                        foreach (var file in files)
+                        {
+
+                            var fileName = file.FileName;
+                            if ("Photo1" == file.Name)
+                            {
+                                CsPackageItinerary.Photo1 = fileName;
+                            }
+                            if ("Photo2" == file.Name)
+                            {
+                                CsPackageItinerary.Photo2 = fileName;
+                            }
+                            if ("Photo3" == file.Name)
+                            {
+                                CsPackageItinerary.Photo3 = fileName;
+                            }
+                            if ("Photo4" == file.Name)
+                            {
+                                CsPackageItinerary.Photo4 = fileName;
+                            }
+                            if ("Photo5" == file.Name)
+                            {
+                                CsPackageItinerary.Photo5 = fileName;
+                            }
+
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Itinerary");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+                        CsPackageItinerary.Id = Guid.NewGuid().ToString();
+                        CsPackageItinerary.CreatedBy = UserID;
+
+                        StringContent content = new StringContent(JsonSerializer.Serialize(CsPackageItinerary), Encoding.UTF8, "application/json");
+                        using (var response = await client.PostAsync("PackageItinerary/create", content))
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            if (response.IsSuccessStatusCode)
+                            {
+                                data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackageItinerary>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Success = true;
+                            }
+                            else
+                            {
+                                Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                if (responsemsg != null && responsemsg.Message == "Duplicate")
+                                {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                    ModelState.AddModelError("DayName", "Duplicate Value, Already Exists !");
+                                }
+                                if (responsemsg != null && responsemsg.Message == "Duplicate1")
+                                {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                    ModelState.AddModelError("DayNo", "Duplicate Value, Already Exists !");
+                                }
+                                Success = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var file in files)
+                        {
+                            var fileName = file.FileName;
+
+                            List<string> image = new List<string>();
+
+
+                            if ("Photo1" == file.Name)
+                            {
+                                if (CsPackageItinerary.ImageUrl1 != null)
+                                {
+                                    image.Add(CsPackageItinerary.Photo1);
+                                }
+                                CsPackageItinerary.Photo1 = fileName;
+                            }
+                            if ("Photo2" == file.Name)
+                            {
+                                if (CsPackageItinerary.ImageUrl2 != null)
+                                {
+                                    image.Add(CsPackageItinerary.Photo2);
+                                }
+                                CsPackageItinerary.Photo2 = fileName;
+                            }
+                            if ("Photo3" == file.Name)
+                            {
+                                if (CsPackageItinerary.ImageUrl3 != null)
+                                {
+                                    image.Add(CsPackageItinerary.Photo3);
+                                }
+                                CsPackageItinerary.Photo3 = fileName;
+                            }
+                            if ("Photo4" == file.Name)
+                            {
+                                if (CsPackageItinerary.ImageUrl4 != null)
+                                {
+                                    image.Add(CsPackageItinerary.Photo4);
+                                }
+                                CsPackageItinerary.Photo4 = fileName;
+                            }
+                            if ("Photo5" == file.Name)
+                            {
+                                if (CsPackageItinerary.ImageUrl5 != null)
+                                {
+                                    image.Add(CsPackageItinerary.Photo5);
+                                }
+                                CsPackageItinerary.Photo5 = fileName;
+                            }
+                            if (image.Count > 0)
+                            {
+                                Task<string> TDeleteImage = ryCsImage.DeleteMultiImage(image, "Itinerary", TokenKey);
+                                Task.WaitAll(TDeleteImage);
+                                if (TDeleteImage.Result == "Error")
+                                {
+                                    ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                                }
+                            }
+
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Itinerary");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+                        using (var response = await client.PostAsJsonAsync<CsPackageItinerary>("PackageItinerary/edit", CsPackageItinerary))
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            Success = true;
+
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                Tuple<CsPackageItinerary, Response> data1 = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsPackageItinerary, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+
+                                if (data1.Item2 != null)
+                                {
+                                    if (data1.Item2.Message == "Duplicate")
+                                    {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                        ModelState.AddModelError("DayName", "Duplicate Value, Already Exists !");
+                                    }
+                                    if (data1.Item2.Message == "Duplicate1")
+                                    {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                        ModelState.AddModelError("DayNo", "Duplicate Value, Already Exists !");
+                                    }
+                                    if (data1.Item2.Message == "GlobalItem")
+                                    {
+                                        ViewBag.Message = "Sytem Entry, Can't Change !";
+                                    }
+                                    if (data1.Item2.Message == "Verified")
+                                    {
+                                        ViewBag.Message = "You can not Edit Verified Entry !";
+                                    }
+                                }
+                                Success = false;
+                            }
+                        }
+                    }
+                }
+                if (Success == true)
+                {
+                    return RedirectToAction("Index", "PackageItinerary", new { PeId = CsPackageItinerary.Fk_Package_Name });
+                }
+                else { return View("_CreateOrEditPackageItinerary", CsPackageItinerary); }
+            }
+            return View("_CreateOrEditPackageItinerary", CsPackageItinerary);
+        }
+
+
+        //GET: /PackageItinerary/Edit/5
+        [HttpGet]
+        public async Task<ActionResult> EditItinerary(string id)
+        {
+            Title();
+            ViewData["AnName"] = "Edit";
+            ViewData["Id"] = id;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (id == null)
+            {
+                ViewBag.Message = "Not Founded";
+                return View();
+            }
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+
+            CsPackageItinerary CsPackageItinerary = new CsPackageItinerary();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageItinerary/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        CsPackageItinerary = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackageItinerary>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    }
+                    else
+                    {
+                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        if (responsemsg.Message == "NotFound")
+                        { ViewBag.Message = "Entry Not Exits!"; }
+                        if (responsemsg.Message == "GlobalItem")
+                        { ViewBag.Message = "Sytem Entry, Can't Change !"; }
+                    }
+                }
+            }
+            return View("_CreateorEditPackageItinerary", CsPackageItinerary);
+        }
+
+
+        //Delete the upload image
+        public async Task<IActionResult> ImageDelete(string Id, string Field, string ImgName)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            CsPackageItinerary CsActivityImages = new CsPackageItinerary();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageItinerary/ImageDelete/" + Id + "/" + Field, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return View("Error");
+                    }
+                    //Delete the Images from the folder
+                    Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Itinerary");
+                    Task.WaitAll(TDeleteImage);
+                }
+
+
+            }
+            return RedirectToAction("EditItinerary", new { Id });
+        }
+        //ends
+        //Get the list of itinerary
+        [HttpGet]
+        public async Task<IActionResult> ItineraryList(string PeId)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Title();
+
+            //Display the Dropdown of the Table fields in Search Data Popup
+            GetClassMember<CsPackageItinerary> getClassMember = new GetClassMember<CsPackageItinerary>();
+            CsPackageItinerary CsPackageItinerary = new CsPackageItinerary();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsPackageItinerary), "Value", "DisplayName");
+            //Ends
+            Tuple<int, List<CsPackageItinerary>> list;
+
+            try //Pagination and List of data Code
+            {
+                using (HttpClient client = APIColorStays.Initial())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    using (var response = await client.GetAsync("PackageItinerary/index/" + CompID + "/" + PeId, HttpCompletionOption.ResponseHeadersRead))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsPackageItinerary>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        }
+                        else { list = null; }
+                    }
+                }
+
+                ViewData["ActionName"] = "Index";
+                ViewData["FormID"] = "NoSearchID";
+                ViewData["SearchType"] = "NoSearch";
+
+                return View(list.Item2);
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+        }
+       
     }
 }

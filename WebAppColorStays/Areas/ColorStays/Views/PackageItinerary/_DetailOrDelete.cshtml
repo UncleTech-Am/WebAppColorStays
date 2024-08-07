@@ -20,7 +20,7 @@
  
         <tr>
         <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_Package_Name)</td>
-        <td>@Model.Fk_Package_Name</td>
+        <td>@Model.Package</td>
         </tr>
 
 		      
@@ -251,7 +251,7 @@
     <div class="DyFx FxJyCtSt Gp10 Wh100p">
         @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
         {
-            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/PackageItinerary/DeleteConfirmed?Id=@Model.Id','/ColorStays/PackageItinerary');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="DeleteItinerary('@Model.Id','@Model.Fk_Package_Name');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
         }
 
         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))

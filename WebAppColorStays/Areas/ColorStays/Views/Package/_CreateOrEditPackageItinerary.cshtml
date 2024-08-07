@@ -3,14 +3,23 @@
 
 @{ 
     Layout = null; 
-    ViewData["Action"] = "PackageItinerary";
+    ViewData["Action"] = "Package";
 }
 
 <div style="display:none">responseformUT @ViewData["ResponseName"]</div>
 
 <h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
 
-@Html.HiddenFor(model => model.Id)
+@if (Model.Id == null)
+{
+    <input type="hidden" name="NameAction" id="NameAction" value="C" />
+}
+else
+{
+    <input type="hidden" name="NameAction" id="NameAction" value="E" />
+}
+
+<input type="hidden" id="ItineraryId" asp-for="Id" />
 @Html.HiddenFor(model => model.RowVersion)
 @Html.HiddenFor(model => model.CreatedBy)
 @Html.HiddenFor(model => model.CreatedOn)
@@ -22,7 +31,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DayNo)<span style="color:red;"> *</span></div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DayNo)" asp-for="DayNo" autocomplete="off" required/>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DayNo)" asp-for="DayNo" autocomplete="off" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="DayNo"></span></div>
@@ -355,4 +364,3 @@
     </div>
     <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
 </div>
-

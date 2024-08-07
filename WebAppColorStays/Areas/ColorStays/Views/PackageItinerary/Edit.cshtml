@@ -1,38 +1,22 @@
 @model WebAppColorStays.Models.ViewModel.CsPackageItinerary
 
 @{
-    Layout = "_Layout";
-    ViewData["Action"] = "PackageItinerary";
+    Layout = null;
+    ViewData["Action"] = "Package";
 }
 
 
-<div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
-    <div class="CrTeTtLt FxGw1"> <h1>Add @ViewBag.Title</h1></div>
-    <div>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1"><i class="UT-List-OLine FtSz18" onclick="location.href='/ColorStays/PackageItinerary/Index'"></i></button>
-    </div>
-</div>
-
 <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
-    <div class="FxRw FxAnImSh">
-        <div class="Fx50 Pg3">
-            <div id="UTabs1">
-                <div> Detail</div>
-                <div>Add Image</div>
-                <div>SetUp</div>
-            </div>
+    <div class="FxAnImSh">
+           
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
-                <div id="UTabs1Cont0">
-                    <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
-                        <i class="UT-PenNibSmall"></i>
-                        Enter Detail
-                    </h3>
                     <form id="Edit"
                           data-ajax="true"
                           data-ajax-url="/ColorStays/PackageItinerary/Edit"
                           data-ajax-method="POST"
                           data-ajax-loading="#loader"
-                          data-ajax-success="Success(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/PackageItinerary/CreateOrEdit?id=@Model.Id')"
+                          enctype="multipart/form-data"
+                          data-ajax-success="SuccessItinerary(data, status, xhr,'Edit','CreateOrEdit','@Model.Id')"
                           data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')">
 
                         @Html.AntiForgeryToken()
@@ -54,240 +38,11 @@
                                 <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
                             </div>
                             <div>
-                                <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/PackageItinerary/Create'"><i class="UT-AddLine"></i>&nbsp;New Entry</button>
+                                <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetItinerary()"><i class="UT-AddLine"></i>&nbsp;New Entry</button>
                             </div>
                         </div>
                     </form>
-                </div>
-                <div id="UTabs1Cont1">
-                    <div class="Pg12">
-                        <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
-                            <i class="UT-ImageLine"></i>
-                            Upload Image
-                        </h3>
-                        <form id="CreateDn"
-                              data-ajax="true"
-                              data-ajax-url="/ColorStays/PackageItinerary/SaveImage"
-                              data-ajax-method="POST"
-                              data-ajax-loading="#loader"
-                              enctype="multipart/form-data"
-                              data-ajax-success="SuccessDn(data, status, xhr,'CreateDn','AddImage')"
-                              data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateDn')">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="NameAction" value="E" />
-                            <div id="AddImage"></div>
-
-                            <div class="MnTp7 MnBm7 FxRw">
-                                <div class="FxGw1">
-                                    <button type="submit" id="submit-all" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-ImageLine"></i>&nbsp;Upload</button>
-                                </div>
-                                <div>
-                                    <button style="display:none;" id="SwTb3" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 2)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div id="UTabs1Cont2">
-                    <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
-                    <div class="Pg10 FxRw">
-                        <div class="FxGw1">
-                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/PackageItinerary/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
-                        </div>
-                        <div>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
-        <div class="Fx50 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
-            <div id="UTabs2">
-                <div>All Package Itinerary </div>
-                <div>Image</div>
-            </div>
-            <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
-                <div id="UTabs2Cont0">
-                    <div id="Detail">
-                        @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsPackageItinerary>)ViewData["EnteredDetails"])
-                    </div>
-                </div>
-                <div id="UTabs2Cont1">
-                    <div id="Images"></div>
-                </div>
-            </div>
-
-        </div>
     </div>
 </div>
-
-<script src="~/js/tinymce_6.2.0/tinymce/js/tinymce/tinymce.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        TabsUT('UTabs1', 0, null, []);
-        TabsUT('UTabs2', 0, null, []);
-        var Id = $("#Id").val();
-        getUT('/ColorStays/PackageItinerary/UploadedImage?Id=' + Id, function (data) {
-            document.getElementById('Images').innerHTML = "";
-            document.getElementById('Images').innerHTML = data;
-            document.getElementById('SwTb3').style.display = "block";
-            HideLoader();
-        });
-        //Show the Images in LHS for Update
-        getUT('/ColorStays/PackageItinerary/UploadedImage?Id=' + Id + '&UpdateDetail=Yes', function (data) {
-            document.getElementById('AddImgDetail').innerHTML = "";
-            document.getElementById('AddImgDetail').innerHTML = data;
-        });
-        StartSuggestionBox(2, 'SearchPackage', '/ColorStays/Package/SuggestPackage', '', '', AoCePackage);
-        MaxMin();
-
-    });
-
-    tinymce.init({
-        selector: '#DayActivity',
-        plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
-        toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
-        a11ychecker_level: 'aaa',
-        style_formats: [
-            { title: 'Heading 1', block: 'h1' },
-            { title: 'Heading 2', block: 'h2' },
-            { title: 'Paragraph', block: 'p' },
-            { title: 'Blockquote', block: 'blockquote' },
-            { title: 'Image formats' },
-            { title: 'Medium', selector: 'img', classes: 'medium' },
-        ],
-        object_resizing: true,
-        valid_classes: {
-            'img': 'medium',
-            'div': 'related-content'
-        },
-        image_caption: true,
-        templates: [
-            {
-                title: 'Related content',
-                description: 'This template inserts a related content block',
-                content: '<div class="related-content"><h3>Related content</h3><p><strong>{$rel_lede}</strong> {$rel_body}</p></div>'
-            }
-        ],
-        content_langs: [
-            { title: 'English (US)', code: 'en_US' },
-        ],
-        content_style: `
-                                    img {
-                                        height: auto;
-                                    margin: auto;
-                                    padding: 10px;
-                                    display: block;
-                                                        }
-                                    img.medium {
-                                        max - width: 25%;
-                                                        }
-                                    `
-    });
-
-    //Clear Autocompete data
-    function ClearData(UrNe, UrId) {
-        document.getElementById(UrNe).value = '';
-        document.getElementById(UrId).value = '';
-    }
-
-    //Autocomplete
-    function AoCePackage(event) {
-        var InputId = event.target.InputID;
-        SuggestionClose(InputId);
-        document.getElementById('Fk_Package_Name').value = event.target.Id;
-        document.getElementById(InputId).value = event.target.Value;
-    }
-
-
-    function Success(data, status, xhr, FormID, FormFieldID) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
-        ShowImage(document.getElementById('PgIyId').value);
-        ActiveTabUt('UTabs2', 0);
-    }
-
-    function ShowImage(Id) {
-        ShowLoader();
-        getUT('/ColorStays/PackageItinerary/AddImage?Id=' + Id, function (data) {
-            document.getElementById('AddImage').innerHTML = "";
-            document.getElementById('AddImage').innerHTML = data;
-            ActiveTabUt('UTabs1', 1);
-            HideLoader();
-        });
-    }
-
-    function SuccessDn(data, status, xhr, FormID, FormFieldID) {
-        //FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Images");
-        document.getElementById('SwTb3').style.display = "block";
-        ShowUploads();
-        ActiveTabUt('UTabs2', 1);
-        ShowImage(document.getElementById('AId').value);
-    }
-
-    function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "Images");
-        ShowUploads();
-        ActiveTabUt('UTabs2', 1);
-    }
-
-    //Table Search Success Function
-    function TableSuccessFn(data, status, xhr, FormID) {
-        //This the SuccessFunction
-        FormAjaxSuccess(data, FormID, '', "UpdateDivNoFReset", "Def");
-        //Here we update the pageno,pagesize and listcount
-        var doc = new DOMParser().parseFromString(data, "text/html");
-        var pageinfo = doc.getElementById("PaginationAt");
-        var netrecord = pageinfo.getAttribute("netrecord");
-        var pageno = pageinfo.getAttribute("pagenumber");
-        var pagesize = pageinfo.getAttribute("PageSize");
-        //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/PackageItinerary/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
-    }
-
-    function IntializeTableSearch() {
-        var SkipRow = [0, 1];
-        var SkipCol = [0];
-        StartTableSearch('TeUT', SkipRow, SkipCol);
-    }
-
-    //Show the Uploaded Image in the Tab.......................
-    function ShowUploads() {
-        var Id = $("#Id").val();
-        getUT('/ColorStays/PackageItinerary/UploadedImage?Id=' + Id + '&ShowBtn=' + true, function (data) {
-            document.getElementById('Images').innerHTML = "";
-            document.getElementById('Images').innerHTML = data;
-            ActiveTabUt('UTabs2', 1);
-            document.getElementById('SwTb3').style.display = "block";
-            HideLoader();
-        });
-        //Show the Images in LHS for Update
-        getUT('/ColorStays/PackageItinerary/UploadedImage?Id=' + Id + '&UpdateDetail=Yes', function (data) {
-            document.getElementById('AddImgDetail').innerHTML = "";
-            document.getElementById('AddImgDetail').innerHTML = data;
-        });
-    };
-    //Ends.............................
-
-    //Delete the Image
-    function DeleteImg(id, field, imgname) {
-        ShowLoader();
-        getUT('/ColorStays/PackageItinerary/ImageDelete?Id=' + id + '&Field=' + field + '&ImgName=' + imgname, function (data) {
-            document.getElementById('Images').innerHTML = "";
-            document.getElementById('Images').innerHTML = data;
-            ActiveTabUt('UTabs2', 1);
-            //Show the Images in LHS for Update
-            getUT('/ColorStays/PackageItinerary/UploadedImage?Id=' + id + '&UpdateDetail=Yes', function (data) {
-                document.getElementById('AddImgDetail').innerHTML = "";
-                document.getElementById('AddImgDetail').innerHTML = data;
-            });
-            HideLoader();
-        });
-        
-        
-    };
-    //Ends
-
-</script>
 

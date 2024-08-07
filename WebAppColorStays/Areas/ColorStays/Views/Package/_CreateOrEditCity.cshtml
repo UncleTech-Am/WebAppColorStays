@@ -9,15 +9,7 @@
 
 <h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
 
-<form id="CreatePackageCity"
-      data-ajax="true"
-      data-ajax-url="/ColorStays/Package/AddPackageCity"
-      data-ajax-method="POST"
-      data-ajax-loading="#loader"
-      data-ajax-success="SuccessCity(data, status, xhr,'CreatePackageCity','CreateOrEditCity')"
-      data-ajax-failure="FormAjaxFail(xhr, status, error,'CreatePackageCity')">
 
-    @Html.AntiForgeryToken()
     @if (Model.Id == null)
     {
         <input type="hidden" name="NameAction" value="C" />
@@ -26,7 +18,6 @@
     {
         <input type="hidden" name="NameAction" value="E" />
     }
-    <div id="CreateOrEditCity">
 
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.RowVersion)
@@ -46,7 +37,7 @@
                     <input type="hidden" id="Fk_Country_NamePe" asp-for="Fk_Country_Name" required />
                 </div>
             </div>
-            <div class="VnRd"><span asp-validation-for="Fk_City_Name"></span></div>
+            <div class="VnRd"><span asp-validation-for="City"></span></div>
         </div>
 
         <div class="MnTp7 MnBm7">
@@ -58,10 +49,3 @@
             </div>
             <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
         </div>
-        <div class="MnTp7 MnBm7 FxRw">
-            <div class="FxGw1">
-                <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
-            </div>
-        </div>
-    </div>
-</form>

@@ -2,7 +2,7 @@
 
 @{
     Layout = null;
-    ViewData["Action"] = "PackageItinerary";
+    ViewData["Action"] = "Package";
     int PageNoSelect = Convert.ToInt32(ViewData["PageNumberSelected"]);
     int PageSize = Convert.ToInt32(ViewData["PageRecordSize"]);
 }
@@ -30,7 +30,7 @@
             <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('/ColorStays/PackageItinerary/Details?Id=@item.Id')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i> </a>
             @if (item.VerifiedStatus == false && item.ActiveStatus == false && item.GlobalStatus == false)
             {
-                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Id })"> <i class="UT-EditFileLine FtWt800"></i> </a>
+                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" onclick="EditItinerary('@item.Id')"> <i class="UT-EditFileLine FtWt800"></i> </a>
             }
         </td>
          
@@ -58,16 +58,16 @@
         </td>
 
         <td>@item.Sightseen</td>
-                  
-	    <td>@item.Photo1</td>
-         
-	    <td>@item.Photo2</td>
-         
-	    <td>@item.Photo3</td>
-         
-	    <td>@item.Photo4</td>
-         
-	    <td>@item.Photo5</td>
+
+        <td><img src="@item.ImageUrl1" class="Wh100p BrRs4" style="height:50px;object-fit:cover;" /> </td>
+
+        <td><img src="@item.ImageUrl2" class="Wh100p BrRs4" style="height:50px;object-fit:cover;" /></td>
+
+        <td><img src="@item.ImageUrl3" class="Wh100p BrRs4" style="height:50px;object-fit:cover;" /></td>
+
+        <td><img src="@item.ImageUrl4" class="Wh100p BrRs4" style="height:50px;object-fit:cover;" /></td>
+
+        <td><img src="@item.ImageUrl5" class="Wh100p BrRs4" style="height:50px;object-fit:cover;" /></td>
          
 	    <td>@item.Video</td>
          

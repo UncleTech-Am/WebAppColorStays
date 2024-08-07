@@ -44,12 +44,40 @@
 	    <td>@item.Stay</td>
          
 	    <td>@item.Sightseeing</td>
-         
-	    <td>@item.PackageHighlight</td>
-         
-	    <td>@item.Overview</td>
-         
-	    <td>@item.Duration</td>
+
+        <td>
+            @if (item.PackageHighlight != null && item.PackageHighlight.Length > 50)
+            {
+                @Html.Raw(item.PackageHighlight.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @Html.Raw(item.PackageHighlight)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.PackageHighlight)
+            }
+        </td>
+        <td>
+            @if (item.Overview != null && item.Overview.Length > 60)
+            {
+                @Html.Raw(item.Overview.Substring(0, 60))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @Html.Raw(item.Overview)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.Overview)
+            }
+        </td>
+        <td>@item.Duration</td>
          
 	    <td>@item.Breakfast</td>
          

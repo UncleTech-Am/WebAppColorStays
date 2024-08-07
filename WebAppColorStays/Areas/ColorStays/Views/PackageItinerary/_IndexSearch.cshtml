@@ -3,7 +3,7 @@
 
 @{
     Layout = null;
-    ViewData["Action"] = "PackageItinerary";
+    ViewData["Action"] = "Package";
 }
 
 <div style="color:red; font-weight:bold; font-size:15px;"> @ViewBag.Message</div>
@@ -11,9 +11,9 @@
 
 
 <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
-    <div id="PagenationShow">
+    @* <div id="PagenationShow">
         @await Html.PartialAsync("_Pagination")
-    </div>
+    </div> *@
 
     <div class="Wh100p OwAo" style="height:70vh;">
         <table class="TeStrip TeBr TeFxCl1" id="TeUT">

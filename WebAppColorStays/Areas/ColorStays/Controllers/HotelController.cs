@@ -1204,7 +1204,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             {
                                 data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPlanType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                                 Success = true;
-
                             }
                             else
                             {
@@ -1216,7 +1215,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                                 Success = false;
                             }
                         }
-
                     }
                 }
                 if (Success == true)

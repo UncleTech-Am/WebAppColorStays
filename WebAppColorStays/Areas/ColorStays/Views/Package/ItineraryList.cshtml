@@ -1,17 +1,15 @@
-@model List<WebAppColorStays.Models.ViewModel.CsPackageCityMap>
-
+﻿@model IEnumerable<WebAppColorStays.Models.ViewModel.CsPackageItinerary>
 @{
     Layout = null;
     ViewData["Action"] = "Package";
 }
 
-<b style="display:none" >responseformUT SuccessPop</b>
 
 <table class="TeStrip TeBr TeFxCl1">
     <thead class="TeFxHd">
         <tr>
             <th>Remove</th>
-            <th>Selected City</th>
+            <th>Selected Itinerary</th>
         </tr>
     </thead>
 
@@ -23,10 +21,10 @@
                     @{
                         string id = @item.Id;
                     }
-                    <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" onclick="DeleteCity('@item.Fk_Package_Name', '@item.Id')" style="margin-left:8px"> <i class="UT-DeletePageSolid"> </i> </a>
-                </td>
+@*                     <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" onclick="DeletePlan('@item.Fk_Hotel_Name', '@id')" style="margin-left:8px"> <i class="UT-DeletePageSolid"> </i> </a>
+ *@                </td>
                 <td>
-                    @item.Fk_City_Name
+                    @item.Fk_Package_Name
                 </td>
             </tr>
         }

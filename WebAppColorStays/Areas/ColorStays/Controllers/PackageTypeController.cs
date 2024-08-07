@@ -105,9 +105,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 foreach (var file in files)
                 {
-                    var fileName = "PackageType-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                    var fileName = file.FileName;
                     var extension = Path.GetExtension(file.FileName);
-                    if (extension == ".gif")
+                    if (extension == ".mp4")
                     {
                         CsPackageType.BigImage = fileName;
                     }

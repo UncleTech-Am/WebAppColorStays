@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
@@ -17,6 +18,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Description { get; set; }
         public double? StartingPrice { get; set; }
         public double? EndPrice { get; set; }
+        [DisplayName("Video")]
         public string? BigImage { get; set; }
         public string? AltTag1 { get; set; }
         [NotMapped]

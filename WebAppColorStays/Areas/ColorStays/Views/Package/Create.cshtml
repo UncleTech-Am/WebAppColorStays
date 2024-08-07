@@ -74,15 +74,27 @@
                 </div>
 
                 <div id="UTabs1Cont1">
-                    <div id="CreateOrEditCity" style="height: 400px;overflow: auto;"></div>
-                    <div class="Pg10 FxRw">
-                        <div class="FxGw1">
-                            @* <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Hotel/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button> *@
+                    <form id="CreatePackageCity"
+                          data-ajax="true"
+                          data-ajax-url="/ColorStays/Package/AddPackageCity"
+                          data-ajax-method="POST"
+                          data-ajax-loading="#loader"
+                          data-ajax-success="SuccessCity(data, status, xhr,'CreatePackageCity','CreateOrEditCity')"
+                          data-ajax-failure="FormAjaxFail(xhr, status, error,'CreatePackageCity')">
+
+                        @Html.AntiForgeryToken()
+                        <div id="CreateOrEditCity" style="height: 250px;overflow: auto;"></div>
+
+                        <div class="Pg10 FxRw">
+                            <div class="FxGw1">
+                                <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                            </div>
+                            <div>
+                                <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetInclusion()"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                            </div>
                         </div>
-                        <div>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetInclusion()"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
-                        </div>
-                    </div>
+                    </form>
+
                 </div>
 
                 <div id="UTabs1Cont2">
@@ -110,15 +122,46 @@
                 </div>
 
                 <div id="UTabs1Cont4">
-                    <div id="CreateOrEditExclusion" style="height: 400px;overflow: auto;"></div>
-                    <div class="Pg10 FxRw">
-                        <div class="FxGw1">
-                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetExclusion()"><i class="UT-ArrowLeftCircleLine FtWt800"></i>&nbsp;Back</button>
+                    <form id="CreateItinerary"
+                          data-ajax="true"
+                          data-ajax-url="/ColorStays/Package/CreateItinerary"
+                          data-ajax-method="POST"
+                          data-ajax-loading="#loader"
+                          enctype="multipart/form-data"
+                          data-ajax-success="SuccessItinerary(data, status, xhr,'CreateItinerary','CreateOrEditItinerary')"
+                          data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateItinerary')">
+
+                        @Html.AntiForgeryToken()
+
+                        <div id="CreateOrEditItinerary"></div>
+                        <div class="MnTp7 MnBm7" style="height:66vh;">
+                            <div>
+                                <div class="MaxMinDv">
+                                    <textarea class="TtAaTt15" placeholder="DayActivity" name="DayActivity" id="DayActivity" autocomplete="off"></textarea>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 5)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+
+                        <div class="MnTp7 MnBm7 FxRw">
+                            <div class="FxGw1">
+                                <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                            </div>
+                            <div>
+                                <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetItinerary()"><i class="UT-AddLine"></i>&nbsp;New Entry</button>
+                            </div>
+                            <div class="Pg10 FxRw">
+                                <div class="FxGw1">
+                                    <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetExclusion()"><i class="UT-ArrowLeftCircleLine FtWt800"></i>&nbsp;Back</button>
+                                </div>
+                                <div>
+                                    <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 5)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                                </div>
+                            </div>
+
+
                         </div>
-                    </div>
+                    </form>
+
                 </div>
 
 
@@ -201,6 +244,9 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <link href="~/lib/dropzone/min/dropzone.min.css" rel="stylesheet" />
 <script src="~/lib/dropzone/min/dropzone.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 <script>
     $(document).ready(function () {
@@ -283,6 +329,16 @@
         document.getElementById('Fk_Country_Name').value = event.target.Text2;
     }
 
+    //Autocomplete Item
+    function AoCePeCity(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_City_NamePe').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+        document.getElementById('Fk_State_NamePe').value = event.target.Text1;
+        document.getElementById('Fk_Country_NamePe').value = event.target.Text2;
+    }
+
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
         //Show the Image Tab
@@ -313,27 +369,32 @@
             HideLoader();
         });
     }
+
     function SuccessCity(data, status, xhr, FormID, FormFieldID) {
-        //FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "City");
-        FormReset(FormID);
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "City");
         //Show the Image Tab
         ActiveTabUt('UTabs1', 1);
         ActiveTabUt('UTabs2', 1);
-        document.getElementById('City').innerHTML = "";
-        document.getElementById('City').innerHTML = data; 
-        document.getElementById('PeId').value = document.getElementById('PeId').value;
+        if (!data.includes("ShowValidation")) {
+            document.getElementById('City').innerHTML = "";
+            document.getElementById('City').innerHTML = data;
+            document.getElementById('PeId').value = document.getElementById('PeId').value;
+        }
     }
 
 
     function GetSelectedCity() {
         var PeId = document.getElementById('PeId').value;
-        getUT('/ColorStays/Package/PackageCityList?PeId=' + PeId, function (data) {
-            document.getElementById('City').innerHTML = "";
-            document.getElementById('City').innerHTML = data;
+        getUT('/ColorStays/Package/PackageCity?PeId=' + PeId, function (data) {
+            document.getElementById('CreateOrEditCity').innerHTML = "";
+            document.getElementById('CreateOrEditCity').innerHTML = data;
+            StartSuggestionBox(2, 'SearchCityPe', '/ColorStays/City/SuggestCity', '', '', AoCePeCity);
+
+            HideLoader();
         });
     }
 
-
+   
     //Here get the list of inclusion list
     function GetInclusion() {
         var id = document.getElementById('PeId').value;
@@ -410,27 +471,217 @@
         });
     }
 
-    //Here get the list of inclusion list
-    function GetInclusion() {
-        var id = $("#Id").val();
-        ActiveTabUt('UTabs1', 2)
-        getUT('/ColorStays/Package/PackageInclusionList?PeId=' + id, function (data) {
-            document.getElementById('CreateOrEditInclusion').innerHTML = "";
-            document.getElementById('CreateOrEditInclusion').innerHTML = data;
+    //Here get the list of Exclusion list
+    function GetItinerary() {
+        var id = document.getElementById('PeId').value;
+        ActiveTabUt('UTabs1', 4);
+        getUT('/ColorStays/Package/CreateItinerary?PeId=' + id, function (data) {
+            var container = document.getElementById('CreateOrEditItinerary');
+            container.innerHTML = data;
+
+            $.validator.unobtrusive.parse(container);
+
+            var idinput = document.getElementById('DayActivity').value;
+            tinymce.activeEditor.setProgressState(true);
+            tinymce.activeEditor.setProgressState(false, 300);
+            setTimeout(() => { tinymce.activeEditor.setContent(idinput) }, 200);
+            tinymce.init({
+                selector: '#DayActivity',
+                plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
+                toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
+                a11ychecker_level: 'aaa',
+                style_formats: [
+                    { title: 'Heading 1', block: 'h1' },
+                    { title: 'Heading 2', block: 'h2' },
+                    { title: 'Paragraph', block: 'p' },
+                    { title: 'Blockquote', block: 'blockquote' },
+                    { title: 'Image formats' },
+                    { title: 'Medium', selector: 'img', classes: 'medium' },
+                ],
+                object_resizing: true,
+                valid_classes: {
+                    'img': 'medium',
+                    'div': 'related-content'
+                },
+                image_caption: true,
+                templates: [
+                    {
+                        title: 'Related content',
+                        description: 'This template inserts a related content block',
+                        content: '<div class="related-content"><h3>Related content</h3><p><strong>{$rel_lede}</strong> {$rel_body}</p></div>'
+                    }
+                ],
+                content_langs: [
+                    { title: 'English (US)', code: 'en_US' },
+                ],
+                content_style: `
+                                        img {
+                                            height: auto;
+                                        margin: auto;
+                                        padding: 10px;
+                                        display: block;
+                                                            }
+                                        img.medium {
+                                            max - width: 25%;
+                                                            }
+                                        `
+            });
             HideLoader();
         });
     }
 
-    function SuccessPackageInclusion(data, status, xhr, FormID, FormFieldID) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "Detail");
-        //Show the Image Tab
-        ActiveTabUt('UTabs1', 2);
-        ActiveTabUt('UTabs2', 2);
-        GetInclusion();
-        GetSelectedInclusion();
+    function EditItinerary(id) {
+        ActiveTabUt('UTabs1', 4);
+        getUT('/ColorStays/Package/EditItinerary?id=' + id, function (data) {
+            var container = document.getElementById('CreateOrEditItinerary');
+            container.innerHTML = data;
+            $.validator.unobtrusive.parse(container);
+            var idinput = document.getElementById('DayActivity').value;
+            tinymce.activeEditor.setProgressState(true);
+            tinymce.activeEditor.setProgressState(false, 300);
+            setTimeout(() => { tinymce.activeEditor.setContent(idinput) }, 200);
+            tinymce.init({
+                selector: '#DayActivity',
+                plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
+                toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
+                a11ychecker_level: 'aaa',
+                style_formats: [
+                    { title: 'Heading 1', block: 'h1' },
+                    { title: 'Heading 2', block: 'h2' },
+                    { title: 'Paragraph', block: 'p' },
+                    { title: 'Blockquote', block: 'blockquote' },
+                    { title: 'Image formats' },
+                    { title: 'Medium', selector: 'img', classes: 'medium' },
+                ],
+                object_resizing: true,
+                valid_classes: {
+                    'img': 'medium',
+                    'div': 'related-content'
+                },
+                image_caption: true,
+                templates: [
+                    {
+                        title: 'Related content',
+                        description: 'This template inserts a related content block',
+                        content: '<div class="related-content"><h3>Related content</h3><p><strong>{$rel_lede}</strong> {$rel_body}</p></div>'
+                    }
+                ],
+                content_langs: [
+                    { title: 'English (US)', code: 'en_US' },
+                ],
+                content_style: `
+                                        img {
+                                            height: auto;
+                                        margin: auto;
+                                        padding: 10px;
+                                        display: block;
+                                                            }
+                                        img.medium {
+                                            max - width: 25%;
+                                                            }
+                                        `
+            });
+
+            HideLoader();
+        });
+    }
+
+    //Delete the Image
+    function DeleteIyImg(id, field, imgname, PackageId) {
+        ShowLoader();
+        getUT('/ColorStays/Package/ImageDelete?Id=' + id + '&Field=' + field + '&ImgName=' + imgname, function (data) {
+            document.getElementById('CreateOrEditItinerary').innerHTML = "";
+            document.getElementById('CreateOrEditItinerary').innerHTML = data;
+            var idinput = document.getElementById('DayActivity').value;
+            tinymce.activeEditor.setProgressState(true);
+            tinymce.activeEditor.setProgressState(false, 300);
+            setTimeout(() => { tinymce.activeEditor.setContent(idinput) }, 200);
+            tinymce.init({
+                selector: '#DayActivity',
+                plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
+                toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
+                a11ychecker_level: 'aaa',
+                style_formats: [
+                    { title: 'Heading 1', block: 'h1' },
+                    { title: 'Heading 2', block: 'h2' },
+                    { title: 'Paragraph', block: 'p' },
+                    { title: 'Blockquote', block: 'blockquote' },
+                    { title: 'Image formats' },
+                    { title: 'Medium', selector: 'img', classes: 'medium' },
+                ],
+                object_resizing: true,
+                valid_classes: {
+                    'img': 'medium',
+                    'div': 'related-content'
+                },
+                image_caption: true,
+                templates: [
+                    {
+                        title: 'Related content',
+                        description: 'This template inserts a related content block',
+                        content: '<div class="related-content"><h3>Related content</h3><p><strong>{$rel_lede}</strong> {$rel_body}</p></div>'
+                    }
+                ],
+                content_langs: [
+                    { title: 'English (US)', code: 'en_US' },
+                ],
+                content_style: `
+                                            img {
+                                                height: auto;
+                                            margin: auto;
+                                            padding: 10px;
+                                            display: block;
+                                                                }
+                                            img.medium {
+                                                max - width: 25%;
+                                                                }
+                                            `
+            });
+
+            getUT('/ColorStays/PackageItinerary/Index?PeId=' + PackageId, function (data) {
+                document.getElementById('Itinerary').innerHTML = "";
+                document.getElementById('Itinerary').innerHTML = data;
+            });
+
+            HideLoader();
+        });
+    }
+
+    function SuccessItinerary(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Itinerary");
+        ActiveTabUt('UTabs1', 4);
+        ActiveTabUt('UTabs2', 4);
+        // if (data.includes("SuccessPop")) {
+        //     var id = $("#ItineraryId").val();
+        //     if (id != "") {
+        //         EditItinerary(id);
+        //     }
+        //     else {
+        //         GetItinerary();
+        //     }
+        // }
         document.getElementById('PeId').value = document.getElementById('PeId').value;
     }
 
+    function DeleteItinerary(Id, PeId) {
+        ShowLoader();
+        getUT('/ColorStays/PackageItinerary/DeleteConfirmed?Id=' + Id + '&PeId=' + PeId, function (data) {
+            document.getElementById('Itinerary').innerHTML = "";
+            document.getElementById('Itinerary').innerHTML = data;
+            HidePopUp();
+            HideLoader();
+        });
+    }
+
+
+    function GetItineraryList() {
+        var PackageId = document.getElementById('PeId').value;
+        getUT('/ColorStays/PackageItinerary/Index?PeId=' + PackageId, function (data) {
+            document.getElementById('Itinerary').innerHTML = "";
+            document.getElementById('Itinerary').innerHTML = data;
+        });
+
+    }
 
 
     function SuccessIeDl(data, status, xhr, FormID, FormFieldID) {

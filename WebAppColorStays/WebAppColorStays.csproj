@@ -122,6 +122,7 @@
     <Content Remove="Areas\ColorStays\Views\PackageItinerary\_CreatePhoto.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Package\PackageCityList.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Package\_CreateOrEditCity.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\Package\_CreateOrEditPackageItinerary.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Railway\_AddImage.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Railway\_CreatePhoto.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Review\_IndexData - Copy.cshtml" />
@@ -788,6 +789,7 @@
     <None Include="Areas\ColorStays\Views\Package\Index.cshtml" />
     <None Include="Areas\ColorStays\Views\Package\_CreateOrEditCity.cshtml" />
     <None Include="Areas\ColorStays\Views\Package\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Package\_CreateOrEditPackageItinerary.cshtml" />
     <None Include="Areas\ColorStays\Views\Package\_DetailOrDelete.cshtml" />
     <None Include="Areas\ColorStays\Views\Package\_IndexData.cshtml" />
     <None Include="Areas\ColorStays\Views\Package\_IndexSearch.cshtml" />
