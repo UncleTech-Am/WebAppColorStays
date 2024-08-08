@@ -112,7 +112,6 @@
     <Content Remove="Areas\ColorStays\Views\PackageImage\Create.cshtml" />
     <Content Remove="Areas\ColorStays\Views\PackageImage\Edit.cshtml" />
     <Content Remove="Areas\ColorStays\Views\PackageImage\Index.cshtml" />
-    <Content Remove="Areas\ColorStays\Views\PackageImage\_CreateOrEdit.cshtml" />
     <Content Remove="Areas\ColorStays\Views\PackageImage\_DetailOrDelete.cshtml" />
     <Content Remove="Areas\ColorStays\Views\PackageImage\_IndexData.cshtml" />
     <Content Remove="Areas\ColorStays\Views\PackageImage\_IndexSearch.cshtml" />
@@ -120,9 +119,6 @@
     <Content Remove="Areas\ColorStays\Views\PackageImage\_SearchData.cshtml" />
     <Content Remove="Areas\ColorStays\Views\PackageItinerary\_AddImage.cshtml" />
     <Content Remove="Areas\ColorStays\Views\PackageItinerary\_CreatePhoto.cshtml" />
-    <Content Remove="Areas\ColorStays\Views\Package\PackageCityList.cshtml" />
-    <Content Remove="Areas\ColorStays\Views\Package\_CreateOrEditCity.cshtml" />
-    <Content Remove="Areas\ColorStays\Views\Package\_CreateOrEditPackageItinerary.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Railway\_AddImage.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Railway\_CreatePhoto.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Review\_IndexData - Copy.cshtml" />
@@ -783,13 +779,10 @@
     <None Include="Areas\ColorStays\Views\PackageType\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageType\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageType\_SearchData.cshtml" />
-    <None Include="Areas\ColorStays\Views\Package\PackageCityList.cshtml" />
     <None Include="Areas\ColorStays\Views\Package\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\Package\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\Package\Index.cshtml" />
-    <None Include="Areas\ColorStays\Views\Package\_CreateOrEditCity.cshtml" />
     <None Include="Areas\ColorStays\Views\Package\_CreateOrEdit.cshtml" />
-    <None Include="Areas\ColorStays\Views\Package\_CreateOrEditPackageItinerary.cshtml" />
     <None Include="Areas\ColorStays\Views\Package\_DetailOrDelete.cshtml" />
     <None Include="Areas\ColorStays\Views\Package\_IndexData.cshtml" />
     <None Include="Areas\ColorStays\Views\Package\_IndexSearch.cshtml" />
@@ -807,7 +800,6 @@
     <None Include="Areas\ColorStays\Views\PackageImage\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageImage\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageImage\Index.cshtml" />
-    <None Include="Areas\ColorStays\Views\PackageImage\_CreateOrEdit.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageImage\_DetailOrDelete.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageImage\_IndexData.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageImage\_IndexSearch.cshtml" />
@@ -1114,6 +1106,8 @@
     <None Include="Areas\Developer\Views\_ViewImports.cshtml" />
     <None Include="Areas\Developer\Views\_ViewStart.cshtml" />
     <None Include="Areas\ColorStays\Views\Shared\EditorTemplates\OfferHotelPackage.cshtml" />
+    <None Include="wwwroot\ColorStaysIcons\demo-files\demo.js" />
+    <None Include="wwwroot\ColorStaysIcons\fonts\Colorstays.svg" />
     <None Include="wwwroot\js\tinymce_6.2.0\tinymce\CHANGELOG.md" />
     <None Include="wwwroot\js\tinymce_6.2.0\tinymce\js\tinymce\icons\default\icons.min.js" />
     <None Include="wwwroot\js\tinymce_6.2.0\tinymce\js\tinymce\langs\README.md" />

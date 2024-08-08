@@ -139,7 +139,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
         //ends
 
-
+        
         //show upload the image
         [HttpGet]
         public async Task<IActionResult> UploadedImage(string PackageId, string ShowBtn)

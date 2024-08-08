@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebAppColorStays.Models.ViewModel
@@ -13,6 +14,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationIcon", "Icon", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
+        [DisplayName("IconCode")]
         public string? HtmlCode { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }

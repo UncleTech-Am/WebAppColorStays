@@ -1,4 +1,4 @@
-@model WebAppColorStays.Models.ViewModel.CsPackageImage
+﻿@model WebAppColorStays.Models.ViewModel.CsPackageImage
 
 @{
     Layout = null;
@@ -61,7 +61,7 @@
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
                     <div class="TtBxFlStLl15">Banner Image</div>
-                    @Html.CheckBoxFor(x => x.CoverImage, htmlAttributes : new { id = "CoverImage", @Class = "TtBxTt15"})
+                    @Html.CheckBoxFor(x => x.CoverImage, htmlAttributes: new { id = "CoverImage", @Class = "TtBxTt15" })
                 </div>
             </div>
             <div class="VnRd"><span asp-validation-for="CoverImage"></span></div>

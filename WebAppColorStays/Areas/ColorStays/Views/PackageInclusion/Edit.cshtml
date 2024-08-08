@@ -66,6 +66,16 @@
         IntializeTableSearch();
     });
 
+    function ShowIcon(icon) {
+        document.getElementById('Icons').removeAttribute("class");
+        document.getElementById('Icons').setAttribute("className", "class");
+        document.getElementById('Icons').classList.add('ColorstaysIcon-' + icon);
+        document.getElementById('Icons').classList.add('FtSz24');
+        document.getElementById('Icons').classList.add('PgRt10');
+        document.getElementById('Icons').style.display = 'block';
+
+    }
+
     function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateEditDiv", "Def", FormFieldURL);
         //Here we get the pageno,pagesize and listcount

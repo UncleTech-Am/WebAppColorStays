@@ -30,14 +30,14 @@
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
                 <div id="UTabs1Cont0">
                     <div class="Pg12">
-                        <form id="Edit"
-                              data-ajax="true"
-                              data-ajax-url="/ColorStays/Package/Edit"
+                        <form id="Edit" name="Edit">
+                              @* data-ajax="true"
+                              data-ajax-url="/ColorStays/Package/EditPgDetail"
                               data-ajax-method="POST"
                               data-ajax-loading="#loader"
                               enctype="multipart/form-data"
-                              data-ajax-success="Success(data, status, xhr,'Edit','/ColorStays/Package/CreateOrEdit?id=@Model.Id')"
-                              data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')">
+                              data-ajax-success="SuccessE(data, status, xhr,'Edit', 'CreateOrEdit')"
+                              data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')"> *@
 
                             @Html.AntiForgeryToken()
 
@@ -61,9 +61,11 @@
                                 </div>
                             </div>
 
-                            <div class="MnTp7 MnBm7 FxRw">
+                            <div class="MnTp7 MnBm7 FxRw"> 
                                 <div class="FxGw1">
-                                    <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Next</button>
+                                    @* <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Next</button> *@
+
+                                    <button type="button" onclick="FormSubmit('/ColorStays/Package/EditPgDetail','Edit',SuccessE,Edit)" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Next</button>
                                 </div>
                                 <div>
                                     <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Package/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
@@ -270,6 +272,7 @@
         getUT('/ColorStays/Package/PackageCity?PeId=' + PackageId, function (data) {
             document.getElementById('CreateOrEditCity').innerHTML = "";
             document.getElementById('CreateOrEditCity').innerHTML = data;
+
             StartSuggestionBox(2, 'SearchCityPe', '/ColorStays/City/SuggestCity', '', '', AoCePeCity);
             HideLoader();
         });
@@ -445,16 +448,18 @@
         document.getElementById('Fk_State_Name').value = event.target.Text1;
         document.getElementById('Fk_Country_Name').value = event.target.Text2;
     }
-    function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail", FormFieldURL);
-        document.getElementById('Fk_State_Name').value = "";
-        document.getElementById('Fk_City_Name').value = "";
-        document.getElementById('Fk_Country_Name').value = "";
+    function SuccessE(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
         //Show the Image Tab
-        ActiveTabUt('UTabs1', 1);
-        ActiveTabUt('UTabs2', 0);
-        GetPackageCity();
-        document.getElementById('PId').value = document.getElementById('PeId').value;
+        if (data.includes("SuccessPop")) {
+            ActiveTabUt('UTabs1', 1);
+            ActiveTabUt('UTabs2', 0);
+            GetPackageCity();
+            document.getElementById('PId').value = document.getElementById('PeId').value;
+        }
+        else{
+            PopUpError(data);
+        }
     }
 
 

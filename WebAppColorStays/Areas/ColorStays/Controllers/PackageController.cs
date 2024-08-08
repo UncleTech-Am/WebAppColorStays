@@ -773,14 +773,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
             }
-            return View(CsPackage);
+            return View("Edit",CsPackage);
         }
 
                 
         //POST: /Package/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CsPackage CsPackage)
+        public async Task<IActionResult> EditPgDetail(CsPackage CsPackage)
         {
             Title();
             ViewData["AnName"] = "Edit";

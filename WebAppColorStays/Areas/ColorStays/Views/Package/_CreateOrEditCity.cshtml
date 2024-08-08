@@ -10,42 +10,42 @@
 <h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
 
 
-    @if (Model.Id == null)
-    {
-        <input type="hidden" name="NameAction" value="C" />
-    }
-    else
-    {
-        <input type="hidden" name="NameAction" value="E" />
-    }
+@if (Model.Id == null)
+{
+    <input type="hidden" name="NameAction" value="C" />
+}
+else
+{
+    <input type="hidden" name="NameAction" value="E" />
+}
 
-        @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.RowVersion)
-        @Html.HiddenFor(model => model.CreatedBy)
-        @Html.HiddenFor(model => model.CreatedOn)
-        @Html.HiddenFor(model => model.CompId)
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.RowVersion)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedOn)
+@Html.HiddenFor(model => model.CompId)
 
-        <input type="hidden" asp-for="Fk_Package_Name" />
+<input type="hidden" asp-for="Fk_Package_Name" />
 
-        <div class="MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_City_Name)<span style="color:red;"> *</span></div>
-                    <input class="TtBxTt14" placeholder="City Name" type="text" id="SearchCityPe" asp-for="City" autocomplete="off" required onchange="ClearData('SearchCityPe','Fk_City_Name', 'Fk_State_Name', 'Fk_Country_Name')" />
-                    <input type="hidden" id="Fk_City_NamePe" asp-for="Fk_City_Name" required />
-                    <input type="hidden" id="Fk_State_NamePe" asp-for="Fk_State_Name" required />
-                    <input type="hidden" id="Fk_Country_NamePe" asp-for="Fk_Country_Name" required />
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="City"></span></div>
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_City_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="City Name" type="text" id="SearchCityPe" asp-for="City" autocomplete="off" required onchange="ClearData('SearchCityPe','Fk_City_Name', 'Fk_State_Name', 'Fk_Country_Name')" />
+            <input type="hidden" id="Fk_City_NamePe" asp-for="Fk_City_Name" required />
+            <input type="hidden" id="Fk_State_NamePe" asp-for="Fk_State_Name" required />
+            <input type="hidden" id="Fk_Country_NamePe" asp-for="Fk_Country_Name" required />
         </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="City"></span></div>
+</div>
 
-        <div class="MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
         </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
+</div>

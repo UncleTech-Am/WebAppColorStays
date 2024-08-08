@@ -804,19 +804,26 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (CsPackageImages.ImageName != null)
             {
                 TDeleteImage1 = ryCsImage.DeleteImage(CsPackageImages.ImageName, TokenKey, "PackageType");
+                //Delete the Images from the folder
+                Task.WaitAll(TDeleteImage1);
+
+                if (TDeleteImage1.Result == "Error")
+                {
+                    ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                }
+
             }
             if (CsPackageImages.BigImage != null)
             {
                 TDeleteImage2 = ryCsImage.DeleteImage(CsPackageImages.BigImage, TokenKey, "PackageType");
-            }
-            //Delete the Images from the folder
-            Task.WaitAll(TDeleteImage1, TDeleteImage2);
+                //Delete the Images from the folder
+                Task.WaitAll(TDeleteImage2);
 
-            if (TDeleteImage1.Result == "Error" || TDeleteImage2.Result == "Error" )
-            {
-                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                if (TDeleteImage2.Result == "Error" )
+                {
+                    ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                }
             }
-
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);

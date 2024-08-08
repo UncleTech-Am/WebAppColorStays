@@ -1,8 +1,8 @@
-@model WebAppColorStays.Models.ViewModel.CsPackageItinerary
+﻿@model WebAppColorStays.Models.ViewModel.CsPackageItinerary
 
 
-@{ 
-    Layout = null; 
+@{
+    Layout = null;
     ViewData["Action"] = "Package";
 }
 
@@ -31,7 +31,7 @@ else
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DayNo)<span style="color:red;"> *</span></div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DayNo)" asp-for="DayNo" autocomplete="off" required />
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DayNo)" asp-for="DayNo" autocomplete="off" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="DayNo"></span></div>
@@ -42,7 +42,7 @@ else
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DayTitle)<span style="color:red;"> *</span></div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DayTitle)" asp-for="DayTitle" autocomplete="off" required/>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DayTitle)" asp-for="DayTitle" autocomplete="off" required />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="DayTitle"></span></div>
@@ -53,7 +53,7 @@ else
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Video)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Video)" asp-for="Video" autocomplete="off" />
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Video)" asp-for="Video" autocomplete="off" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Video"></span></div>
@@ -159,7 +159,7 @@ else
                         <input type="button" onclick="DeleteIyImg('@Model.Id', 'Photo1','@Model.Photo1','@Model.Fk_Package_Name')" value="Delete" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
                     </div>
                 </div>
-                
+
             </div>
 
         </div>
@@ -359,7 +359,7 @@ else
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
