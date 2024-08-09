@@ -35,6 +35,9 @@
                         <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_FacilityCategory_Name)" name="Fk_FacilityCategory_Name" autocomplete="off" />
                         </td>
 
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Icon)" name="Icon" autocomplete="off" />
+                    </td>
                         <td>
                         <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.IsHighlighted)" name="IsHighlighted" autocomplete="off" />
                         </td>
@@ -47,9 +50,6 @@
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Description)" name="Description" autocomplete="off"/>
                         </td>
                         
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Logo)" name="Logo" autocomplete="off"/>
-                        </td>
                         
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Remarks)" name="Remarks" autocomplete="off"/>
@@ -122,11 +122,11 @@
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark Star" onclick="MultiButtonFunc('Star','','','/ColorStays/HotelFacility')"> <i class="UT-StarSolid"></i></a>
                     </th>
                                         <th> @Html.DisplayNameFor(model => model.Name) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Fk_FacilityCategory_Name) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Fk_FacilityCategory_Name) </th>  
+                                        <th> @Html.DisplayNameFor(model => model.Icon) </th>       
                                         <th> @Html.DisplayNameFor(model => model.IsHighlighted) </th>       
                                         <th> @Html.DisplayNameFor(model => model.IsBasic) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Description) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Logo) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Remarks) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezeStatus) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezedBy) </th>       

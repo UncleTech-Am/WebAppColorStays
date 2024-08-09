@@ -32,11 +32,11 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Icon)<span style="color:red;"> *</span></div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Icon)" asp-for="Icon" autocomplete="off" required onchange="ShowIcon(this.value)" />
-            <i id="Icons" style="display:none" class=""></i>
+            <input class="TtBxTt14" placeholder="Icon Name" type="text" id="SearchIcon" asp-for="Icon" autocomplete="off" onchange="ClearData('SearchIcon','Fk_Icon_Name')" required/>
+            <input type="hidden" asp-for="Fk_Icon_Name" required />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Icon"></span></div>
+    <div class="VnRd"><span asp-validation-for="Fk_Icon_Name"></span></div>
 </div>
 
 

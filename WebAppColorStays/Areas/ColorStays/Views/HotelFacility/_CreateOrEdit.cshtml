@@ -39,6 +39,18 @@
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
 </div>
 
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Icon)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Icon Name" type="text" id="SearchIcon" asp-for="Icon" autocomplete="off" onchange="ClearData('SearchIcon','Fk_Icon_Name')" required/>
+            <input type="hidden" asp-for="Fk_Icon_Name" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_Icon_Name"></span></div>
+</div>
+
+
 <div class="FxRw"> 
     <div class="Fx50 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
@@ -72,17 +84,6 @@
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Description"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Logo)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Logo)" asp-for="Logo" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Logo"></span></div>
 </div>
 
 

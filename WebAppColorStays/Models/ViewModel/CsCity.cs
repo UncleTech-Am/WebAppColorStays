@@ -31,6 +31,8 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter Name.")]
         [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
         public string Name { get; set; }
+        [DisplayName("TransportType")]
+        public string? HowToReach { get; set; }
         public string? Label { get; set; }
         public string? RankLabel { get; set; }
         public string? Image { get; set; }

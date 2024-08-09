@@ -55,7 +55,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         id = Base64UrlEncoder.Encode(Process.Encrypt(x.Id)),
                         value = x.Value,
-                        label = x.Label,
+                        label = "<i class=\"" + x.Label + "\"></i>" + " " + x.Value,
 
                     }).ToList();
                     return Json(data);

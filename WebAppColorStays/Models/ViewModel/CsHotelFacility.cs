@@ -1,6 +1,7 @@
 ﻿
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -15,7 +16,10 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_FacilityCategory_Name { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public string? Logo { get; set; }
+        [DisplayName("Icon")]
+        public string? Fk_Icon_Name { get; set; }
+        [NotMapped]
+        public string? Icon { get; set; }
         public bool IsHighlighted { get; set; }
         public bool IsBasic { get; set; }
         public bool FreezeStatus { get; set; }

@@ -64,17 +64,22 @@
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
+        StartSuggestionBox(2, 'SearchIcon', '/ColorStays/Icon/SuggestIcon', '', '', AoCeIcon);
+
     });
-
-    function ShowIcon(icon) {
-        document.getElementById('Icons').removeAttribute("class");
-        document.getElementById('Icons').setAttribute("className", "class");
-        document.getElementById('Icons').classList.add('ColorstaysIcon-' + icon);
-        document.getElementById('Icons').classList.add('FtSz24');
-        document.getElementById('Icons').classList.add('PgRt10');
-        document.getElementById('Icons').style.display = 'block';
-
+    function ClearData(UrNe, UrId) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
     }
+
+    //Autocomplete Icon
+    function AoCeIcon(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Icon_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
 
     function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateEditDiv", "Def", FormFieldURL);

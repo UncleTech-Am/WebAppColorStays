@@ -13,6 +13,9 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationPackageInclusion", "PackageInclusion", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
         public string? Label { get; set; }
+        [DisplayName("Icon")]
+        public string? Fk_Icon_Name { get; set; }
+        [NotMapped]
         public string? Icon { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
