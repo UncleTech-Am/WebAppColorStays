@@ -1,6 +1,5 @@
 ﻿@model WebAppColorStays.Models.ViewModel.CsHotelImageVideo
 
-
 @{
     Layout = null;
     ViewData["Action"] = "HotelImageVideo";
@@ -10,71 +9,62 @@
 
 <h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
 
-
-<form id="EditVideo"
+<form id="Edit360"
       data-ajax="true"
-      data-ajax-url="/ColorStays/HotelImageVideo/EditVideo"
+      data-ajax-url="/ColorStays/HotelImageVideo/Edit360"
       data-ajax-method="POST"
       data-ajax-loading="#loader"
       enctype="multipart/form-data"
-      data-ajax-success="SuccessVoDl(data, status, xhr,'EditVideo','CreateOrEditVideo')"
-      data-ajax-failure="FormAjaxFail(xhr, status, error,'EditVideo')">
-
+      data-ajax-success="Success360Dl(data, status, xhr,'Edit360','CreateOrEdit')"
+      data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit360')">
     @Html.AntiForgeryToken()
+
     <div class="TtAnCr Pg7">
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.RowVersion)
         @Html.HiddenFor(model => model.CreatedBy)
         @Html.HiddenFor(model => model.CreatedOn)
         @Html.HiddenFor(model => model.CompId)
-        @Html.HiddenFor(model => model.IsVideo)
-        <input type="hidden" asp-for="Fk_Hotel_Name" id="Fk_Hotel_NameVo" />
-
-        <div class="MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsYouTubeVideo)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsYouTubeVideo)" asp-for="IsYouTubeVideo" autocomplete="off" />
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="IsYouTubeVideo"></span></div>
-        </div>
-
+        @Html.HiddenFor(model => model.Fk_Hotel_Name)
+        @Html.HiddenFor(model => model.IsHotel)
+        @Html.HiddenFor(model => model.Fk_Room_Name)
+        @Html.HiddenFor(model => model.IsRoom)
+        @Html.HiddenFor(model => model.Is360)
 
         <div class="MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
                     <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" />
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" readonly />
                 </div>
             </div>
             <div class="VnRd"><span asp-validation-for="Name"></span></div>
         </div>
 
+
+        @if (Model.Image != null)
+        {
+            <div class="MnTp7 MnBm7">
+                <div class="TtBxFlStDiv">
+                    <div class="TtBxFlSt">
+                        <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Image)</div>
+                        <img src="@Model.Image" class="Wh60p" />
+                        <input asp-for="ImageName" type="hidden" />
+                    </div>
+                </div>
+                <div class="VnRd"><span asp-validation-for="Image"></span></div>
+            </div>
+        }
+
         <div class="MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.URL)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.URL)" asp-for="URL" autocomplete="off" />
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Image) 800X600</div>
+                    <input asp-for="Image" type="file" />
                 </div>
             </div>
-            <div class="VnRd"><span asp-validation-for="URL"></span></div>
+            <div class="VnRd"><span asp-validation-for="Image"></span></div>
         </div>
-
-
-        <div class="MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Is360)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Is360)" asp-for="Is360" autocomplete="off" />
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="Is360"></span></div>
-        </div>
-
-
-
-
 
         <div class="MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
@@ -96,5 +86,13 @@
             </div>
             <div class="VnRd"><span asp-validation-for="Description"></span></div>
         </div>
+    </div>
+    <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
+        <input type="submit" value="Update this!" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+        @if (Model.Fk_Hotel_Name != null)
+        {
+            <input type="button" onclick="DeleteImg360('@Model.Id','@Model.Fk_Hotel_Name','@Model.Fk_Room_Name','@Model.Name')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+        }
+
     </div>
 </form>

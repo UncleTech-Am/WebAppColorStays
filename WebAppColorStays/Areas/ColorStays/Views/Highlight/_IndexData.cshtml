@@ -59,16 +59,96 @@
 	    <td>@item.Ratings</td>
                   
 	    <td>@item.Rank</td>
-         
-	    <td>@item.History</td>
-         
-	    <td>@item.Facts</td>
-         
-	    <td>@item.Stories</td>
-         
-	    <td>@item.TopThingsToKnow</td>
-         
-	    <td>@item.Description</td>
+
+        <td>
+            @if (item.History != null && item.History.Length > 50)
+            {
+                @Html.Raw(item.History.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.History)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.History)
+            }
+        </td>
+
+        <td>
+            @if (item.Facts != null && item.Facts.Length > 50)
+            {
+                @Html.Raw(item.Facts.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.Facts)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.Facts)
+            }
+        </td>
+
+        <td>
+            @if (item.Stories != null && item.Stories.Length > 50)
+            {
+                @Html.Raw(item.Stories.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.Stories)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.Stories)
+            }
+        </td>
+
+        <td>
+            @if (item.TopThingsToKnow != null && item.TopThingsToKnow.Length > 50)
+            {
+                @Html.Raw(item.TopThingsToKnow.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.TopThingsToKnow)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.TopThingsToKnow)
+            }
+        </td>
+
+        <td>
+            @if (item.Description != null && item.Description.Length > 50)
+            {
+                @Html.Raw(item.Description.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.Description)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.Description)
+            }
+        </td>
          
 	    <td>@item.Remarks</td>
          

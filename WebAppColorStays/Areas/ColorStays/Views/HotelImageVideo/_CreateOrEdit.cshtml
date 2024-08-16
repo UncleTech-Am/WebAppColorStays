@@ -30,6 +30,8 @@
         @Html.HiddenFor(model => model.IsHotel)
         @Html.HiddenFor(model => model.Fk_Room_Name)
         @Html.HiddenFor(model => model.IsRoom)
+        @Html.HiddenFor(model => model.Is360)
+
         <div class="MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
@@ -50,17 +52,7 @@
             <div class="VnRd"><span asp-validation-for="CoverPic"></span></div>
         </div>
 
-        <div class="MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Is360)</div>
-                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Is360)" asp-for="Is360" autocomplete="off" />
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="Is360"></span></div>
-        </div>
-
-
+      
         <div class="MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">

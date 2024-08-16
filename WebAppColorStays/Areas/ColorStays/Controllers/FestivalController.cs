@@ -327,12 +327,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //GET: /Festival/Details/5
         [HttpGet]
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(string id, string condition)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             DropDown(CompId, TokenKey);
+
             CsFestival CsFestival = new CsFestival();
             using (HttpClient client = APIColorStays.Initial())
             {
@@ -343,6 +344,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         CsFestival = await System.Text.Json.JsonSerializer.DeserializeAsync<CsFestival>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsFestival.Condition = condition;
                         return View("_DetailOrDelete",CsFestival);
                     }
                     else
@@ -714,7 +716,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
        
         //POST: /Festival/Delete/5
         [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(string id, string Condition)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
@@ -745,7 +747,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("Index", new { PageCall="Show"});
+                        return RedirectToAction("Index", new { PageCall="Show", condition = Condition });
                     }
                     else
                     {
@@ -760,7 +762,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //POST: >Verify/5
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> VerifyData(string Id, string AnName)          
+        public async Task<IActionResult> VerifyData(string Id, string AnName, string Condition)          
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
@@ -789,7 +791,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
             }
-            return RedirectToAction("Index", new { PageCall = "Show" });
+            return RedirectToAction("Index", new { PageCall = "Show", condition = Condition });
         }
 
         [HttpPost]

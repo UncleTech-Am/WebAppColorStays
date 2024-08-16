@@ -80,7 +80,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                     var fileName = file.FileName;
                     //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("Hotel/SaveImage/?HId=" + HId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName, null))
+                    using (var response = await client.PostAsync("Hotel/SaveImage/?HId=" + HId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName + "&Is360=false", null))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (!response.IsSuccessStatusCode)
@@ -102,7 +102,70 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
             return Json(new { Message = "Saved" });
         }
-        
+
+        [HttpPost]
+        public async Task<IActionResult> Save360Image(string HId, string HName)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var files = HttpContext.Request.Form.Files;
+            List<CsHotelImageVideo> photosList = new List<CsHotelImageVideo>();
+            var RoomId = "null";
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelImageVideo/Index360/" + HId + "/" + RoomId))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photosList = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsHotelImageVideo>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+                List<string> ExistingImageList = null;
+                List<string> NewImageList;
+                if (photosList != null)
+                {
+                    ExistingImageList = photosList.Select(x => x.Name).ToList();
+                }
+                NewImageList = files.Select(x => x.FileName).ToList();
+
+                var a = ExistingImageList.Intersect(NewImageList);
+
+                foreach (var file in files)
+                {
+                    if (a.Contains(file.FileName))
+                    {
+                        var data = a.Select(x => new
+                        {
+                            id = x
+                        }).ToList();
+                        return Json(data);
+                    }
+                    var fileName = file.FileName;
+                    if (file.Length > 0)
+                    {
+                        Task<string> TImgUpload = ryCsImage.UploadWeb360Images(file, fileName, TokenKey, "Hotel");
+                        Task.WaitAll(TImgUpload);
+                        if (TImgUpload.Result == "Error")
+                        {
+                            return View("Error");
+                        }
+                    }
+                    //StringContent content = new StringContent(JsonSerializer.Serialize(file), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("Hotel/SaveImage/?HId=" + HId + "&CompId=" + CompID + "&UserId=" + UserID + "&FileName=" + fileName + "&Is360=true", null))
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            return View("Error");
+                        }
+                    }
+                }
+            }
+            return Json(new { Message = "Saved" });
+        }
+
+
         //ItemAutoComplete
         [HttpGet]
         public async Task<JsonResult> SuggestHotel(string term)
@@ -946,7 +1009,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
 
         //This method is to check duplicate values for Rank columns......
-        public async Task<JsonResult> CheckDuplicationHotelRank(string Name, string NameAction, string Id, string Fk_City_Name)
+        public async Task<JsonResult> CheckDuplicationHotelRank(int Rank, string NameAction, string Id, string Fk_City_Name)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
@@ -955,7 +1018,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Hotel/CheckDuplicationHotelRank/" + Name + "/" + NameAction + "/" + Fk_City_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Hotel/CheckDuplicationHotelRank/" + Rank + "/" + NameAction + "/" + Fk_City_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
@@ -963,7 +1026,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                     if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
-                        return Json("Sorry, this " + Name + " already exists");
+                        return Json("Sorry, this " + Rank + " already exists");
                     }
                 }
             }

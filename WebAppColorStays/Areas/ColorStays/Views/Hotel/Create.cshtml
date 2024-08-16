@@ -22,6 +22,8 @@
                 <div>Hotel Plan</div>
                 <div> Hotel Image</div>
                 <div>SetUp Image</div>
+                <div> 360 Image</div>
+                <div>SetUp 360</div>
             </div>
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
                 <div id="UTabs1Cont0">
@@ -90,7 +92,6 @@
                     </div>
                 </div>
 
-
                 <div id="UTabs1Cont3">
                     <div class="Pg12">
                         <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
@@ -126,8 +127,49 @@
                             <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Hotel/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-ArrowLeftCircleLine"></i>&nbsp;Back</button>
-                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 1)"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 3)"><i class="UT-ArrowLeftCircleLine"></i>&nbsp;Back</button>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 5)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Nest</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="UTabs1Cont5">
+                    <div class="Pg12">
+                        <h3 class="MnTp10 MnBm18 Br2_Cr BrRs20 CrBrWe TtAnCr Pg7 HrCrTe">
+                            <i class="UT-ImageLine"></i>
+                            Upload Hotel 360 Images (Size is not more than 3MB)
+                        </h3>
+                        <form action="/" enctype="multipart/form-data" method="POST">
+                            <input type="hidden" name="HId" id="H3Id" />
+                            <input type="hidden" name="HName" id="H3Name" />
+
+                            <div class="dropzone" id="myDropzone1">
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple />
+                                </div>
+                            </div>
+                            <div class="MnTp7 MnBm7 FxRw">
+                                <div class="FxGw1">
+                                    <button type="button" id="submit-all1" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-ImageLine"></i>&nbsp;Upload</button>
+                                </div>
+                                <div>
+                                    <button style="display:none;" id="SwTb4" type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94 MnRt5" onclick="ActiveTabUt('UTabs1', 6)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="UTabs1Cont6">
+                    <div id="AddImgDetail360" style="height: 400px;overflow: auto;"></div>
+                    <div class="Pg10 FxRw">
+                        <div class="FxGw1">
+                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Hotel/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
+                        </div>
+                        <div>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 5)"><i class="UT-ArrowLeftCircleLine"></i>&nbsp;Back</button>
+                            <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 0)"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -140,6 +182,7 @@
                 <div>Hotel Facility</div>
                 <div>Hotel Plan</div>
                 <div>Hotel Images</div>
+                <div>Hotel 360</div>
             </div>
 
             <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
@@ -157,6 +200,9 @@
                 <div id="UTabs2Cont3">
                     <div id="Images"></div>
                 </div>
+                <div id="UTabs2Cont4">
+                    <div id="360Images"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -168,8 +214,8 @@
 
 <script>
     $(document).ready(function () {
-        TabsUT('UTabs1', 0, null, [1, 2, 3, 4]);
-        TabsUT('UTabs2', 0, null, [1, 2, 3]);
+        TabsUT('UTabs1', 0, null, [1, 2, 3, 4, 5, 6]);
+        TabsUT('UTabs2', 0, null, [1, 2, 3, 4]);
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchPlace', '/ColorStays/Place/SuggestPlace', '', '', AoCePlace);
         MaxMin();
@@ -278,6 +324,8 @@
         GetHotelFacility();
         document.getElementById('HId').value = document.getElementById('HlId').value;
         document.getElementById('HName').value = document.getElementById('HlName').value;
+        document.getElementById('H3Id').value = document.getElementById('HlId').value;
+        document.getElementById('H3Name').value = document.getElementById('HlName').value;
     }
     //Here get the list of hotel list
     function GetHotelFacility() {
@@ -320,7 +368,11 @@
         ShowUploads();
         ActiveTabUt('UTabs2', 3);
     }
-
+    function Success360Dl(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDivNoFReset", "360Images");
+        Show360Uploads();
+        ActiveTabUt('UTabs2', 4);
+    }
     //Here get the list of hotel list
     function GetHotelPlan() {
         var id = document.getElementById('HlId').value;
@@ -470,6 +522,90 @@
             getUT('/ColorStays/HotelImageVideo/Index?HotelId=' + HotelId + '&UpdateDetail=Yes', function (data) {
                 document.getElementById('AddImgDetail').innerHTML = "";
                 document.getElementById('AddImgDetail').innerHTML = data;
+            });
+            HideLoader();
+        });
+
+    };
+    //Ends
+
+
+    //Upload the Images
+    Dropzone.options.myDropzone = {
+        url: '/ColorStays/Hotel/Save360Image',
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        parallelUploads: 5,
+        maxFiles: 10,
+        acceptedFiles: 'image/*',
+        addRemoveLinks: true,
+        error: function (file, response) {
+            if ($.type(response) === "string")
+                var message = response; //dropzone sends it's own error messages in string
+            else
+                var message = response.message;
+            file.previewElement.classList.add("dz-error");
+            _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                node = _ref[_i];
+                _results.push(node.textContent = message);
+            }
+            HideLoader();
+            return _results;
+        },
+        init: function () {
+            dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
+            // for Dropzone to process the queue (instead of default form behavior):
+            document.getElementById("submit-all1").addEventListener("click", function (e) {
+                // Make sure that the form isn't actually being sent.
+                e.preventDefault();
+                e.stopPropagation();
+                dzClosure.processQueue();
+            });
+
+            //send all the form data along with the files:
+            this.on("sendingmultiple", function (data, xhr, formData) {
+                formData.append("HId", jQuery("#H3Id").val());
+                formData.append("HName", jQuery("#H3Name").val());
+                ShowLoader();
+            });
+
+            this.on("success", function () {
+                Show360Uploads();
+            });
+        }
+    }
+    //Ends
+    //Show the Uploaded Image in the Tab.......................
+    function Show360Uploads() {
+        var HotelId = $("#HId").val();
+        getUT('/ColorStays/HotelImageVideo/Uploaded360?HotelId=' + HotelId + '&ShowBtn=' + true, function (data) {
+            document.getElementById('360Images').innerHTML = "";
+            document.getElementById('360Images').innerHTML = data;
+            ActiveTabUt('UTabs2', 4);
+            document.getElementById('SwTb4').style.display = "block";
+            HideLoader();
+        });
+        //Show the Images in LHS for Update
+        getUT('/ColorStays/HotelImageVideo/Index360?HotelId=' + HotelId + '&UpdateDetail=Yes', function (data) {
+            document.getElementById('AddImgDetail360').innerHTML = "";
+            document.getElementById('AddImgDetail360').innerHTML = data;
+        });
+    };
+    //Ends.............................
+
+    //Delete the Image
+    function DeleteImg360(id, HotelId, imgname) {
+        ShowLoader();
+        getUT('/ColorStays/HotelImageVideo/Delete360?ImageID=' + id + '&HotelId=' + HotelId + '&ImgName=' + imgname, function (data) {
+            document.getElementById('360Images').innerHTML = "";
+            document.getElementById('360Images').innerHTML = data;
+            ActiveTabUt('UTabs2', 4);
+            //Show the Images in LHS for Update
+            getUT('/ColorStays/HotelImageVideo/Index360?HotelId=' + HotelId + '&UpdateDetail=Yes', function (data) {
+                document.getElementById('AddImgDetail360').innerHTML = "";
+                document.getElementById('AddImgDetail360').innerHTML = data;
             });
             HideLoader();
         });

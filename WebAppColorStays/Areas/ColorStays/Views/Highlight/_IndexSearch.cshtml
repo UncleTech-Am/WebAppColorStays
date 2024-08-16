@@ -181,11 +181,11 @@
                                         <th> @Html.DisplayNameFor(model => model.Seasonal) </th>         
                                         <th> @Html.DisplayNameFor(model => model.Ratings) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Rank) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.History) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Facts) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Stories) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.TopThingsToKnow) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Description) </th>       
+                                        <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.History) </th>       
+                                        <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.Facts) </th>       
+                                        <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.Stories) </th>       
+                                        <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.TopThingsToKnow) </th>       
+                                        <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.Description) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Remarks) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezeStatus) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezedBy) </th>       
@@ -212,3 +212,15 @@
     </div>
 </div>
 
+<script>
+    function ShowData(element) {
+        var popup = document.getElementById('PopUpScript');
+        popup.style.minHeight = "50%";
+        popup.style.left = "25%";
+        popup.style.top = "18%";
+        popup.style.width = "50%";
+        popup.style.overflowX = "auto";
+        document.getElementById('PopUpScript').style.display = 'block';
+        document.getElementById('PopUpScriptDetailContentID').innerHTML = element.innerHTML;
+    }
+</script>

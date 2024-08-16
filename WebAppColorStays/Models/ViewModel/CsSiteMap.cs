@@ -1,38 +1,18 @@
-﻿
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsHotelImageVideo
+    public class CsSiteMap
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        public string? Fk_HotelFacility_Name { get; set; }
-        //Get Room Table  From Hotel Database
-        public string? Fk_Room_Name { get; set; }
-        public string? Fk_Hotel_Name { get; set; }
-        public string? Name { get; set; }
-        [NotMapped]
-        public string? URL { get; set; }
-        public string? Image { get; set; }
-        [NotMapped]
-        public string? ImageName { get; set; }
-        public bool Is360 { get; set; }
-        public bool IsYouTubeVideo { get; set; }
-        public bool IsVideo { get; set; }
-        public string? AltTag { get; set; }
-        public bool IsWashroom { get; set; }
-        public bool IsRoom { get; set; }
-        public bool IsHotel { get; set; }
-        public bool IsHotelFacility { get; set; }
-        public string? Description { get; set; }
-        [DisplayName("BannerImg")]
-        public bool CoverPic { get; set; }
+        public string? Link { get; set; }
+        public double? Priority { get; set; }
+        public string? Fk_Map_Name { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
+        [StringLength(450)]
         public string? Remarks { get; set; }
         public bool? GlobalStatus { get; set; }
         public bool? SelectStatus { get; set; }
@@ -59,6 +39,5 @@ namespace WebAppColorStays.Models.ViewModel
         [Timestamp]
         [ConcurrencyCheck]
         public byte[]? RowVersion { get; set; }
-
     }
 }

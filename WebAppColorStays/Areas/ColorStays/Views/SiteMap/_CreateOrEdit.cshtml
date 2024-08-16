@@ -1,0 +1,51 @@
+@model WebAppColorStays.Models.ViewModel.CsSiteMap
+
+
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "SiteMap";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.RowVersion)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedOn)
+@Html.HiddenFor(model => model.CompId)
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Link)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Link" type="text" id="Link" asp-for="Link" autocomplete="off" required onchange="ClearData('Link','Fk_Map_Name')" />
+            <input type="hidden" asp-for="Fk_Map_Name" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Link"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Priority)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Priority)" asp-for="Priority" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Priority"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
+</div>

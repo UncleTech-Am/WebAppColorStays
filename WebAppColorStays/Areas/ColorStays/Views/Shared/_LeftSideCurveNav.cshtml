@@ -129,6 +129,7 @@
     string BgImage = " ";
     string BgVideo = " ";
     string BgAuthor = " ";
+    string SiteMap = " ";
 
 
 
@@ -155,6 +156,7 @@
         case "ActivityTypeStateMap": ActivityTypeStateMap = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "Video": Video = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "CountryOverView": CountryOverView = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
+        case "SiteMap": SiteMap = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
 
         case "Icon": Icon = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "AnCountry": AnCountry = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
@@ -425,7 +427,7 @@
                 </div>
             </div>
 
-            <div class="SideNavSubLinkDiv">
+           @*  <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @ActivityTypeCountryMap">
                         <a href="~/ColorStays/ActivityTypeCountryMap/Create">ActivityType CountryMap</a>
@@ -442,7 +444,7 @@
                     <a href="~/ColorStays/ActivityTypeStateMap/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/ActivityTypeStateMap/Index"><i class="UT-List-OLine"></i></a>
                 </div>
-            </div>
+            </div> *@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
@@ -466,13 +468,23 @@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @SiteMap">
+                        <a href="~/ColorStays/SiteMap/Create">SiteMap</a>
+                    </div>
+                    <a href="~/ColorStays/SiteMap/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/SiteMap/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            @* <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @Railway">
                         <a href="~/ColorStays/Railway/Create">Railway</a>
                     </div>
                     <a href="~/ColorStays/Railway/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/Railway/Index"><i class="UT-List-OLine"></i></a>
                 </div>
-            </div>
+            </div> *@
         </div>
     </div>
 

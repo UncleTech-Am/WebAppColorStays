@@ -1042,6 +1042,15 @@
     <None Include="Areas\ColorStays\Views\Sightseeing\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\Sightseeing\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\Sightseeing\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\SiteMap\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\SiteMap\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\SiteMap\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\SiteMap\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\SiteMap\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\SiteMap\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\SiteMap\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\SiteMap\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\SiteMap\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\State\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\State\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\State\Index.cshtml" />

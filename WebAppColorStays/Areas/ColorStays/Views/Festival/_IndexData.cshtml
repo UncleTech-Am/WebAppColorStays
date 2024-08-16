@@ -27,7 +27,7 @@
                 </span>
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Name','/ColorStays/Festival')"><i class="UT-UnstarSolid"></i></a>
             }
-            <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('/ColorStays/Festival/Details?Id=@item.Id')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i> </a>
+            <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('/ColorStays/Festival/Details?Id=@item.Id&condition=@Type')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i> </a>
             @if (item.VerifiedStatus == false && item.ActiveStatus == false && item.GlobalStatus == false)
             {
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Id, condition=Type })"> <i class="UT-EditFileLine FtWt800"></i> </a>
@@ -41,8 +41,24 @@
 	    <td>@item.Fk_State_Name</td>
          
 	    <td>@item.Fk_Country_Name</td>
-         
-	    <td>@item.History</td>
+
+        <td>
+            @if (item.History != null && item.History.Length > 50)
+            {
+                @Html.Raw(item.History.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.History)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.History)
+            }
+        </td>
          
 	    <td>@item.CelebratedFor</td>
          
@@ -53,14 +69,78 @@
 	    <td>@item.Fk_FestivalType_Name</td>
          
 	    <td>@item.TotalDays</td>
-         
-	    <td>@item.Description</td>
-         
-	    <td>@item.Facts</td>
-         
-	    <td>@item.Rituals</td>
-         
-	    <td>@item.SpecialAboutFestival</td>
+
+        <td>
+            @if (item.Description != null && item.Description.Length > 50)
+            {
+                @Html.Raw(item.Description.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.Description)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.Description)
+            }
+        </td>
+
+        <td>
+            @if (item.Facts != null && item.Facts.Length > 50)
+            {
+                @Html.Raw(item.Facts.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.Facts)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.Facts)
+            }
+        </td>
+
+        <td>
+            @if (item.Rituals != null && item.Rituals.Length > 50)
+            {
+                @Html.Raw(item.Rituals.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.Rituals)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.Rituals)
+            }
+        </td>
+
+        <td>
+            @if (item.SpecialAboutFestival != null && item.SpecialAboutFestival.Length > 50)
+            {
+                @Html.Raw(item.SpecialAboutFestival.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.SpecialAboutFestival)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.SpecialAboutFestival)
+            }
+        </td>
                   
 	    <td>@item.ShowCityFestival</td>
          

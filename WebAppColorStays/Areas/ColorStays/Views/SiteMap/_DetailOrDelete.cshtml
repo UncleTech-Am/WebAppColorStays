@@ -1,7 +1,7 @@
-@model WebAppColorStays.Models.ViewModel.CsFestival
+@model WebAppColorStays.Models.ViewModel.CsSiteMap
 @{ 
     Layout = null; 
-    ViewData["Action"] = "Festival";
+    ViewData["Action"] = "SiteMap";
 }
 
 <div style="display:none">responseformUT ShowData</div>
@@ -11,8 +11,6 @@
         <i class="UT-DetailLine"></i>
         @ViewBag.Title Detail
     </h3>
-    <input type="hidden" asp-for="Condition" required />
-
     <div style="overflow:auto; width:100%;" class="PopUpDetailContent">
         @if (ViewBag.Message != null)
         {<h3><span style="color:red">@ViewBag.Message</span></h3>}
@@ -21,120 +19,22 @@
       
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Name)</td>
-        <td>@Model.Name</td>
-        </tr>
-
-		 
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_City_Name)</td>
-        <td>@Model.Fk_City_Name</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Link)</td>
+        <td>@Model.Link</td>
         </tr>
 
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_State_Name)</td>
-        <td>@Model.Fk_State_Name</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Priority)</td>
+        <td>@String.Format("{0:F}", Model.Priority)</td>
         </tr>
 
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_Country_Name)</td>
-        <td>@Model.Fk_Country_Name</td>
-        </tr>
-
-		   
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.History)</td>
-        <td>@Model.History</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CelebratedFor)</td>
-        <td>@Model.CelebratedFor</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Month)</td>
-        <td>@Model.Month</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Region)</td>
-        <td>@Model.Region</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_FestivalType_Name)</td>
-        <td>@Model.Fk_FestivalType_Name</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.TotalDays)</td>
-        <td>@Model.TotalDays</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Description)</td>
-        <td>@Model.Description</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Facts)</td>
-        <td>@Model.Facts</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Rituals)</td>
-        <td>@Model.Rituals</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.SpecialAboutFestival)</td>
-        <td>@Model.SpecialAboutFestival</td>
-        </tr>
-
-		  
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ShowCityFestival)</td>
-        <td>@Model.ShowCityFestival</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ShowStateFestival)</td>
-        <td>@Model.ShowStateFestival</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.ShowCountryFestival)</td>
-        <td>@Model.ShowCountryFestival</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_Map_Name)</td>
+        <td>@Model.Fk_Map_Name</td>
         </tr>
 
 		      
@@ -257,7 +157,7 @@
     <div class="DyFx FxJyCtSt Gp10 Wh100p">
         @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
         {
-            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/Festival/DeleteConfirmed?Id=@Model.Id&Condition=@Model.Condition','/ColorStays/Festival');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/SiteMap/DeleteConfirmed?Id=@Model.Id','/ColorStays/SiteMap');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
         }
 
         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
@@ -265,20 +165,20 @@
             //  Checks which Button to Show For the Verification
             if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Festival/VerifyData?Id=@Model.Id&AnName=Verify&Condition=@Model.Condition','/ColorStays/Festival')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/SiteMap/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/SiteMap')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
             }
             if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Festival/VerifyData?Id=@Model.Id&AnName=UnVerify&Condition=@Model.Condition','/ColorStays/Festival')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/SiteMap/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/SiteMap')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
             }
             //  Checks which Button to Show For the Activation
             if (Model.ActiveStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Festival/VerifyData?Id=@Model.Id&AnName=Activate&Condition=@Model.Condition','/ColorStays/Festival')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                <button type="button" onclick="VerifyData('/ColorStays/SiteMap/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/SiteMap')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
             }
             if (Model.ActiveStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Festival/VerifyData?Id=@Model.Id&AnName=Inactivate&Condition=@Model.Condition','/ColorStays/Festival')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
+                <button type="button" onclick="VerifyData('/ColorStays/SiteMap/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/SiteMap')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
             }
         }
     </div>

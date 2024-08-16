@@ -78,7 +78,41 @@
 
         <td>@item.TagLine</td>
 
-        <td>@item.About</td>
+        <td>
+            @if (item.About != null && item.About.Length > 50)
+            {
+                @item.About.Substring(0, 50)
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @item.About
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.About
+            }
+        </td>
+
+        <td>
+            @if (item.Description != null && item.Description.Length > 50)
+            {
+                @Html.Raw(item.Description.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.Description)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.Description)
+            }
+        </td>
 
         <td>@item.Alcohal</td>
 

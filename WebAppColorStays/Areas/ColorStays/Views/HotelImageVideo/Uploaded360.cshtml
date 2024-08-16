@@ -24,12 +24,12 @@
                 <b>Name:- </b><span>@item.Name</span><br />
             </div>
             <div class="MnTp10 MnBm18 TtAnCr Pg7">
-                <video src="@item.URL" class="img-responsive" style="width:200px; height:200px;"></video>
+                <img src="@item.URL" class="img-responsive" style="width:200px; height:200px;">
             </div>
             @if (ViewBag.ShowBtn != "false")
             {
                 <div class="MnTp10 MnBm18 TtAnCr Pg7" style="margin-top: 10px; margin-bottom: 10px;">
-                    <input type="button" onclick="DeleteImg('@item.Id','@item.Fk_Hotel_Name', '@item.Name')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
+                    <input type="button" onclick="DeleteImg360('@item.Id','@item.Fk_Hotel_Name', '@item.Name')" value="Delete this!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" />
                 </div>
             }
         }
