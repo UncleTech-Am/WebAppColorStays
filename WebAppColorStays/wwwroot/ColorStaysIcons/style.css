@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'Colorstays';
-  src:  url('fonts/Colorstays.eot?72b3b5');
-  src:  url('fonts/Colorstays.eot?72b3b5#iefix') format('embedded-opentype'),
-    url('fonts/Colorstays.ttf?72b3b5') format('truetype'),
-    url('fonts/Colorstays.woff?72b3b5') format('woff'),
-    url('fonts/Colorstays.svg?72b3b5#Colorstays') format('svg');
+  src:  url('fonts/Colorstays.eot?xai468');
+  src:  url('fonts/Colorstays.eot?xai468#iefix') format('embedded-opentype'),
+    url('fonts/Colorstays.ttf?xai468') format('truetype'),
+    url('fonts/Colorstays.woff?xai468') format('woff'),
+    url('fonts/Colorstays.svg?xai468#Colorstays') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,411 +25,447 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ColorstaysIcon-Barbeque:before {
-  content: "\e974";
-}
-.ColorstaysIcon-Best-Experience1:before {
-  content: "\e975";
-}
-.ColorstaysIcon-Butler--Service:before {
-  content: "\e976";
-}
-.ColorstaysIcon-Email2:before {
-  content: "\e977";
-}
-.ColorstaysIcon-Happy-Customer1:before {
-  content: "\e978";
-}
-.ColorstaysIcon-Heart-Fill1:before {
-  content: "\e979";
-}
-.ColorstaysIcon-Heart-Half-Fill1:before {
-  content: "\e97a";
-}
-.ColorstaysIcon-HouseKeeping:before {
-  content: "\e97b";
-}
-.ColorstaysIcon-Lawn:before {
-  content: "\e97c";
-}
-.ColorstaysIcon-Living---Room:before {
-  content: "\e97d";
-}
-.ColorstaysIcon-Luggage:before {
-  content: "\e97e";
-}
-.ColorstaysIcon-Parking:before {
-  content: "\e97f";
-}
-.ColorstaysIcon-Quality-Chart1:before {
-  content: "\e980";
-}
-.ColorstaysIcon-Quick-Service1:before {
-  content: "\e981";
-}
-.ColorstaysIcon-Restaurant:before {
-  content: "\e982";
-}
-.ColorstaysIcon-Room--Service:before {
-  content: "\e983";
-}
-.ColorstaysIcon-Security-Icon1:before {
-  content: "\e984";
-}
-.ColorstaysIcon-Star-Half-Fill1:before {
-  content: "\e985";
-}
-.ColorstaysIcon-Swimming-Pool1:before {
-  content: "\e986";
-}
-.ColorstaysIcon-Table-Tennis1:before {
-  content: "\e987";
-}
-.ColorstaysIcon-ArrowDownCircleSolid:before {
+.ColorstaysIcon-Activity-Center:before {
   content: "\e900";
 }
-.ColorstaysIcon-ArrowDownOneLineCircleSolid:before {
+.ColorstaysIcon-Airport-Shuttle:before {
   content: "\e901";
 }
-.ColorstaysIcon-ArrowDownOneLineSolid:before {
+.ColorstaysIcon-ArrowDownCircleSolid:before {
   content: "\e902";
 }
-.ColorstaysIcon-ArrowDownThreeLineCircleSolid:before {
+.ColorstaysIcon-ArrowDownOneLineCircleSolid:before {
   content: "\e903";
 }
-.ColorstaysIcon-ArrowDownThreeLineSolid:before {
+.ColorstaysIcon-ArrowDownOneLineSolid:before {
   content: "\e904";
 }
-.ColorstaysIcon-ArrowDownThreeSolid:before {
+.ColorstaysIcon-ArrowDownThreeLineCircleSolid:before {
   content: "\e905";
 }
-.ColorstaysIcon-ArrowDownTwoLineCircleSolid:before {
+.ColorstaysIcon-ArrowDownThreeLineSolid:before {
   content: "\e906";
 }
-.ColorstaysIcon-ArrowDownTwoLineSolid:before {
+.ColorstaysIcon-ArrowDownThreeSolid:before {
   content: "\e907";
 }
-.ColorstaysIcon-ArrowDownTwoSolid:before {
+.ColorstaysIcon-ArrowDownTwoLineCircleSolid:before {
   content: "\e908";
 }
-.ColorstaysIcon-ArrowLeft:before {
+.ColorstaysIcon-ArrowDownTwoLineSolid:before {
   content: "\e909";
 }
-.ColorstaysIcon-ArrowLeftCircleLine:before {
+.ColorstaysIcon-ArrowDownTwoSolid:before {
   content: "\e90a";
 }
-.ColorstaysIcon-ArrowLeftCircleSolid:before {
+.ColorstaysIcon-ArrowLeft:before {
   content: "\e90b";
 }
-.ColorstaysIcon-ArrowRight:before {
+.ColorstaysIcon-ArrowLeftCircleLine:before {
   content: "\e90c";
 }
-.ColorstaysIcon-ArrowRightCircleLine:before {
+.ColorstaysIcon-ArrowLeftCircleSolid:before {
   content: "\e90d";
 }
-.ColorstaysIcon-ArrowRightCircleSolid:before {
+.ColorstaysIcon-ArrowRight:before {
   content: "\e90e";
 }
-.ColorstaysIcon-ArrowUpCircleSolid:before {
+.ColorstaysIcon-ArrowRightCircleLine:before {
   content: "\e90f";
 }
-.ColorstaysIcon-ArrowUpDown:before {
+.ColorstaysIcon-ArrowRightCircleSolid:before {
   content: "\e910";
 }
-.ColorstaysIcon-ArrowUpDownCurve:before {
+.ColorstaysIcon-ArrowUpCircleSolid:before {
   content: "\e911";
 }
-.ColorstaysIcon-ArrowUpOneLineCircleSolid:before {
+.ColorstaysIcon-ArrowUpDown:before {
   content: "\e912";
 }
-.ColorstaysIcon-ArrowUpOneLineSolid:before {
+.ColorstaysIcon-ArrowUpDownCurve:before {
   content: "\e913";
 }
-.ColorstaysIcon-ArrowUpThreeLineCircleSolid:before {
+.ColorstaysIcon-ArrowUpOneLineCircleSolid:before {
   content: "\e914";
 }
-.ColorstaysIcon-ArrowUpThreeLineSolid:before {
+.ColorstaysIcon-ArrowUpOneLineSolid:before {
   content: "\e915";
 }
-.ColorstaysIcon-ArrowUpThreeSolid:before {
+.ColorstaysIcon-ArrowUpThreeLineCircleSolid:before {
   content: "\e916";
 }
-.ColorstaysIcon-ArrowUpTwoLineCircleSolid:before {
+.ColorstaysIcon-ArrowUpThreeLineSolid:before {
   content: "\e917";
 }
-.ColorstaysIcon-ArrowUpTwoLineSolid:before {
+.ColorstaysIcon-ArrowUpThreeSolid:before {
   content: "\e918";
 }
-.ColorstaysIcon-ArrowUpTwoSolid:before {
+.ColorstaysIcon-ArrowUpTwoLineCircleSolid:before {
   content: "\e919";
 }
-.ColorstaysIcon-Asterisk:before {
+.ColorstaysIcon-ArrowUpTwoLineSolid:before {
   content: "\e91a";
 }
-.ColorstaysIcon-Best-Experience:before {
+.ColorstaysIcon-ArrowUpTwoSolid:before {
   content: "\e91b";
 }
-.ColorstaysIcon-BonFire:before {
+.ColorstaysIcon-Asterisk:before {
   content: "\e91c";
 }
-.ColorstaysIcon-BookWriteSolid:before {
+.ColorstaysIcon-Balcony:before {
   content: "\e91d";
 }
-.ColorstaysIcon-CalenderLine:before {
+.ColorstaysIcon-Banquet:before {
   content: "\e91e";
 }
-.ColorstaysIcon-CalenderSmallLine:before {
+.ColorstaysIcon-Barbeque:before {
   content: "\e91f";
 }
-.ColorstaysIcon-Call:before {
+.ColorstaysIcon-Bathroom:before {
   content: "\e920";
 }
-.ColorstaysIcon-Call2:before {
+.ColorstaysIcon-Best-Experience:before {
   content: "\e921";
 }
-.ColorstaysIcon-CancelCircleLine:before {
+.ColorstaysIcon-BonFire:before {
   content: "\e922";
 }
-.ColorstaysIcon-CancelCircleSolid:before {
+.ColorstaysIcon-BookWriteSolid:before {
   content: "\e923";
 }
-.ColorstaysIcon-Car:before {
+.ColorstaysIcon-Butler--Service:before {
   content: "\e924";
 }
-.ColorstaysIcon-Check:before {
+.ColorstaysIcon-CalenderLine:before {
   content: "\e925";
 }
-.ColorstaysIcon-Chevron-down:before {
+.ColorstaysIcon-CalenderSmallLine:before {
   content: "\e926";
 }
-.ColorstaysIcon-Circle:before {
+.ColorstaysIcon-Call:before {
   content: "\e927";
 }
-.ColorstaysIcon-Clock:before {
+.ColorstaysIcon-Call2:before {
   content: "\e928";
 }
-.ColorstaysIcon-ClockSolid:before {
+.ColorstaysIcon-CancelCircleLine:before {
   content: "\e929";
 }
-.ColorstaysIcon-Compass:before {
+.ColorstaysIcon-CancelCircleSolid:before {
   content: "\e92a";
 }
-.ColorstaysIcon-Cross:before {
+.ColorstaysIcon-Car:before {
   content: "\e92b";
 }
-.ColorstaysIcon-CrossCircelSolid:before {
+.ColorstaysIcon-Chat:before {
   content: "\e92c";
 }
-.ColorstaysIcon-CrossLine:before {
+.ColorstaysIcon-Check:before {
   content: "\e92d";
 }
-.ColorstaysIcon-DecorativeCheck:before {
+.ColorstaysIcon-Chevron-down:before {
   content: "\e92e";
 }
-.ColorstaysIcon-DetailLine:before {
+.ColorstaysIcon-Circle:before {
   content: "\e92f";
 }
-.ColorstaysIcon-Email:before {
+.ColorstaysIcon-Clock:before {
   content: "\e930";
 }
-.ColorstaysIcon-Email1:before {
+.ColorstaysIcon-ClockSolid:before {
   content: "\e931";
 }
-.ColorstaysIcon-Enquire:before {
+.ColorstaysIcon-Compass:before {
   content: "\e932";
 }
-.ColorstaysIcon-FacebookSolid:before {
+.ColorstaysIcon-Conference-Room:before {
   content: "\e933";
 }
-.ColorstaysIcon-FilterDots:before {
+.ColorstaysIcon-Cross:before {
   content: "\e934";
 }
-.ColorstaysIcon-Fireplace:before {
+.ColorstaysIcon-CrossCircelSolid:before {
   content: "\e935";
 }
-.ColorstaysIcon-FoodPlan:before {
+.ColorstaysIcon-CrossLine:before {
   content: "\e936";
 }
-.ColorstaysIcon-Football:before {
+.ColorstaysIcon-DecorativeCheck:before {
   content: "\e937";
 }
-.ColorstaysIcon-GlobeMap:before {
+.ColorstaysIcon-DetailLine:before {
   content: "\e938";
 }
-.ColorstaysIcon-GlobeSolid:before {
+.ColorstaysIcon-Email:before {
   content: "\e939";
 }
-.ColorstaysIcon-Handshake:before {
+.ColorstaysIcon-Email1:before {
   content: "\e93a";
 }
-.ColorstaysIcon-Happy-Customer:before {
+.ColorstaysIcon-Enquire:before {
   content: "\e93b";
 }
-.ColorstaysIcon-Heart-Fill:before {
+.ColorstaysIcon-FacebookSolid:before {
   content: "\e93c";
 }
-.ColorstaysIcon-Heart-Half-Fill:before {
+.ColorstaysIcon-FilterDots:before {
   content: "\e93d";
 }
-.ColorstaysIcon-Heart:before {
+.ColorstaysIcon-Fire-Extinguisher:before {
   content: "\e93e";
 }
-.ColorstaysIcon-HotelBuildingWithTree:before {
+.ColorstaysIcon-Fireplace:before {
   content: "\e93f";
 }
-.ColorstaysIcon-ImageLine:before {
+.ColorstaysIcon-FoodPlan:before {
   content: "\e940";
 }
-.ColorstaysIcon-ImageUpload:before {
+.ColorstaysIcon-Football:before {
   content: "\e941";
 }
-.ColorstaysIcon-ImportantSolid:before {
+.ColorstaysIcon-GlobeMap:before {
   content: "\e942";
 }
-.ColorstaysIcon-InstagramSolid:before {
+.ColorstaysIcon-GlobeSolid:before {
   content: "\e943";
 }
-.ColorstaysIcon-InventoryBox:before {
+.ColorstaysIcon-Gym:before {
   content: "\e944";
 }
-.ColorstaysIcon-KeySmallSolid:before {
+.ColorstaysIcon-Hamam:before {
   content: "\e945";
 }
-.ColorstaysIcon-Linkedln:before {
+.ColorstaysIcon-Handshake:before {
   content: "\e946";
 }
-.ColorstaysIcon-LocateUs:before {
+.ColorstaysIcon-Happy-Customer:before {
   content: "\e947";
 }
-.ColorstaysIcon-Location:before {
+.ColorstaysIcon-Heart-Fill:before {
   content: "\e948";
 }
-.ColorstaysIcon-LocationCity:before {
+.ColorstaysIcon-Heart-Half-Fill:before {
   content: "\e949";
 }
-.ColorstaysIcon-LocationCountry:before {
+.ColorstaysIcon-Heart:before {
   content: "\e94a";
 }
-.ColorstaysIcon-LocationGlobe:before {
+.ColorstaysIcon-HotelBuildingWithTree:before {
   content: "\e94b";
 }
-.ColorstaysIcon-LocationPin:before {
+.ColorstaysIcon-HouseKeeping:before {
   content: "\e94c";
 }
-.ColorstaysIcon-MinuLine:before {
+.ColorstaysIcon-ImageLine:before {
   content: "\e94d";
 }
-.ColorstaysIcon-MinusCircleSolid:before {
+.ColorstaysIcon-ImageUpload:before {
   content: "\e94e";
 }
-.ColorstaysIcon-MinuSolid:before {
+.ColorstaysIcon-ImportantSolid:before {
   content: "\e94f";
 }
-.ColorstaysIcon-Plus:before {
+.ColorstaysIcon-InstagramSolid:before {
   content: "\e950";
 }
-.ColorstaysIcon-PlusCircleLine:before {
+.ColorstaysIcon-InventoryBox:before {
   content: "\e951";
 }
-.ColorstaysIcon-PlusCircleSolid:before {
+.ColorstaysIcon-Jacuzzi:before {
   content: "\e952";
 }
-.ColorstaysIcon-PlusLine:before {
+.ColorstaysIcon-KeySmallSolid:before {
   content: "\e953";
 }
-.ColorstaysIcon-PlusSolid:before {
+.ColorstaysIcon-Kids-Play-Area:before {
   content: "\e954";
 }
-.ColorstaysIcon-Quality-Chart:before {
+.ColorstaysIcon-Lawn:before {
   content: "\e955";
 }
-.ColorstaysIcon-Quick-Service:before {
+.ColorstaysIcon-Linkedln:before {
   content: "\e956";
 }
-.ColorstaysIcon-ReportBook:before {
+.ColorstaysIcon-Living---Room:before {
   content: "\e957";
 }
-.ColorstaysIcon-ReportChart:before {
+.ColorstaysIcon-LocateUs:before {
   content: "\e958";
 }
-.ColorstaysIcon-ReportsHand:before {
+.ColorstaysIcon-Location:before {
   content: "\e959";
 }
-.ColorstaysIcon-Rupee:before {
+.ColorstaysIcon-LocationCity:before {
   content: "\e95a";
 }
-.ColorstaysIcon-SearchLeftSolid:before {
+.ColorstaysIcon-LocationCountry:before {
   content: "\e95b";
 }
-.ColorstaysIcon-SearchSolid:before {
+.ColorstaysIcon-LocationGlobe:before {
   content: "\e95c";
 }
-.ColorstaysIcon-Security-Icon:before {
+.ColorstaysIcon-LocationPin:before {
   content: "\e95d";
 }
-.ColorstaysIcon-Selected:before {
+.ColorstaysIcon-Luggage:before {
   content: "\e95e";
 }
-.ColorstaysIcon-Share:before {
+.ColorstaysIcon-Massage:before {
   content: "\e95f";
 }
-.ColorstaysIcon-SmileMsgSolid:before {
+.ColorstaysIcon-MinuLine:before {
   content: "\e960";
 }
-.ColorstaysIcon-SmileSolid:before {
+.ColorstaysIcon-MinusCircleSolid:before {
   content: "\e961";
 }
-.ColorstaysIcon-Spa:before {
+.ColorstaysIcon-MinuSolid:before {
   content: "\e962";
 }
-.ColorstaysIcon-Star-Half-Fill:before {
+.ColorstaysIcon-Night-Club:before {
   content: "\e963";
 }
-.ColorstaysIcon-StarSolid:before {
+.ColorstaysIcon-Parking:before {
   content: "\e964";
 }
-.ColorstaysIcon-Support:before {
+.ColorstaysIcon-Photo-Copy:before {
   content: "\e965";
 }
-.ColorstaysIcon-Swimming-Pool:before {
+.ColorstaysIcon-Picnic-Area:before {
   content: "\e966";
 }
-.ColorstaysIcon-Table-Tennis:before {
+.ColorstaysIcon-Plus:before {
   content: "\e967";
 }
-.ColorstaysIcon-ThumbsUp:before {
+.ColorstaysIcon-PlusCircleLine:before {
   content: "\e968";
 }
-.ColorstaysIcon-UnstarSolid:before {
+.ColorstaysIcon-PlusCircleSolid:before {
   content: "\e969";
 }
-.ColorstaysIcon-User:before {
+.ColorstaysIcon-PlusLine:before {
   content: "\e96a";
 }
-.ColorstaysIcon-UserMaleFemale:before {
+.ColorstaysIcon-PlusSolid:before {
   content: "\e96b";
 }
-.ColorstaysIcon-UserMulti:before {
+.ColorstaysIcon-Printer:before {
   content: "\e96c";
 }
-.ColorstaysIcon-Users:before {
+.ColorstaysIcon-Pub:before {
   content: "\e96d";
 }
-.ColorstaysIcon-UsersSolid:before {
+.ColorstaysIcon-Quality-Chart:before {
   content: "\e96e";
 }
-.ColorstaysIcon-VerifySolid:before {
+.ColorstaysIcon-Quick-Service:before {
   content: "\e96f";
 }
-.ColorstaysIcon-Videography:before {
+.ColorstaysIcon-Reception:before {
   content: "\e970";
 }
-.ColorstaysIcon-WhatsApp:before {
+.ColorstaysIcon-Refexology:before {
   content: "\e971";
 }
-.ColorstaysIcon-WhatsappSolid:before {
+.ColorstaysIcon-ReportBook:before {
   content: "\e972";
 }
-.ColorstaysIcon-Youtube:before {
+.ColorstaysIcon-ReportChart:before {
   content: "\e973";
+}
+.ColorstaysIcon-ReportsHand:before {
+  content: "\e974";
+}
+.ColorstaysIcon-Restaurant:before {
+  content: "\e975";
+}
+.ColorstaysIcon-Room--Service:before {
+  content: "\e976";
+}
+.ColorstaysIcon-Rupee:before {
+  content: "\e977";
+}
+.ColorstaysIcon-SearchLeftSolid:before {
+  content: "\e978";
+}
+.ColorstaysIcon-SearchSolid:before {
+  content: "\e979";
+}
+.ColorstaysIcon-Seating-Area:before {
+  content: "\e97a";
+}
+.ColorstaysIcon-Security-Icon:before {
+  content: "\e97b";
+}
+.ColorstaysIcon-Selected:before {
+  content: "\e97c";
+}
+.ColorstaysIcon-Share:before {
+  content: "\e97d";
+}
+.ColorstaysIcon-SmileMsgSolid:before {
+  content: "\e97e";
+}
+.ColorstaysIcon-SmileSolid:before {
+  content: "\e97f";
+}
+.ColorstaysIcon-Spa:before {
+  content: "\e980";
+}
+.ColorstaysIcon-Star-Half-Fill:before {
+  content: "\e981";
+}
+.ColorstaysIcon-StarSolid:before {
+  content: "\e982";
+}
+.ColorstaysIcon-Stroller:before {
+  content: "\e983";
+}
+.ColorstaysIcon-Support:before {
+  content: "\e984";
+}
+.ColorstaysIcon-Swimming-Pool:before {
+  content: "\e985";
+}
+.ColorstaysIcon-Table-Tennis:before {
+  content: "\e986";
+}
+.ColorstaysIcon-ThumbsUp:before {
+  content: "\e987";
+}
+.ColorstaysIcon-UnstarSolid:before {
+  content: "\e988";
+}
+.ColorstaysIcon-User:before {
+  content: "\e989";
+}
+.ColorstaysIcon-UserMaleFemale:before {
+  content: "\e98a";
+}
+.ColorstaysIcon-UserMulti:before {
+  content: "\e98b";
+}
+.ColorstaysIcon-Users:before {
+  content: "\e98c";
+}
+.ColorstaysIcon-UsersSolid:before {
+  content: "\e98d";
+}
+.ColorstaysIcon-VerifySolid:before {
+  content: "\e98e";
+}
+.ColorstaysIcon-Videography:before {
+  content: "\e98f";
+}
+.ColorstaysIcon-WhatsApp:before {
+  content: "\e990";
+}
+.ColorstaysIcon-WhatsappSolid:before {
+  content: "\e991";
+}
+.ColorstaysIcon-Yoga:before {
+  content: "\e992";
+}
+.ColorstaysIcon-Youtube:before {
+  content: "\e993";
 }
