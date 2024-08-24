@@ -20,11 +20,17 @@ namespace WebAppColorStays.Models.ViewModel
 
         [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
         public string? AltTag { get; set; }
-
+        public string? StructuredData { get; set; }
         public string? Description { get; set; }
 
         [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
         public string? Icon { get; set; }
+        [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
+        public string? SEOTitle { get; set; }
+        [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]
+        public string? SEODescription { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
+        public string? SEOKeywords { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]

@@ -21,6 +21,13 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_Country_Name { get; set; }
         [ForeignKey("TblPlaceType")]
         public string? Fk_PlaceType_Name { get; set; }
+        public string? StructuredData { get; set; }
+        [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
+        public string? SEOTitle { get; set; }
+        [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]
+        public string? SEODescription { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
+        public string? SEOKeywords { get; set; }
         public string? Image { get; set; }
         public string? AltTag { get; set; }
         [NotMapped]

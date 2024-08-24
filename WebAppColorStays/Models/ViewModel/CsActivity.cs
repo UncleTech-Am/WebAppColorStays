@@ -40,6 +40,7 @@ namespace WebAppColorStays.Models.ViewModel
         [DisplayName("Country")]
         [StringLength(450)]
         public string? Fk_Country_Name { get; set; }
+        public string? StructuredData { get; set; }
         public string? Label { get; set; }
         public string? RankLabel { get; set; }
         [StringLength(450)]

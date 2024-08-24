@@ -18,7 +18,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SEOKeywords { get; set; }
         [DisplayName("State")]
         [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
-
+        public string? StructuredData { get; set; }
         public string? Fk_State_Name { get; set; }
         [NotMapped]
         public string? State { get; set; }

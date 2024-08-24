@@ -450,7 +450,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 {
                     foreach (var file in files)
                     {
-                        var fileName = "WhyUs-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                        var fileName = "WhyUs-" + file.FileName;
 
                         CsWhyUs.Image = fileName;
 
@@ -574,7 +574,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         foreach (var file in files)
                         {
-                            var fileName = "WhyUs-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + Path.GetExtension(file.FileName);
+                            var fileName = "WhyUs-" + file.FileName;
 
                             CsWhyUs.Image = fileName;
                             //Delete the Images from the folder
@@ -648,7 +648,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
             }
             //Delete the Images from the folder
-            Task<string> TDeleteImage = ryCsImage.DeleteImage(csWhyUs.ImageName, TokenKey, "Video");
+            Task<string> TDeleteImage = ryCsImage.DeleteImage(csWhyUs.ImageName, TokenKey, "WhyUs");
             Task.WaitAll(TDeleteImage);
             if (TDeleteImage.Result == "Error")
             {

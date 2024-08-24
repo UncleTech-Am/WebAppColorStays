@@ -18,6 +18,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SEOKeywords { get; set; }
         [DisplayName("Continent")]
         public string? Fk_Continent_Name { get; set; }
+        public string? StructuredData { get; set; }
         public string? URL { get; set; }
         public string? Label { get; set; }
         [Required(ErrorMessage = "Please enter Name.")]

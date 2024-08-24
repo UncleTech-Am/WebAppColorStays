@@ -14,6 +14,13 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationTerrain", "Terrain", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
         public string? Description { get; set; }
+        public string? StructuredData { get; set; }
+        [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
+        public string? SEOTitle { get; set; }
+        [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]
+        public string? SEODescription { get; set; }
+        [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
+        public string? SEOKeywords { get; set; }
         public string? Region { get; set; }
         public string? Icon { get; set; }
         public string? Photo { get; set; }

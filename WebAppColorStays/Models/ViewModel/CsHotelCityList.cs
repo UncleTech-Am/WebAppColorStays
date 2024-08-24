@@ -30,7 +30,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? TagLine { get; set; }
         public string? OtherDes { get; set; }
         public string? Description { get; set; }
-		public bool FreezeStatus { get; set; }
+        public string? StructuredData { get; set; }
+        public bool FreezeStatus { get; set; }
 		public string? FreezedBy { get; set; }
 		public string? Remarks { get; set; }
 		public bool? GlobalStatus { get; set; }

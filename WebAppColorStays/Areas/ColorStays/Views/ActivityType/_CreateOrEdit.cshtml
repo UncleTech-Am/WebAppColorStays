@@ -47,7 +47,7 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ImageName)</div>
+            <div class="TtBxFlStLl15">ImageName(648*440)</div>
             <input asp-for="ImageName" type="file" />
         </div>
     </div>
@@ -76,6 +76,47 @@
     <div class="VnRd"><span asp-validation-for="Icon"></span></div>
 </div>
 
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOTitle) &nbsp;<span> Max Char 70 </span> <span id="SeotitleSID" class="CrBdRd70 CrWe BrRs3"></span><span style="color:red;"> *</span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" asp-for="SEOTitle" autocomplete="off" required onkeyup="CrCtIt('SEOTitle','SeotitleSID',70)"></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEOTitle"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEODescription) &nbsp;<span> Max Char 170 </span> <span id="SeoDescSID" class="CrBdRd70 CrWe BrRs3"></span><span style="color:red;"> *</span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" asp-for="SEODescription" autocomplete="off" required onkeyup="CrCtIt('SEODescription','SeoDescSID',170)"></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEODescription"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOKeywords)<span style="color:red;"> *</span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" asp-for="SEOKeywords" autocomplete="off" required></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEOKeywords"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.StructuredData)</div>
+            <textarea class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.StructuredData)" asp-for="StructuredData" autocomplete="off"></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="StructuredData"></span></div>
+</div>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">

@@ -86,7 +86,7 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Image)</div>
+            <div class="TtBxFlStLl15">Image(648*440)</div>
             <input asp-for="Image" type="file" />
         </div>
     </div>
@@ -228,6 +228,17 @@
     </div>
     <div class="VnRd"><span asp-validation-for="SEOKeywords"></span></div>
 </div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.StructuredData)</div>
+            <textarea class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.StructuredData)" asp-for="StructuredData" autocomplete="off" ></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="StructuredData"></span></div>
+</div>
+
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">

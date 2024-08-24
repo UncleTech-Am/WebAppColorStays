@@ -25,6 +25,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationPackage", "Package", AdditionalFields = ("NameAction, Id"))]
         public string? Name { get; set; }
         public string? Label { get; set; }
+        public string? StructuredData { get; set; }
         public string? CoverImage { get; set; }
         public string? CoverAltTag { get; set; }
         [NotMapped]
