@@ -34,7 +34,9 @@ namespace WebAppColorStays.Models.ViewModel
         public string? URL { get; set; }
         public string? Transport { get; set; }
         public string? Stay { get; set; }
+        [AllowHtml]
         public string? PackageHighlight { get; set; }
+        [AllowHtml]
         public string? Overview { get; set; }
         [DisplayName("No_Of_Nights")]
         public int? Duration { get; set; }

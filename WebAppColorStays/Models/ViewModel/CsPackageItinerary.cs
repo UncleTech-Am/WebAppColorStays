@@ -20,6 +20,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter DayTitle.")]
         [Remote("CheckDuplicationPackageItinerary", "PackageItinerary", AdditionalFields = ("NameAction, Fk_Package_Name, Id"))]
         public string? DayTitle { get; set; }
+        [AllowHtml]
         public string? DayActivity { get; set; }
         public bool Sightseen { get; set; }
         public string? Photo1 { get; set; }

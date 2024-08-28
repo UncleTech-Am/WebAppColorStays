@@ -24,6 +24,7 @@ namespace WebAppColorStays.Models.ViewModel
         public bool ShowInCity { get; set; }
         public bool ShowInState { get; set; }
         public bool ShowInCountry { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
         public string? Image { get; set; }
         [NotMapped]

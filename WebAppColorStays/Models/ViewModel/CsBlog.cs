@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebAppColorStays.Models;
 
 namespace WebAppColorStays.Model.ViewModel
 {
@@ -18,6 +19,7 @@ namespace WebAppColorStays.Model.ViewModel
         [DisplayName("Category")]
         public string? Fk_BlogCategory_Name { get; set; }
         public DateTime? PublishDate { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
         [DisplayName("Author")]
         public string? Fk_BlogAuthor_Name { get; set; }

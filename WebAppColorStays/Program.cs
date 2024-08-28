@@ -5,6 +5,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddControllersWithViews(options =>
+{
+    options.ModelBinderProviders.Insert(0, new WebAppColorStays.Models.NoHtmlModelBinderProvider());
+});
+
 //Set Session Timeout. Default is 20 minutes.
 builder.Services.AddSession(options =>
 {

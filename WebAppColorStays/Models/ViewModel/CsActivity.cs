@@ -52,6 +52,7 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? ImageName { get; set; }
         public string? AltTag { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
         [DisplayName("Video Link")]
         [StringLength(500, ErrorMessage = "You can enter only 500 characters long!")]
@@ -63,9 +64,12 @@ namespace WebAppColorStays.Models.ViewModel
         public double? Price { get; set; }
         public int? MinAge { get; set; }
         public int? MaxAge { get; set; }
+        [AllowHtml]
         public string? MustKnowBefore { get; set; }
         public string? BestTimeToDo { get; set; }
+        [AllowHtml]
         public string? HowToReach { get; set; }
+        [AllowHtml]
         public string? About { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }

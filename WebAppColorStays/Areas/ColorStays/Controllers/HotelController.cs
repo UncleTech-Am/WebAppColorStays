@@ -91,7 +91,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                     if (file.Length > 0)
                     {
-                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotel");
+                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotels");
                         Task.WaitAll(TImgUpload);
                         if (TImgUpload.Result == "Error")
                         {
@@ -144,7 +144,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     var fileName = file.FileName;
                     if (file.Length > 0)
                     {
-                        Task<string> TImgUpload = ryCsImage.UploadWeb360Images(file, fileName, TokenKey, "Hotel");
+                        Task<string> TImgUpload = ryCsImage.UploadWeb360Images(file, fileName, TokenKey, "Hotels");
                         Task.WaitAll(TImgUpload);
                         if (TImgUpload.Result == "Error")
                         {

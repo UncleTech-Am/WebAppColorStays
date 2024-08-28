@@ -34,13 +34,18 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
         public string? PopularReligion { get; set; }
+        [AllowHtml]
         public string? History { get; set; }
         public string? CelebratedFor { get; set; }
         public string? Month { get; set; }
         public string? Region { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
+        [AllowHtml]
         public string? Facts { get; set; }
+        [AllowHtml]
         public string? Rituals { get; set; }
+        [AllowHtml]
         public string? SpecialAboutFestival { get; set; }
         public int? TotalDays { get; set; }
         public bool ShowCityFestival { get; set; }

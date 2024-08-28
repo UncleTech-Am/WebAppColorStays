@@ -16,9 +16,9 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SEODescription { get; set; }
         [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
+        public string? StructuredData { get; set; }
         [DisplayName("State")]
         [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
-        public string? StructuredData { get; set; }
         public string? Fk_State_Name { get; set; }
         [NotMapped]
         public string? State { get; set; }
@@ -42,8 +42,11 @@ namespace WebAppColorStays.Models.ViewModel
         [DisplayName("Video Link")]
         public string? Video { get; set; }
         public string? Area { get; set; }
+        [AllowHtml]
         public string? History { get; set; }
+        [AllowHtml]
         public string? Fact { get; set; }
+        [AllowHtml]
         public string? Stories { get; set; }
         public string? Longitude { get; set; }
         public string? Latitude { get; set; }
@@ -95,6 +98,7 @@ namespace WebAppColorStays.Models.ViewModel
 
         public string? OurTips5 { get; set; }
         public int? TelephoneCode { get; set; }
+        [AllowHtml]
         public string? TopThingsToKnow { get; set; }
         public string? Itinerary { get; set; }
         public string? BestTimeToVisit { get; set; }

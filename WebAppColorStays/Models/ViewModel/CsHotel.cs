@@ -63,7 +63,9 @@ namespace WebAppColorStays.Models.ViewModel
         public bool IsBookWithoutCreditCard { get; set; }
         public bool IsNoPrePayment { get; set; }
         public bool IsFeaturedProperty { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
+        [AllowHtml]
         public string? NearByPlace { get; set; }
         public int? PropertyCode { get; set; }
         public string? MapLink { get; set; }

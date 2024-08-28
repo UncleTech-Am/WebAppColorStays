@@ -142,7 +142,7 @@
                             <input type="hidden" name="HId" id="H3Id" />
                             <input type="hidden" name="HName" id="H3Name" />
 
-                            <div class="dropzone" id="myDropzone">
+                            <div class="dropzone" id="myDropzone1">
                                 <div class="fallback">
                                     <input name="file" type="file" multiple />
                                 </div>
@@ -317,15 +317,29 @@
   
 
     function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
-        //Show the Image Tab
-        ActiveTabUt('UTabs1', 1);
-        ActiveTabUt('UTabs2', 0);
-        GetHotelFacility();
-        document.getElementById('HId').value = document.getElementById('HlId').value;
-        document.getElementById('HName').value = document.getElementById('HlName').value;
-        document.getElementById('H3Id').value = document.getElementById('HlId').value;
-        document.getElementById('H3Name').value = document.getElementById('HlName').value;
+        //FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
+        if (data.includes("responseformUT")) {
+            // case if validation error then show to user
+            if (data.includes("ShowValidation")) {
+                document.getElementById(FormFieldID).innerHTML = "";
+                document.getElementById(FormFieldID).innerHTML = data;
+                HideLoader();
+            }
+            else{
+                //Show the Image Tab
+                ActiveTabUt('UTabs1', 1);
+                ActiveTabUt('UTabs2', 0);
+                GetHotelFacility();
+                document.getElementById('HId').value = document.getElementById('HlId').value;
+                document.getElementById('HName').value = document.getElementById('HlName').value;
+                document.getElementById('H3Id').value = document.getElementById('HlId').value;
+                document.getElementById('H3Name').value = document.getElementById('HlName').value;
+
+            }
+        }
+        else {
+            PopUpError(data);//Go in this Function and show the Error Message PopUp
+        }
     }
     //Here get the list of hotel list
     function GetHotelFacility() {
@@ -402,6 +416,7 @@
         if (id != "") { 
             EditHotelPlan(id);
         }
+        HideLoader();
     }
 
     function GetSelectedPlan() {
@@ -409,6 +424,7 @@
         getUT('/ColorStays/PlanType/Index?HlId=' + HotelId, function (data) {
             document.getElementById('Plan').innerHTML = "";
             document.getElementById('Plan').innerHTML = data;
+            HideLoader();
         });
     }
 
@@ -443,10 +459,10 @@
         StartTableSearch('TeUT', SkipRow, SkipCol);
     }
 
-
+    Dropzone.autoDiscover = false;
 
     //Upload the Images
-    Dropzone.options.myDropzone = {
+    var myDropzone = new Dropzone("#myDropzone", {
         url: '/ColorStays/Hotel/SaveImage',
         autoProcessQueue: false,
         uploadMultiple: true,
@@ -470,7 +486,7 @@
             return _results;
         },
         init: function () {
-            dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
+            var dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
             // for Dropzone to process the queue (instead of default form behavior):
             document.getElementById("submit-all").addEventListener("click", function (e) {
                 // Make sure that the form isn't actually being sent.
@@ -489,8 +505,9 @@
             this.on("success", function () {
                 ShowUploads();
             });
+
         }
-    }
+    });
     //Ends
 
     //Show the Uploaded Image in the Tab.......................
@@ -531,7 +548,8 @@
 
 
     //Upload the Images
-    Dropzone.options.myDropzone = {
+
+    var myDropzone1 = new Dropzone("#myDropzone1", {
         url: '/ColorStays/Hotel/Save360Image',
         autoProcessQueue: false,
         uploadMultiple: true,
@@ -555,7 +573,7 @@
             return _results;
         },
         init: function () {
-            dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
+            var dzClosure = this; // Makes sure that 'this' is understood inside the functions below.
             // for Dropzone to process the queue (instead of default form behavior):
             document.getElementById("submit-all1").addEventListener("click", function (e) {
                 // Make sure that the form isn't actually being sent.
@@ -575,7 +593,7 @@
                 Show360Uploads();
             });
         }
-    }
+    });
     //Ends
     //Show the Uploaded Image in the Tab.......................
     function Show360Uploads() {

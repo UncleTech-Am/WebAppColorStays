@@ -43,6 +43,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SEOKeywords { get; set; }
         public string? Title { get; set; }
         public string? Summary { get; set; }
+        [AllowHtml]
         public string? News { get; set; }
         public int? LikeCount { get; set; }
         public int? ShareCount { get; set; }

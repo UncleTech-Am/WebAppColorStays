@@ -32,6 +32,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? CoverAltTag { get; set; }
         [NotMapped]
         public string? CoverImageName { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
         public int TotalRooms { get; set; }
         public string? SizeArea { get; set; }

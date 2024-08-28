@@ -27,8 +27,11 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? ImageName { get; set; }
         public string? AltTag { get; set; }
+        [AllowHtml]
         public string? History { get; set; }
+        [AllowHtml]
         public string? Fact { get; set; }
+        [AllowHtml]
         public string? Stories { get; set; }
         public string? Longitude { get; set; }
         public string? Latitude { get; set; }
@@ -47,6 +50,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_State_Name { get; set; }
         [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
+        [AllowHtml]
         public string? TopThingsToKnow { get; set; }
         public int? Rating { get; set; }
         public bool CountryAttraction { get; set; }

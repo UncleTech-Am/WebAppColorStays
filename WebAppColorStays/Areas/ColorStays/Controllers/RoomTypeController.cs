@@ -110,7 +110,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                     if (file.Length > 0)
                     {
-                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotel");
+                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotels");
                         Task.WaitAll(TImgUpload);
                         if (TImgUpload.Result == "Error")
                         {
@@ -554,7 +554,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                         if (file.Length > 0)
                         {
-                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotel");
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotels");
                             Task.WaitAll(TImgUpload);
                             if (TImgUpload.Result == "Error")
                             {
@@ -679,12 +679,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                             CsRoomType.CoverImage = fileName;
                             //Delete the Images from the folder
-                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsRoomType.CoverImageName, TokenKey, "Hotel");
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsRoomType.CoverImageName, TokenKey, "Hotels");
                             Task.WaitAll(TDeleteImage);
 
                             if (file.Length > 0)
                             {
-                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotel");
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotels");
                                 Task.WaitAll(TImgUpload);
                                 if (TImgUpload.Result == "Error")
                                 {
@@ -771,7 +771,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
             //Delete the Images from the folder
             image.Add(photo.CoverImageName);
-            Task<string> TDeleteImage = ryCsImage.DeleteMultiImage(image, "Hotel", TokenKey);
+            Task<string> TDeleteImage = ryCsImage.DeleteMultiImage(image, "Hotels", TokenKey);
             Task.WaitAll(TDeleteImage);
 
             if (TDeleteImage.Result == "Error")

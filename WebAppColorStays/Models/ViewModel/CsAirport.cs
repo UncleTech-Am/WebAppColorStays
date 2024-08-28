@@ -15,6 +15,7 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(500, ErrorMessage = "You can enter only 500 characters long!")]
         public string Name { get; set; }
         public string? Label { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
         [NotMapped]
         public string? Place { get; set; }
@@ -59,7 +60,9 @@ namespace WebAppColorStays.Models.ViewModel
 
         [StringLength(50, ErrorMessage = "You can enter only 50 characters long!")]
         public string? Nearby { get; set; }
+        [AllowHtml]
         public string? History { get; set; }
+        [AllowHtml]
         public string? VehicleParking { get; set; }
 
         [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
@@ -71,9 +74,11 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(10, ErrorMessage = "You can enter only 10 characters long!")]
         public string? AirportCode { get; set; }
         public string? Facilities { get; set; }
+        [AllowHtml]
         public string? Terminals { get; set; }
         public string? LocationDescription { get; set; }
         public string? ConnectivityDescription { get; set; }
+        [AllowHtml]
         public string? RunWayDescription { get; set; }
         public string? HowToReach { get; set; }
         public string? Upcoming { get; set; }

@@ -13,6 +13,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationTerrain", "Terrain", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
         public string? StructuredData { get; set; }
         [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]

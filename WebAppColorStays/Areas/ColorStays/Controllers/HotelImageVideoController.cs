@@ -213,7 +213,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     //Delete the Images from the folder
                     if (HotelId != "null")
                     {
-                        Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Hotel");
+                        Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Hotels");
                         Task.WaitAll(TDeleteImage);
                     }
                 }
@@ -293,10 +293,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     //Delete the Images from the folder
                     if (ImgName != "null")
                     {
-                        Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Hotel");
+                        Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Hotels");
                         if (Image1 != null)
                         {
-                            Task<string> TDeleteImage1 = ryCsImage.DeleteImage(Image1, TokenKey, "Hotel");
+                            Task<string> TDeleteImage1 = ryCsImage.DeleteImage(Image1, TokenKey, "Hotels");
                             Task.WaitAll(TDeleteImage1);
                         }
                         Task.WaitAll(TDeleteImage);
@@ -738,11 +738,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
                             CsHotelImageVideo.Image = fileName;
                             //Delete the Images from the folder
-                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsHotelImageVideo.ImageName, TokenKey, "Hotel");
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsHotelImageVideo.ImageName, TokenKey, "Hotels");
                             Task.WaitAll(TDeleteImage);
                             if (file.Length > 0)
                             {
-                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotel");
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Hotels");
                                 Task.WaitAll(TImgUpload);
                                 if (TImgUpload.Result == "Error")
                                 {

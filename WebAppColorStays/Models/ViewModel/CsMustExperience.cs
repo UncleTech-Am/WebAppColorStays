@@ -24,6 +24,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? ImageName { get; set; }
         public string? AltTag { get; set; }
         public string? TagLine { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
