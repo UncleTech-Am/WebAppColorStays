@@ -1955,6 +1955,8 @@ function Suggestion(InputValStg, MinCharInt, InputIDStg, URL, ExtFieldName, ExtF
                         ListItem.Text1 = data[i].text1;
                         ListItem.Text2 = data[i].text2;
                         ListItem.Text3 = data[i].text3;
+                        ListItem.Text4 = data[i].text4;
+
                         if (i === (data.length - 1)) { ListItem.Next = 'none'; }
                         else {
                             var n = i + 1;

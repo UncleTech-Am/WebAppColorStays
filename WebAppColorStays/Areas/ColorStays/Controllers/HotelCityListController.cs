@@ -632,14 +632,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            CsRoomType photo = new CsRoomType();
+            CsHotelCityList photo = new CsHotelCityList();
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Hotel/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("HotelCityList/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    photo = await System.Text.Json.JsonSerializer.DeserializeAsync<CsRoomType>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    photo = await System.Text.Json.JsonSerializer.DeserializeAsync<CsHotelCityList>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            if (photo != null)
+            {
+                Task<string> TDeleteImage2 = ryCsImage.DeleteImage(photo.CoverImageName, TokenKey, "HotelBanner");
+                Task.WaitAll(TDeleteImage2);
+                if (TDeleteImage2.Result == "Error")
+                {
+                    ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
                 }
             }
 

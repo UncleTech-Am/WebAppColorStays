@@ -25,6 +25,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationAnCountry", "AnCountry", AdditionalFields = ("NameAction, Fk_Country_Name, Id"))]
         [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
         public string? AccordianHeading { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
 
         [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]

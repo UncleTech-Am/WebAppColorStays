@@ -223,6 +223,17 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CityCenter)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.CityCenter)" asp-for="CityCenter" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="CityCenter"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.HowToReach)<span style="color:red;"> *</span></div>
             <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.HowToReach)" asp-for="HowToReach" autocomplete="off" required></textarea>
         </div>

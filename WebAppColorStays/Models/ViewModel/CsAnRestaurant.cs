@@ -25,6 +25,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationAnRestaurant", "AnRestaurant", AdditionalFields = ("NameAction, Fk_Restaurant_Name, Id"))]
         [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
         public string? AccordianHeading { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
 
         [DisplayName("Icon")]

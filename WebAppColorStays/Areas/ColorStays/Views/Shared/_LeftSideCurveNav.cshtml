@@ -130,6 +130,9 @@
     string BgVideo = " ";
     string BgAuthor = " ";
     string SiteMap = " ";
+    string Location = " ";
+    string SEOHotelHyperLink = " ";
+    string SEOGroupHyperLink = " ";
 
 
 
@@ -147,6 +150,7 @@
         case "City": City = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "State": State = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "Place": Place = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
+        case "Location": Location = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "PlaceType": PlaceType = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "Railway": Railway = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "Terrain": Terrain = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
@@ -222,6 +226,8 @@
         case "Highlight": Highlight = "SideSubLinkActive"; MainLink6 = "SideNavActive"; DrownLink6 = "SideSubNavActive"; break;
         case "Buy": Buy = "SideSubLinkActive"; MainLink6 = "SideNavActive"; DrownLink6 = "SideSubNavActive"; break;
         
+        case "SEOHotelHyperLink": SEOHotelHyperLink = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
+        case "SEOGroupHyperLink": SEOGroupHyperLink = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "HotelCityList": HotelCityList = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "HotelType": HotelType = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
         case "HotelFacility": HotelFacility = "SideSubLinkActive"; MainLink8 = "SideNavActive"; DrownLink8 = "SideSubNavActive"; break;
@@ -372,6 +378,16 @@
                     </div>
                     <a href="~/ColorStays/Place/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/Place/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @Location">
+                        <a href="~/ColorStays/Location/Create">Location</a>
+                    </div>
+                    <a href="~/ColorStays/Location/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Location/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
 
@@ -1009,6 +1025,24 @@
         </div>
         <div class="SideSubNavContainer @DrownLink8">
 
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @SEOGroupHyperLink">
+                        <a href="~/ColorStays/SEOGroupHyperLink/Create">SEO Group HyperLink</a>
+                    </div>
+                    <a href="~/ColorStays/SEOGroupHyperLink/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/SEOGroupHyperLink/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @SEOHotelHyperLink">
+                        <a href="~/ColorStays/SEOHotelHyperLink/Create">SEO Hotel HyperLink</a>
+                    </div>
+                    <a href="~/ColorStays/SEOHotelHyperLink/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/SEOHotelHyperLink/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @HotelCityList">

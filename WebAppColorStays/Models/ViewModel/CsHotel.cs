@@ -21,14 +21,16 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_State_Name { get; set; }
         [DisplayName("Place")]
         public string? Fk_Place_Name { get; set; }
-        [NotMapped]
-        public string? Place { get; set; }
         [DisplayName("HotelType")]
         public string? Fk_HotelType_Name { get; set; }
         [DisplayName("Currency")]
         public string? Fk_Currency_Name { get; set; }
         [DisplayName("ChainBrand")]
         public string? Fk_ChainBrand_Name { get; set; }
+        [DisplayName("Location")]
+        public string? Fk_Location_Name { get; set; }
+        [NotMapped]
+        public string? Location { get; set; }
         [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
         public string? SEOTitle { get; set; }
         [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]
@@ -38,7 +40,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Label { get; set; }
         public int? LikeCount { get; set; }
         public string? RankLabel { get; set; }
-        [Remote("CheckDuplicationHotel", "Hotel", AdditionalFields = ("NameAction, Id, Fk_Place_Name"))]
+        [Remote("CheckDuplicationHotel", "Hotel", AdditionalFields = ("NameAction, Id, Fk_Location_Name"))]
 		public string? Name { get; set; }
         [Remote("CheckDuplicationHotelRank", "Hotel", AdditionalFields = ("NameAction, Id, Fk_City_Name"))]
         public int? Rank { get; set; }
@@ -52,6 +54,10 @@ namespace WebAppColorStays.Models.ViewModel
         public string? CoverImageName { get; set; }
         [NotMapped]
         public int? ImageCount { get; set; }
+        public string? DistanceFromCityCenter { get; set; }
+        public bool BudgetHotels { get; set; }
+        public bool LuxuryHotels { get; set; }
+        public bool PremiumHotels { get; set; }
         public string? Address { get; set; }
         public string? EmailAddress { get; set; }
         public string? ContactPerson { get; set; }

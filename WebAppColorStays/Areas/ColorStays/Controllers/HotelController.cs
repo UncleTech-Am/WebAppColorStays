@@ -982,16 +982,16 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationHotel(string Name, string NameAction, string Id, string Fk_Place_Name)
+        public async Task<JsonResult> CheckDuplicationHotel(string Name, string NameAction, string Id, string Fk_Location_Name)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            if (Id == null) { Id = "No"; }
+            if (Id == null || Id =="") { Id = "No"; }
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("Hotel/CheckDuplicationHotel/" + Name + "/" + NameAction + "/" + Fk_Place_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("Hotel/CheckDuplicationHotel/" + Name + "/" + NameAction + "/" + Fk_Location_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
@@ -1014,7 +1014,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            if (Id == null) { Id = "No"; }
+            if (Id == null || Id == "") { Id = "No"; }
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
@@ -1227,7 +1227,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    if (CsPlanType.Id == null)
+                    if (CsPlanType.Id == null || CsPlanType.Id == "")
                     {
                         CsPlanType.Id = Guid.NewGuid().ToString();
                         StringContent content = new StringContent(JsonSerializer.Serialize(CsPlanType), Encoding.UTF8, "application/json");
@@ -1282,7 +1282,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 {
-                    return RedirectToAction("GetHotelPlan", new { id = CsPlanType.Fk_Hotel_Name });
+                    return RedirectToAction("Index", "PlanType", new { HlId = CsPlanType.Fk_Hotel_Name });
                 }
                 else { return View("_CreateOrEditHotelPlan", CsPlanType); }
             }

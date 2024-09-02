@@ -44,7 +44,11 @@ namespace WebAppColorStays.Models
                         }
                     }
                 }
-
+                // Set empty string inputs to null
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    value = null;
+                }
                 // Set the result regardless of validation
                 bindingContext.Result = ModelBindingResult.Success(value);
             }

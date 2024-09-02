@@ -35,6 +35,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? HowToReach { get; set; }
         public string? Label { get; set; }
         public string? RankLabel { get; set; }
+        public string? CityCenter { get; set; }
         public string? Image { get; set; }
         [NotMapped]
         public string? ImageName { get; set; }

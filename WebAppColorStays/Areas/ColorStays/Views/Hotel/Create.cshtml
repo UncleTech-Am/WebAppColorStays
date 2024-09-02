@@ -217,7 +217,7 @@
         TabsUT('UTabs1', 0, null, [1, 2, 3, 4, 5, 6]);
         TabsUT('UTabs2', 0, null, [1, 2, 3, 4]);
         IntializeTableSearch();
-        StartSuggestionBox(2, 'SearchPlace', '/ColorStays/Place/SuggestPlace', '', '', AoCePlace);
+        StartSuggestionBox(2, 'SearchLocation', '/ColorStays/Location/SuggestLocation', '', '', AoCeLocation);
         MaxMin();
     });
 
@@ -296,23 +296,25 @@
     });
 
     //Clear Autocompete data
-    function ClearData(UrNe, UrId, Text1, Text2, Text3) {
+    function ClearData(UrNe, UrId, Text1, Text2, Text3, Text4) {
         document.getElementById(UrNe).value = '';
         document.getElementById(UrId).value = '';
         document.getElementById(Text1).value = '';
         document.getElementById(Text2).value = '';
         document.getElementById(Text3).value = '';
+        document.getElementById(Text4).value = '';
     }
 
     //Autocomplete Item
-    function AoCePlace(event) {
+    function AoCeLocation(event) {
         var InputId = event.target.InputID;
         SuggestionClose(InputId);
-        document.getElementById('Fk_Place_Name').value = event.target.Id;
+        document.getElementById('Fk_Location_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
-        document.getElementById('Fk_City_Name').value = event.target.Text1;
-        document.getElementById('Fk_State_Name').value = event.target.Text2;
-        document.getElementById('Fk_Country_Name').value = event.target.Text3;
+        document.getElementById('Fk_City_Name').value = event.target.Text2;
+        document.getElementById('Fk_State_Name').value = event.target.Text3;
+        document.getElementById('Fk_Country_Name').value = event.target.Text1;
+        document.getElementById('Fk_Place_Name').value = event.target.Text4;
     }
   
 
@@ -326,6 +328,8 @@
                 HideLoader();
             }
             else{
+                document.getElementById('Detail').innerHTML = "";
+                document.getElementById('Detail').innerHTML = data;
                 //Show the Image Tab
                 ActiveTabUt('UTabs1', 1);
                 ActiveTabUt('UTabs2', 0);
@@ -411,12 +415,13 @@
     function SuccessHotelPlan(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Plan");
         ActiveTabUt('UTabs2', 2);
-        GetSelectedPlan();
-        var id = $("#PlanId").val();
-        if (id != "") { 
-            EditHotelPlan(id);
-        }
-        HideLoader();
+        // GetSelectedPlan();
+        // var id = $("#PlanId").val();
+        // if (id != "") { 
+        //     EditHotelPlan(id);
+        // }
+        document.getElementById('HlId').value = document.getElementById('HlId').value;
+         HideLoader();
     }
 
     function GetSelectedPlan() {
