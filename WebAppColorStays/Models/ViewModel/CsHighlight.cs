@@ -35,15 +35,20 @@ namespace WebAppColorStays.Models.ViewModel
         public bool ShowCityHighlight { get; set; }
         public bool ShowStateHighlight { get; set; }
         public bool ShowCountryHighlight { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
         public string? TimeToVisit { get; set; }
         public string? Crowd { get; set; }
         public string? Seasonal { get; set; }
         public int? Ratings { get; set; }
         public int? Rank { get; set; }
+        [AllowHtml]
         public string? History { get; set; }
+        [AllowHtml]
         public string? Facts { get; set; }
+        [AllowHtml]
         public string? Stories { get; set; }
+        [AllowHtml]
         public string? TopThingsToKnow { get; set; }
         public bool? FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
