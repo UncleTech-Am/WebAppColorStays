@@ -36,6 +36,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? PopularReligion { get; set; }
         [AllowHtml]
         public string? History { get; set; }
+        public string? URL { get; set; }
         public string? CelebratedFor { get; set; }
         public string? Month { get; set; }
         public string? Region { get; set; }

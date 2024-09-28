@@ -1952,10 +1952,15 @@ function Suggestion(InputValStg, MinCharInt, InputIDStg, URL, ExtFieldName, ExtF
                         ListItem.Value = data[i].value;
                         ListItem.Label = data[i].label;
                         ListItem.Text = data[i].text;
+                        if (data[i].text == undefined || data[i].text == "" || data[i].text == null) { ListItem.Text = ""; }
                         ListItem.Text1 = data[i].text1;
+                        if (data[i].text1 == undefined || data[i].text1 == "" || data[i].text1 == null) { ListItem.Text1 = ""; }
                         ListItem.Text2 = data[i].text2;
+                        if (data[i].text2 == undefined || data[i].text2 == "" || data[i].text2 == null) { ListItem.Text2 = ""; }
                         ListItem.Text3 = data[i].text3;
+                        if (data[i].text3 == undefined || data[i].text3 == "" || data[i].text3 == null) { ListItem.Text3 = ""; }
                         ListItem.Text4 = data[i].text4;
+                        if (data[i].text4 == undefined || data[i].text4 == "" || data[i].text4 == null) { ListItem.Text4 = ""; }
 
                         if (i === (data.length - 1)) { ListItem.Next = 'none'; }
                         else {

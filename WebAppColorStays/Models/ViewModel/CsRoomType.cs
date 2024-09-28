@@ -14,6 +14,8 @@ namespace WebAppColorStays.Models.ViewModel
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
+        [NotMapped]
+        public int? ImageCount { get; set; }
         public string? Label { get; set; }
         [Remote("CheckDuplicationRoomType", "RoomType", AdditionalFields = ("NameAction, Id, Fk_Hotel_Name"))]
 

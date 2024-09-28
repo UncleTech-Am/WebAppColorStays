@@ -31,7 +31,9 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? CoverImageName { get; set; }
         public string? TagLine { get; set; }
+        [AllowHtml]
         public string? OtherDes { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
         public string? StructuredData { get; set; }
         public int? StarRating { get; set; }

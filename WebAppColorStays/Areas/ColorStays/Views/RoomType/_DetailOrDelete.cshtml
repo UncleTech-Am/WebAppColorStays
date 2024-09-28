@@ -225,18 +225,28 @@
         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
         {
             //  Checks which Button to Show For the Verification
-            if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
+            @if (Model.ImageCount == 1)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/RoomType/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/RoomType')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
+                {
+                    <button type="button" onclick="VerifyData('/ColorStays/RoomType/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/RoomType')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                }
             }
             if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
             {
                 <button type="button" onclick="VerifyData('/ColorStays/RoomType/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/RoomType')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
             }
             //  Checks which Button to Show For the Activation
-            if (Model.ActiveStatus == false && Model.GlobalStatus == false)
+            @if (Model.ImageCount == 1)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/RoomType/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/RoomType')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                if (Model.ActiveStatus == false && Model.GlobalStatus == false)
+                {
+                    <button type="button" onclick="VerifyData('/ColorStays/RoomType/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/RoomType')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                }
+            }
+            else
+            {
+                <div class="CrRd">First add Cover Image</div>
             }
             if (Model.ActiveStatus == true && Model.GlobalStatus == false)
             {
