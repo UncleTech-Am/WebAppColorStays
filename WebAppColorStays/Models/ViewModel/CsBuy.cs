@@ -11,12 +11,10 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Id { get; set; }
         public string? Label { get; set; }
         public string? Name { get; set; }
-        [DisplayName("Place")]
-        public string? Fk_Place_Name { get; set; }
-        [NotMapped]
-        public string? Place { get; set; }
         [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
+        [NotMapped]
+        public string? City { get; set; }
         [DisplayName("State")]
         public string? Fk_State_Name { get; set; }
         [DisplayName("Country")]
