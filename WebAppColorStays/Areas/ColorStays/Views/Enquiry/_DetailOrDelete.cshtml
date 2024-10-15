@@ -47,8 +47,14 @@
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.TravelDate)</td>
-        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", Model.TravelDate)</td>
+            <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CheckIn)</td>
+            <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", Model.CheckIn)</td>
+        </tr>
+
+
+        <tr>
+            <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CheckOut)</td>
+            <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", Model.CheckOut)</td>
         </tr>
 
 		      
@@ -197,10 +203,10 @@
   
 <div class="MnTp7 MnBm7 FxRw">
     <div class="DyFx FxJyCtSt Gp10 Wh100p">
-        @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
+        @* @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
         {
             <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/Enquiry/DeleteConfirmed?Id=@Model.Id','/ColorStays/Enquiry');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
-        }
+        } *@
 
         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
         {

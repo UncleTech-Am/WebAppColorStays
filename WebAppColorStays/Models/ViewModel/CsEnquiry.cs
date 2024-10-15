@@ -11,9 +11,11 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Email { get; set; }
         public int? PhoneNo { get; set; }
         public int? MobileNo { get; set; }
-        public DateTime? TravelDate { get; set; }
+        public DateTime? CheckIn { get; set; }
+        public DateTime? CheckOut { get; set; }
         public int? TravellerCount { get; set; }
         public string? Message { get; set; }
+        public string? EnqFrom { get; set; }
         public string? CallBackTime { get; set; }
         public DateTime? CallBackDate { get; set; }
         public bool FreezeStatus { get; set; }

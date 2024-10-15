@@ -134,7 +134,8 @@
     string SEOHotelHyperLink = " ";
     string SEOGroupHyperLink = " ";
 
-
+    string MainLink9 = " ";
+    string DrownLink9 = " ";
 
     switch (Action)
     {
@@ -185,7 +186,6 @@
         case "QuestionPlace": QuestionPlace = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "TravelAgent": TravelAgent = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "EnqCallBack": EnqCallBack = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
-        case "Enquiry": Enquiry = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "Offer": Offer = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "ReviewFor": ReviewFor = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "ReviewQuestion": ReviewQuestion = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
@@ -251,6 +251,8 @@
         case "BgCommentReply": BgCommentReply = "SideSubLinkActive"; BlogLink = "SideNavActive"; BlogSubLink = "SideSubNavActive"; break;
         case "Bg": Bg = "SideSubLinkActive"; BlogLink = "SideNavActive"; BlogSubLink = "SideSubNavActive"; break;
         case "BgAuthor": BgAuthor = "SideSubLinkActive"; BlogLink = "SideNavActive"; BlogSubLink = "SideSubNavActive"; break;
+
+        case "Enquiry": Enquiry = "SideSubLinkActive"; MainLink9 = "SideNavActive"; DrownLink9 = "SideSubNavActive"; break;
 
 
         default: break;
@@ -838,15 +840,7 @@
                     <a href="~/ColorStays/TravelAgent/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
-            @* <div class="SideNavSubLinkDiv">
-            <div class="SideNavSubLink ">
-                <div class="SideNavLinkText @Enquiry">
-                    <a href="~/ColorStays/Enquiry/Create">Enquiry</a>
-                </div>
-                <a href="~/ColorStays/Enquiry/Create"><i class="UT-AddFile"></i></a>
-                <a href="~/ColorStays/Enquiry/Index"><i class="UT-List-OLine"></i></a>
-            </div>
-        </div>
+            @* 
         <div class="SideNavSubLinkDiv">
             <div class="SideNavSubLink ">
                 <div class="SideNavLinkText @EnqCallBack">
@@ -1386,6 +1380,29 @@
             </div>
 
 
+        </div>
+    </div>
+    <div class="SideNavContainer">
+        <div class="SideNavLinkDiv">
+            <div class="SideNavLink @MainLink9">
+                <i class="UT-BlogCircleLine FtSz20 "></i>
+                <div class="SideNavLinkText">
+                    <a href=#>Enquiry</a>
+                </div>
+                <a href=#><i class="UT-ArrowDownCircleSolid"></i></a>
+
+            </div>
+        </div>
+        <div class="SideSubNavContainer @DrownLink9">
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @Enquiry">
+                        <a href="~/ColorStays/Enquiry/Index">Enquiry</a>
+                    </div>
+                    <a href="~/ColorStays/Enquiry/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

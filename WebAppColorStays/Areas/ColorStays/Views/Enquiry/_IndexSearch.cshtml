@@ -19,9 +19,7 @@
                 <form id="TableSearchID">
                     <tr>
                         <td class="CrBdWe94">
-                            @if (ViewData["AnName"] == "Create") { <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/Enquiry/Create'"><i class="UT-List-OLine"></i></button> }
-                            else if(ViewData["AnName"] == "Edit") {  <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/Enquiry/Edit?id='+'@ViewData["Id"]'"><i class="UT-List-OLine"></i></button>  }
-                            else { <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/Enquiry/Index'"><i class="UT-List-OLine"></i></button>  }
+                            <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/Enquiry/Index'"><i class="UT-List-OLine"></i></button>  
                             <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="SearchClear('TeUT')"><i class="UT-ClearDocument"></i></button>
                             <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="FormSubmit('/ColorStays/Enquiry/TableSearch','TableSearchID',TableSuccessFn)"><i class="UT-SearchRightSolid"></i></button>
                         </td>
@@ -44,11 +42,17 @@
                         </td>
                         
                         <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.TravelDate)" name="TravelDate" autocomplete="off"/>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CheckIn)" name="CheckIn" autocomplete="off" />
+                        </td>
+                        <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CheckOut)" name="CheckOut" autocomplete="off" />
                         </td>
                         
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.TravellerCount)" name="TravellerCount" autocomplete="off"/>
+                        </td>
+                        <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.EnqFrom)" name="EnqFrom" autocomplete="off" />
                         </td>
                         
                         <td>
@@ -136,8 +140,10 @@
                                         <th> @Html.DisplayNameFor(model => model.Email) </th>       
                                         <th> @Html.DisplayNameFor(model => model.PhoneNo) </th>       
                                         <th> @Html.DisplayNameFor(model => model.MobileNo) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.TravelDate) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.CheckIn) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.CheckOut) </th>       
                                         <th> @Html.DisplayNameFor(model => model.TravellerCount) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.EnqFrom) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Message) </th>       
                                         <th> @Html.DisplayNameFor(model => model.CallBackTime) </th>       
                                         <th> @Html.DisplayNameFor(model => model.CallBackDate) </th>       
