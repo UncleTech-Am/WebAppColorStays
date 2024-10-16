@@ -9,7 +9,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Id { get; set; }
         public string Name { get; set; }
         public string? Email { get; set; }
-        public int? PhoneNo { get; set; }
+        public string? PhoneNo { get; set; }
         public int? MobileNo { get; set; }
         public DateTime? CheckIn { get; set; }
         public DateTime? CheckOut { get; set; }
