@@ -33,15 +33,13 @@
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Id })"> <i class="UT-EditFileLine FtWt800"></i> </a>
             } *@
         </td>
-         
+
+        <td>@item.PhoneNo</td>
+
 	    <td>@item.Name</td>
          
 	    <td>@item.Email</td>
-         
-	    <td>@item.PhoneNo</td>
-         
-	    <td>@item.MobileNo</td>
-
+                  
         <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.CheckIn)</td>
         <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.CheckOut)</td>
          

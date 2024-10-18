@@ -26,21 +26,17 @@
                     
                         
                         <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.PhoneNo)" name="PhoneNo" autocomplete="off"/>
+                        </td>
+
+                        <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Name)" name="Name" autocomplete="off"/>
                         </td>
                         
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Email)" name="Email" autocomplete="off"/>
                         </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.PhoneNo)" name="PhoneNo" autocomplete="off"/>
-                        </td>
-                        
-                        <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.MobileNo)" name="MobileNo" autocomplete="off"/>
-                        </td>
-                        
+                                                
                         <td>
                         <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CheckIn)" name="CheckIn" autocomplete="off" />
                         </td>
@@ -136,10 +132,9 @@
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','','','/ColorStays/Enquiry')"><i class="UT-UnstarSolid"></i></a>
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark Star" onclick="MultiButtonFunc('Star','','','/ColorStays/Enquiry')"> <i class="UT-StarSolid"></i></a>
                     </th>
+                                        <th> @Html.DisplayNameFor(model => model.PhoneNo) </th>
                                         <th> @Html.DisplayNameFor(model => model.Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Email) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.PhoneNo) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.MobileNo) </th>       
                                         <th> @Html.DisplayNameFor(model => model.CheckIn) </th>       
                                         <th> @Html.DisplayNameFor(model => model.CheckOut) </th>       
                                         <th> @Html.DisplayNameFor(model => model.TravellerCount) </th>       
