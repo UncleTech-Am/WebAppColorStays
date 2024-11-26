@@ -31,13 +31,13 @@
                 <div id="UTabs1Cont0">
                     <div class="Pg12">
                         <form id="Edit" name="Edit">
-                              @* data-ajax="true"
-                              data-ajax-url="/ColorStays/Package/EditPgDetail"
-                              data-ajax-method="POST"
-                              data-ajax-loading="#loader"
-                              enctype="multipart/form-data"
-                              data-ajax-success="SuccessE(data, status, xhr,'Edit', 'CreateOrEdit')"
-                              data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')"> *@
+                            @* data-ajax="true"
+                            data-ajax-url="/ColorStays/Package/EditPgDetail"
+                            data-ajax-method="POST"
+                            data-ajax-loading="#loader"
+                            enctype="multipart/form-data"
+                            data-ajax-success="SuccessE(data, status, xhr,'Edit', 'CreateOrEdit')"
+                            data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')"> *@
 
                             @Html.AntiForgeryToken()
 
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
 
-                            <div class="MnTp7 MnBm7 FxRw"> 
+                            <div class="MnTp7 MnBm7 FxRw">
                                 <div class="FxGw1">
                                     @* <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Next</button> *@
 
@@ -77,12 +77,12 @@
 
                 <div id="UTabs1Cont1">
                     <form id="CreatePackageCity"
-                      data-ajax="true"
-                      data-ajax-url="/ColorStays/Package/AddPackageCity"
-                      data-ajax-method="POST"
-                      data-ajax-loading="#loader"
-                      data-ajax-success="SuccessCity(data, status, xhr,'CreatePackageCity','CreateOrEditCity')"
-                      data-ajax-failure="FormAjaxFail(xhr, status, error,'CreatePackageCity')">
+                          data-ajax="true"
+                          data-ajax-url="/ColorStays/Package/AddPackageCity"
+                          data-ajax-method="POST"
+                          data-ajax-loading="#loader"
+                          data-ajax-success="SuccessCity(data, status, xhr,'CreatePackageCity','CreateOrEditCity')"
+                          data-ajax-failure="FormAjaxFail(xhr, status, error,'CreatePackageCity')">
 
                         @Html.AntiForgeryToken()
                         <div id="CreateOrEditCity" style="height: 250px;overflow: auto;"></div>
@@ -96,7 +96,7 @@
                             </div>
                         </div>
                     </form>
-                    
+
                 </div>
 
                 <div id="UTabs1Cont2">
@@ -123,7 +123,7 @@
                 </div>
 
                 <div id="UTabs1Cont4">
-                    <form id="CreateItinerary"
+                    <form id="CreateItinerary" name="CreateItinerary"
                           data-ajax="true"
                           data-ajax-url="/ColorStays/Package/CreateItinerary"
                           data-ajax-method="POST"
@@ -145,7 +145,7 @@
 
                         <div class="MnTp7 MnBm7 FxRw">
                             <div class="FxGw1">
-                                <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                                <button type="button" onclick="FormSubmitPackage()" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
                             </div>
                             <div>
                                 <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetItinerary()"><i class="UT-AddLine"></i>&nbsp;New Entry</button>
@@ -158,12 +158,12 @@
                                     <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 5)"><i class="UT-ArrowRightCircleLine"></i>&nbsp;Next</button>
                                 </div>
                             </div>
-                           
+
 
                         </div>
                     </form>
 
-                    
+
                 </div>
 
 
@@ -331,16 +331,16 @@
                     { title: 'English (US)', code: 'en_US' },
                 ],
                 content_style: `
-                                        img {
-                                            height: auto;
-                                        margin: auto;
-                                        padding: 10px;
-                                        display: block;
-                                                            }
-                                        img.medium {
-                                            max - width: 25%;
-                                                            }
-                                        `
+                                            img {
+                                                height: auto;
+                                            margin: auto;
+                                            padding: 10px;
+                                            display: block;
+                                                                }
+                                            img.medium {
+                                                max - width: 25%;
+                                                                }
+                                            `
             });
 
             HideLoader();
@@ -363,6 +363,13 @@
 
         MaxMin();
     });
+
+    function FormSubmitPackage() {
+        var PostURL = "/ColorStays/Package/CreateItinerary";
+        var FormID = "CreateItinerary";
+        var FormName = "CreateItinerary";
+        FormSubmit(PostURL, FormID, SuccessItinerary, FormName);
+    }
 
     tinymce.init({
         selector: '#Overview, #PackageHighlight',
@@ -394,16 +401,16 @@
             { title: 'English (US)', code: 'en_US' },
         ],
         content_style: `
-                                img {
-                                    height: auto;
-                                margin: auto;
-                                padding: 10px;
-                                display: block;
-                                                    }
-                                img.medium {
-                                    max - width: 25%;
-                                                    }
-                                `
+                                    img {
+                                        height: auto;
+                                    margin: auto;
+                                    padding: 10px;
+                                    display: block;
+                                                        }
+                                    img.medium {
+                                        max - width: 25%;
+                                                        }
+                                    `
     });
 
 
@@ -457,7 +464,7 @@
             GetPackageCity();
             document.getElementById('PId').value = document.getElementById('PeId').value;
         }
-        else{
+        else {
             PopUpError(data);
         }
     }
@@ -549,7 +556,7 @@
 
     //Here get the list of Exclusion list
     function GetExclusion() {
-        var id = $("#Id").val(); 
+        var id = $("#Id").val();
         ActiveTabUt('UTabs1', 3);
         getUT('/ColorStays/Package/PackageExclusionList?PeId=' + id, function (data) {
             document.getElementById('CreateOrEditExclusion').innerHTML = "";
@@ -630,16 +637,16 @@
                     { title: 'English (US)', code: 'en_US' },
                 ],
                 content_style: `
-                                    img {
-                                        height: auto;
-                                    margin: auto;
-                                    padding: 10px;
-                                    display: block;
-                                                        }
-                                    img.medium {
-                                        max - width: 25%;
-                                                        }
-                                    `
+                                        img {
+                                            height: auto;
+                                        margin: auto;
+                                        padding: 10px;
+                                        display: block;
+                                                            }
+                                        img.medium {
+                                            max - width: 25%;
+                                                            }
+                                        `
             });
             HideLoader();
         });
@@ -687,16 +694,16 @@
                     { title: 'English (US)', code: 'en_US' },
                 ],
                 content_style: `
-                                    img {
-                                        height: auto;
-                                    margin: auto;
-                                    padding: 10px;
-                                    display: block;
-                                                        }
-                                    img.medium {
-                                        max - width: 25%;
-                                                        }
-                                    `
+                                        img {
+                                            height: auto;
+                                        margin: auto;
+                                        padding: 10px;
+                                        display: block;
+                                                            }
+                                        img.medium {
+                                            max - width: 25%;
+                                                            }
+                                        `
             });
 
             HideLoader();
@@ -743,16 +750,16 @@
                     { title: 'English (US)', code: 'en_US' },
                 ],
                 content_style: `
-                                        img {
-                                            height: auto;
-                                        margin: auto;
-                                        padding: 10px;
-                                        display: block;
-                                                            }
-                                        img.medium {
-                                            max - width: 25%;
-                                                            }
-                                        `
+                                            img {
+                                                height: auto;
+                                            margin: auto;
+                                            padding: 10px;
+                                            display: block;
+                                                                }
+                                            img.medium {
+                                                max - width: 25%;
+                                                                }
+                                            `
             });
 
             getUT('/ColorStays/PackageItinerary/Index?PeId=' + PackageId, function (data) {
@@ -793,7 +800,7 @@
     }
 
 
-    function GetItineraryList(){
+    function GetItineraryList() {
         var PackageId = $("#Id").val();
         getUT('/ColorStays/PackageItinerary/Index?PeId=' + PackageId, function (data) {
             document.getElementById('Itinerary').innerHTML = "";
@@ -907,9 +914,9 @@
             });
             HideLoader();
         });
-        
+
     };
-            //Ends
+    //Ends
 
 </script>
 

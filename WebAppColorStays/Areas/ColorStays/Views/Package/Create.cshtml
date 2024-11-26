@@ -144,7 +144,7 @@
 
                         <div class="MnTp7 MnBm7 FxRw">
                             <div class="FxGw1">
-                                <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                                <button type="button" onclick="FormSubmitPackage()" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
                             </div>
                             <div>
                                 <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetItinerary()"><i class="UT-AddLine"></i>&nbsp;New Entry</button>
@@ -301,6 +301,13 @@
     });
 
    
+
+    function FormSubmitPackage() {
+        var PostURL = "/ColorStays/Package/CreateItinerary";
+        var FormID = "CreateItinerary";
+        var FormName = "CreateItinerary";
+        FormSubmit(PostURL, FormID, SuccessItinerary, FormName);
+    }
 
 
     //Autocomplete
