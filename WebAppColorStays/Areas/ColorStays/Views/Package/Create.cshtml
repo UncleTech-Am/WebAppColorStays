@@ -122,7 +122,7 @@
                 </div>
 
                 <div id="UTabs1Cont4">
-                    <form id="CreateItinerary"
+                    <form id="CreateItinerary" name="CreateItinerary"
                           data-ajax="true"
                           data-ajax-url="/ColorStays/Package/CreateItinerary"
                           data-ajax-method="POST"
@@ -241,7 +241,6 @@
 </div>
 
 <script src="~/js/tinymce_6.2.0/tinymce/js/tinymce/tinymce.min.js"></script>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <link href="~/lib/dropzone/min/dropzone.min.css" rel="stylesheet" />
 <script src="~/lib/dropzone/min/dropzone.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -263,6 +262,11 @@
         plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
         toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
         a11ychecker_level: 'aaa',
+        setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave(); // Ensure real-time synchronization with the textarea
+            });
+        },
         style_formats: [
             { title: 'Heading 1', block: 'h1' },
             { title: 'Heading 2', block: 'h2' },
@@ -303,10 +307,23 @@
    
 
     function FormSubmitPackage() {
-        var PostURL = "/ColorStays/Package/CreateItinerary";
-        var FormID = "CreateItinerary";
-        var FormName = "CreateItinerary";
-        FormSubmit(PostURL, FormID, SuccessItinerary, FormName);
+        var dayno = document.getElementById('DayNo').value;
+        var name = document.getElementById('DayTitle').value;
+        if (dayno == null || dayno == "") {
+            document.getElementById('ValPopUp').style.display = "block";
+        }
+        else if (dayno == null || dayno == "") {
+            document.getElementById('ValPopUp').style.display = "block";
+        }
+        else {
+            document.getElementById('DayActivity1').value = null;
+
+            var PostURL = "/ColorStays/Package/CreateItinerary";
+            var FormID = "CreateItinerary";
+            var FormName = "CreateItinerary";
+            tinymce.triggerSave();
+            FormSubmit(PostURL, FormID, SuccessItinerary, FormName);
+        }
     }
 
 
@@ -316,6 +333,11 @@
         SuggestionClose(InputId);
         document.getElementById('Fk_Currency_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
+    }
+    //Clear Autocompete data
+    function ClearData1(UrNe, UrId) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
     }
 
     //Clear Autocompete data
@@ -487,11 +509,6 @@
             container.innerHTML = data;
 
             $.validator.unobtrusive.parse(container);
-
-            var idinput = document.getElementById('DayActivity').value;
-            tinymce.activeEditor.setProgressState(true);
-            tinymce.activeEditor.setProgressState(false, 300);
-            setTimeout(() => { tinymce.activeEditor.setContent(idinput) }, 200);
             tinymce.init({
                 selector: '#DayActivity',
                 plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
@@ -543,7 +560,7 @@
             var container = document.getElementById('CreateOrEditItinerary');
             container.innerHTML = data;
             $.validator.unobtrusive.parse(container);
-            var idinput = document.getElementById('DayActivity').value;
+            var idinput = document.getElementById('DayActivity1').value;
             tinymce.activeEditor.setProgressState(true);
             tinymce.activeEditor.setProgressState(false, 300);
             setTimeout(() => { tinymce.activeEditor.setContent(idinput) }, 200);
@@ -599,52 +616,7 @@
         getUT('/ColorStays/Package/ImageDelete?Id=' + id + '&Field=' + field + '&ImgName=' + imgname, function (data) {
             document.getElementById('CreateOrEditItinerary').innerHTML = "";
             document.getElementById('CreateOrEditItinerary').innerHTML = data;
-            var idinput = document.getElementById('DayActivity').value;
-            tinymce.activeEditor.setProgressState(true);
-            tinymce.activeEditor.setProgressState(false, 300);
-            setTimeout(() => { tinymce.activeEditor.setContent(idinput) }, 200);
-            tinymce.init({
-                selector: '#DayActivity',
-                plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
-                toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
-                a11ychecker_level: 'aaa',
-                style_formats: [
-                    { title: 'Heading 1', block: 'h1' },
-                    { title: 'Heading 2', block: 'h2' },
-                    { title: 'Paragraph', block: 'p' },
-                    { title: 'Blockquote', block: 'blockquote' },
-                    { title: 'Image formats' },
-                    { title: 'Medium', selector: 'img', classes: 'medium' },
-                ],
-                object_resizing: true,
-                valid_classes: {
-                    'img': 'medium',
-                    'div': 'related-content'
-                },
-                image_caption: true,
-                templates: [
-                    {
-                        title: 'Related content',
-                        description: 'This template inserts a related content block',
-                        content: '<div class="related-content"><h3>Related content</h3><p><strong>{$rel_lede}</strong> {$rel_body}</p></div>'
-                    }
-                ],
-                content_langs: [
-                    { title: 'English (US)', code: 'en_US' },
-                ],
-                content_style: `
-                                            img {
-                                                height: auto;
-                                            margin: auto;
-                                            padding: 10px;
-                                            display: block;
-                                                                }
-                                            img.medium {
-                                                max - width: 25%;
-                                                                }
-                                            `
-            });
-
+            
             getUT('/ColorStays/PackageItinerary/Index?PeId=' + PackageId, function (data) {
                 document.getElementById('Itinerary').innerHTML = "";
                 document.getElementById('Itinerary').innerHTML = data;
@@ -655,18 +627,18 @@
     }
 
     function SuccessItinerary(data, status, xhr, FormID, FormFieldID) {
+        var FormFieldID ="CreateOrEditItinerary";
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Itinerary");
-        ActiveTabUt('UTabs1', 4);
+        var id = document.getElementById('ItineraryId').value;
+        if(id != null){
+           EditItinerary(id);
+        }
+        else{
+            ActiveTabUt('UTabs1', 4);
+        }
+
         ActiveTabUt('UTabs2', 4);
-        // if (data.includes("SuccessPop")) {
-        //     var id = $("#ItineraryId").val();
-        //     if (id != "") {
-        //         EditItinerary(id);
-        //     }
-        //     else {
-        //         GetItinerary();
-        //     }
-        // }
+        
         document.getElementById('PeId').value = document.getElementById('PeId').value;
     }
 

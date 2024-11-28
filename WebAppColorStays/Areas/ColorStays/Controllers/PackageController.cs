@@ -1286,7 +1286,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateItinerary(CsPackageItinerary CsPackageItinerary)
+        public async Task<IActionResult> CreateItinerary(CsPackageItinerary CsPackageItinerary, IFormCollection fc)
         {
             Title();
             ViewData["AnName"] = "Create";
@@ -1296,6 +1296,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             bool Success = false;
             CsPackageItinerary.CompId = CompID;
             CsPackageItinerary.ModifiedBy = UserID;
+            if (CsPackageItinerary.Remarks != null)
+            {
+                CsPackageItinerary.Remarks = "null";
+            }
+            CsPackageItinerary.DayActivity = Convert.ToString(fc["DayActivity"]);
             ViewData["ResponseName"] = "ShowValidation";
             CsPackageItinerary data = new CsPackageItinerary();
             var files = HttpContext.Request.Form.Files;
@@ -1512,6 +1517,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         CsPackageItinerary = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackageItinerary>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsPackageItinerary.Remarks = CsPackageItinerary.DayActivity;
                     }
                     else
                     {

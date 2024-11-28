@@ -26,6 +26,7 @@ else
 @Html.HiddenFor(model => model.CompId)
 
 <input type="hidden" id="PgIyId" asp-for="Fk_Package_Name" />
+<input type="hidden" id="DayActivity1" asp-for="Remarks" />
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -355,12 +356,3 @@ else
     <div class="VnRd"><span asp-validation-for="AltTag5"></span></div>
 </div>
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
-</div>

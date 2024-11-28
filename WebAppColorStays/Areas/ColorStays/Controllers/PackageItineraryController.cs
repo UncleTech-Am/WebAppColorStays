@@ -601,6 +601,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackageItinerary>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        data.Remarks = data.DayActivity;
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else { Success = false; }

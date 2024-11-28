@@ -30,14 +30,14 @@
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
                 <div id="UTabs1Cont0">
                     <div class="Pg12">
-                        <form id="Edit" name="Edit">
-                            @* data-ajax="true"
+                        <form id="Edit" name="Edit"
+                            data-ajax="true"
                             data-ajax-url="/ColorStays/Package/EditPgDetail"
                             data-ajax-method="POST"
                             data-ajax-loading="#loader"
                             enctype="multipart/form-data"
-                            data-ajax-success="SuccessE(data, status, xhr,'Edit', 'CreateOrEdit')"
-                            data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')"> *@
+                            data-ajax-success="SuccessE(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/Package/CreateOrEdit?id=@Model.Id')"
+                            data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')">
 
                             @Html.AntiForgeryToken()
 
@@ -142,7 +142,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="MnTp7 MnBm7 FxRw">
                             <div class="FxGw1">
                                 <button type="button" onclick="FormSubmitPackage()" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
@@ -244,7 +243,6 @@
 </div>
 
 <script src="~/js/tinymce_6.2.0/tinymce/js/tinymce/tinymce.min.js"></script>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <link href="~/lib/dropzone/min/dropzone.min.css" rel="stylesheet" />
 <script src="~/lib/dropzone/min/dropzone.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -306,6 +304,7 @@
                 plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
                 toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
                 a11ychecker_level: 'aaa',
+                
                 style_formats: [
                     { title: 'Heading 1', block: 'h1' },
                     { title: 'Heading 2', block: 'h2' },
@@ -365,10 +364,24 @@
     });
 
     function FormSubmitPackage() {
-        var PostURL = "/ColorStays/Package/CreateItinerary";
-        var FormID = "CreateItinerary";
-        var FormName = "CreateItinerary";
-        FormSubmit(PostURL, FormID, SuccessItinerary, FormName);
+        var dayno = document.getElementById('DayNo').value;
+        var name = document.getElementById('DayTitle').value;
+        if(dayno == null || dayno == ""){
+            document.getElementById('ValPopUp').style.display = "block";
+        }
+        else if (name == null || name == "") {
+            document.getElementById('ValPopUp').style.display = "block";
+        }
+        else{
+            document.getElementById('DayActivity1').value = null;
+
+            var PostURL = "/ColorStays/Package/CreateItinerary";
+            var FormID = "CreateItinerary";
+            var FormName = "CreateItinerary";
+            tinymce.triggerSave();
+            FormSubmit(PostURL, FormID, SuccessItinerary, FormName);
+        }
+       
     }
 
     tinymce.init({
@@ -376,6 +389,11 @@
         plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
         toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
         a11ychecker_level: 'aaa',
+        setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave(); // Ensure real-time synchronization with the textarea
+            });
+        },
         style_formats: [
             { title: 'Heading 1', block: 'h1' },
             { title: 'Heading 2', block: 'h2' },
@@ -415,7 +433,7 @@
 
 
     //Clear Autocompete data
-    function ClearData(UrNe, UrId) {
+    function ClearData1(UrNe, UrId) {
         document.getElementById(UrNe).value = '';
         document.getElementById(UrId).value = '';
     }
@@ -455,10 +473,14 @@
         document.getElementById('Fk_State_Name').value = event.target.Text1;
         document.getElementById('Fk_Country_Name').value = event.target.Text2;
     }
-    function SuccessE(data, status, xhr, FormID, FormFieldID) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
+    function SuccessE(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
+        var id = $("#Id").val();
+        var FormField ="CreateOrEdit";
+        var FormURL = '/ColorStays/Package/CreateOrEdit?id='+id;
+        FormAjaxSuccess(data, FormID, FormField, "UpdateEditDiv", "Detail", FormURL);
         //Show the Image Tab
         if (data.includes("SuccessPop")) {
+
             ActiveTabUt('UTabs1', 1);
             ActiveTabUt('UTabs2', 0);
             GetPackageCity();
@@ -470,7 +492,7 @@
     }
 
 
-    function GetPackageCity() {
+     function GetPackageCity() {
         var id = $("#Id").val();
         getUT('/ColorStays/Package/PackageCity?PeId=' + id, function (data) {
             document.getElementById('CreateOrEditCity').innerHTML = "";
@@ -596,17 +618,10 @@
         var id = $("#Id").val();
         ActiveTabUt('UTabs1', 4);
         getUT('/ColorStays/Package/CreateItinerary?PeId=' + id, function (data) {
-            // document.getElementById('CreateOrEditItinerary').innerHTML = "";
-            // document.getElementById('CreateOrEditItinerary').innerHTML = data;
             var container = document.getElementById('CreateOrEditItinerary');
             container.innerHTML = data;
-
             $.validator.unobtrusive.parse(container);
 
-            var idinput = document.getElementById('DayActivity').value;
-            tinymce.activeEditor.setProgressState(true);
-            tinymce.activeEditor.setProgressState(false, 300);
-            setTimeout(() => { tinymce.activeEditor.setContent(idinput) }, 200);
             tinymce.init({
                 selector: '#DayActivity',
                 plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
@@ -660,7 +675,7 @@
 
             $.validator.unobtrusive.parse(container);
 
-            var idinput = document.getElementById('DayActivity').value;
+            var idinput = document.getElementById('DayActivity1').value;
             tinymce.activeEditor.setProgressState(true);
             tinymce.activeEditor.setProgressState(false, 300);
             setTimeout(() => { tinymce.activeEditor.setContent(idinput) }, 200);
@@ -716,51 +731,6 @@
         getUT('/ColorStays/Package/ImageDelete?Id=' + id + '&Field=' + field + '&ImgName=' + imgname, function (data) {
             document.getElementById('CreateOrEditItinerary').innerHTML = "";
             document.getElementById('CreateOrEditItinerary').innerHTML = data;
-            var idinput = document.getElementById('DayActivity').value;
-            tinymce.activeEditor.setProgressState(true);
-            tinymce.activeEditor.setProgressState(false, 300);
-            setTimeout(() => { tinymce.activeEditor.setContent(idinput) }, 200);
-            tinymce.init({
-                selector: '#DayActivity',
-                plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
-                toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
-                a11ychecker_level: 'aaa',
-                style_formats: [
-                    { title: 'Heading 1', block: 'h1' },
-                    { title: 'Heading 2', block: 'h2' },
-                    { title: 'Paragraph', block: 'p' },
-                    { title: 'Blockquote', block: 'blockquote' },
-                    { title: 'Image formats' },
-                    { title: 'Medium', selector: 'img', classes: 'medium' },
-                ],
-                object_resizing: true,
-                valid_classes: {
-                    'img': 'medium',
-                    'div': 'related-content'
-                },
-                image_caption: true,
-                templates: [
-                    {
-                        title: 'Related content',
-                        description: 'This template inserts a related content block',
-                        content: '<div class="related-content"><h3>Related content</h3><p><strong>{$rel_lede}</strong> {$rel_body}</p></div>'
-                    }
-                ],
-                content_langs: [
-                    { title: 'English (US)', code: 'en_US' },
-                ],
-                content_style: `
-                                            img {
-                                                height: auto;
-                                            margin: auto;
-                                            padding: 10px;
-                                            display: block;
-                                                                }
-                                            img.medium {
-                                                max - width: 25%;
-                                                                }
-                                            `
-            });
 
             getUT('/ColorStays/PackageItinerary/Index?PeId=' + PackageId, function (data) {
                 document.getElementById('Itinerary').innerHTML = "";
@@ -771,21 +741,20 @@
         });
     }
 
-    function SuccessItinerary(data, status, xhr, FormID, FormFieldID) {
+    function SuccessItinerary(data, status, xhr, FormID) {
+        var FormFieldID ="CreateOrEditItinerary";
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Itinerary");
         //GetItineraryList();
-
-        ActiveTabUt('UTabs1', 4);
+        var id = document.getElementById('ItineraryId').value;
+        if(id != null){
+           EditItinerary(id);
+        }
+        else{
+            ActiveTabUt('UTabs1', 4);
+        }
+        
         ActiveTabUt('UTabs2', 4);
-        // if (data.includes("SuccessPop")) {
-        //     var id = $("#ItineraryId").val();
-        //     if(id != ""){
-        //         EditItinerary(id);
-        //     }
-        //     else{
-        //         GetItinerary();
-        //     }
-        // }
+        
         document.getElementById('PeId').value = document.getElementById('PeId').value;
     }
 
