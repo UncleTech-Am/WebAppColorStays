@@ -1066,14 +1066,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
-            PackageInExCheckbox facilityList = new PackageInExCheckbox();
+            PackageExclusionCheckbox facilityList = new PackageExclusionCheckbox();
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 using (var response = await client.GetAsync("PackageExclusionMap/PackageExclusionList/" + PeId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    facilityList = await System.Text.Json.JsonSerializer.DeserializeAsync<PackageInExCheckbox>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    facilityList = await System.Text.Json.JsonSerializer.DeserializeAsync<PackageExclusionCheckbox>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                 }
             }
             return View("_CreateOrEditPackageExclusion", facilityList);
@@ -1081,7 +1081,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddPackageExclusion(PackageInExCheckbox model)
+        public async Task<IActionResult> AddPackageExclusion(PackageExclusionCheckbox model)
         {
             Title();
             ViewBag.Action = "RolesAssign";

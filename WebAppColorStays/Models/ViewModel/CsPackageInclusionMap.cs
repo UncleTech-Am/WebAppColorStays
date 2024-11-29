@@ -14,6 +14,7 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? Package { get; set; }
         public bool? IsInclusion { get; set; }
+        public bool? IsHighLighted { get; set; }
         public string? Fk_PackageInclusion_Name { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }

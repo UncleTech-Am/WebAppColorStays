@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Areas.ColorStays.CommonMethods
 {
-    public class PackageInExCheckbox
+    public class PackageExclusionCheckbox
     {
         public string? Id { get; set; }
         [DisplayName("Package")]
@@ -12,15 +12,14 @@ namespace WebAppColorStays.Areas.ColorStays.CommonMethods
         [NotMapped]
         public string? Package { get; set; }
         public string? Fk_PackageInclusion_Name { get; set; }
-        public bool IsHighLighted { get; set; }
         public string? Name { get; set; }
-        public PackageInExCheckbox()
+        public PackageExclusionCheckbox()
         {
-            CheckInEx = new List<PackageInExCheckbox>();
+            CheckInEx = new List<PackageExclusionCheckbox>();
         }
         //String name of a checkbox
         public bool IsSelected { get; set; }
-        public List<PackageInExCheckbox>? CheckInEx { get; set; }
+        public List<PackageExclusionCheckbox>? CheckInEx { get; set; }
         public string? CompId { get; set; }
     }
 }

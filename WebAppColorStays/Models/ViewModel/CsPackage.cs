@@ -44,10 +44,20 @@ namespace WebAppColorStays.Models.ViewModel
         public bool Lunch { get; set; }
         public bool Dinner { get; set; }
         public string? LocationDuration { get; set; }
+        public string? Description { get; set; }
+        [AllowHtml]
+        public string? NeedToKonw { get; set; }
+        [AllowHtml]
+        public string? CancellationNote { get; set; }
+        public string? MapLink { get; set; }
         [DisplayName("PackageType")]
         public string? Fk_PackageType_Name { get; set; }
         [NotMapped]
         public string? PackageType { get; set; }
+        [ForeignKey("TblLocation")]
+        public string? Fk_Location_Name { get; set; }
+        [NotMapped]
+        public string? Location { get; set; }
         [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
         [NotMapped]

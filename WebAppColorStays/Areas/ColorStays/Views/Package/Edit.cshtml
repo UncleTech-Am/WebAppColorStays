@@ -60,7 +60,20 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="MnTp7 MnBm7" style="height:66vh;">
+                                <div>
+                                    <div class="MaxMinDv">
+                                        <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.NeedToKonw)" asp-for="NeedToKonw" autocomplete="off"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="MnTp7 MnBm7" style="height:66vh;">
+                                <div>
+                                    <div class="MaxMinDv">
+                                        <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.CancellationNote)" asp-for="CancellationNote" autocomplete="off"></textarea>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="MnTp7 MnBm7 FxRw">
                                 <div class="FxGw1">
                                     @* <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Next</button> *@
@@ -358,7 +371,7 @@
         document.getElementById('PId').value = PackageId;
         //Ends
         StartSuggestionBox(2, 'SearchCurrency', '/ColorStays/Currency/SuggestCurrency', '', '', AoCeCurrency);
-        StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
+        StartSuggestionBox(2, 'SearchLocation', '/ColorStays/Location/SuggestLocation', '', '', AoCeLocation);
 
         MaxMin();
     });
@@ -447,21 +460,23 @@
     }
 
     //Clear Autocompete data
-    function ClearData(UrNe, UrId, Text1, Text2) {
+    function ClearData(UrNe, UrId, Text1, Text2, Text3) {
         document.getElementById(UrNe).value = '';
         document.getElementById(UrId).value = '';
         document.getElementById(Text1).value = '';
         document.getElementById(Text2).value = '';
+        document.getElementById(Text3).value = '';
     }
 
     //Autocomplete Item
-    function AoCePeCity(event) {
+    function AoCeLocation(event) {
         var InputId = event.target.InputID;
         SuggestionClose(InputId);
-        document.getElementById('Fk_City_NamePe').value = event.target.Id;
+        document.getElementById('Fk_Location_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
-        document.getElementById('Fk_State_NamePe').value = event.target.Text1;
-        document.getElementById('Fk_Country_NamePe').value = event.target.Text2;
+        document.getElementById('Fk_City_Name').value = event.target.Text2;
+        document.getElementById('Fk_State_Name').value = event.target.Text3;
+        document.getElementById('Fk_Country_Name').value = event.target.Text1;
     }
 
     //Autocomplete Item
