@@ -1,7 +1,7 @@
-@model WebAppColorStays.Models.ViewModel.CsCancellationPolicy
+@model WebAppColorStays.Models.ViewModel.CsCancellationPolicyType
 @{ 
     Layout = null; 
-    ViewData["Action"] = "CancellationPolicy";
+    ViewData["Action"] = "CancellationPolicyType";
 }
 
 <div style="display:none">responseformUT ShowData</div>
@@ -19,29 +19,15 @@
       
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.StartTo)</td>
-        <td>@Model.StartTo</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Name)</td>
+        <td>@Model.Name</td>
         </tr>
 
 		      
  
         <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.EndFrom)</td>
-        <td>@Model.EndFrom</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.Fk_CancellationPyTe_Name)</td>
-        <td>@Model.Fk_CancellationPyTe_Name</td>
-        </tr>
-
-		      
- 
-        <tr>
-        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CancellationFee)</td>
-        <td>@Model.CancellationFee</td>
+        <td class="FtWt600 Pg8">@Html.DisplayNameFor(model => model.CancellationNote)</td>
+        <td>@Model.CancellationNote</td>
         </tr>
 
 		      
@@ -164,7 +150,7 @@
     <div class="DyFx FxJyCtSt Gp10 Wh100p">
         @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
         {
-            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/CancellationPolicy/DeleteConfirmed?Id=@Model.Id','/ColorStays/CancellationPolicy');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/CancellationPolicyType/DeleteConfirmed?Id=@Model.Id','/ColorStays/CancellationPolicyType');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
         }
 
         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
@@ -172,20 +158,20 @@
             //  Checks which Button to Show For the Verification
             if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/CancellationPolicy/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/CancellationPolicy')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/CancellationPolicyType/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/CancellationPolicyType')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
             }
             if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/CancellationPolicy/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/CancellationPolicy')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
+                <button type="button" onclick="VerifyData('/ColorStays/CancellationPolicyType/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/CancellationPolicyType')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
             }
             //  Checks which Button to Show For the Activation
             if (Model.ActiveStatus == false && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/CancellationPolicy/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/CancellationPolicy')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                <button type="button" onclick="VerifyData('/ColorStays/CancellationPolicyType/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/CancellationPolicyType')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
             }
             if (Model.ActiveStatus == true && Model.GlobalStatus == false)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/CancellationPolicy/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/CancellationPolicy')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
+                <button type="button" onclick="VerifyData('/ColorStays/CancellationPolicyType/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/CancellationPolicyType')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>
             }
         }
     </div>

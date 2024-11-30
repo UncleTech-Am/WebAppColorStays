@@ -45,11 +45,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         {
             RyCrSsDropDown ry = new RyCrSsDropDown();
             string URLContinent = "PackageType/DropDown/" + CompId;
+            string URLCancellation = "CancellationPolicyType/DropDown/" + CompId;
+            string URLTerms = "TermsAndCondition/DropDown/" + CompId;
             try
             {
                 Task<List<SelectListItem>> PackageType = ry.DDColorStaysAPI(URLContinent, Token);
-                Task.WaitAll(PackageType);
+                Task<List<SelectListItem>> PolicyType = ry.DDColorStaysAPI(URLCancellation, Token);
+                Task<List<SelectListItem>> Terms = ry.DDColorStaysAPI(URLTerms, Token);
+
+                Task.WaitAll(PackageType, PolicyType, Terms);
                 ViewBag.PackageType = PackageType;
+                ViewBag.PolicyType = PolicyType;
+                ViewBag.Terms = Terms;
             }
             catch (Exception ex) { }
 

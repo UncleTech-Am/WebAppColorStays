@@ -1,16 +1,17 @@
-@model WebAppColorStays.Models.ViewModel.CsSEOHotelHyperLink
+@model WebAppColorStays.Models.ViewModel.CsSEOPackageHyperLink
 
 @{
     Layout = "_Layout";
-    ViewData["Action"] = "SEOHotelHyperLink";
+    ViewData["Action"] = "SEOPackageHyperLink";
 }
 
-
 <div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
-    <div class="CrTeTtLt FxGw1"> <h1>Add @ViewBag.Title</h1></div>
+    <div class="CrTeTtLt FxGw1"> <h1>Edit @ViewBag.Title</h1></div>
     <div>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1"><i class="UT-List-OLine FtSz18" onclick="location.href='/ColorStays/SEOHotelHyperLink/Index'"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/SEOPackageHyperLink/Create'"><i class="UT-AddFile FtSz18"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1" onclick="location.href='/ColorStays/SEOPackageHyperLink/Index'"><i class="UT-List-OLine FtSz18"></i></button>
     </div>
+
 </div>
 
 <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
@@ -19,22 +20,29 @@
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
                 <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
                     <i class="UT-PenNibSmall"></i>
-                    Enter Detail
+                    Edit Detail
                 </h3>
-                 <form id="Create"
-                    data-ajax="true"
-                    data-ajax-url="/ColorStays/SEOHotelHyperLink/Create"
-                    data-ajax-method="POST"
-                    data-ajax-loading="#loader"
+
+                <form id="Edit"
+                      data-ajax="true"
+                      data-ajax-url="/ColorStays/SEOPackageHyperLink/Edit"
+                      data-ajax-method="POST"
+                      data-ajax-loading="#loader"
                       enctype="multipart/form-data"
-                    data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
-                    data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
+                      data-ajax-success="Success(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/SEOPackageHyperLink/CreateOrEdit?id=@Model.Id')"
+                      data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')">
 
                     @Html.AntiForgeryToken()
 
-                    <input type="hidden" name="NameAction" value="C" />
+                    <h3 class="MnBm10"><span style="color:red">@ViewBag.Verified @ViewBag.Message</span></h3>
 
-                    <div id="CreateOrEdit">@await Html.PartialAsync("_CreateOrEdit", Model)</div>
+                    @Html.ValidationSummary(true)
+
+                    <input type="hidden" name="NameAction" value="E" />
+
+                    <div id="CreateOrEdit">
+                        @await Html.PartialAsync("_CreateOrEdit", Model)
+                    </div>
                     <div class="MnTp7 MnBm7" style="height:66vh;">
                         <div>
                             <div class="MaxMinDv">
@@ -49,19 +57,21 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="MnTp7 MnBm7 FxRw">
                         <div class="FxGw1">
-                            <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                            <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-EditFileLine"></i>&nbsp;Edit</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/SEOHotelHyperLink/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/SEOPackageHyperLink/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+
         <div class="Fx50 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
-            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsSEOHotelHyperLink>)ViewData["EnteredDetails"])
+            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsSEOPackageHyperLink>)ViewData["EnteredDetails"])
         </div>
     </div>
 </div>
@@ -105,16 +115,16 @@
             { title: 'English (US)', code: 'en_US' },
         ],
         content_style: `
-                                img {
-                                    height: auto;
-                                margin: auto;
-                                padding: 10px;
-                                display: block;
-                                                    }
-                                img.medium {
-                                    max - width: 25%;
-                                                    }
-                                `
+                                    img {
+                                        height: auto;
+                                    margin: auto;
+                                    padding: 10px;
+                                    display: block;
+                                                        }
+                                    img.medium {
+                                        max - width: 25%;
+                                                        }
+                                    `
     });
 
     //Clear Autocompete data
@@ -134,8 +144,8 @@
         document.getElementById('Fk_City_Name').value = event.target.Text2;
     }
 
-    function Success(data, status, xhr, FormID, FormFieldID) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
+    function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateEditDiv", "Def", FormFieldURL);
         //Here we get the pageno,pagesize and listcount
         var doc = new DOMParser().parseFromString(data, "text/html");
         var pageinfo = doc.getElementById("PaginationAt");
@@ -143,21 +153,21 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/SEOHotelHyperLink/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/SEOPackageHyperLink/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
     }
 
     //Table Search Success Function
     function TableSuccessFn(data, status, xhr, FormID) {
         //This the SuccessFunction
         FormAjaxSuccess(data, FormID, '', "UpdateDivNoFReset", "Def");
-        //Here we update the pageno,pagesize and listcount
+        //Here we get the pageno,pagesize and listcount
         var doc = new DOMParser().parseFromString(data,"text/html");
         var pageinfo = doc.getElementById("PaginationAt");
         var netrecord = pageinfo.getAttribute("netrecord");
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/SEOHotelHyperLink/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/SEOPackageHyperLink/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
     }
 
     function IntializeTableSearch() {

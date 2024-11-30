@@ -1,15 +1,15 @@
-@model WebAppColorStays.Models.ViewModel.CsSEOHotelHyperLink
+@model WebAppColorStays.Models.ViewModel.CsSEOPackageHyperLink
 
 @{
     Layout = "_Layout";
-    ViewData["Action"] = "SEOHotelHyperLink";
+    ViewData["Action"] = "SEOPackageHyperLink";
 }
 
 
 <div class="PgLtRt10 DyFx FxAnImCr Wh100p BrRs15 Ht50">
     <div class="CrTeTtLt FxGw1"> <h1>Add @ViewBag.Title</h1></div>
     <div>
-        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1"><i class="UT-List-OLine FtSz18" onclick="location.href='/ColorStays/SEOHotelHyperLink/Index'"></i></button>
+        <button class="BnCe35 HrTmSeo94 SwBx1Dv-Vn1"><i class="UT-List-OLine FtSz18" onclick="location.href='/ColorStays/SEOPackageHyperLink/Index'"></i></button>
     </div>
 </div>
 
@@ -23,10 +23,10 @@
                 </h3>
                  <form id="Create"
                     data-ajax="true"
-                    data-ajax-url="/ColorStays/SEOHotelHyperLink/Create"
+                    data-ajax-url="/ColorStays/SEOPackageHyperLink/Create"
                     data-ajax-method="POST"
                     data-ajax-loading="#loader"
-                      enctype="multipart/form-data"
+                    enctype="multipart/form-data"
                     data-ajax-success="Success(data, status, xhr,'Create','CreateOrEdit')"
                     data-ajax-failure="FormAjaxFail(xhr, status, error,'Create')">
 
@@ -54,14 +54,14 @@
                             <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
                         </div>
                         <div>
-                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/SEOHotelHyperLink/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
+                            <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/SEOPackageHyperLink/Index'"><i class="UT-CancelCircleLine"></i>&nbsp;Cancel</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
         <div class="Fx50 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
-            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsSEOHotelHyperLink>)ViewData["EnteredDetails"])
+            @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsSEOPackageHyperLink>)ViewData["EnteredDetails"])
         </div>
     </div>
 </div>
@@ -105,16 +105,16 @@
             { title: 'English (US)', code: 'en_US' },
         ],
         content_style: `
-                                img {
-                                    height: auto;
-                                margin: auto;
-                                padding: 10px;
-                                display: block;
-                                                    }
-                                img.medium {
-                                    max - width: 25%;
-                                                    }
-                                `
+                                    img {
+                                        height: auto;
+                                    margin: auto;
+                                    padding: 10px;
+                                    display: block;
+                                                        }
+                                    img.medium {
+                                        max - width: 25%;
+                                                        }
+                                    `
     });
 
     //Clear Autocompete data
@@ -143,7 +143,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/SEOHotelHyperLink/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/SEOPackageHyperLink/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=NoSearch&NetRecords=' + netrecord);
     }
 
     //Table Search Success Function
@@ -157,7 +157,7 @@
         var pageno = pageinfo.getAttribute("pagenumber");
         var pagesize = pageinfo.getAttribute("PageSize");
         //Refresh the Pagination Div with new Values
-        RefreshPagination('/ColorStays/SEOHotelHyperLink/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
+        RefreshPagination('/ColorStays/SEOPackageHyperLink/Pagination?PgSelectedNum=' + pageno + '&PgSize=' + pagesize + '&SearchType=TableSearch&NetRecords=' + netrecord);
     }
 
     function IntializeTableSearch() {

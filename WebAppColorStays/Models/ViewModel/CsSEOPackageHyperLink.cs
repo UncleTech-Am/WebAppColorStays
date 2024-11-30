@@ -1,23 +1,38 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsCancellationPolicy
+    public class CsSEOPackageHyperLink
     {
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        [DisplayName("To")]
-        public int? StartTo { get; set; }
-        [DisplayName("From")]
-        public int? EndFrom { get; set; }
-        [DisplayName("Cancellation Policy")]
-        public string? Fk_CancellationPyTe_Name { get; set; }
+        public string? Label { get; set; }
+        [ForeignKey("TblLocation")]
+        public string? Fk_Location_Name { get; set; }
         [NotMapped]
-        public string? CancellationPolicy { get; set; }
-        public int? CancellationFee { get; set; }
+        public string? Location { get; set; }
+        [ForeignKey("TblCountry")]
+        public string? Fk_Country_Name { get; set; }
+        [ForeignKey("TblCity")]
+        public string? Fk_City_Name { get; set; }
+        public string? SEOTitle { get; set; }
+        public string? SEODescription { get; set; }
+        public string? SEOKeywords { get; set; }
+        public string? URL { get; set; }
+        public string? Name { get; set; }
+        public string? Video { get; set; }
+        public string? CoverImage { get; set; }
+        public string? CoverAltTag { get; set; }
+        [NotMapped]
+        public string? CoverImageName { get; set; }
+        public string? TagLine { get; set; }
+        [AllowHtml]
+        public string? OtherDes { get; set; }
+        [AllowHtml]
+        public string? Description { get; set; }
+        public string? StructuredData { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
 
@@ -49,4 +64,5 @@ namespace WebAppColorStays.Models.ViewModel
         [ConcurrencyCheck]
         public byte[]? RowVersion { get; set; }
     }
+
 }

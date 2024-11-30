@@ -47,14 +47,16 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Description { get; set; }
         [AllowHtml]
         public string? NeedToKonw { get; set; }
-        [AllowHtml]
-        public string? CancellationNote { get; set; }
+        [DisplayName("TermsAndCondition")]
+        public string? Fk_TermsAndCondition_Name { get; set; }
+        [DisplayName("CancellationPolicy")]
+        public string? Fk_CancellationPyTe_Name { get; set; }
         public string? MapLink { get; set; }
         [DisplayName("PackageType")]
         public string? Fk_PackageType_Name { get; set; }
         [NotMapped]
         public string? PackageType { get; set; }
-        [ForeignKey("TblLocation")]
+        [DisplayName("Location")]
         public string? Fk_Location_Name { get; set; }
         [NotMapped]
         public string? Location { get; set; }

@@ -1,23 +1,16 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebAppColorStays.Models.ViewModel
 {
-    public class CsCancellationPolicy
+    public class CsTermsAndCondition 
     {
+        
         [Key]
         [StringLength(450)]
         public string? Id { get; set; }
-        [DisplayName("To")]
-        public int? StartTo { get; set; }
-        [DisplayName("From")]
-        public int? EndFrom { get; set; }
-        [DisplayName("Cancellation Policy")]
-        public string? Fk_CancellationPyTe_Name { get; set; }
-        [NotMapped]
-        public string? CancellationPolicy { get; set; }
-        public int? CancellationFee { get; set; }
+        public string? Name { get; set; }
+        [AllowHtml]
+        public string? Description { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
 
@@ -49,4 +42,5 @@ namespace WebAppColorStays.Models.ViewModel
         [ConcurrencyCheck]
         public byte[]? RowVersion { get; set; }
     }
+
 }

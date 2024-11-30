@@ -24,7 +24,6 @@
     string AnRestaurant = " ";
     string AnState = " ";
     string AnswerPlace = " ";
-    string CancellationPolicy = " ";
     string CancellationRefund = " ";
     string Category = " ";
     string SubCategory = " ";
@@ -134,6 +133,11 @@
     string SEOHotelHyperLink = " ";
     string SEOGroupHyperLink = " ";
 
+    string CancellationPolicy = " ";
+    string CancellationPolicyType = " ";
+    string SEOPackageHyperLink = " ";
+    string TermsAndCondition = " ";
+
     string MainLink9 = " ";
     string DrownLink9 = " ";
 
@@ -175,7 +179,6 @@
         case "Category": Category = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "SubCategory": SubCategory = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "AnswerPlace": AnswerPlace = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
-        case "CancellationPolicy": CancellationPolicy = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "CancellationRefund": CancellationRefund = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "FAQ": FAQ = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
         case "HowToReach": HowToReach = "SideSubLinkActive"; MainLink3 = "SideNavActive"; DrownLink3 = "SideSubNavActive"; break;
@@ -209,6 +212,10 @@
         case "PackageTypeStateMap": PackageTypeStateMap = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageOfferType": PackageOfferType = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "PackageOffer": PackageOffer = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
+        case "CancellationPolicy": CancellationPolicy = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
+        case "CancellationPolicyType": CancellationPolicyType = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
+        case "SEOPackageHyperLink": SEOPackageHyperLink = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
+        case "TermsAndCondition": TermsAndCondition = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
 
         case "Restaurant": Restaurant = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
         case "RestaurantFoodType": RestaurantFoodType = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
@@ -1037,7 +1044,7 @@
                     <a href="~/ColorStays/SEOHotelHyperLink/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
-            <div class="SideNavSubLinkDiv">
+           @*  <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @HotelCityList">
                         <a href="~/ColorStays/HotelCityList/Create">Hotel City List</a>
@@ -1045,7 +1052,7 @@
                     <a href="~/ColorStays/HotelCityList/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/HotelCityList/Index"><i class="UT-List-OLine"></i></a>
                 </div>
-            </div>
+            </div> *@
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
@@ -1201,16 +1208,43 @@
                 </div>
             </div>
 
-            
-            @* <div class="SideNavSubLinkDiv">
+            <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
-                    <div class="SideNavLinkText @PackageExclusion">
-                        <a href="~/ColorStays/PackageExclusion/Create">Package Exclusion</a>
+                    <div class="SideNavLinkText @CancellationPolicyType">
+                        <a href="~/ColorStays/CancellationPolicyType/Create">Cancellation Policy Type</a>
                     </div>
-                    <a href="~/ColorStays/PackageExclusion/Create"><i class="UT-AddFile"></i></a>
-                    <a href="~/ColorStays/PackageExclusion/Index"><i class="UT-List-OLine"></i></a>
+                    <a href="~/ColorStays/CancellationPolicyType/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/CancellationPolicyType/Index"><i class="UT-List-OLine"></i></a>
                 </div>
-            </div> *@
+            </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @CancellationPolicy">
+                        <a href="~/ColorStays/CancellationPolicy/Create">Cancellation Policy</a>
+                    </div>
+                    <a href="~/ColorStays/CancellationPolicy/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/CancellationPolicy/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @TermsAndCondition">
+                        <a href="~/ColorStays/TermsAndCondition/Create">Terms And Condition</a>
+                    </div>
+                    <a href="~/ColorStays/TermsAndCondition/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/TermsAndCondition/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @SEOPackageHyperLink">
+                        <a href="~/ColorStays/SEOPackageHyperLink/Create">SEO PackageHyper Link</a>
+                    </div>
+                    <a href="~/ColorStays/SEOPackageHyperLink/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/SEOPackageHyperLink/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
 
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
-using WebAppColorStays.Areas.ColorStays.CommonMethods;
+using LibCommon.APICommonMethods;
 
 
 
@@ -21,36 +21,22 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     [Area("ColorStays")]
     [SessionCheck]
     [Authorize]
-    public class CancellationPolicyController : Controller
+    public class SEOPackageHyperLinkController : Controller
     {
         private readonly Paging paging;
-
-        public CancellationPolicyController()
+        private readonly RyCSImage ryCsImage;
+        public SEOPackageHyperLinkController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "CancellationPolicy";
+            ViewBag.Title = "SEOPackageHyperLink";
         }
         //Ends
-
-        //Drop Down
-        public async void DropDown(string CompId, string Token)
-        {
-            RyCrSsDropDown ry = new RyCrSsDropDown();
-            string URLCancellation = "CancellationPolicyType/DropDown/" + CompId;
-            try
-            {
-                Task<List<SelectListItem>> PolicyType = ry.DDColorStaysAPI(URLCancellation, Token);
-                Task.WaitAll(PolicyType);
-                ViewBag.PolicyType = PolicyType;
-            }
-            catch (Exception ex) { }
-
-        }
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -107,21 +93,21 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
         //Give the list of the data
-        public async Task<Tuple<int, List<CsCancellationPolicy>>> AllDataList(int? PgSize, int? PgSelectedNum)
+        public async Task<Tuple<int, List<CsSEOPackageHyperLink>>> AllDataList(int? PgSize, int? PgSelectedNum)
         {
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Tuple<int, List<CsCancellationPolicy>> list;
+            Tuple<int, List<CsSEOPackageHyperLink>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("CancellationPolicy/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("SEOPackageHyperLink/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsCancellationPolicy>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsSEOPackageHyperLink>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else{ list = null; }
                 }
@@ -131,7 +117,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET:/CancellationPolicy/
+        //GET:/SEOPackageHyperLink/
         [HttpGet]
         public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
         {         
@@ -140,15 +126,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
 
             //Display the Dropdown of the Table fields in Search Data Popup
-            GetClassMember<CsCancellationPolicy> getClassMember = new GetClassMember<CsCancellationPolicy>();
-            CsCancellationPolicy CsCancellationPolicy = new CsCancellationPolicy();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsCancellationPolicy), "Value", "DisplayName");
+            GetClassMember<CsSEOPackageHyperLink> getClassMember = new GetClassMember<CsSEOPackageHyperLink>();
+            CsSEOPackageHyperLink CsSEOPackageHyperLink = new CsSEOPackageHyperLink();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsSEOPackageHyperLink), "Value", "DisplayName");
             //Ends
 
             try //Pagination and List of data Code
             {
                 Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<CsCancellationPolicy>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                Task<Tuple<int, List<CsSEOPackageHyperLink>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                 PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
 
                 ViewData["ActionName"] = "Index";
@@ -188,15 +174,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 cIndex.PageSize = pagedata.Item1;
                 cIndex.PageSelectedNum = pagedata.Item2;
                 cIndex.CompId = CompID;
-                Tuple<int, List<CsCancellationPolicy>> list;
+                Tuple<int, List<CsSEOPackageHyperLink>> list;
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     //Get the List of data
-                    using (var response = await client.PostAsJsonAsync("CancellationPolicy/DateSearch/", cIndex))
+                    using (var response = await client.PostAsJsonAsync("SEOPackageHyperLink/DateSearch/", cIndex))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsCancellationPolicy>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsSEOPackageHyperLink>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else{ Success = false; }
@@ -222,7 +208,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //Search the Data according to the table fileds in the Index
         [HttpPost]
-        public async Task<IActionResult> TableSearch(CsCancellationPolicy CsCancellationPolicy, IFormCollection fc)
+        public async Task<IActionResult> TableSearch(CsSEOPackageHyperLink CsSEOPackageHyperLink, IFormCollection fc)
         {
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
@@ -235,18 +221,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsCancellationPolicy>> list;
+            Tuple<int, List<CsSEOPackageHyperLink>> list;
 
             using (HttpClient client = APIColorStays.Initial())
             {
-                CsCancellationPolicy.CreatedBy = UserID;
-                CsCancellationPolicy.CompId = CompID;
+                CsSEOPackageHyperLink.CreatedBy = UserID;
+                CsSEOPackageHyperLink.CompId = CompID;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(CsCancellationPolicy), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("CancellationPolicy/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
+                StringContent content = new StringContent(JsonSerializer.Serialize(CsSEOPackageHyperLink), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync("SEOPackageHyperLink/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsCancellationPolicy>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsSEOPackageHyperLink>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -269,11 +255,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         [HttpPost]
         public async Task<IActionResult> FilterSearch(CIndexSearchFilter indexsearchfilter, IFormCollection fc)
         {
-            GetClassMember<CsCancellationPolicy> getClassMember = new GetClassMember<CsCancellationPolicy>();
-            CsCancellationPolicy CsCancellationPolicy = new CsCancellationPolicy();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsCancellationPolicy), "Value", "DisplayName");
+            GetClassMember<CsSEOPackageHyperLink> getClassMember = new GetClassMember<CsSEOPackageHyperLink>();
+            CsSEOPackageHyperLink CsSEOPackageHyperLink = new CsSEOPackageHyperLink();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsSEOPackageHyperLink), "Value", "DisplayName");
             //Creating Search Filter List with class member Property Name
-            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsCancellationPolicy);
+            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsSEOPackageHyperLink);
             foreach (var item in indexsearchfilter.IndexSearchList)
             { item.Name = fields[item.Name]; }
             //Ends
@@ -289,7 +275,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsCancellationPolicy>> list;
+            Tuple<int, List<CsSEOPackageHyperLink>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                indexsearchfilter.CurrentUserId = UserID;
@@ -298,10 +284,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 indexsearchfilter.PageSize = pagedata.Item1;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(indexsearchfilter), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("CancellationPolicy/FilterSearch", content))
+                using (var response = await client.PostAsync("SEOPackageHyperLink/FilterSearch", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsCancellationPolicy>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsSEOPackageHyperLink>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -321,28 +307,28 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET: /CancellationPolicy/Details/5
+        //GET: /SEOPackageHyperLink/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            CsCancellationPolicy CsCancellationPolicy = new CsCancellationPolicy();
+            CsSEOPackageHyperLink CsSEOPackageHyperLink = new CsSEOPackageHyperLink();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("CancellationPolicy/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("SEOPackageHyperLink/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        CsCancellationPolicy = await System.Text.Json.JsonSerializer.DeserializeAsync<CsCancellationPolicy>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        return View("_DetailOrDelete",CsCancellationPolicy);
+                        CsSEOPackageHyperLink = await System.Text.Json.JsonSerializer.DeserializeAsync<CsSEOPackageHyperLink>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        return View("_DetailOrDelete",CsSEOPackageHyperLink);
                     }
                     else
                     {
-                        Tuple<CsCancellationPolicy, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsCancellationPolicy, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Tuple<CsSEOPackageHyperLink, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsSEOPackageHyperLink, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (data.Item2 != null && data.Item2.Message == "GlobalItem")
                         {
                             ViewBag.Message = "Sytem Entry, Can't be Changed !";
@@ -356,7 +342,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-        //GET: /CancellationPolicy/CreateOrEdit
+        //GET: /SEOPackageHyperLink/CreateOrEdit
         [HttpGet]
         [ResponseCache(Duration = 0)]
         public async Task<IActionResult> CreateOrEdit(string Id)
@@ -365,18 +351,17 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
-            DropDown(CompID, TokenKey);
             if (Id != null)
             {
                 bool Success = false;
-                var data = new CsCancellationPolicy();
+                var data = new CsSEOPackageHyperLink();
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("CancellationPolicy/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync("SEOPackageHyperLink/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsCancellationPolicy>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsSEOPackageHyperLink>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else { Success = false; }
@@ -395,7 +380,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
         }
         
-        //GET: /CancellationPolicy/Create
+        //GET: /SEOPackageHyperLink/Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -404,24 +389,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            DropDown(CompID, TokenKey);
 
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
             Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-            Task<Tuple<int, List<CsCancellationPolicy>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+            Task<Tuple<int, List<CsSEOPackageHyperLink>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
             PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
             ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
             return View();
         } 
         
 
-        //POST: /CancellationPolicy/Create
+        //POST: /SEOPackageHyperLink/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create(CsCancellationPolicy CsCancellationPolicy)
+		public async Task<IActionResult> Create(CsSEOPackageHyperLink CsSEOPackageHyperLink)
         {       
             Title();
             ViewData["AnName"] = "Create";
@@ -429,26 +413,43 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            DropDown(CompID, TokenKey);
-
-            CsCancellationPolicy.CompId = CompID;
-            CsCancellationPolicy.CreatedBy = UserID;
-            CsCancellationPolicy.ModifiedBy = UserID;
-            CsCancellationPolicy.Id = Guid.NewGuid().ToString();
+            CsSEOPackageHyperLink.CompId = CompID;
+            CsSEOPackageHyperLink.CreatedBy = UserID;
+            CsSEOPackageHyperLink.ModifiedBy = UserID;
+            CsSEOPackageHyperLink.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
-            CsCancellationPolicy data = new CsCancellationPolicy();
+            CsSEOPackageHyperLink data = new CsSEOPackageHyperLink();
+            var files = HttpContext.Request.Form.Files;
+
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    StringContent content = new StringContent(JsonSerializer.Serialize(CsCancellationPolicy), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("CancellationPolicy/create", content))
+                    foreach (var file in files)
+                    {
+                        var fileName = file.FileName;
+
+                        CsSEOPackageHyperLink.CoverImage = fileName;
+
+                        if (file.Length > 0)
+                        {
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "PackageBanner");
+                            Task.WaitAll(TImgUpload);
+                            if (TImgUpload.Result == "Error")
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    StringContent content = new StringContent(JsonSerializer.Serialize(CsSEOPackageHyperLink), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("SEOPackageHyperLink/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
                         {
-                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsCancellationPolicy>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsSEOPackageHyperLink>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             Success = true;
                         }
                         else
@@ -464,13 +465,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 { return RedirectToAction("Index", new { PageCall = "Show" }); }
-                else { return View("_CreateOrEdit", CsCancellationPolicy); }
+                else { return View("_CreateOrEdit", CsSEOPackageHyperLink); }
             }
-            return View("_CreateorEdit",CsCancellationPolicy);                
+            return View("_CreateorEdit",CsSEOPackageHyperLink);                
          }
 
 
-        //GET: /CancellationPolicy/Edit/5
+        //GET: /SEOPackageHyperLink/Edit/5
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
@@ -480,7 +481,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            DropDown(CompID, TokenKey);
 
             if (id == null)
             {
@@ -492,20 +492,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
-            CsCancellationPolicy CsCancellationPolicy = new CsCancellationPolicy();
+            CsSEOPackageHyperLink CsSEOPackageHyperLink = new CsSEOPackageHyperLink();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("CancellationPolicy/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("SEOPackageHyperLink/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsCancellationPolicy>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                    Task<Tuple<int, List<CsSEOPackageHyperLink>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                     PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
                     ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;                   
                     if (response.IsSuccessStatusCode)
                     {
-                        CsCancellationPolicy = await System.Text.Json.JsonSerializer.DeserializeAsync<CsCancellationPolicy>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsSEOPackageHyperLink = await System.Text.Json.JsonSerializer.DeserializeAsync<CsSEOPackageHyperLink>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else
                     {
@@ -517,14 +517,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
             }
-            return View(CsCancellationPolicy);
+            return View(CsSEOPackageHyperLink);
         }
 
                 
-        //POST: /CancellationPolicy/Edit/5
+        //POST: /SEOPackageHyperLink/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CsCancellationPolicy CsCancellationPolicy)
+        public async Task<IActionResult> Edit(CsSEOPackageHyperLink CsSEOPackageHyperLink)
         {
             Title();
             ViewData["AnName"] = "Edit";
@@ -532,24 +532,46 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            DropDown(CompID, TokenKey);
-
             ViewData["ResponseName"] = "ShowValidation";
-            CsCancellationPolicy.CompId = CompID;
-            CsCancellationPolicy.ModifiedBy = UserID;   
+            CsSEOPackageHyperLink.CompId = CompID;
+            CsSEOPackageHyperLink.ModifiedBy = UserID;
+            var files = HttpContext.Request.Form.Files;
+            if (CsSEOPackageHyperLink.CoverImageName != null)
+            {
+                CsSEOPackageHyperLink.CoverImage = CsSEOPackageHyperLink.CoverImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsCancellationPolicy>("CancellationPolicy/edit", CsCancellationPolicy))
+                        foreach (var file in files)
+                        {
+                            var fileName = file.FileName;
+
+                            CsSEOPackageHyperLink.CoverImage = fileName;
+                            //Delete the Images from the folder
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsSEOPackageHyperLink.CoverImageName, TokenKey, "PackageBanner");
+                            Task.WaitAll(TDeleteImage);
+
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "PackageBanner");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        using (var response = await client.PostAsJsonAsync<CsSEOPackageHyperLink>("SEOPackageHyperLink/edit", CsSEOPackageHyperLink))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)
                             {
-                                Tuple<CsCancellationPolicy, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsCancellationPolicy,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Tuple<CsSEOPackageHyperLink, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsSEOPackageHyperLink,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                                 if (data.Item2 != null)
                                 {
                                     if (data.Item2.Message == "Duplicate")
@@ -577,21 +599,40 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     return View("_CreateorEdit");
                 }
             }
-            return View("_CreateorEdit",CsCancellationPolicy);
+            return View("_CreateorEdit",CsSEOPackageHyperLink);
         }
         
        
-        //POST: /CancellationPolicy/Delete/5
+        //POST: /SEOPackageHyperLink/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            CsSEOPackageHyperLink photo = new CsSEOPackageHyperLink();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("SEOPackageHyperLink/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photo = await System.Text.Json.JsonSerializer.DeserializeAsync<CsSEOPackageHyperLink>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            if (photo != null)
+            {
+                Task<string> TDeleteImage2 = ryCsImage.DeleteImage(photo.CoverImageName, TokenKey, "PackageBanner");
+                Task.WaitAll(TDeleteImage2);
+                if (TDeleteImage2.Result == "Error")
+                {
+                    ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                }
+            }
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("CancellationPolicy/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("SEOPackageHyperLink/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
@@ -622,12 +663,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             model.CompId = CompID;
             if (model.ActionName == "Verify" || model.ActionName == "UnVerify") { model.VerifiedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
             if (model.ActionName == "Activate" || model.ActionName == "Inactivate") { model.ActivatedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
-			CsCancellationPolicy CsCancellationPolicy = new CsCancellationPolicy();
+			CsSEOPackageHyperLink CsSEOPackageHyperLink = new CsSEOPackageHyperLink();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
 				StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("CancellationPolicy/verifydata/" , content))
+                using (var response = await client.PostAsync("SEOPackageHyperLink/verifydata/" , content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
@@ -655,7 +696,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             starUnstar.Id = Id;
             starUnstar.Host = Request.Scheme + "://" + Request.Host;
             starUnstar.AreaName = "ColorStays";
-            starUnstar.ControllerName = "CancellationPolicy";
+            starUnstar.ControllerName = "SEOPackageHyperLink";
             starUnstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
@@ -697,7 +738,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationCancellationPolicy(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationSEOPackageHyperLink(string Name, string NameAction, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
@@ -706,7 +747,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("CancellationPolicy/CheckDuplicationCancellationPolicy/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("SEOPackageHyperLink/CheckDuplicationSEOPackageHyperLink/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {

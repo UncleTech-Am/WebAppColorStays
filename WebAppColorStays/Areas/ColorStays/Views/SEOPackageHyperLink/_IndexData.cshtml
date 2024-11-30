@@ -1,8 +1,8 @@
-@model IEnumerable<WebAppColorStays.Models.ViewModel.CsPackage>
+@model IEnumerable<WebAppColorStays.Models.ViewModel.CsSEOPackageHyperLink>
 
 @{
     Layout = null;
-    ViewData["Action"] = "Package";
+    ViewData["Action"] = "SEOPackageHyperLink";
     int PageNoSelect = Convert.ToInt32(ViewData["PageNumberSelected"]);
     int PageSize = Convert.ToInt32(ViewData["PageRecordSize"]);
 }
@@ -18,131 +18,84 @@
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
                     <input type="checkbox" ClipStatus ="Selected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
-                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.Name','/ColorStays/Package')"><i class="UT-StarSolid"> </i> </a>
+                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.Name','/ColorStays/SEOPackageHyperLink')"><i class="UT-StarSolid"> </i> </a>
             }
             else
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
                     <input type="checkbox" ClipStatus ="UnSelected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
-                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Name','/ColorStays/Package')"><i class="UT-UnstarSolid"></i></a>
+                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Name','/ColorStays/SEOPackageHyperLink')"><i class="UT-UnstarSolid"></i></a>
             }
-            <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('/ColorStays/Package/Details?Id=@item.Id')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i> </a>
+            <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('/ColorStays/SEOPackageHyperLink/Details?Id=@item.Id')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i> </a>
             @if (item.VerifiedStatus == false && item.ActiveStatus == false && item.GlobalStatus == false)
             {
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Id })"> <i class="UT-EditFileLine FtWt800"></i> </a>
             }
         </td>
          
+         
+	    <td>@item.Fk_Country_Name</td>
+         
+	    <td>@item.Fk_Location_Name</td>
+         
+	    <td>@item.Fk_City_Name</td>
+         
 	    <td>@item.Name</td>
          
 	    <td>@item.URL</td>
-
-        <td>@item.Fk_PackageType_Name</td>
-
-        <td>@item.Fk_Location_Name</td>
-
-        <td>@item.Fk_City_Name</td>
-
-        <td>@item.Fk_State_Name</td>
-
-        <td>@item.Fk_Country_Name</td>
-
-	    <td>@item.Description</td>
-
-        <td>
-            @if (item.PackageHighlight != null && item.PackageHighlight.Length > 50)
-            {
-                @Html.Raw(item.PackageHighlight.Substring(0, 50))
-                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
-                    ...Read More
-                    <div class="DyNe">
-                        @Html.Raw(item.PackageHighlight)
-                    </div>
-                </div>
-            }
-            else
-            {
-                @Html.Raw(item.PackageHighlight)
-            }
-        </td>
-        <td>
-            @if (item.Overview != null && item.Overview.Length > 60)
-            {
-                @Html.Raw(item.Overview.Substring(0, 60))
-                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
-                    ...Read More
-                    <div class="DyNe">
-                        @Html.Raw(item.Overview)
-                    </div>
-                </div>
-            }
-            else
-            {
-                @Html.Raw(item.Overview)
-            }
-        </td>
-          <td>
-            @if (item.NeedToKonw != null && item.NeedToKonw.Length > 50)
-            {
-                @Html.Raw(item.NeedToKonw.Substring(0, 50))
-                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
-                    ...Read More
-                    <div class="DyNe">
-                        @Html.Raw(item.NeedToKonw)
-                    </div>
-                </div>
-            }
-            else
-            {
-                @Html.Raw(item.NeedToKonw)
-            }
-        </td>
-         
-	    <td>@item.MapLink</td>
-
-
-	    <td>@item.Fk_TermsAndCondition_Name</td>
-         
-	    <td>@item.Fk_CancellationPyTe_Name</td>
-         
-	    <td>@item.NoOfPerson</td>
          
 	    <td>@item.CoverImage</td>
          
 	    <td>@item.CoverAltTag</td>
          
-	    <td>@item.Duration</td>
+	    <td>@item.TagLine</td>
          
-	    <td>@item.Breakfast</td>
-         
-	    <td>@item.Lunch</td>
-         
-	    <td>@item.Dinner</td>
+	    <td>@item.StructuredData</td>
 
-        <td>@item.Sightseeing</td>
-        
-	    <td>@item.LocationDuration</td>
-         
-	    <td>@item.Discount</td>
+        <td>
+            @if (item.OtherDes != null && item.OtherDes.Length > 50)
+            {
+                @Html.Raw(item.OtherDes.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
 
-	    <td>@String.Format("{0:F}", item.Price)</td>
-         
-	    <td>@item.Fk_Currency_Name</td>
+                    <div class="DyNe">
+                        @Html.Raw(item.OtherDes)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.OtherDes)
+            }
+        </td>
+
+        <td>
+            @if (item.Description != null && item.Description.Length > 50)
+            {
+                @Html.Raw(item.Description.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.Description)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.Description)
+            }
+        </td>
          
 	    <td>@item.Video</td>
-
-        <td>@item.SEOTitle</td>
-
-        <td>@item.SEODescription</td>
-
-        <td>@item.SEOKeywords</td>
-
-        <td>@item.StructuredData</td>
-
-        <td>@item.Transport</td>
-
-        <td>@item.Stay</td>
+         
+	    <td>@item.SEOTitle</td>
+         
+	    <td>@item.SEODescription</td>
+         
+	    <td>@item.SEOKeywords</td>
          
 	    <td>@item.Remarks</td>
          

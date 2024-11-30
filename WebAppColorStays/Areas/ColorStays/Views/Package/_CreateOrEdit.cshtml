@@ -40,6 +40,29 @@
     <div class="VnRd"><span asp-validation-for="Fk_Currency_Name"></span></div>
 </div>
 
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_CancellationPyTe_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_CancellationPyTe_Name" asp-items="@await ViewBag.PolicyType" class="TtBxTt15" required>
+                <option value="">Select PolicyType</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_CancellationPyTe_Name"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_TermsAndCondition_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_TermsAndCondition_Name" asp-items="@await ViewBag.Terms" class="TtBxTt15" required>
+                <option value="">Select Terms</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_TermsAndCondition_Name"></span></div>
+</div>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">

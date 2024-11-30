@@ -1,9 +1,9 @@
-@model IEnumerable<WebAppColorStays.Models.ViewModel.CsCancellationPolicy>
+@model IEnumerable<WebAppColorStays.Models.ViewModel.CsSEOPackageHyperLink>
 
 
 @{
     Layout = null;
-    ViewData["Action"] = "CancellationPolicy";
+    ViewData["Action"] = "SEOPackageHyperLink";
 }
 
 <div style="color:red; font-weight:bold; font-size:15px;"> @ViewBag.Message</div>
@@ -19,28 +19,72 @@
                 <form id="TableSearchID">
                     <tr>
                         <td class="CrBdWe94">
-                            @if (ViewData["AnName"] == "Create") { <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/CancellationPolicy/Create'"><i class="UT-List-OLine"></i></button> }
-                            else if(ViewData["AnName"] == "Edit") {  <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/CancellationPolicy/Edit?id='+'@ViewData["Id"]'"><i class="UT-List-OLine"></i></button>  }
-                            else { <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/CancellationPolicy/Index'"><i class="UT-List-OLine"></i></button>  }
+                            @if (ViewData["AnName"] == "Create") { <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/SEOPackageHyperLink/Create'"><i class="UT-List-OLine"></i></button> }
+                            else if(ViewData["AnName"] == "Edit") {  <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/SEOPackageHyperLink/Edit?id='+'@ViewData["Id"]'"><i class="UT-List-OLine"></i></button>  }
+                            else { <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/SEOPackageHyperLink/Index'"><i class="UT-List-OLine"></i></button>  }
                             <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="SearchClear('TeUT')"><i class="UT-ClearDocument"></i></button>
-                            <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="FormSubmit('/ColorStays/CancellationPolicy/TableSearch','TableSearchID',TableSuccessFn)"><i class="UT-SearchRightSolid"></i></button>
+                            <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="FormSubmit('/ColorStays/SEOPackageHyperLink/TableSearch','TableSearchID',TableSuccessFn)"><i class="UT-SearchRightSolid"></i></button>
                         </td>
                     
                         
                         <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.StartTo)" name="StartTo" autocomplete="off"/>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_Country_Name)" name="Fk_Country_Name" autocomplete="off"/>
                         </td>
                         
                         <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.EndFrom)" name="EndFrom" autocomplete="off"/>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_Location_Name)" name="Fk_Location_Name" autocomplete="off"/>
                         </td>
                         
                         <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_CancellationPyTe_Name)" name="Fk_CancellationPyTe_Name" autocomplete="off"/>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Fk_City_Name)" name="Fk_City_Name" autocomplete="off"/>
                         </td>
                         
                         <td>
-                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CancellationFee)" name="CancellationFee" autocomplete="off"/>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Name)" name="Name" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.URL)" name="URL" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CoverImage)" name="CoverImage" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.CoverAltTag)" name="CoverAltTag" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.TagLine)" name="TagLine" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.StructuredData)" name="StructuredData" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.OtherDes)" name="OtherDes" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Description)" name="Description" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Video)" name="Video" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" name="SEOTitle" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" name="SEODescription" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" name="SEOKeywords" autocomplete="off"/>
                         </td>
                         
                         <td>
@@ -109,13 +153,24 @@
                         <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
                             <input type="checkbox" class="SeIt1o14" onclick="AmSelectEntries();" id="AmIndexCheckBoxThId" />
                         </span>
-                        <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','','','/ColorStays/CancellationPolicy')"><i class="UT-UnstarSolid"></i></a>
-                        <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark Star" onclick="MultiButtonFunc('Star','','','/ColorStays/CancellationPolicy')"> <i class="UT-StarSolid"></i></a>
+                        <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','','','/ColorStays/SEOPackageHyperLink')"><i class="UT-UnstarSolid"></i></a>
+                        <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark Star" onclick="MultiButtonFunc('Star','','','/ColorStays/SEOPackageHyperLink')"> <i class="UT-StarSolid"></i></a>
                     </th>
-                                        <th> @Html.DisplayNameFor(model => model.StartTo) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.EndFrom) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.Fk_CancellationPyTe_Name) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.CancellationFee) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Fk_Country_Name) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Fk_Location_Name) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Fk_City_Name) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Name) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.URL) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.CoverImage) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.CoverAltTag) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.TagLine) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.StructuredData) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.OtherDes) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Description) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.Video) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.SEODescription) </th>       
+                                        <th> @Html.DisplayNameFor(model => model.SEOKeywords) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Remarks) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezeStatus) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezedBy) </th>       
@@ -142,3 +197,15 @@
     </div>
 </div>
 
+<script>
+    function ShowData(element) {
+        var popup = document.getElementById('PopUpScript');
+        popup.style.minHeight = "50%";
+        popup.style.left = "25%";
+        popup.style.top = "18%";
+        popup.style.width = "50%";
+        popup.style.overflowX = "auto";
+        document.getElementById('PopUpScript').style.display = 'block';
+        document.getElementById('PopUpScriptDetailContentID').innerHTML = element.innerHTML;
+    }
+</script>

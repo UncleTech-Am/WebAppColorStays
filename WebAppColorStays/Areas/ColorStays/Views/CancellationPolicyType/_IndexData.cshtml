@@ -1,8 +1,8 @@
-@model IEnumerable<WebAppColorStays.Models.ViewModel.CsCancellationPolicy>
+@model IEnumerable<WebAppColorStays.Models.ViewModel.CsCancellationPolicyType>
 
 @{
     Layout = null;
-    ViewData["Action"] = "CancellationPolicy";
+    ViewData["Action"] = "CancellationPolicyType";
     int PageNoSelect = Convert.ToInt32(ViewData["PageNumberSelected"]);
     int PageSize = Convert.ToInt32(ViewData["PageRecordSize"]);
 }
@@ -16,31 +16,43 @@
             @if (item.SelectStatus == true)
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
-                    <input type="checkbox" ClipStatus ="Selected" id="@item.Id" value="@item.Id" name="@item.Fk_CancellationPyTe_Name" class="AmIndexCheckbox SeIt1o14" />
+                    <input type="checkbox" ClipStatus ="Selected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
-                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.Fk_CancellationPyTe_Name','/ColorStays/CancellationPolicy')"><i class="UT-StarSolid"> </i> </a>
+                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.Name','/ColorStays/CancellationPolicyType')"><i class="UT-StarSolid"> </i> </a>
             }
             else
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
-                    <input type="checkbox" ClipStatus="UnSelected" id="@item.Id" value="@item.Id" name="@item.Fk_CancellationPyTe_Name" class="AmIndexCheckbox SeIt1o14" />
+                    <input type="checkbox" ClipStatus ="UnSelected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
                 </span>
-                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Fk_CancellationPyTe_Name','/ColorStays/CancellationPolicy')"><i class="UT-UnstarSolid"></i></a>
+                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Name','/ColorStays/CancellationPolicyType')"><i class="UT-UnstarSolid"></i></a>
             }
-            <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('/ColorStays/CancellationPolicy/Details?Id=@item.Id')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i> </a>
+            <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('/ColorStays/CancellationPolicyType/Details?Id=@item.Id')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i> </a>
             @if (item.VerifiedStatus == false && item.ActiveStatus == false && item.GlobalStatus == false)
             {
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Id })"> <i class="UT-EditFileLine FtWt800"></i> </a>
             }
         </td>
          
-	    <td>@item.StartTo</td>
-         
-	    <td>@item.EndFrom</td>
-         
-	    <td>@item.Fk_CancellationPyTe_Name</td>
-         
-	    <td>@item.CancellationFee</td>
+	    <td>@item.Name</td>
+
+        <td>
+            @if (item.CancellationNote != null && item.CancellationNote.Length > 50)
+            {
+                @Html.Raw(item.CancellationNote.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.CancellationNote)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.CancellationNote)
+            }
+        </td>
          
 	    <td>@item.Remarks</td>
          
