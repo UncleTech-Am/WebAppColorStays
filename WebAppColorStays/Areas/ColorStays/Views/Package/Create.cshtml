@@ -265,7 +265,7 @@
     });
 
     tinymce.init({
-        selector: '#Overview, #PackageHighlight',
+        selector: '#Overview, #PackageHighlight, #NeedToKonw',
         plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
         toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
         a11ychecker_level: 'aaa',
@@ -368,13 +368,15 @@
     }
 
     //Autocomplete Item
-    function AoCePeCity(event) {
+    //Autocomplete Item
+    function AoCePeLocation(event) {
         var InputId = event.target.InputID;
         SuggestionClose(InputId);
-        document.getElementById('Fk_City_NamePe').value = event.target.Id;
+        document.getElementById('Fk_Location_NamePe').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
-        document.getElementById('Fk_State_NamePe').value = event.target.Text1;
-        document.getElementById('Fk_Country_NamePe').value = event.target.Text2;
+        document.getElementById('Fk_City_NamePe').value = event.target.Text2;
+        document.getElementById('Fk_State_NamePe').value = event.target.Text3;
+        document.getElementById('Fk_Country_NamePe').value = event.target.Text1;
     }
 
     function Success(data, status, xhr, FormID, FormFieldID) {
@@ -382,8 +384,8 @@
         //Show the Image Tab
         ActiveTabUt('UTabs1', 1);
         ActiveTabUt('UTabs2', 0);
-        GetPackageCity();
         document.getElementById('PId').value = document.getElementById('PeId').value;
+        GetPackageCity();
     }
 
     function GetPackageCity() {
@@ -391,7 +393,7 @@
         getUT('/ColorStays/Package/PackageCity?PeId=' + id, function (data) {
             document.getElementById('CreateOrEditCity').innerHTML = "";
             document.getElementById('CreateOrEditCity').innerHTML = data;
-            StartSuggestionBox(2, 'SearchCityPe', '/ColorStays/City/SuggestCity', '', '', AoCePeCity);
+            StartSuggestionBox(2, 'SearchLocationPe', '/ColorStays/Location/SuggestLocation', '', '', AoCePeLocation);
             HideLoader();
         });
     }
@@ -426,7 +428,7 @@
         getUT('/ColorStays/Package/PackageCity?PeId=' + PeId, function (data) {
             document.getElementById('CreateOrEditCity').innerHTML = "";
             document.getElementById('CreateOrEditCity').innerHTML = data;
-            StartSuggestionBox(2, 'SearchCityPe', '/ColorStays/City/SuggestCity', '', '', AoCePeCity);
+            StartSuggestionBox(2, 'SearchLocationPe', '/ColorStays/Location/SuggestLocation', '', '', AoCePeLocation);
 
             HideLoader();
         });

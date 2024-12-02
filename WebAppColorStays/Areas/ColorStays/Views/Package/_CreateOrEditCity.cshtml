@@ -27,17 +27,29 @@ else
 
 <input type="hidden" asp-for="Fk_Package_Name" />
 
+
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_City_Name)<span style="color:red;"> *</span></div>
-            <input class="TtBxTt14" placeholder="City Name" type="text" id="SearchCityPe" asp-for="City" autocomplete="off" required onchange="ClearData('SearchCityPe','Fk_City_Name', 'Fk_State_Name', 'Fk_Country_Name')" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Location_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Location Name" type="text" id="SearchLocationPe" asp-for="Location" autocomplete="off" required onchange="ClearData('SearchLocationPe', 'Fk_Location_Name','Fk_City_Name', 'Fk_State_Name', 'Fk_Country_Name')" />
+            <input type="hidden" id="Fk_Location_NamePe" asp-for="Fk_Location_Name" required />
             <input type="hidden" id="Fk_City_NamePe" asp-for="Fk_City_Name" required />
             <input type="hidden" id="Fk_State_NamePe" asp-for="Fk_State_Name" required />
             <input type="hidden" id="Fk_Country_NamePe" asp-for="Fk_Country_Name" required />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="City"></span></div>
+    <div class="VnRd"><span asp-validation-for="Fk_Location_Name"></span></div>
+</div>
+
+<div class="Pg2 MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.NoOfNight)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="No Of Night" asp-for="NoOfNight" autocomplete="off" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="NoOfNight"></span></div>
 </div>
 
 <div class="MnTp7 MnBm7">

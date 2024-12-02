@@ -12,6 +12,7 @@
         <tr>
             <th>Remove</th>
             <th>Selected City</th>
+            <th>No Of Night</th>
         </tr>
     </thead>
 
@@ -26,8 +27,12 @@
                     <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" onclick="DeleteCity('@item.Fk_Package_Name', '@item.Id')" style="margin-left:8px"> <i class="UT-DeletePageSolid"> </i> </a>
                 </td>
                 <td>
-                    @item.Fk_City_Name
+                    @item.Fk_Location_Name
                 </td>
+                <td>
+                    @item.NoOfNight
+                </td>
+
             </tr>
         }
     </tbody>
