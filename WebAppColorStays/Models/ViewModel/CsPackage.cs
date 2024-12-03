@@ -56,7 +56,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_PackageType_Name { get; set; }
         [NotMapped]
         public string? PackageType { get; set; }
-        [DisplayName("Location")]
+        [DisplayName("StartingFrom")]
         public string? Fk_Location_Name { get; set; }
         [NotMapped]
         public string? Location { get; set; }

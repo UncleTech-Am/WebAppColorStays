@@ -641,7 +641,7 @@
         var FormFieldID ="CreateOrEditItinerary";
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Itinerary");
         var id = document.getElementById('ItineraryId').value;
-        if(id != null){
+        if(id != null && id !=""){
            EditItinerary(id);
         }
         else{

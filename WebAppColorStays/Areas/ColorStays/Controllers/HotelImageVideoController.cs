@@ -222,6 +222,30 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             return RedirectToAction("UploadedImage", new { HotelId });
         }
         //ends
+         //Delete the upload image
+        public async Task<IActionResult> RoomImageDelete(string ImageID, string? HotelId, string ImgName, string RoomId)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("HotelImageVideo/ImageDelete/" + ImageID + "/" + HotelId, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+
+                    //Delete the Images from the folder
+                    if (HotelId != "null")
+                    {
+                        Task<string> TDeleteImage = ryCsImage.DeleteImage(ImgName, TokenKey, "Hotels");
+                        Task.WaitAll(TDeleteImage);
+                    }
+                }
+            }
+
+            return RedirectToAction("UploadedRoomImage", new { RoomId });
+        }
+        //ends
 
 
         //show upload the image

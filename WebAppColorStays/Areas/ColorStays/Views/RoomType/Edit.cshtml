@@ -376,7 +376,7 @@
     //Delete the Image
     function DeleteImg(id, HotelId, RoomId, imgname) {
         ShowLoader();
-        getUT('/ColorStays/HotelImageVideo/ImageDelete?ImageID=' + id + '&HotelId=' + HotelId + '&ImgName=' + imgname, function (data) {
+        getUT('/ColorStays/HotelImageVideo/RoomImageDelete?ImageID=' + id + '&HotelId=' + HotelId + '&ImgName=' + imgname + '&RoomId=' + RoomId, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
             ActiveTabUt('UTabs2', 2);
