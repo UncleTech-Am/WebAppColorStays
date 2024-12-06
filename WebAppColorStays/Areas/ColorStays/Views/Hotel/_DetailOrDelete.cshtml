@@ -394,29 +394,29 @@
         
             @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
             {
-            @if (Model.ImageCount >= 3)
-            {
-                //  Checks which Button to Show For the Verification
-                if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
+                @if (Model.ImageCount >= 3)
                 {
-                    <button type="button" onclick="VerifyData('/ColorStays/Hotel/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/Hotel')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                    //  Checks which Button to Show For the Verification
+                    if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
+                    {
+                        <button type="button" onclick="VerifyData('/ColorStays/Hotel/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/Hotel')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                    }
                 }
-            }
-                if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
+                    if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
+                    {
+                        <button type="button" onclick="VerifyData('/ColorStays/Hotel/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/Hotel')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
+                    }
+                @if (Model.ImageCount >= 3)
                 {
-                    <button type="button" onclick="VerifyData('/ColorStays/Hotel/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/Hotel')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
+                    //  Checks which Button to Show For the Activation
+                    if (Model.ActiveStatus == false && Model.GlobalStatus == false)
+                    {
+                        <button type="button" onclick="VerifyData('/ColorStays/Hotel/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/Hotel')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                    }
                 }
-            @if (Model.ImageCount >= 3)
-            {
-                //  Checks which Button to Show For the Activation
-                if (Model.ActiveStatus == false && Model.GlobalStatus == false)
-                {
-                    <button type="button" onclick="VerifyData('/ColorStays/Hotel/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/Hotel')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                else{
+                    <div class="CrRd">First add Cover Image and add 3 hotel images and make any one banner image </div>
                 }
-            }
-            else{
-                <div class="CrRd">First add Cover Image and add 3 hotel images and make any one banner image </div>
-            }
                 if (Model.ActiveStatus == true && Model.GlobalStatus == false)
                 {
                     <button type="button" onclick="VerifyData('/ColorStays/Hotel/VerifyData?Id=@Model.Id&AnName=Inactivate','/ColorStays/Hotel')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOff"></i>&nbsp;Inactive</button>

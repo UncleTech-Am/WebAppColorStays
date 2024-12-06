@@ -18,7 +18,7 @@
             <thead class="TeFxHd">
                 <form id="TableSearchID">
                     <tr>
-                        <td class="CrBdWe94">
+                        <td class="CrBdWe94" style="min-width:190px">
                             @if (ViewData["AnName"] == "Create") { <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/Package/Create'"><i class="UT-List-OLine"></i></button> }
                             else if(ViewData["AnName"] == "Edit") {  <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/Package/Edit?id='+'@ViewData["Id"]'"><i class="UT-List-OLine"></i></button>  }
                             else { <button type="button" class="BnCe28 CrBdWe94 MnLt7 SwBxIt1Dv-Vn1 HrTmRe360" onclick="location.href='/ColorStays/Package/Index'"><i class="UT-List-OLine"></i></button>  }
@@ -243,10 +243,10 @@
                                         <th> @Html.DisplayNameFor(model => model.Fk_City_Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Fk_State_Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Fk_Country_Name) </th>      
-                                        <th> @Html.DisplayNameFor(model => model.Description) </th>
-                                        <th> @Html.DisplayNameFor(model => model.PackageHighlight) </th> 
-                                        <th> @Html.DisplayNameFor(model => model.Overview) </th>    
-                                        <th> @Html.DisplayNameFor(model => model.NeedToKonw) </th>       
+                                        <th style="min-width: 500px;"> @Html.DisplayNameFor(model => model.Description) </th>
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.PackageHighlight) </th> 
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.Overview) </th>    
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.NeedToKonw) </th>       
                                         <th> @Html.DisplayNameFor(model => model.MapLink) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Fk_TermsAndCondition_Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Fk_CancellationPyTe_Name) </th>       
@@ -263,10 +263,10 @@
                                         <th> @Html.DisplayNameFor(model => model.Price) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Fk_Currency_Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Video) </th>   
-                                        <th> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEODescription) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEOKeywords) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.StructuredData) </th> 
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEODescription) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOKeywords) </th>       
+                                        <th style="min-width: 500px;"> @Html.DisplayNameFor(model => model.StructuredData) </th> 
                                         <th> @Html.DisplayNameFor(model => model.Transport) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Stay) </th> 
                                         <th> @Html.DisplayNameFor(model => model.Remarks) </th>       

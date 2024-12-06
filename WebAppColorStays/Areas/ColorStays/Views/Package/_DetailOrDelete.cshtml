@@ -379,19 +379,30 @@
 
         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
         {
-            //  Checks which Button to Show For the Verification
-            if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
+            @if (Model.ImageCount >= 3 && Model.InclusionCount >= 4)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Package/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/Package')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                //  Checks which Button to Show For the Verification
+                if (Model.VerifiedStatus == false && Model.GlobalStatus == false)
+                {
+                    <button type="button" onclick="VerifyData('/ColorStays/Package/VerifyData?Id=@Model.Id&AnName=Verify','/ColorStays/Package')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifySolid"></i>&nbsp;Verify</button>
+                }
             }
+            
             if (Model.VerifiedStatus == true && Model.GlobalStatus == false)
             {
                 <button type="button" onclick="VerifyData('/ColorStays/Package/VerifyData?Id=@Model.Id&AnName=UnVerify','/ColorStays/Package')" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-VerifyNotSolid"></i>&nbsp;Un-Verify</button>
             }
-            //  Checks which Button to Show For the Activation
-            if (Model.ActiveStatus == false && Model.GlobalStatus == false)
+            @if (Model.ImageCount >= 3 && Model.InclusionCount >= 4)
             {
-                <button type="button" onclick="VerifyData('/ColorStays/Package/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/Package')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                //  Checks which Button to Show For the Activation
+                if (Model.ActiveStatus == false && Model.GlobalStatus == false)
+                {
+                    <button type="button" onclick="VerifyData('/ColorStays/Package/VerifyData?Id=@Model.Id&AnName=Activate','/ColorStays/Package')" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-BulbOn"></i>&nbsp;Active</button>
+                }
+            }
+            else
+            {
+                <div class="CrRd">First add Cover Image and add 4 package images and make any one cover image and select atleast 4 highlighted inclusions </div>
             }
             if (Model.ActiveStatus == true && Model.GlobalStatus == false)
             {

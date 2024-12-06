@@ -38,6 +38,10 @@ namespace WebAppColorStays.Models.ViewModel
         public string? PackageHighlight { get; set; }
         [AllowHtml]
         public string? Overview { get; set; }
+        [NotMapped]
+        public int? ImageCount { get; set; }
+        [NotMapped]
+        public int? InclusionCount { get; set; }
         [DisplayName("No_Of_Nights")]
         public int? Duration { get; set; }
         public bool Breakfast { get; set; }

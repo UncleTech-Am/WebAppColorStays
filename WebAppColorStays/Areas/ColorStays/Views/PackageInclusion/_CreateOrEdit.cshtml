@@ -31,7 +31,7 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Icon)<span style="color:red;"> *</span></div>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Icon)</div>
             <input class="TtBxTt14" placeholder="Icon Name" type="text" id="SearchIcon" asp-for="Icon" autocomplete="off" onchange="ClearData('SearchIcon','Fk_Icon_Name')" required/>
             <input type="hidden" asp-for="Fk_Icon_Name" required />
         </div>
@@ -39,6 +39,15 @@
     <div class="VnRd"><span asp-validation-for="Fk_Icon_Name"></span></div>
 </div>
 
+<div class="Pg2 MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <input class="SeIt1o15" type="checkbox" asp-for="IsInclusion" />
+            &nbsp;Is Inclusion
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="IsInclusion"></span></div>
+</div>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">

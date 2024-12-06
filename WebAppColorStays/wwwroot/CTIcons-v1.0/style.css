@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'CTIcons';
+  src:  url('fonts/CTIcons.eot?tb4wfl');
+  src:  url('fonts/CTIcons.eot?tb4wfl#iefix') format('embedded-opentype'),
+    url('fonts/CTIcons.ttf?tb4wfl') format('truetype'),
+    url('fonts/CTIcons.woff?tb4wfl') format('woff'),
+    url('fonts/CTIcons.svg?tb4wfl#CTIcons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="CT-"], [class*=" CT-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'CTIcons' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.CT-CelebrateTech:before {
+  content: "\e900";
+}

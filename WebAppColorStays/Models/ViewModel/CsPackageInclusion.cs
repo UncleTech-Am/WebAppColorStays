@@ -17,6 +17,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_Icon_Name { get; set; }
         [NotMapped]
         public string? Icon { get; set; }
+        public bool IsInclusion { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }
