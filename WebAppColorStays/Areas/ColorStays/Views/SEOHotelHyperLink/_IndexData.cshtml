@@ -44,7 +44,11 @@
 
         <td>@item.Fk_Country_Name</td>
 
-	    <td>@item.Fk_HotelType_Name</td>	    
+	    <td>@item.Fk_HotelType_Name</td>
+        
+	    <td>@item.Heading1</td>	
+        
+	    <td>@item.Heading2</td>	    
          
 	    <td>@item.CoverImage</td>
          
@@ -71,6 +75,23 @@
                 @Html.Raw(item.OtherDes)
             }
         </td>
+        <td>
+            @if (item.OtherDes1 != null && item.OtherDes1.Length > 50)
+            {
+                @Html.Raw(item.OtherDes1.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+
+                    <div class="DyNe">
+                        @Html.Raw(item.OtherDes1)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.OtherDes1)
+            }
+        </td>
 
         <td>
             @if (item.Description != null && item.Description.Length > 50)
@@ -93,6 +114,8 @@
          
 	    <td>@item.StarRating</td>
          
+	    <td>@item.IsInBanner</td>
+
 	    <td>@item.BudgetHotels</td>
          
 	    <td>@item.LuxuryHotels</td>

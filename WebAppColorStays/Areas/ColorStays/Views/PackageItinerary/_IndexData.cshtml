@@ -57,6 +57,23 @@
             }
         </td>
 
+        <td>
+            @if (item.DayActivity1 != null && item.DayActivity1.Length > 50)
+            {
+                @Html.Raw(item.DayActivity1.Substring(0, 50))
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @Html.Raw(item.DayActivity1)
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.Raw(item.DayActivity1)
+            }
+        </td>
+
         <td>@item.Sightseen</td>
 
         <td><img src="@item.ImageUrl1" class="Wh100p BrRs4" style="height:50px;object-fit:cover;" /> </td>

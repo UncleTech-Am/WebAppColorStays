@@ -148,7 +148,13 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="MnTp7 MnBm7" style="height:66vh;">
+                            <div>
+                                <div class="MaxMinDv">
+                                    <textarea class="TtAaTt15" placeholder="DayActivity1" name="DayActivity1" id="DayActivity11" autocomplete="off"></textarea>
+                                </div>
+                            </div>
+                        </div>
                         <div class="MnTp7 MnBm7 FxRw">
                             <div class="FxGw1">
                                 <button type="button" onclick="FormSubmitPackage()" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
@@ -521,7 +527,7 @@
 
             $.validator.unobtrusive.parse(container);
             tinymce.init({
-                selector: '#DayActivity',
+                selector: '#DayActivity, #DayActivity11',
                 plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
                 toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
                 a11ychecker_level: 'aaa',
@@ -572,11 +578,13 @@
             container.innerHTML = data;
             $.validator.unobtrusive.parse(container);
             var idinput = document.getElementById('DayActivity1').value;
+            var idinput1 = document.getElementById('DayActivity12').value;
             tinymce.activeEditor.setProgressState(true);
             tinymce.activeEditor.setProgressState(false, 300);
             setTimeout(() => { tinymce.activeEditor.setContent(idinput) }, 200);
+            setTimeout(() => { tinymce.activeEditor.setContent(idinput1) }, 200);
             tinymce.init({
-                selector: '#DayActivity',
+                selector: '#DayActivity, #DayActivity11',
                 plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
                 toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
                 a11ychecker_level: 'aaa',

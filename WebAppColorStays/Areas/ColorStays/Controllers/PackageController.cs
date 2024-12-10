@@ -1525,6 +1525,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         CsPackageItinerary = await System.Text.Json.JsonSerializer.DeserializeAsync<CsPackageItinerary>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         CsPackageItinerary.Remarks = CsPackageItinerary.DayActivity;
+                        CsPackageItinerary.Video = CsPackageItinerary.DayActivity1;
+
                     }
                     else
                     {

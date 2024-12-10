@@ -34,9 +34,14 @@ namespace WebAppColorStays.Models.ViewModel
         [AllowHtml]
         public string? OtherDes { get; set; }
         [AllowHtml]
+        public string? OtherDes1 { get; set; }
+        [AllowHtml]
         public string? Description { get; set; }
+        public string? Heading1 { get; set; }
+        public string? Heading2 { get; set; }
         public string? StructuredData { get; set; }
         public int? StarRating { get; set; }
+        public bool IsInBanner { get; set; }
         public bool BudgetHotels { get; set; }
         public bool LuxuryHotels { get; set; }
         public bool PremiumHotels { get; set; }

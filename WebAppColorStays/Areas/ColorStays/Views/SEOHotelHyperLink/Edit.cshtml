@@ -57,6 +57,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="MnTp7 MnBm7" style="height:66vh;">
+                        <div>
+                            <div class="MaxMinDv">
+                                <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.OtherDes1)" asp-for="OtherDes1" autocomplete="off"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="MnTp7 MnBm7 FxRw">
                         <div class="FxGw1">
                             <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-EditFileLine"></i>&nbsp;Edit</button>
@@ -85,7 +93,7 @@
     });
 
     tinymce.init({
-        selector: '#Description, #OtherDes',
+        selector: '#Description, #OtherDes, #OtherDes1',
         plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
         toolbar: 'undo redo | styles | bold italic underline strikethrough | align | table link image media pageembed | bullist numlist outdent indent | spellcheckdialog a11ycheck code | Source Code',
         a11ychecker_level: 'aaa',
