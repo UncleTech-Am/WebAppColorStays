@@ -60,17 +60,17 @@
         <td>
             @if (item.DayActivity1 != null && item.DayActivity1.Length > 50)
             {
-                @Html.Raw(item.DayActivity1.Substring(0, 50))
+                @item.DayActivity1.Substring(0, 50)
                 <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
                     ...Read More
                     <div class="DyNe">
-                        @Html.Raw(item.DayActivity1)
+                        @item.DayActivity1
                     </div>
                 </div>
             }
             else
             {
-                @Html.Raw(item.DayActivity1)
+                @item.DayActivity1
             }
         </td>
 

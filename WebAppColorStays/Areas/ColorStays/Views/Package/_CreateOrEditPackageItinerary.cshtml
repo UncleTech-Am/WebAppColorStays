@@ -27,7 +27,6 @@ else
 
 <input type="hidden" id="PgIyId" asp-for="Fk_Package_Name" />
 <input type="hidden" id="DayActivity1" asp-for="Remarks" />
-<input type="hidden" id="DayActivity12" asp-for="Video" />
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -52,7 +51,6 @@ else
 
 
 @*
-
 <div class="FxRw">
     <div class="Fx50 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
@@ -136,6 +134,17 @@ else
         <div class="VnRd"><span asp-validation-for="Dinner"></span></div>
     </div>
 </div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DayActivity1)<span style="color:red;"> *</span></div>
+            <textarea class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DayActivity1)" rows="3" asp-for="DayActivity1" autocomplete="off" required></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="DayActivity1"></span></div>
+</div>
+
 
 @if (Model.ImageUrl1 != null)
 {

@@ -22,7 +22,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? DayTitle { get; set; }
         [AllowHtml]
         public string? DayActivity { get; set; }
-        [AllowHtml]
+        [DisplayName("Heading1")]
         public string? DayActivity1 { get; set; }
         public bool Sightseen { get; set; }
         public string? Photo1 { get; set; }
