@@ -78,7 +78,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Country { get; set; }
         public double? Price { get; set; }
         public double? PriceAfterDiscount { get; set; }
-        public int? Discount { get; set; }
+        public double? Discount { get; set; }
         [DisplayName("Video Link")]
         public string? Video { get; set; }
         public bool FreezeStatus { get; set; }
