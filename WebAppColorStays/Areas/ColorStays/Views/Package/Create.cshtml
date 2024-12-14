@@ -781,7 +781,13 @@
         });
         
     };
-        //Ends
+    //Ends
 
+    //Get the discounted price
+    function GetPrice(discount){
+        var price = document.getElementById('Price').value;
+        var disPrice = price * ((100 - discount) / 100);
+        document.getElementById('PriceAfterDiscount').value = disPrice;
+    }
 </script>
 

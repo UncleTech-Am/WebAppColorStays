@@ -150,7 +150,7 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverImage) (230 X 270)</div>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverImage) (216 X 270)</div>
             <input asp-for="CoverImage" type="file" />
         </div>
     </div>
@@ -211,7 +211,7 @@
 
 
 <div class="FxRw">
-    <div class="Fx50 MnTp7 MnBm7">
+    <div class="Fx33 Pg1 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Price)<span style="color:red;"> *</span></div>
@@ -221,15 +221,26 @@
         <div class="VnRd"><span asp-validation-for="Price"></span></div>
     </div>
 
-    <div class=" Fx50 MnTp7 MnBm7">
+    <div class=" Fx33 Pg1 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Discount)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Discount)" asp-for="Discount" autocomplete="off" />
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Discount) Rate %</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Discount)" asp-for="Discount" autocomplete="off" onchange="GetPrice(this.value)" />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="Discount"></span></div>
     </div>
+
+    <div class=" Fx33 Pg1 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PriceAfterDiscount)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PriceAfterDiscount)" asp-for="PriceAfterDiscount" autocomplete="off" readonly/>
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="PriceAfterDiscount"></span></div>
+    </div>
+
 </div>
 
 

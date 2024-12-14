@@ -77,6 +77,7 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? Country { get; set; }
         public double? Price { get; set; }
+        public double? PriceAfterDiscount { get; set; }
         public int? Discount { get; set; }
         [DisplayName("Video Link")]
         public string? Video { get; set; }
