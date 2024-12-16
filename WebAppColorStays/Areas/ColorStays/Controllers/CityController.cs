@@ -740,14 +740,22 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 image.Add(img);
             }
             //Delete the Images from the folder
-            image.Add(photo.ImageName);
-            Task<string> TDeleteImage = ryCsImage.DeleteMultiImage(image, "City", TokenKey);
-            Task.WaitAll(TDeleteImage);
-
-            if (TDeleteImage.Result == "Error")
+            if (photo.ImageName != null)
             {
-                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                image.Add(photo.ImageName);
+
             }
+            if (image.Count > 0)
+            {
+                Task<string> TDeleteImage = ryCsImage.DeleteMultiImage(image, "City", TokenKey);
+                Task.WaitAll(TDeleteImage);
+
+                if (TDeleteImage.Result == "Error")
+                {
+                    ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                }
+            }
+            
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);

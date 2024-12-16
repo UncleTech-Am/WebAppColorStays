@@ -215,7 +215,7 @@
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Price)<span style="color:red;"> *</span></div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Price)" asp-for="Price" autocomplete="off" required />
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Price)" asp-for="Price" autocomplete="off" required onchange="GetPriceDis(this.value)" />
             </div>
         </div>
         <div class="VnRd"><span asp-validation-for="Price"></span></div>

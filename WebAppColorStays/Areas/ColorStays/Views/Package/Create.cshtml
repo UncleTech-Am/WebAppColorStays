@@ -789,5 +789,18 @@
         var disPrice = price * ((100 - discount) / 100);
         document.getElementById('PriceAfterDiscount').value = disPrice;
     }
+    function GetPriceDis(price) {
+        var discount = document.getElementById('Discount').value;
+        var disPrice = 0;
+        if(discount != null)
+        {
+            disPrice = price * ((100 - discount) / 100);
+        }
+        else{
+            disPrice = price;
+        }
+        document.getElementById('PriceAfterDiscount').value = disPrice;
+    }
+
 </script>
 
