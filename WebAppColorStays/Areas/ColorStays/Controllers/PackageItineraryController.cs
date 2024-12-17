@@ -1053,7 +1053,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
-        public async Task<JsonResult> CheckDuplicationPackageItineraryDayNo(string DayNo, string NameAction, string Fk_Package_Name, string Id)
+        public async Task<JsonResult> CheckDuplicationPackageItineraryDayNo(int DayNo, string NameAction, string Fk_Package_Name, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];

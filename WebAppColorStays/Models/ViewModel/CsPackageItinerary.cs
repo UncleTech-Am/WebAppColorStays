@@ -16,7 +16,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Package { get; set; }
         [Required(ErrorMessage = "Please enter DayNo.")]
         [Remote("CheckDuplicationPackageItineraryDayNo", "PackageItinerary", AdditionalFields = ("NameAction, Fk_Package_Name, Id"))]
-        public string? DayNo { get; set; }
+        public int? DayNo { get; set; }
         [Required(ErrorMessage = "Please enter DayTitle.")]
         [Remote("CheckDuplicationPackageItinerary", "PackageItinerary", AdditionalFields = ("NameAction, Fk_Package_Name, Id"))]
         public string? DayTitle { get; set; }
