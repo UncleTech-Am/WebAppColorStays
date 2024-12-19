@@ -82,8 +82,8 @@ namespace WebAppColorStays.Models.ViewModel
         [DisplayName("Video Link")]
         public string? Video { get; set; }
         public bool IsTopSelling { get; set; }
-        public DateTime? TopStart { get; set; }
-        public DateTime? TopEnd { get; set; }
+        public string? TopStart { get; set; }
+        public string? TopEnd { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }

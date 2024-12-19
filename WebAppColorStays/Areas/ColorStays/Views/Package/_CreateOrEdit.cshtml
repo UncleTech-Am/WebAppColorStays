@@ -244,79 +244,66 @@
 
 </div>
 
-@if (Model != null)
-{
-    <div class="FxRw">
-        <div class="Fx33 Pg1 MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <input class="SeIt1o15" type="checkbox" asp-for="IsTopSelling" />
-                    &nbsp;Top Selling
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="IsTopSelling"></span></div>
-        </div>
-        <div class="Fx33 Pg2 MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TopStart)</div>
-                    <input class="TtBxTt15" placeholder="Top Start" Name="TopStart" id="TopStart" type="text" autocomplete="off" required readonly value="@String.Format("{0:dd MMMM,yyyy}", Model.TopStart)" />
-                    <div class="PgRt5 Cr-uPr" onclick="Empty('TopStart')"><i class="UT-DeletePageSolid"></i></div>
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="TopStart"></span></div>
-        </div>
 
-
-        <div class="Fx33 Pg2 MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TopEnd)</div>
-                    <input class="TtBxTt15" placeholder="Top End" Name="TopEnd" id="TopEnd" type="text" autocomplete="off" required readonly value="@String.Format("{0:dd MMMM,yyyy}", Model.TopEnd)" />
-                    <div class="PgRt5 Cr-uPr" onclick="Empty('TopEnd')"><i class="UT-DeletePageSolid"></i></div>
-                </div>
+<div class="FxRw">
+    <div class="Fx33 Pg1 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsTopSelling" />
+                &nbsp;Top Selling
             </div>
-            <div class="VnRd"><span asp-validation-for="TopEnd"></span></div>
         </div>
+        <div class="VnRd"><span asp-validation-for="IsTopSelling"></span></div>
     </div>
-}
-else
-{
-    <div class="FxRw">
-        <div class="Fx33 Pg1 MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <input class="SeIt1o15" type="checkbox" asp-for="IsTopSelling" />
-                    &nbsp;Top Selling
-                </div>
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TopStart)</div>
+                <select asp-for="TopStart" class="TtBxTt15" required>
+                    <option value="">Select Month</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
             </div>
-            <div class="VnRd"><span asp-validation-for="IsTopSelling"></span></div>
         </div>
-        <div class="Fx33 Pg2 MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TopStart)</div>
-                    <input class="TtBxTt15" placeholder="Valid From" Name="TopStart" id="TopStart" type="text" autocomplete="off" required readonly />
-                    <div class="PgRt5 Cr-uPr" onclick="Empty('TopStart')"><i class="UT-DeletePageSolid"></i></div>
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="TopStart"></span></div>
-        </div>
-
-
-        <div class="Fx33 Pg2 MnTp7 MnBm7">
-            <div class="TtBxFlStDiv">
-                <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TopEnd)</div>
-                    <input class="TtBxTt15" placeholder="Valid To" Name="TopEnd" id="TopEnd" type="text" autocomplete="off" required readonly )" />
-                    <div class="PgRt5 Cr-uPr" onclick="Empty('TopEnd')"><i class="UT-DeletePageSolid"></i></div>
-                </div>
-            </div>
-            <div class="VnRd"><span asp-validation-for="TopEnd"></span></div>
-        </div>
+        <div class="VnRd"><span asp-validation-for="TopStart"></span></div>
     </div>
-}
 
+
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TopEnd)</div>
+                <select asp-for="TopEnd" class="TtBxTt15" required>
+                    <option value="">Select Month</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                </select>
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="TopEnd"></span></div>
+    </div>
+</div>
 
 
 <div class="MnTp7 MnBm7">
