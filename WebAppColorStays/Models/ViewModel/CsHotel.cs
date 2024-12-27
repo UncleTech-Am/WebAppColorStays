@@ -87,6 +87,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Phone { get; set; }
         public string? Mobile { get; set; }
         public string? Website { get; set; }
+        [DisplayName("H1")]
+        public string? Heading1 { get; set; }
         public string? CustomerCareNum { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
