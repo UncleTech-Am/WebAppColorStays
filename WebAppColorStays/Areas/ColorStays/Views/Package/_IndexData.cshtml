@@ -53,7 +53,22 @@
 
         <td>@item.Fk_Country_Name</td>
 
-	    <td>@item.Description</td>
+        <td>
+            @if (item.Description != null && item.Description.Length > 50)
+            {
+                @item.Description.Substring(0, 50)
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @item.Description
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.Description
+            }
+        </td>
 
         <td>
             @if (item.PackageHighlight != null && item.PackageHighlight.Length > 50)
@@ -143,7 +158,22 @@
 
         <td>@item.SEOKeywords</td>
 
-        <td>@item.StructuredData</td>
+        <td>
+            @if (item.StructuredData != null && item.StructuredData.Length > 50)
+            {
+                @item.StructuredData.Substring(0, 50)
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @item.StructuredData
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.StructuredData
+            }
+        </td>
 
         <td>@item.Transport</td>
 

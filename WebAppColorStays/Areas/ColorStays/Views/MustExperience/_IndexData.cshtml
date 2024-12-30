@@ -58,7 +58,22 @@
             }
         </td>
 
-        <td>@item.StructuredData</td>
+        <td>
+            @if (item.StructuredData != null && item.StructuredData.Length > 50)
+            {
+                @item.StructuredData.Substring(0, 50)
+                <div class="CrRd" onclick="ShowData(this.getElementsByClassName('DyNe')[0])">
+                    ...Read More
+                    <div class="DyNe">
+                        @item.StructuredData
+                    </div>
+                </div>
+            }
+            else
+            {
+                @item.StructuredData
+            }
+        </td>
 
         <td>@item.SEOTitle</td>
 
