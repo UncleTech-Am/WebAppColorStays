@@ -788,6 +788,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            Title = Base64UrlEncoder.Encode(Process.Encrypt(Title));
             if (Id == null) { Id = "No"; }
             using (HttpClient client = APIColorStays.Initial())
             {
@@ -800,7 +801,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                     if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
-                        return Json("Sorry, this " + Title + " already exists");
+                        return Json("Sorry, this " + Process.Decrypt(Base64UrlEncoder.Decode(Title)) + " already exists");
                     }
                 }
             }
