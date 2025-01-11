@@ -11,6 +11,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Id { get; set; }
         public string? Label { get; set; }
         public string? Name { get; set; }
+        public string? URL { get; set; }
         public string? ImageName { get; set; }
         [NotMapped]
         public string? ImageUrl { get; set; }
