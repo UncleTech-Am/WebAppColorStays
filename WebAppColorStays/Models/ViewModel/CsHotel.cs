@@ -44,6 +44,8 @@ namespace WebAppColorStays.Models.ViewModel
 		public string? Name { get; set; }
         [Remote("CheckDuplicationHotelRank", "Hotel", AdditionalFields = ("NameAction, Id, Fk_City_Name"))]
         public int? Rank { get; set; }
+        [Remote("CheckDuplicationHotelHomeRank", "Hotel", AdditionalFields = ("NameAction, Id, Fk_Country_Name"))]
+        public int? HomeRank { get; set; }
         public string? StructuredData { get; set; }
         public string? Video { get; set; }
         public string? TagLine { get; set; }

@@ -1034,6 +1034,32 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             else { return Json("Some Error!"); }
         }
 
+        //This method is to check duplicate values for Rank columns......
+        public async Task<JsonResult> CheckDuplicationHotelHomeRank(int HomeRank, string NameAction, string Id, string Fk_Country_Name)
+        {
+            bool Success = false;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            if (Id == null || Id == "") { Id = "No"; }
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Hotel/CheckDuplicationHotelHomeRank/" + HomeRank + "/" + NameAction + "/" + Fk_Country_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Success = true;
+                    }
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        return Json("Sorry, this " + HomeRank + " already exists");
+                    }
+                }
+            }
+            if (Success == true) { return Json(true); }
+            else { return Json("Some Error!"); }
+        }
+
 
 
         //GET: /Offer/Create
