@@ -75,6 +75,18 @@
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
 </div>
 
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description)<span> Max Char 150 </span> <span id="DescSID" class="CrBdRd70 CrWe BrRs3"></span><span style="color:red;"> *</span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.Description)" asp-for="Description" autocomplete="off" required onkeyup="CrCtIt('Description','DescSID',150)"></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Description"></span></div>
+</div>
+
+
+
 @if (Model != null)
 {
     @if (Model.CoverImage != null)

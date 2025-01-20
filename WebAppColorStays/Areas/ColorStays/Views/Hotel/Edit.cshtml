@@ -190,6 +190,7 @@
                 <div>Hotel Plan</div>
                 <div>Hotel Images</div>
                 <div>Hotel 360</div>
+                <div onmouseup="ShowHomeHotel()">Home Package</div>
             </div>
 
             <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
@@ -209,6 +210,10 @@
                 </div>
                 <div id="UTabs2Cont4">
                     <div id="360Images"></div>
+                </div>
+                <div id="UTabs2Cont5">
+                    <div id="HomeRank2">
+                    </div>
                 </div>
             </div>
         </div>
@@ -230,6 +235,7 @@
         document.getElementById('HName').value = $("#Name").val();
         document.getElementById('H3Id').value = $("#Id").val();
         document.getElementById('H3Name').value = $("#Name").val();
+        ShowHomeHotel();
         getUT('/ColorStays/HotelImageVideo/Index?HotelId=' + HotelId, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
@@ -376,6 +382,16 @@
         document.getElementById('Fk_Country_Name').value = event.target.Text1;
         document.getElementById('Fk_Place_Name').value = event.target.Text4;
     }
+
+    function ShowHomeHotel() {
+        ShowLoader();
+        getUT('/ColorStays/Hotel/Index?PageCall=ShowIxSh&Homerank=true', function (data) {
+            document.getElementById("HomeRank2").innerHTML = "";
+            document.getElementById("HomeRank2").innerHTML = data;
+            HideLoader();
+        });
+    }
+
 
     function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
         //FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");

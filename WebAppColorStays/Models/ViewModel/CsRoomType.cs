@@ -34,7 +34,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? CoverAltTag { get; set; }
         [NotMapped]
         public string? CoverImageName { get; set; }
-        [AllowHtml]
+        [StringLength(150, ErrorMessage = "You can enter only 150 characters long!")]
         public string? Description { get; set; }
         public int TotalRooms { get; set; }
         public string? SizeArea { get; set; }

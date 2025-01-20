@@ -1,0 +1,78 @@
+@model IEnumerable<WebAppColorStays.Models.ViewModel.CsToaster>
+
+@{
+    Layout = null;
+    ViewData["Action"] = "Toaster";
+    int PageNoSelect = Convert.ToInt32(ViewData["PageNumberSelected"]);
+    int PageSize = Convert.ToInt32(ViewData["PageRecordSize"]);
+}
+
+<b style="display:none" id="PaginationAt" pagenumber="@PageNoSelect" pagesize="@PageSize" netrecord="@ViewData["NetRecords"]">responseformUT SuccessPop</b>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @if (item.SelectStatus == true)
+            {
+                <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
+                    <input type="checkbox" ClipStatus ="Selected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
+                </span>
+                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.Name','/ColorStays/Toaster')"><i class="UT-StarSolid"> </i> </a>
+            }
+            else
+            {
+                <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
+                    <input type="checkbox" ClipStatus ="UnSelected" id="@item.Id" value="@item.Id" name="@item.Name" class="AmIndexCheckbox SeIt1o14" />
+                </span>
+                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark Star" onclick="MultiButtonFunc('Star','@item.Id', '@item.Name','/ColorStays/Toaster')"><i class="UT-UnstarSolid"></i></a>
+            }
+            <a class="BnInSe15  CrBdTeBn HrTmSeo94 Cr-1Pr" href=# onclick="Details('/ColorStays/Toaster/Details?Id=@item.Id')" data-toggle="tooltip" data-placement="bottom" title="Detail"><i class="UT-DetailLine FtWt800"></i> </a>
+            @if (item.VerifiedStatus == false && item.ActiveStatus == false && item.GlobalStatus == false)
+            {
+                <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="@Url.Action("Edit", new { id=item.Id })"> <i class="UT-EditFileLine FtWt800"></i> </a>
+            }
+        </td>
+         
+	    <td>@item.Name</td>
+         
+	    <td>@item.Title</td>
+         
+	    <td><img src="@item.ImageName" style="width:80%;height:80%;"/></td>
+
+	    <td>@item.AltTag</td>
+         
+	    <td>@item.Remarks</td>
+         
+	    <td>@item.FreezeStatus</td>
+         
+	    <td>@item.FreezedBy</td>
+        	    <td>@if(item.VerifiedStatus == true){<span>Verified</span>}else{ <span>Pending-Verify</span>}</td>              
+         
+	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.VerifiedOn)</td>
+         
+	    <td>@item.VerifiedBy</td>
+            
+	    <td>@if(item.ActiveStatus == true){<span>Activated</span>}else{ <span>Inactive</span>}</td>   
+         
+	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ActivatedOn)</td>
+         
+	    <td>@item.ActivatedBy</td>
+         
+	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.CreatedOn)</td>
+         
+	    <td>@item.CreatedBy</td>
+         
+	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ModifiedOn)</td>
+         
+	    <td>@item.ModifiedBy</td>
+         
+	    <td>@item.ModificationFrequency</td>
+         
+	    <td>@item.GCompId</td>
+         
+	    <td>@item.CompId</td>
+            </tr>
+}
+
+

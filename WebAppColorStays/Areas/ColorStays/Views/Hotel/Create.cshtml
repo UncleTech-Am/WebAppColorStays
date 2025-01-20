@@ -183,7 +183,7 @@
                 <div>Hotel Plan</div>
                 <div>Hotel Images</div>
                 <div>Hotel 360</div>
-                <div>Home Package</div>
+                <div onmouseup="ShowHomeHotel()">Home Package</div>
             </div>
 
             <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
@@ -205,8 +205,7 @@
                     <div id="360Images"></div>
                 </div>
                 <div id="UTabs2Cont5">
-                    <div id="HomeRank">
-
+                    <div id="HomeRank2">
                     </div>
                 </div>
 
@@ -226,6 +225,7 @@
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchLocation', '/ColorStays/Location/SuggestLocation', '', '', AoCeLocation);
         MaxMin();
+        ShowHomeHotel();
     });
 
     function SetCheckInTime(data, id){
@@ -325,6 +325,15 @@
     }
   
 
+    function ShowHomeHotel() {
+        ShowLoader();
+        getUT('/ColorStays/Hotel/Index?PageCall=ShowIxSh&Homerank=true', function (data) {
+            document.getElementById("HomeRank2").innerHTML = "";
+            document.getElementById("HomeRank2").innerHTML = data;
+            HideLoader();
+        });
+    }
+
     function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
         //FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
         if (data.includes("responseformUT")) {
@@ -345,7 +354,6 @@
                 document.getElementById('HName').value = document.getElementById('HlName').value;
                 document.getElementById('H3Id').value = document.getElementById('HlId').value;
                 document.getElementById('H3Name').value = document.getElementById('HlName').value;
-
             }
         }
         else {

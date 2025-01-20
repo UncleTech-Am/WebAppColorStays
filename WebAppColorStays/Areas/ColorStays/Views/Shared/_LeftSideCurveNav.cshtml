@@ -140,6 +140,7 @@
 
     string MainLink9 = " ";
     string DrownLink9 = " ";
+    string Toaster = " ";
 
     switch (Action)
     {
@@ -166,6 +167,7 @@
         case "Video": Video = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "CountryOverView": CountryOverView = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "SiteMap": SiteMap = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
+        case "Toaster": Toaster = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
 
         case "Icon": Icon = "SideSubLinkActive"; MainLink1 = "SideNavActive"; DrownLink1 = "SideSubNavActive"; break;
         case "AnCountry": AnCountry = "SideSubLinkActive"; MainLink2 = "SideNavActive"; DrownLink2 = "SideSubNavActive"; break;
@@ -488,6 +490,15 @@
                     </div>
                     <a href="~/ColorStays/Airport/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/Airport/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @Toaster">
+                        <a href="~/ColorStays/Toaster/Create">Toaster</a>
+                    </div>
+                    <a href="~/ColorStays/Toaster/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Toaster/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
 
