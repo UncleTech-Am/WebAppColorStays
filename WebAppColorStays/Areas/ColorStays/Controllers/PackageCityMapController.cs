@@ -673,7 +673,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationPackageCityMap(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationPackageCityMap(int SerialNo, string NameAction, string Id, string Fk_Location_Name, string Fk_Package_Name)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
@@ -682,7 +682,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("PackageCityMap/CheckDuplicationPackageCityMap/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("PackageCityMap/CheckDuplicationPackageCityMap/" + SerialNo + "/" + NameAction +"/" + Fk_Location_Name +"/" + Fk_Package_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
@@ -690,7 +690,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                     if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
-                        return Json("Sorry, this " + Name + " already exists");
+                        return Json("Sorry, this " + SerialNo + " already exists");
                     }
                 }
             }

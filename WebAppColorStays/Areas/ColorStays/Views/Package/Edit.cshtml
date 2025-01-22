@@ -369,6 +369,17 @@
         MaxMin();
     });
 
+    function SetRqu() {
+        if (document.getElementById("IsTopSelling").checked) {
+            document.getElementById("TopStart").setAttribute("required", "true");
+            document.getElementById("TopEnd").setAttribute("required", "true");
+        }
+        else {
+            document.getElementById("TopStart").setAttribute("required", "false");
+            document.getElementById("TopEnd").setAttribute("required", "false");
+        }
+    }
+
     function FormSubmitPackage() {
         var dayno = document.getElementById('DayNo').value;
         var name = document.getElementById('DayTitle').value;

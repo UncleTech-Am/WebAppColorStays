@@ -265,6 +265,18 @@
         MaxMin();
     });
 
+    function SetRqu(){
+        if (document.getElementById("IsTopSelling").checked) {
+            document.getElementById("TopStart").setAttribute("required", "true");
+            document.getElementById("TopEnd").setAttribute("required", "true");
+        }
+        else{
+            document.getElementById("TopStart").setAttribute("required", "false");
+            document.getElementById("TopEnd").setAttribute("required", "false");
+        }
+        
+    }
+
     tinymce.init({
         selector: '#Overview, #PackageHighlight, #NeedToKonw',
         plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
@@ -419,6 +431,7 @@
         if (!data.includes("ShowValidation")) {
             document.getElementById('City').innerHTML = "";
             document.getElementById('City').innerHTML = data;
+
             document.getElementById('PeId').value = document.getElementById('PeId').value;
         }
     }

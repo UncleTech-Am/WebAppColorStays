@@ -31,8 +31,10 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? CoverImageName { get; set; }
         public int? NoOfPerson { get; set; }
+        [DisplayName("BrowserURL")]
         public string? URL { get; set; }
         public string? Transport { get; set; }
+        public string? LowestPriceQuote { get; set; }
         public string? Stay { get; set; }
         [AllowHtml]
         public string? PackageHighlight { get; set; }

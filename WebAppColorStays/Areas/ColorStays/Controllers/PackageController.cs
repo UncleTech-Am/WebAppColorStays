@@ -79,6 +79,32 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             return View("_CreateOrEditCity", cityMap);
         }
 
+        //check dupchek
+        public async Task<JsonResult> CheckDuplicationPackageCityMap(int SerialNo, string NameAction, string Id, string Fk_Package_Name)
+        {
+            bool Success = false;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            if (Id == null) { Id = "No"; }
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageCityMap/CheckDuplicationPackageCityMap/" + SerialNo + "/" + NameAction + "/" + Fk_Package_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Success = true;
+                    }
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        return Json("Sorry, this " + SerialNo + " already exists");
+                    }
+                }
+            }
+            if (Success == true) { return Json(true); }
+            else { return Json("Some Error!"); }
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -118,10 +144,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             else
                             {
                                 Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                                if (responsemsg != null && responsemsg.Message == "Duplicate")
+                                if (responsemsg != null && responsemsg.Message == "DuplicateCity")
                                 {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
-                                    ModelState.AddModelError("City", "Duplicate Value, Already Exists !");
+                                    ModelState.AddModelError("Location", "Duplicate Value, Already Exists !");
                                 }
+                                if (responsemsg != null && responsemsg.Message == "DuplicateSerial")
+                                {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                    ModelState.AddModelError("SerialNo", "Duplicate Value, Already Exists !");
+                                }
+
                                 Success = false;
                             }
                         }

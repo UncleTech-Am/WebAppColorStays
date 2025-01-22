@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,6 +32,8 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? Country { get; set; }
         public int? NoOfNight { get; set; }
+        [Remote("CheckDuplicationPackageCityMap", "Package", AdditionalFields = ("NameAction, Id, Fk_Package_Name"))]
+        public int? SerialNo { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         public string? Remarks { get; set; }
