@@ -16,6 +16,10 @@ namespace WebAppColorStays.Models.ViewModel
         public string? AltTag { get; set; }
         [NotMapped]
         public string? ImageName { get; set; }
+        public string? BgColor { get; set; }
+        public string? TextColor { get; set; }
+        public string? ButtonBgColor { get; set; }
+        public string? ButtonTextColor { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]

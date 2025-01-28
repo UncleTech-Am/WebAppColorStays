@@ -43,6 +43,14 @@
         });
     });
 
+    //SHow the Already uploaded images in Detail PopUp
+    function PackageImage(Id) {
+        getUT('/ColorStays/PackageImage/Index?PackageId=' + Id + "&ShowBtn=false", function (data) {
+            PopUpUpdate(data);
+        });
+    }
+    //Ends
+
     function IntializeTableSearch() {
         var SkipRow = [0, 1];
         var SkipCol = [0];

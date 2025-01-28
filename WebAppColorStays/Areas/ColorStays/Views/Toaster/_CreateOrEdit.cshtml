@@ -76,6 +76,56 @@
     <div class="VnRd"><span asp-validation-for="AltTag"></span></div>
 </div>
 
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">Pick Color</div>
+            <input class="TtBxTt15" type="color" name="PickColor" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"></div>
+</div>
+
+
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BgColor)<span style="color:red;">"rgb(10 10 10/.85)" *</span></div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.BgColor)" asp-for="BgColor" autocomplete="off" required />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="BgColor"></span></div>
+    </div>
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.TextColor)<span style="color:red;">"rgb(10 10 10/.85)" *</span></div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.TextColor)" asp-for="TextColor" autocomplete="off" required />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="TextColor"></span></div>
+    </div>
+
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ButtonBgColor)<span style="color:red;">"rgb(10 10 10/.85)" *</span></div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ButtonBgColor)" asp-for="ButtonBgColor" autocomplete="off" required />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="ButtonBgColor"></span></div>
+    </div>
+
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ButtonTextColor)<span style="color:red;">"rgb(10 10 10/.85)" *</span></div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ButtonTextColor)" asp-for="ButtonTextColor" autocomplete="off" required />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="ButtonTextColor"></span></div>
+    </div>
+
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">

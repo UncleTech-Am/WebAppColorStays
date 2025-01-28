@@ -35,7 +35,15 @@
             @{
                 var cr = "CrBdRd60"; if (item.ImageCount > 0) { cr = "CrBdTeBn"; }
             }
-            <a class="BnInSe15 @cr HrTmSeo94 Cr-1Pr" href=# onclick="HotelImage('@item.Id');" data-toggle="tooltip" data-placement="bottom" title="Hotel Image"><i class="UT-ImageLine FtWt800"></i> </a>
+            <a class="BnInSe15 @cr HrTmSeo94 Cr-1Pr" href=# onclick="PackageImage('@item.Id');" data-toggle="tooltip" data-placement="bottom" title="Package Image"><i class="UT-ImageLine FtWt800"></i> </a>
+            @if(item.Video == null){
+
+                <a class="BnInSe15 CrBdRd60 HrTmSeo94 Cr-1Pr" href=# data-toggle="tooltip" data-placement="bottom" title="Package Video"><i class="UT-VideoUpload FtWt800"></i> </a>
+            }
+            else
+            {
+                <a class="BnInSe15 CrBdTeBn HrTmSeo94 Cr-1Pr" href=# data-toggle="tooltip" data-placement="bottom" title="Package Video"><i class="UT-VideoUpload FtWt800"></i> </a>
+            }
 
         </td>
          
