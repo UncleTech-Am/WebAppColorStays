@@ -142,6 +142,15 @@
     string DrownLink9 = " ";
     string Toaster = " ";
 
+    string MainLink10 = " ";
+    string DrownLink10 = " ";
+    string KdCnCategory = " ";
+    string KdCnForm = " ";
+    string KdGenerated = " ";
+    string KdPrefix = " ";
+    string KdRoot = " ";
+    string KdSuffix = " ";
+
     switch (Action)
     {
         case "CompanyNav": CompanyNav = "SideNavActive"; break;
@@ -263,6 +272,12 @@
 
         case "Enquiry": Enquiry = "SideSubLinkActive"; MainLink9 = "SideNavActive"; DrownLink9 = "SideSubNavActive"; break;
 
+        case "KdCnCategory": KdCnCategory = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
+        case "KdCnForm": KdCnForm = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
+        case "KdGenerated": KdGenerated = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
+        case "KdPrefix": KdPrefix = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
+        case "KdRoot": KdRoot = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
+        case "KdSuffix": KdSuffix = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
 
         default: break;
     }
@@ -1448,6 +1463,85 @@
                     <a href="~/ColorStays/Enquiry/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
+        </div>
+    </div>
+
+
+
+    <div class="SideNavContainer">
+        <div class="SideNavLinkDiv">
+            <div class="SideNavLink @MainLink10">
+                <i class="UT-CategoryLine  FtSz20"></i>
+                <div class="SideNavLinkText">
+                    <a href=#>Generate Keyword</a>
+                </div>
+                <a href=#><i class="UT-ArrowDownCircleSolid"></i></a>
+
+            </div>
+        </div>
+        <div class="SideSubNavContainer @DrownLink10">
+
+             <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @KdCnCategory">
+                        <a href="~/ColorStays/KdCnCategory/Create">Keyword Category</a>
+                    </div>
+                    <a href="~/ColorStays/KdCnCategory/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/KdCnCategory/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @KdRoot">
+                        <a href="~/ColorStays/KdRoot/Create">Root</a>
+                    </div>
+                    <a href="~/ColorStays/KdRoot/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/KdRoot/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @KdPrefix">
+                        <a href="~/ColorStays/KdPrefix/Create">Prefix</a>
+                    </div>
+                    <a href="~/ColorStays/KdPrefix/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/KdPrefix/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @KdSuffix">
+                        <a href="~/ColorStays/KdSuffix/Create">Suffix</a>
+                    </div>
+                    <a href="~/ColorStays/KdSuffix/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/KdSuffix/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @KdCnForm">
+                        <a href="~/ColorStays/KdCnForm/Create">Keyword Form</a>
+                    </div>
+                    <a href="~/ColorStays/KdCnForm/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/KdCnForm/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @KdGenerated">
+                        <a href="~/ColorStays/KdGenerated/Create">Keyword Generated</a>
+                    </div>
+                    <a href="~/ColorStays/KdGenerated/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/KdGenerated/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>
