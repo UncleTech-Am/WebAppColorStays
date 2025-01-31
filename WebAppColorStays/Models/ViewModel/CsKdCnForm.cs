@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,19 +11,24 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(450)]
         public string? Id { get; set; }
         public string? Label { get; set; }
+        [DisplayName("Country")]
+        public string? Fk_Country_Name { get; set; }
+        [NotMapped]
+        public string? Country { get; set; }
+        public string? Fk_KdCnCategory_Name { get; set; }
         public string? Fk_KdRoot_Name { get; set; }
         [NotMapped]
         public string? Root { get; set; }
         public string? Fk_KdPrefix_Name { get; set; }
         public string? Fk_KdSuffix_Name { get; set; }
-        public bool? IsVeWdBeforePrefix { get; set; }
-        public bool? IsVeWdBeforeSuffix { get; set; }
-        public bool? IsVeWdBeforeRoot { get; set; }
-        public bool? IsVeWdAfterSuffix { get; set; }
-        public bool? IsURLHavingState { get; set; }
-        public bool? IsURLHavingCountry { get; set; }
-        public bool? IsStateKeyword { get; set; }
-        public bool? IsCountryKeyword { get; set; }
+        public bool IsVeWdBeforePrefix { get; set; }
+        public bool IsVeWdBeforeSuffix { get; set; }
+        public bool IsVeWdBeforeRoot { get; set; }
+        public bool IsVeWdAfterSuffix { get; set; }
+        public bool IsURLHavingState { get; set; }
+        public bool IsURLHavingCountry { get; set; }
+        public bool IsStateKeyword { get; set; }
+        public bool IsCountryKeyword { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]

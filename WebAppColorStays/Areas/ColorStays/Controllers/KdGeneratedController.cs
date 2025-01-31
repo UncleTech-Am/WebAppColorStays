@@ -32,7 +32,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "KdGenerated";
+            ViewBag.Title = "Keyword Generated";
         }
         //Ends
 

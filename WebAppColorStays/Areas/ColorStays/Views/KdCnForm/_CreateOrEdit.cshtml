@@ -20,8 +20,20 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdCnCategory_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_KdCnCategory_Name" asp-items="@await ViewBag.Category" class="TtBxTt15">
+                <option value="">Select Category</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_KdCnCategory_Name"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdRoot_Name)<span style="color:red;"> *</span></div>
-            <select asp-for="Fk_KdRoot_Name" asp-items="@await ViewBag.Prefix" class="TtBxTt15">
+            <select asp-for="Fk_KdRoot_Name" asp-items="@await ViewBag.Root" class="TtBxTt15">
                 <option value="">Select Root</option>
             </select>
         </div>
@@ -55,96 +67,92 @@
     <div class="VnRd"><span asp-validation-for="Fk_KdSuffix_Name"></span></div>
 </div>
 
-
-
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsVeWdBeforePrefix)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsVeWdBeforePrefix)" asp-for="IsVeWdBeforePrefix" autocomplete="off" />
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdBeforePrefix">
+                &nbsp;Is Variable BeforePrefix
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="IsVeWdBeforePrefix"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="IsVeWdBeforePrefix"></span></div>
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdBeforeSuffix">
+                &nbsp;Is Variable BeforeSuffix
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsVeWdBeforeSuffix"></span></div>
+    </div>
+</div>
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdBeforeRoot">
+                &nbsp;Is Variable BeforeRoot
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsVeWdBeforeRoot"></span></div>
+    </div>
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdAfterSuffix">
+                &nbsp;Is Variable AfterSuffix
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsVeWdAfterSuffix"></span></div>
+    </div>
+</div>
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsURLHavingState">
+                &nbsp;Is URL HavingState
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsURLHavingState"></span></div>
+    </div>
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsURLHavingCountry">
+                &nbsp;Is URL HavingCountry
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsURLHavingCountry"></span></div>
+    </div>
 </div>
 
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsVeWdBeforeSuffix)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsVeWdBeforeSuffix)" asp-for="IsVeWdBeforeSuffix" autocomplete="off" />
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsStateKeyword">
+                &nbsp;Is StateKeyword
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="IsStateKeyword"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="IsVeWdBeforeSuffix"></span></div>
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsCountryKeyword">
+                &nbsp;Is CountryKeyword
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsCountryKeyword"></span></div>
+    </div>
 </div>
 
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsVeWdBeforeRoot)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsVeWdBeforeRoot)" asp-for="IsVeWdBeforeRoot" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="IsVeWdBeforeRoot"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsVeWdAfterSuffix)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsVeWdAfterSuffix)" asp-for="IsVeWdAfterSuffix" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="IsVeWdAfterSuffix"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsURLHavingState)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsURLHavingState)" asp-for="IsURLHavingState" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="IsURLHavingState"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsURLHavingCountry)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsURLHavingCountry)" asp-for="IsURLHavingCountry" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="IsURLHavingCountry"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsStateKeyword)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsStateKeyword)" asp-for="IsStateKeyword" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="IsStateKeyword"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsCountryKeyword)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsCountryKeyword)" asp-for="IsCountryKeyword" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="IsCountryKeyword"></span></div>
-</div>
 
 
 <div class="MnTp7 MnBm7">
@@ -156,37 +164,3 @@
     </div>
     <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
 </div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FreezeStatus)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FreezeStatus)" asp-for="FreezeStatus" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="FreezeStatus"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FreezedBy)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FreezedBy)" asp-for="FreezedBy" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="FreezedBy"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.GCompId)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.GCompId)" asp-for="GCompId" autocomplete="off" />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="GCompId"></span></div>
-</div>
-

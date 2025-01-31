@@ -32,7 +32,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "KdCnCategory";
+            ViewBag.Title = "Keyword Category";
         }
         //Ends
 
