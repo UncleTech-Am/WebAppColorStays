@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
+using WebAppColorStays.Areas.ColorStays.CommonMethods;
 
 
 
@@ -35,6 +36,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Title = "Keyword Prefix";
         }
         //Ends
+
+        public async Task<List<SelectListItem>> DropDownPrefix()
+        {
+            var Token = Request.Cookies["JWToken"];
+            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            RyCrSsDropDown ry = new RyCrSsDropDown();
+            string URLPrefix = "KdPrefix/DropDown/" + CompId;
+            Task<List<SelectListItem>> Prefix = ry.DDColorStaysAPI(URLPrefix, Token);
+            Task.WaitAll(Prefix);
+            return Prefix.Result;
+        }
+
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)

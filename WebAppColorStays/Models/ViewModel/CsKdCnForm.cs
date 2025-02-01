@@ -15,11 +15,15 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_Country_Name { get; set; }
         [NotMapped]
         public string? Country { get; set; }
+        [DisplayName("Country")]
         public string? Fk_KdCnCategory_Name { get; set; }
+        [DisplayName("Keyword Root")]
         public string? Fk_KdRoot_Name { get; set; }
         [NotMapped]
         public string? Root { get; set; }
+        [DisplayName("Keyword Prefix")]
         public string? Fk_KdPrefix_Name { get; set; }
+        [DisplayName("Keyword Suffix")]
         public string? Fk_KdSuffix_Name { get; set; }
         public bool IsVeWdBeforePrefix { get; set; }
         public bool IsVeWdBeforeSuffix { get; set; }
@@ -58,5 +62,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Timestamp]
         [ConcurrencyCheck]
         public byte[]? RowVersion { get; set; }
+
+        public List<CsState> csStates { get; set; }
     }
 }

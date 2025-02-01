@@ -55,7 +55,62 @@
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
+        StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
     });
+
+    //Clear Autocompete data
+    function ClearData(UrNe, UrId) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+    }
+
+    //Autocomplete Item
+    function AoCeCountry(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Country_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
+    function CreatePrefix(URL) {
+        var loader = document.getElementById("loader");
+
+        var GetMethod = new XMLHttpRequest();
+        loader.style.display = "flex";
+        GetMethod.open('GET', URL, true);
+        GetMethod.onload = function () {
+            var content = GetMethod.responseText;
+            PopUpUpdate(content);
+        };
+        GetMethod.send(null);
+    }
+
+    function SuccessPrefix(data, status, xhr, FormID, FormFieldID) {
+        if (data.includes("responseformUT")) {
+            alert(data);
+            // case if validation error then show to user
+            if (data.includes("ShowValidation")) {
+                document.getElementById(FormFieldID).innerHTML = "";
+                document.getElementById(FormFieldID).innerHTML = data;
+                HideLoader();
+            }
+            else {
+                StOnRemove('Fk_KdPrefix_Name');
+                StOnSe = document.getElementById('Fk_KdPrefix_Name');
+                getUT('/ColorStays/KdPrefix/DropDownPrefix', function (data) {
+                    var json = JSON.parse(data);
+                    for (var i = 0; i < json.length; i++) {
+                        var obj = json[i];
+                        var newOption = new Option(obj.Text, obj.Value);
+                        StOnSe.add(newOption, undefined);
+                    }
+                });
+            }
+        }
+        else {
+            PopUpError(data);//Go in this Function and show the Error Message PopUp
+        }
+    }
 
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");

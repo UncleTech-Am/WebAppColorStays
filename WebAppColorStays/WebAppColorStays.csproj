@@ -73,6 +73,7 @@
     <Content Remove="Areas\ColorStays\Views\ActivityImage\_Pagination.cshtml" />
     <Content Remove="Areas\ColorStays\Views\ActivityImage\_SearchData.cshtml" />
     <Content Remove="Areas\ColorStays\Views\HotelOffer\_HotelRoomPlan.cshtml" />
+    <Content Remove="Areas\ColorStays\Views\KdCnForm\_CreatePrefix.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Offer\_CreateOrEditCity.cshtml" />
     <Content Remove="Areas\ColorStays\Views\Offer\_CreateOrEditHotel.cshtml" />
     <Content Remove="Areas\ColorStays\Views\PackageType1\Create.cshtml" />
@@ -396,6 +397,7 @@
     <None Include="Areas\ColorStays\Views\KdCnForm\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\KdCnForm\Index.cshtml" />
     <None Include="Areas\ColorStays\Views\KdCnForm\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\KdCnForm\_CreatePrefix.cshtml" />
     <None Include="Areas\ColorStays\Views\KdCnForm\_DetailOrDelete.cshtml" />
     <None Include="Areas\ColorStays\Views\KdCnForm\_IndexData.cshtml" />
     <None Include="Areas\ColorStays\Views\KdCnForm\_IndexSearch.cshtml" />

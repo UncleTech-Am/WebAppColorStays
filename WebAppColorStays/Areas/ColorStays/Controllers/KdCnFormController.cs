@@ -726,5 +726,71 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
+
+
+
+        //GET: /KdCnForm/Details/5
+        [HttpGet]
+        public async Task<IActionResult> CreatePrefix()
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            return View("_CreatePrefix");
+        }
+
+        //POST: /KdPrefix/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreatePrefix(CsKdPrefix CsKdPrefix)
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            bool Success = false;
+            CsKdPrefix.CompId = CompID;
+            CsKdPrefix.CreatedBy = UserID;
+            CsKdPrefix.ModifiedBy = UserID;
+            CsKdPrefix.Id = Guid.NewGuid().ToString();
+            ViewData["ResponseName"] = "ShowValidation";
+            CsKdPrefix data = new CsKdPrefix();
+            if (ModelState.IsValid)
+            {
+                using (HttpClient client = APIColorStays.Initial())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    StringContent content = new StringContent(JsonSerializer.Serialize(CsKdPrefix), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("KdPrefix/create", content))
+                    {
+                        var apiResponse = await response.Content.ReadAsStreamAsync();
+                        if (response.IsSuccessStatusCode)
+                        {
+                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsKdPrefix>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            Success = true;
+                        }
+                        else
+                        {
+                            Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            if (responsemsg != null && responsemsg.Message == "Duplicate")
+                            {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
+                            }
+                            Success = false;
+                        }
+                    }
+                }
+                if (Success == true)
+                { return View("_CreatePrefix", data); }
+                else { return View("_CreatePrefix", CsKdPrefix); }
+            }
+            return View("_CreatePrefix", CsKdPrefix);
+        }
+
+
     }
 }

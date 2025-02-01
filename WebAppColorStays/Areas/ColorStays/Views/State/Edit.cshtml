@@ -158,7 +158,7 @@
             HideLoader();
         });
         //Ends
-        StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCity', '', '', AoCeCity);
+        StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
         MaxMin();
     });
 
@@ -211,7 +211,7 @@
     }
 
     //Autocomplete Item
-    function AoCeCity(event) {
+    function AoCeCountry(event) {
         var InputId = event.target.InputID;
         SuggestionClose(InputId);
         document.getElementById('Fk_Country_Name').value = event.target.Id;
