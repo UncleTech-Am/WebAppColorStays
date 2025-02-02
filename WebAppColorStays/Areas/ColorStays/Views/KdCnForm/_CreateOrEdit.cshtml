@@ -33,9 +33,11 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdRoot_Name)<span style="color:red;"> *</span></div>
-            <select asp-for="Fk_KdRoot_Name" asp-items="@await ViewBag.Root" class="TtBxTt15">
+            <select asp-for="Fk_KdRoot_Name" asp-items="@await ViewBag.Root" class="TtBxTt15" style="min-width:170px;">
                 <option value="">Select Root</option>
             </select>
+            <i class="UT-PlusLine MnRt7 Cr-uPr" onclick="CreatePrefixRootSuffix('/ColorStays/KdCnForm/CreateRoot')"></i>
+
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_KdRoot_Name"></span></div>
@@ -49,7 +51,7 @@
             <select asp-for="Fk_KdPrefix_Name" asp-items="@await ViewBag.Prefix" class="TtBxTt15" style="min-width:170px;">
                 <option value="">Select Prefix</option>
             </select>
-            <i class="UT-PlusLine MnRt7 Cr-uPr" onclick="CreatePrefix('/ColorStays/KdCnForm/CreatePrefix')"></i>
+            <i class="UT-PlusLine MnRt7 Cr-uPr" onclick="CreatePrefixRootSuffix('/ColorStays/KdCnForm/CreatePrefix')"></i>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_KdPrefix_Name"></span></div>
@@ -60,9 +62,10 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdSuffix_Name)</div>
-            <select asp-for="Fk_KdSuffix_Name" asp-items="@await ViewBag.Suffix" class="TtBxTt15">
+            <select asp-for="Fk_KdSuffix_Name" asp-items="@await ViewBag.Suffix" class="TtBxTt15" style="min-width:170px;">
                 <option value="">Select Suffix</option>
             </select>
+            <i class="UT-PlusLine MnRt7 Cr-uPr" onclick="CreatePrefixRootSuffix('/ColorStays/KdCnForm/CreateSuffix')"></i>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_KdSuffix_Name"></span></div>
@@ -80,7 +83,50 @@
     <div class="VnRd"><span asp-validation-for="Fk_Country_Name"></span></div>
 </div>
 
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsURLHavingCountry">
+                &nbsp;Is URL HavingCountry
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsURLHavingCountry"></span></div>
+    </div>
 
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsCountryKeyword">
+                &nbsp;Is CountryKeyword
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsCountryKeyword"></span></div>
+    </div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_State_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="State Name" type="text" id="SearchState" asp-for="State" autocomplete="off" required onchange="ClearData('SearchState','Fk_State_Name')" />
+            <input type="hidden" asp-for="Fk_State_Name" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_State_Name"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div>
+        <div id="CityListCheck" class="FxGw1" TtBx="TtBxMe">
+            @if (Model != null)
+            {
+                @Html.EditorFor(model => model.CheckCityList.CheckCity, new { htmlAttributes = new { @checked = false } })
+            }
+        </div>
+    </div>
+</div>
 <div class="FxRw">
     <div class="Fx50 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
@@ -137,12 +183,13 @@
     <div class="Fx50 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsURLHavingCountry">
-                &nbsp;Is URL HavingCountry
+                <input class="SeIt1o15" type="checkbox" asp-for="IsStateKeyword">
+                &nbsp;Is StateKeyword
             </div>
         </div>
-        <div class="VnRd"><span asp-validation-for="IsURLHavingCountry"></span></div>
+        <div class="VnRd"><span asp-validation-for="IsStateKeyword"></span></div>
     </div>
+    
 </div>
 
 <div class="FxRw">

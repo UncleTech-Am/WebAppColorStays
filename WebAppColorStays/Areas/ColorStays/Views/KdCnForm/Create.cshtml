@@ -56,6 +56,7 @@
     $(document).ready(function () {
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
+        StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
     });
 
     //Clear Autocompete data
@@ -64,7 +65,7 @@
         document.getElementById(UrId).value = '';
     }
 
-    //Autocomplete Item
+    //Autocomplete Country
     function AoCeCountry(event) {
         var InputId = event.target.InputID;
         SuggestionClose(InputId);
@@ -72,7 +73,20 @@
         document.getElementById(InputId).value = event.target.Value;
     }
 
-    function CreatePrefix(URL) {
+    //Autocomplete State
+    function AoCeState(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_State_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+        getUT('/ColorStays/KdCnForm/KeywordCityList?SeId=' + event.target.Id, function (data) {
+            document.getElementById('CityListCheck').innerHTML = "";
+            document.getElementById('CityListCheck').innerHTML = data;
+            HideLoader();
+        });
+    }
+    //Get the create view for root prefix suffix
+    function CreatePrefixRootSuffix(URL) {
         var loader = document.getElementById("loader");
 
         var GetMethod = new XMLHttpRequest();
@@ -85,31 +99,82 @@
         GetMethod.send(null);
     }
 
+
+    function StOnRemove(IdStg) {
+        var St = document.getElementById(IdStg);
+        var i, L = St.options.length - 1;
+        for (i = L; i >= 1; i--) {
+            St.remove(i);
+        }
+    }
+
+    //success function for Root
+    function SuccessRoot(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "");
+        StOnRemove('Fk_KdRoot_Name');
+        StOnSe = document.getElementById('Fk_KdRoot_Name');
+        getUT('/ColorStays/KdRoot/DropDownRoot', function (data) {
+            var json = JSON.parse(data);
+            for (var i = 0; i < json.length; i++) {
+                var obj = json[i];
+                var newOption = new Option(obj.Text, obj.Value);
+                StOnSe.add(newOption, undefined);
+            }
+        });
+    }
+
+    //success function for Prefix
     function SuccessPrefix(data, status, xhr, FormID, FormFieldID) {
-        if (data.includes("responseformUT")) {
-            alert(data);
-            // case if validation error then show to user
-            if (data.includes("ShowValidation")) {
-                document.getElementById(FormFieldID).innerHTML = "";
-                document.getElementById(FormFieldID).innerHTML = data;
-                HideLoader();
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "");
+        StOnRemove('Fk_KdPrefix_Name');
+        StOnSe = document.getElementById('Fk_KdPrefix_Name');
+        getUT('/ColorStays/KdPrefix/DropDownPrefix', function (data) {
+            var json = JSON.parse(data);
+            for (var i = 0; i < json.length; i++) {
+                var obj = json[i];
+                var newOption = new Option(obj.Text, obj.Value);
+                StOnSe.add(newOption, undefined);
             }
-            else {
-                StOnRemove('Fk_KdPrefix_Name');
-                StOnSe = document.getElementById('Fk_KdPrefix_Name');
-                getUT('/ColorStays/KdPrefix/DropDownPrefix', function (data) {
-                    var json = JSON.parse(data);
-                    for (var i = 0; i < json.length; i++) {
-                        var obj = json[i];
-                        var newOption = new Option(obj.Text, obj.Value);
-                        StOnSe.add(newOption, undefined);
-                    }
-                });
+        });
+        // if (data.includes("responseformUT")) {
+        //     alert(data);
+        //     // case if validation error then show to user
+        //     if (data.includes("ShowValidation")) {
+        //         document.getElementById(FormFieldID).innerHTML = "";
+        //         document.getElementById(FormFieldID).innerHTML = data;
+        //         HideLoader();
+        //     }
+        //     else {
+        //         StOnRemove('Fk_KdPrefix_Name');
+        //         StOnSe = document.getElementById('Fk_KdPrefix_Name');
+        //         getUT('/ColorStays/KdPrefix/DropDownPrefix', function (data) {
+        //             var json = JSON.parse(data);
+        //             for (var i = 0; i < json.length; i++) {
+        //                 var obj = json[i];
+        //                 var newOption = new Option(obj.Text, obj.Value);
+        //                 StOnSe.add(newOption, undefined);
+        //             }
+        //         });
+        //     }
+        // }
+        // else {
+        //     PopUpError(data);//Go in this Function and show the Error Message PopUp
+        // }
+    }
+
+    //success function for Suffix
+    function SuccessSuffix(data, status, xhr, FormID, FormFieldID) {
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "");
+        StOnRemove('Fk_KdSuffix_Name');
+        StOnSe = document.getElementById('Fk_KdSuffix_Name');
+        getUT('/ColorStays/KdSuffix/DropDownSuffix', function (data) {
+            var json = JSON.parse(data);
+            for (var i = 0; i < json.length; i++) {
+                var obj = json[i];
+                var newOption = new Option(obj.Text, obj.Value);
+                StOnSe.add(newOption, undefined);
             }
-        }
-        else {
-            PopUpError(data);//Go in this Function and show the Error Message PopUp
-        }
+        });
     }
 
     function Success(data, status, xhr, FormID, FormFieldID) {

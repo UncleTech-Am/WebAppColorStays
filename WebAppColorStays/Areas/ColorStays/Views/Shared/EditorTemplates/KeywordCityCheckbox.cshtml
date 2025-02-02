@@ -1,0 +1,8 @@
+﻿@model WebAppColorStays.Areas.ColorStays.CommonMethods.KeywordCityCheckbox
+@Html.HiddenFor(x => x.City)
+@Html.HiddenFor(x => x.Fk_City_Name)
+<span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
+    @Html.CheckBoxFor(x => x.IsSelected, htmlAttributes: new { id = "IsSelected", @Class = "SeIt1o14" })
+</span>
+@Html.LabelFor(x => x.IsSelected, Model.City)
+<br />

@@ -1,5 +1,4 @@
-@model WebAppColorStays.Models.ViewModel.CsKdPrefix
-
+@model WebAppColorStays.Models.ViewModel.CsKdRoot
 
 @{
     Layout = null;
@@ -8,21 +7,21 @@
 
 
 
-<form id="CreatePrefix"
+<form id="CreateRoot"
       data-ajax="true"
-      data-ajax-url="/ColorStays/KdCnForm/CreatePrefix"
+      data-ajax-url="/ColorStays/KdCnForm/CreateRoot"
       data-ajax-method="POST"
       data-ajax-loading="#loader"
-      data-ajax-success="SuccessPrefix(data, status, xhr,'CreatePrefix','CreateOrEditPrefix')"
-      data-ajax-failure="FormAjaxFail(xhr, status, error,'CreatePrefix')">
+      data-ajax-success="SuccessRoot(data, status, xhr,'CreateRoot','CreateOrEditRoot')"
+      data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateRoot')">
+
     <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
         <i class="UT-PenNibSmall"></i>
-        Add Keyword Prefix
+        Add Keyword Root
     </h3>
-
     <input type="hidden" name="NameAction" value="C" />
 
-    <div id="CreateOrEditPrefix">
+    <div id="CreateOrEditRoot">
         @Html.AntiForgeryToken()
 
         <div style="display:none">responseformUT @ViewData["ResponseName"]</div>
@@ -56,6 +55,7 @@
             </div>
             <div class="VnRd"><span asp-validation-for="Description"></span></div>
         </div>
+
 
         <div class="MnTp7 MnBm7 FxRw">
             <div class="FxGw1">

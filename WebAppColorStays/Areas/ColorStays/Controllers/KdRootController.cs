@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
+using WebAppColorStays.Areas.ColorStays.CommonMethods;
 
 
 
@@ -35,6 +36,17 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewBag.Title = "Keyword Root";
         }
         //Ends
+
+        public async Task<List<SelectListItem>> DropDownRoot()
+        {
+            var Token = Request.Cookies["JWToken"];
+            var CompId = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            RyCrSsDropDown ry = new RyCrSsDropDown();
+            string URLRoot = "KdRoot/DropDown/" + CompId;
+            Task<List<SelectListItem>> Root = ry.DDColorStaysAPI(URLRoot, Token);
+            Task.WaitAll(Root);
+            return Root.Result;
+        }
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)

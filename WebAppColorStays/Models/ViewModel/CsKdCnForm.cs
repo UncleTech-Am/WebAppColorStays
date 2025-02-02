@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebAppColorStays.Areas.ColorStays.CommonMethods;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -15,7 +16,11 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_Country_Name { get; set; }
         [NotMapped]
         public string? Country { get; set; }
-        [DisplayName("Country")]
+        [DisplayName("State")]
+        public string? Fk_State_Name { get; set; }
+        [NotMapped]
+        public string? State { get; set; }
+        [DisplayName("Category")]
         public string? Fk_KdCnCategory_Name { get; set; }
         [DisplayName("Keyword Root")]
         public string? Fk_KdRoot_Name { get; set; }
@@ -63,6 +68,7 @@ namespace WebAppColorStays.Models.ViewModel
         [ConcurrencyCheck]
         public byte[]? RowVersion { get; set; }
 
-        public List<CsState> csStates { get; set; }
+        [NotMapped]
+        public KeywordCityCheckbox? CheckCityList { get; set; }
     }
 }
