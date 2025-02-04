@@ -120,10 +120,7 @@
 <div class="MnTp7 MnBm7">
     <div>
         <div id="CityListCheck" class="FxGw1" TtBx="TtBxMe">
-            @if (Model != null)
-            {
-                @Html.EditorFor(model => model.CheckCityList.CheckCity, new { htmlAttributes = new { @checked = false } })
-            }
+            
         </div>
     </div>
 </div>
@@ -141,11 +138,11 @@
     <div class="Fx50 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdBeforeSuffix">
-                &nbsp;Is Variable BeforeSuffix
+                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdAfterPrefix">
+                &nbsp;Is Variable BeforePrefix
             </div>
         </div>
-        <div class="VnRd"><span asp-validation-for="IsVeWdBeforeSuffix"></span></div>
+        <div class="VnRd"><span asp-validation-for="IsVeWdAfterPrefix"></span></div>
     </div>
 </div>
 <div class="FxRw">
@@ -162,6 +159,28 @@
     <div class="Fx50 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdAfterRoot">
+                &nbsp;Is Variable AfteRoot
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsVeWdAfterRoot"></span></div>
+    </div>
+</div>
+<div class="FxRw">
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdBeforeSuffix">
+                &nbsp;Is Variable BeforeSuffix
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsVeWdBeforeSuffix"></span></div>
+    </div>
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
                 <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdAfterSuffix">
                 &nbsp;Is Variable AfterSuffix
             </div>
@@ -169,6 +188,8 @@
         <div class="VnRd"><span asp-validation-for="IsVeWdAfterSuffix"></span></div>
     </div>
 </div>
+
+
 <div class="FxRw">
     <div class="Fx50 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
@@ -191,29 +212,6 @@
     </div>
     
 </div>
-
-<div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsStateKeyword">
-                &nbsp;Is StateKeyword
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsStateKeyword"></span></div>
-    </div>
-
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsCountryKeyword">
-                &nbsp;Is CountryKeyword
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsCountryKeyword"></span></div>
-    </div>
-</div>
-
 
 
 <div class="MnTp7 MnBm7">

@@ -33,6 +33,8 @@ namespace WebAppColorStays.Models.ViewModel
         public bool IsVeWdBeforePrefix { get; set; }
         public bool IsVeWdBeforeSuffix { get; set; }
         public bool IsVeWdBeforeRoot { get; set; }
+        public bool? IsVeWdAfterRoot { get; set; }
+        public bool? IsVeWdAfterPrefix { get; set; }
         public bool IsVeWdAfterSuffix { get; set; }
         public bool IsURLHavingState { get; set; }
         public bool IsURLHavingCountry { get; set; }

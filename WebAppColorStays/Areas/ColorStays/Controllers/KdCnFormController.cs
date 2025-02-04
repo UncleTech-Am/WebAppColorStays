@@ -925,7 +925,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //Package Inclusion
         [HttpGet]
-        public async Task<KeywordCityCheckbox> KeywordCityList(string SeId)
+        public async Task<IActionResult> KeywordCityList(string SeId)
         {
             Title();
             ViewData["AnName"] = "Create";
@@ -946,7 +946,9 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     facilityList = await System.Text.Json.JsonSerializer.DeserializeAsync<KeywordCityCheckbox>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                 }
             }
-            return facilityList;
+            CsKdCnForm a = new CsKdCnForm();
+            a.CheckCityList = facilityList;
+            return View("_CityCheckBox", a);
         }
 
 
