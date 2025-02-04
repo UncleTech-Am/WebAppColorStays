@@ -83,6 +83,10 @@ namespace WebAppColorStays.Models.ViewModel
         public double? Discount { get; set; }
         [DisplayName("Video Link")]
         public string? Video { get; set; }
+        public string? VideoImage { get; set; }
+        [NotMapped]
+        public string? VideoImageName { get; set; }
+        public string? VideoImageAltTag { get; set; }
         public bool IsTopSelling { get; set; }
         public string? TopStart { get; set; }
         public string? TopEnd { get; set; }

@@ -449,8 +449,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         var fileName = file.FileName;
 
-                        CsSEOHotelHyperLink.CoverImage = fileName;
-
+                        if ("CoverImage" == file.Name)
+                        {
+                            CsSEOHotelHyperLink.CoverImage = fileName;
+                        }
+                        if ("VideoImage" == file.Name)
+                        {
+                            CsSEOHotelHyperLink.VideoImage = fileName;
+                        }
                         if (file.Length > 0)
                         {
                             Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "HotelBanner");
@@ -561,6 +567,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             {
                 CsSEOHotelHyperLink.CoverImage = CsSEOHotelHyperLink.CoverImageName;
             }
+            if (CsSEOHotelHyperLink.VideoImageName != null)
+            {
+                CsSEOHotelHyperLink.VideoImageName = CsSEOHotelHyperLink.VideoImageName;
+            }
+
             if (ModelState.IsValid)
             {
                 try
@@ -571,10 +582,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                         {
                             var fileName = file.FileName;
 
-                            CsSEOHotelHyperLink.CoverImage = fileName;
-                            //Delete the Images from the folder
-                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsSEOHotelHyperLink.CoverImageName, TokenKey, "HotelBanner");
-                            Task.WaitAll(TDeleteImage);
+                            if ("CoverImage" == file.Name)
+                            {
+                                CsSEOHotelHyperLink.CoverImage = fileName;
+                                //Delete the Images from the folder
+                                Task<string> TDeleteImage = ryCsImage.DeleteImage(CsSEOHotelHyperLink.CoverImageName, TokenKey, "HotelBanner");
+                                Task.WaitAll(TDeleteImage);
+                            }
+                            if ("VideoImage" == file.Name)
+                            {
+                                CsSEOHotelHyperLink.VideoImage = fileName;
+                                //Delete the Images from the folder
+                                Task<string> TDeleteImage1 = ryCsImage.DeleteImage(CsSEOHotelHyperLink.VideoImageName, TokenKey, "HotelBanner");
+                                Task.WaitAll(TDeleteImage1);
+                            }
 
                             if (file.Length > 0)
                             {
@@ -644,6 +665,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
             if (photo != null)
             {
+                if (photo.VideoImageName != null)
+                {
+                    Task<string> TDeleteImage3 = ryCsImage.DeleteImage(photo.VideoImageName, TokenKey, "HotelBanner");
+                    Task.WaitAll(TDeleteImage3);
+                    if (TDeleteImage3.Result == "Error")
+                    {
+                        ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                    }
+                }
                 Task<string> TDeleteImage2 = ryCsImage.DeleteImage(photo.CoverImageName, TokenKey, "HotelBanner");
                 Task.WaitAll(TDeleteImage2);
                 if (TDeleteImage2.Result == "Error")

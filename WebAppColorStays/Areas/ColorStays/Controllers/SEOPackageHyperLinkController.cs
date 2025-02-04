@@ -429,8 +429,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         var fileName = file.FileName;
 
-                        CsSEOPackageHyperLink.CoverImage = fileName;
-
+                        if ("CoverImage" == file.Name)
+                        {
+                            CsSEOPackageHyperLink.CoverImage = fileName;
+                        }
+                        if ("VideoImage" == file.Name)
+                        {
+                            CsSEOPackageHyperLink.VideoImage = fileName;
+                        }
                         if (file.Length > 0)
                         {
                             Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "PackageBanner");
@@ -540,6 +546,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             {
                 CsSEOPackageHyperLink.CoverImage = CsSEOPackageHyperLink.CoverImageName;
             }
+            if (CsSEOPackageHyperLink.CoverImageName != null)
+            {
+                CsSEOPackageHyperLink.CoverImage = CsSEOPackageHyperLink.CoverImageName;
+            }
+
             if (ModelState.IsValid)
             {
                 try
@@ -550,10 +561,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                         {
                             var fileName = file.FileName;
 
-                            CsSEOPackageHyperLink.CoverImage = fileName;
-                            //Delete the Images from the folder
-                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsSEOPackageHyperLink.CoverImageName, TokenKey, "PackageBanner");
-                            Task.WaitAll(TDeleteImage);
+                            if ("CoverImage" == file.Name)
+                            {
+                                CsSEOPackageHyperLink.CoverImage = fileName;
+                                //Delete the Images from the folder
+                                Task<string> TDeleteImage = ryCsImage.DeleteImage(CsSEOPackageHyperLink.CoverImageName, TokenKey, "PackageBanner");
+                                Task.WaitAll(TDeleteImage);
+                            }
+                            if ("VideoImage" == file.Name)
+                            {
+                                CsSEOPackageHyperLink.VideoImage = fileName;
+                                //Delete the Images from the folder
+                                Task<string> TDeleteImage1 = ryCsImage.DeleteImage(CsSEOPackageHyperLink.VideoImageName, TokenKey, "PackageBanner");
+                                Task.WaitAll(TDeleteImage1);
+                            }
 
                             if (file.Length > 0)
                             {
@@ -622,6 +643,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
             if (photo != null)
             {
+                if (photo.VideoImageName != null)
+                {
+                    Task<string> TDeleteImage3 = ryCsImage.DeleteImage(photo.VideoImageName, TokenKey, "PackageBanner");
+                    Task.WaitAll(TDeleteImage3);
+                    if (TDeleteImage3.Result == "Error")
+                    {
+                        ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                    }
+                }
                 Task<string> TDeleteImage2 = ryCsImage.DeleteImage(photo.CoverImageName, TokenKey, "PackageBanner");
                 Task.WaitAll(TDeleteImage2);
                 if (TDeleteImage2.Result == "Error")

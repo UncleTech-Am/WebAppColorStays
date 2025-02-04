@@ -26,7 +26,12 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SEOKeywords { get; set; }
         public string? URL { get; set; }
         public string? Name { get; set; }
+        [DisplayName("Video Link")]
         public string? Video { get; set; }
+        public string? VideoImage { get; set; }
+        [NotMapped]
+        public string? VideoImageName { get; set; }
+        public string? VideoImageAltTag { get; set; }
         public string? CoverImage { get; set; }
         public string? CoverAltTag { get; set; }
         [NotMapped]

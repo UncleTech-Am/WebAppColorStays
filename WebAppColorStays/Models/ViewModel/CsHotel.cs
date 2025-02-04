@@ -47,7 +47,12 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationHotelHomeRank", "Hotel", AdditionalFields = ("NameAction, Id, Fk_Country_Name"))]
         public int? HomeRank { get; set; }
         public string? StructuredData { get; set; }
+        [DisplayName("Video Link")]
         public string? Video { get; set; }
+        public string? VideoImage { get; set; }
+        [NotMapped]
+        public string? VideoImageName { get; set; }
+        public string? VideoImageAltTag { get; set; }
         public string? TagLine { get; set; }
         public string? URL { get; set; }
         public string? CoverImage { get; set; }

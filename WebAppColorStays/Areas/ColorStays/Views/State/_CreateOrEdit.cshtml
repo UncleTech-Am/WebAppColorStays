@@ -227,6 +227,43 @@
     <div class="VnRd"><span asp-validation-for="Video"></span></div>
 </div>
 
+@if (Model != null)
+{
+    @if (Model.VideoImage != null)
+    {
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.VideoImage)</div>
+                    <img src="@Model.VideoImage" class="Wh60p" />
+                    <input asp-for="VideoImageName" type="hidden" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="VideoImage"></span></div>
+        </div>
+    }
+}
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.VideoImage)</div>
+            <input asp-for="VideoImage" type="file" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="VideoImage"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.VideoImageAltTag)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.VideoImageAltTag)" asp-for="VideoImageAltTag" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="VideoImageAltTag"></span></div>
+</div>
+
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">

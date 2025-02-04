@@ -42,6 +42,9 @@ namespace WebAppColorStays.Models.ViewModel
         public string? AltTag { get; set; }
         [DisplayName("Video Link")]
         public string? Video { get; set; }
+        public string? VideoImage { get; set; }
+        public string? VideoImageName { get; set; }
+        public string? VideoImageAltTag { get; set; }
         public string? Area { get; set; }
         [AllowHtml]
         public string? History { get; set; }

@@ -43,6 +43,10 @@ namespace WebAppColorStays.Models.ViewModel
         public int? PinCode { get; set; }
         [DisplayName("Video Link")]
         public string? Video { get; set; }
+        public string? VideoImage { get; set; }
+        [NotMapped]
+        public string? VideoImageName { get; set; }
+        public string? VideoImageAltTag { get; set; }
         [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
         [NotMapped]

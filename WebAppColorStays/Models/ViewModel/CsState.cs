@@ -40,6 +40,10 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Latitude { get; set; }
         [DisplayName("Video Link")]
         public string? Video { get; set; }
+        public string? VideoImage { get; set; }
+        [NotMapped]
+        public string? VideoImageName { get; set; }
+        public string? VideoImageAltTag { get; set; }
         public string? Area { get; set; }
         public string? Population { get; set; }
         public string? PopularReligion { get; set; }

@@ -527,8 +527,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     foreach (var file in files)
                     {
                         var fileName = CsCountry.Name + "-" + file.FileName;
-
-                        CsCountry.Image = fileName;
+                        if ("Image" == file.Name)
+                        {
+                            CsCountry.Image = fileName;
+                        }
+                        if ("VideoImage" == file.Name)
+                        {
+                            CsCountry.VideoImage = fileName;
+                        }
                         if (file.Length > 0)
                         {
                             Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Country");
@@ -642,6 +648,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             {
                 CsCountry.Image = CsCountry.ImageName;
             }
+            if (CsCountry.VideoImageName != null)
+            {
+                CsCountry.VideoImage = CsCountry.VideoImageName;
+            }
+
             if (ModelState.IsValid)
             {
                 try
@@ -652,10 +663,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                         {
                             var fileName = CsCountry.Name + "-" + file.FileName;
 
-                            CsCountry.Image = fileName;
-                            //Delete the Images from the folder
-                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsCountry.ImageName, TokenKey, "Country");
-                            Task.WaitAll(TDeleteImage);
+                            if ("Image" == file.Name)
+                            {
+                                CsCountry.Image = fileName;
+                                //Delete the Images from the folder
+                                Task<string> TDeleteImage = ryCsImage.DeleteImage(CsCountry.ImageName, TokenKey, "Country");
+                                Task.WaitAll(TDeleteImage);
+                            }
+                            if ("VideoImage" == file.Name)
+                            {
+                                CsCountry.VideoImage = fileName;
+                                //Delete the Images from the folder
+                                Task<string> TDeleteImage1 = ryCsImage.DeleteImage(CsCountry.VideoImageName, TokenKey, "Country");
+                                Task.WaitAll(TDeleteImage1);
+                            }               
                             if (file.Length > 0)
                             {
                                 Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "Country");
@@ -743,6 +764,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 image.Add(img);
             }
             image.Add(photo.ImageName);
+            if (photo.VideoImageName != null)
+            {
+                image.Add(photo.VideoImageName);
+            }
             Task<string> TDeleteImage = ryCsImage.DeleteMultiImage(image, "Country", TokenKey);
             Task.WaitAll(TDeleteImage);
 

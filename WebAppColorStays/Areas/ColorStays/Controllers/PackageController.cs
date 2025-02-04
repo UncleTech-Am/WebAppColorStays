@@ -720,8 +720,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     {
                         var fileName = file.FileName;
 
-                        CsPackage.CoverImage = fileName;
-
+                        if ("CoverImage" == file.Name)
+                        {
+                            CsPackage.CoverImage = fileName;
+                        }
+                        if ("VideoImage" == file.Name)
+                        {
+                            CsPackage.VideoImage = fileName;
+                        }
 
                         if (file.Length > 0)
                         {
@@ -835,6 +841,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             {
                 CsPackage.CoverImage = CsPackage.CoverImageName;
             }
+            if (CsPackage.VideoImageName != null)
+            {
+                CsPackage.VideoImageName = CsPackage.VideoImageName;
+            }
+
             if (ModelState.IsValid)
             {
                 try
@@ -845,10 +856,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                         {
                             var fileName = file.FileName;
 
-                            CsPackage.CoverImage = fileName;
-                            //Delete the Images from the folder
-                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsPackage.CoverImageName, TokenKey, "PackageBanner");
-                            Task.WaitAll(TDeleteImage);
+                            if ("CoverImage" == file.Name)
+                            {
+                                CsPackage.CoverImage = fileName;
+                                //Delete the Images from the folder
+                                Task<string> TDeleteImage = ryCsImage.DeleteImage(CsPackage.CoverImageName, TokenKey, "PackageBanner");
+                                Task.WaitAll(TDeleteImage);
+                            }
+                            if ("VideoImage" == file.Name)
+                            {
+                                CsPackage.VideoImage = fileName;
+                                //Delete the Images from the folder
+                                Task<string> TDeleteImage1 = ryCsImage.DeleteImage(CsPackage.VideoImageName, TokenKey, "PackageBanner");
+                                Task.WaitAll(TDeleteImage1);
+                            }
 
                             if (file.Length > 0)
                             {
@@ -937,11 +958,21 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 img = item.Title;
                 image.Add(img);
             }
+
             if (image.Count > 0)
             {
                 Task<string> TDeleteImage = ryCsImage.DeleteMultiImage(image, "Package", TokenKey);
                 Task.WaitAll(TDeleteImage);
                 if (TDeleteImage.Result == "Error")
+                {
+                    ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                }
+            }
+            if (csPackage.VideoImageName != null)
+            {
+                Task<string> TDeleteImage3 = ryCsImage.DeleteImage(csPackage.VideoImageName, TokenKey, "PackageBanner");
+                Task.WaitAll(TDeleteImage3);
+                if (TDeleteImage3.Result == "Error")
                 {
                     ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
                 }
