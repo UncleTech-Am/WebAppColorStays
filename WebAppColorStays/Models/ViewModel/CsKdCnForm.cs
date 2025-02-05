@@ -30,11 +30,13 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_KdPrefix_Name { get; set; }
         [DisplayName("Keyword Suffix")]
         public string? Fk_KdSuffix_Name { get; set; }
+        [NotMapped]
+        public string? VariablePosition { get; set; }
         public bool IsVeWdBeforePrefix { get; set; }
         public bool IsVeWdBeforeSuffix { get; set; }
         public bool IsVeWdBeforeRoot { get; set; }
-        public bool? IsVeWdAfterRoot { get; set; }
-        public bool? IsVeWdAfterPrefix { get; set; }
+        public bool IsVeWdAfterRoot { get; set; }
+        public bool IsVeWdAfterPrefix { get; set; }
         public bool IsVeWdAfterSuffix { get; set; }
         public bool IsURLHavingState { get; set; }
         public bool IsURLHavingCountry { get; set; }

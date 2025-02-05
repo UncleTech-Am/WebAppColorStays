@@ -117,79 +117,6 @@
     <div class="VnRd"><span asp-validation-for="Fk_State_Name"></span></div>
 </div>
 
-<div class="MnTp7 MnBm7">
-    <div>
-        <div id="CityListCheck" class="FxGw1" TtBx="TtBxMe">
-            
-        </div>
-    </div>
-</div>
-<div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdBeforePrefix">
-                &nbsp;Is Variable BeforePrefix
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsVeWdBeforePrefix"></span></div>
-    </div>
-
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdAfterPrefix">
-                &nbsp;Is Variable BeforePrefix
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsVeWdAfterPrefix"></span></div>
-    </div>
-</div>
-<div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdBeforeRoot">
-                &nbsp;Is Variable BeforeRoot
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsVeWdBeforeRoot"></span></div>
-    </div>
-
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdAfterRoot">
-                &nbsp;Is Variable AfteRoot
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsVeWdAfterRoot"></span></div>
-    </div>
-</div>
-<div class="FxRw">
-
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdBeforeSuffix">
-                &nbsp;Is Variable BeforeSuffix
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsVeWdBeforeSuffix"></span></div>
-    </div>
-
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="checkbox" asp-for="IsVeWdAfterSuffix">
-                &nbsp;Is Variable AfterSuffix
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsVeWdAfterSuffix"></span></div>
-    </div>
-</div>
-
-
 <div class="FxRw">
     <div class="Fx50 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
@@ -210,7 +137,78 @@
         </div>
         <div class="VnRd"><span asp-validation-for="IsStateKeyword"></span></div>
     </div>
-    
+
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div>
+        <div id="CityListCheck" class="FxGw1" TtBx="TtBxMe">
+            
+        </div>
+    </div>
+</div>
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="BeforePrefix">
+                &nbsp;Is Variable BeforePrefix
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
+    </div>
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="AfterPrefix">
+                &nbsp;Is Variable AfterPrefix
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
+    </div>
+</div>
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="BeforeRoot">
+                &nbsp;Is Variable BeforeRoot
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
+    </div>
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="AfterRoot">
+                &nbsp;Is Variable AfterRoot
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
+    </div>
+</div>
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="BeforeSuffix">
+                &nbsp;Is Variable BeforeSuffix
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
+    </div>
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="AfterSuffix">
+                &nbsp;Is Variable AfterSuffix
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
+    </div>
 </div>
 
 
