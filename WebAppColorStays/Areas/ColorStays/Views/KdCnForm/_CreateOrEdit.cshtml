@@ -140,13 +140,26 @@
 
 </div>
 
-<div class="MnTp7 MnBm7">
-    <div>
-        <div id="CityListCheck" class="FxGw1" TtBx="TtBxMe">
-            
+@if (Model != null)
+{
+    <div class="MnTp7 MnBm7">
+        <div>
+            <div id="CityListCheck" class="FxGw1" TtBx="TtBxMe">
+                @await Html.PartialAsync("_CityCheckBox", Model.CheckCityList)
+            </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="MnTp7 MnBm7">
+        <div>
+            <div id="CityListCheck" class="FxGw1" TtBx="TtBxMe">
+            </div>
+        </div>
+    </div>
+}
+
 <div class="FxRw">
     <div class="Fx50 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
