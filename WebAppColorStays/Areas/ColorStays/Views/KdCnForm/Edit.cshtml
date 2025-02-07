@@ -66,7 +66,6 @@
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
         StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
-        alert('@Model.Fk_State_Name');
         getUT('/ColorStays/KdCnForm/KeywordCityList?SeId=@Model.Fk_State_Name&FmId=@Model.Id', function (data) {
             document.getElementById('CityListCheck').innerHTML = "";
             document.getElementById('CityListCheck').innerHTML = data;

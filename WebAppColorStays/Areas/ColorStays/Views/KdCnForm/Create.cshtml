@@ -79,7 +79,7 @@
         SuggestionClose(InputId);
         document.getElementById('Fk_State_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
-        getUT('/ColorStays/KdCnForm/KeywordCityList?SeId=' + event.target.Id + '&FmId=null', function (data) {
+        getUT('/ColorStays/KdCnForm/KeywordCityList?SeId=' + event.target.Id + '&FmId=NoId', function (data) {
             document.getElementById('CityListCheck').innerHTML = "";
             document.getElementById('CityListCheck').innerHTML = data;
             HideLoader();
