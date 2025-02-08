@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppColorStays.Models.ViewModel
 {
@@ -17,6 +19,15 @@ namespace WebAppColorStays.Models.ViewModel
         public string? URL { get; set; }
         public string? DescriptionGenerated { get; set; }
         public string? DescriptionManual { get; set; }
+        [NotMapped]
+        [DisplayName("City")]
+        public string? Fk_City_Name { get; set; }
+        [NotMapped]
+        public string City { get; set; }
+        [NotMapped]
+        public string? Fk_State_Name { get; set; }
+        [NotMapped]
+        public string? Fk_Country_Name { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]
