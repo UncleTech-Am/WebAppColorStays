@@ -226,7 +226,21 @@
     }
 
     function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateEditDiv", "Def", FormFieldURL);
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def", FormFieldURL);
+        //Refresh the LHS View(ANkita)
+        var xhrget = new XMLHttpRequest();
+        xhrget.open('GET', FormFieldURL, true);
+        xhrget.onload = function () {
+            document.getElementById(FormFieldID).innerHTML = "";
+            document.getElementById(FormFieldID).innerHTML = xhrget.responseText;
+            FormFocus(FormID);
+        };
+        xhrget.send(null);
+        getUT('/ColorStays/KdCnForm/KeywordCityList?SeId=@Model.Fk_State_Name&FmId=@Model.Id', function (data) {
+            document.getElementById('CityListCheck').innerHTML = "";
+            document.getElementById('CityListCheck').innerHTML = data;
+            HideLoader();
+        });
         //Here we get the pageno,pagesize and listcount
         var doc = new DOMParser().parseFromString(data, "text/html");
         var pageinfo = doc.getElementById("PaginationAt");
