@@ -16,6 +16,16 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationContinent", "Continent", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
         public string? Fk_KdCnForm_Name { get; set; }
+        [DisplayName("Category")]
+        public string? Fk_KdCnCategory_Name { get; set; }
+        [DisplayName("Keyword Root")]
+        public string? Fk_KdRoot_Name { get; set; }
+        [NotMapped]
+        public string? Root { get; set; }
+        [DisplayName("Keyword Prefix")]
+        public string? Fk_KdPrefix_Name { get; set; }
+        [DisplayName("Keyword Suffix")]
+        public string? Fk_KdSuffix_Name { get; set; }
         public string? URL { get; set; }
         public string? DescriptionGenerated { get; set; }
         public string? DescriptionManual { get; set; }

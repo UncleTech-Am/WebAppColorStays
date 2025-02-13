@@ -15,8 +15,6 @@
 @Html.HiddenFor(model => model.CreatedBy)
 @Html.HiddenFor(model => model.CreatedOn)
 @Html.HiddenFor(model => model.CompId)
-@Html.HiddenFor(model => model.Fk_KdCnForm_Name)
-@Html.HiddenFor(model => model.Label)
 
 
 <div class="MnTp7 MnBm7">
@@ -31,6 +29,58 @@
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_City_Name"></span></div>
 </div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdCnCategory_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_KdCnCategory_Name" asp-items="@await ViewBag.Category" class="TtBxTt15">
+                <option value="">Select Category</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_KdCnCategory_Name"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdRoot_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_KdRoot_Name" asp-items="@await ViewBag.Root" class="TtBxTt15" >
+                <option value="">Select Root</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_KdRoot_Name"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdPrefix_Name)</div>
+            <select asp-for="Fk_KdPrefix_Name" asp-items="@await ViewBag.Prefix" class="TtBxTt15">
+                <option value="">Select Prefix</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_KdPrefix_Name"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdSuffix_Name)</div>
+            <select asp-for="Fk_KdSuffix_Name" asp-items="@await ViewBag.Suffix" class="TtBxTt15">
+                <option value="">Select Suffix</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_KdSuffix_Name"></span></div>
+</div>
+
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
