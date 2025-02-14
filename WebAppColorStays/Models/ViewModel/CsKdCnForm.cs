@@ -12,6 +12,9 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(450)]
         public string? Id { get; set; }
         public string? Label { get; set; }
+        public string? SEOTitle { get; set; }
+        public string? SEODescription { get; set; }
+        public string? SEOKeywords { get; set; }
         [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
         [NotMapped]

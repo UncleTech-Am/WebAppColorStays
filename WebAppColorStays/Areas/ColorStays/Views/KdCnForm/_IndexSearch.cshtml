@@ -49,6 +49,18 @@
                         </td>
                         
                         <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" name="SEOTitle" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" name="SEODescription" autocomplete="off"/>
+                        </td>
+                        
+                        <td>
+                            <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" name="SEOKeywords" autocomplete="off"/>
+                        </td>
+
+                        <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.IsVeWdBeforePrefix)" name="IsVeWdBeforePrefix" autocomplete="off"/>
                         </td>
                         
@@ -161,6 +173,9 @@
                                         <th> @Html.DisplayNameFor(model => model.Fk_Country_Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Fk_State_Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Fk_KdCnCategory_Name) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEODescription) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOKeywords) </th>       
                                         <th> @Html.DisplayNameFor(model => model.IsVeWdBeforePrefix) </th>       
                                         <th> @Html.DisplayNameFor(model => model.IsVeWdBeforeSuffix) </th>       
                                         <th> @Html.DisplayNameFor(model => model.IsVeWdBeforeRoot) </th>       
