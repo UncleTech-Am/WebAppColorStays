@@ -13,26 +13,34 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Label { get; set; }
         [StringLength(450)]
         [Required(ErrorMessage = "Please enter Name.")]
-        [Remote("CheckDuplicationContinent", "Continent", AdditionalFields = ("NameAction, Id"))]
+        [Remote("CheckDuplicationKdGenerated", "KdGenerated", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
         public string? Fk_KdCnForm_Name { get; set; }
         [DisplayName("Category")]
         public string? Fk_KdCnCategory_Name { get; set; }
         public string? URL { get; set; }
+        [NotMapped]
+        public string? OldURL { get; set; }
         public string? DescriptionGenerated { get; set; }
         public string? DescriptionManual { get; set; }
         [NotMapped]
         [DisplayName("City")]
         public string? Fk_City_Name { get; set; }
         [NotMapped]
-        public string City { get; set; }
+        public string? City { get; set; }
         [NotMapped]
         public string? Fk_State_Name { get; set; }
         [NotMapped]
+        public string? State { get; set; }
+        [NotMapped]
         public string? Fk_Country_Name { get; set; }
+        [NotMapped]
+        public string? Country { get; set; }
         public string? SEOTitle { get; set; }
         public string? SEODescription { get; set; }
         public string? SEOKeywords { get; set; }
+        [NotMapped]
+        public bool IsURlChange { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]

@@ -16,7 +16,7 @@
 
 <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
     <div class="FxRw FxAnImSh">
-        <div class="Fx35 Pg3">
+        <div class="Fx50 Pg3">
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
                 <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
                     <i class="UT-PenNibSmall"></i>
@@ -55,7 +55,7 @@
             </div>
         </div>
 
-        <div class="Fx65 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
+        <div class="Fx50 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
             @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsKdGenerated>)ViewData["EnteredDetails"])
         </div>
     </div>
@@ -65,7 +65,8 @@
     $(document).ready(function () {
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
-
+        StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
+        StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
     });
 
     //Clear Autocompete data
@@ -84,6 +85,35 @@
         document.getElementById(InputId).value = event.target.Value;
         document.getElementById('Fk_State_Name').value = event.target.Text1;
         document.getElementById('Fk_Country_Name').value = event.target.Text2;
+    }
+
+    //Clear Autocompete data
+    function ClearDataState(UrNe, UrId, Test1) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+        document.getElementById(Test1).value = '';
+    }
+
+    //Autocomplete Item
+    function AoCeState(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_State_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+        document.getElementById('Fk_Country_Name').value = event.target.Text;
+    }
+    //Clear Autocompete data
+    function ClearDataCountry(UrNe, UrId) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+    }
+
+    //Autocomplete Item
+    function AoCeCountry(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Country_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
     }
 
     function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {

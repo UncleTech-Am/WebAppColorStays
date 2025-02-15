@@ -15,11 +15,12 @@
 @Html.HiddenFor(model => model.CreatedBy)
 @Html.HiddenFor(model => model.CreatedOn)
 @Html.HiddenFor(model => model.CompId)
+@Html.HiddenFor(model => model.OldURL)
 
 
 @if (Model != null)
 {
-    @if (Model.Fk_City_Name != null)
+    if (Model.City != null)
     {
         <div class="MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
@@ -34,23 +35,49 @@
             <div class="VnRd"><span asp-validation-for="Fk_City_Name"></span></div>
         </div>
     }
-    else if (Model.Fk_State_Name != null)
+    if (Model.State != null)
     {
         <div class="MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
                 <div class="TtBxFlSt">
-                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_City_Name)<span style="color:red;"> *</span></div>
-                    <input class="TtBxTt14" placeholder="City Name" type="text" id="SearchCity" asp-for="City" autocomplete="off" required onchange="ClearData('SearchCity','Fk_City_Name', 'Fk_State_Name', 'Fk_Country_Name')" />
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_State_Name)<span style="color:red;"> *</span></div>
+                    <input class="TtBxTt14" placeholder="State Name" type="text" id="SearchState" asp-for="State" autocomplete="off" required onchange="ClearDataState('SearchState', 'Fk_State_Name', 'Fk_Country_Name')" />
                     <input type="hidden" asp-for="Fk_State_Name" required />
                     <input type="hidden" asp-for="Fk_Country_Name" required />
                 </div>
             </div>
-            <div class="VnRd"><span asp-validation-for="Fk_City_Name"></span></div>
+            <div class="VnRd"><span asp-validation-for="Fk_State_Name"></span></div>
         </div>
     }
-    
+    if (Model.Country != null)
+    {
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Country_Name)<span style="color:red;"> *</span></div>
+                    <input class="TtBxTt14" placeholder="Country Name" type="text" id="SearchCountry" asp-for="Country" autocomplete="off" required onchange="ClearDataCountry('SearchCountry', 'Fk_Country_Name')" />
+                    <input type="hidden" asp-for="Fk_Country_Name" required />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="Fk_Country_Name"></span></div>
+        </div>
+    }
 }
-
+else
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_City_Name)<span style="color:red;"> *</span></div>
+                <input class="TtBxTt14" placeholder="City Name" type="text" id="SearchCity" asp-for="City" autocomplete="off" required onchange="ClearData('SearchCity','Fk_City_Name', 'Fk_State_Name', 'Fk_Country_Name')" />
+                <input type="hidden" asp-for="Fk_City_Name" required />
+                <input type="hidden" asp-for="Fk_State_Name" required />
+                <input type="hidden" asp-for="Fk_Country_Name" required />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Fk_City_Name"></span></div>
+    </div>
+}
 
 
 <div class="MnTp7 MnBm7">
@@ -76,15 +103,29 @@
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
 </div>
 
+<div class="FxRw">
+    <div class="Fx70 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.URL)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.URL)" asp-for="URL" autocomplete="off" style="min-width:170px;" />
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.URL)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.URL)" asp-for="URL" autocomplete="off" />
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="URL"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="URL"></span></div>
+    @if(Model != null)
+    {
+        <div class="Fx30 Pg2 MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <input class="SeIt1o15" type="checkbox" asp-for="IsURlChange" />
+                    &nbsp;Change URL
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsURlChange"></span></div>
+        </div>
+    }
 </div>
 
 
@@ -125,7 +166,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DescriptionGenerated)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DescriptionGenerated)" asp-for="DescriptionGenerated" autocomplete="off" />
+            <textarea  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DescriptionGenerated)" asp-for="DescriptionGenerated" autocomplete="off" ></textarea>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="DescriptionGenerated"></span></div>
@@ -136,7 +177,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.DescriptionManual)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DescriptionManual)" asp-for="DescriptionManual" autocomplete="off" />
+            <textarea  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.DescriptionManual)" asp-for="DescriptionManual" autocomplete="off" ></textarea>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="DescriptionManual"></span></div>
