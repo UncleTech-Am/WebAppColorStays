@@ -1,0 +1,159 @@
+@model WebAppColorStays.Models.ViewModel.CsKdCnSingleForm
+
+
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "KdCnSingleForm";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.RowVersion)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedOn)
+@Html.HiddenFor(model => model.CompId)
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdCnCategory_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_KdCnCategory_Name" asp-items="@await ViewBag.Category" class="TtBxTt15">
+                <option value="">Select Category</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_KdCnCategory_Name"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Country_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="Country Name" type="text" id="SearchCountry" asp-for="Country" autocomplete="off" required onchange="ClearData('SearchCountry','Fk_Country_Name')" />
+            <input type="hidden" asp-for="Fk_Country_Name" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_Country_Name"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdPrefix_Name)</div>
+            <select asp-for="Fk_KdPrefix_Name" asp-items="@await ViewBag.Prefix" class="TtBxTt15" style="min-width:170px;">
+                <option value="">Select Prefix</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_KdPrefix_Name"></span></div>
+</div>
+
+<div class="MnTp7 MnBm15 FxRw ">
+    <div class="FxGw1">
+        <button type="button" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="AddState('KdPrefix')"><i class="UT-AddFile"></i>&nbsp;Add State</button>
+    </div>
+    <div>
+        <button type="button" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="AddCity('KdPrefix')"><i class="UT-AddFile"></i>&nbsp;Add City</button>
+    </div>
+</div>
+<div id="KdPrefix">
+
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdRoot_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_KdRoot_Name" asp-items="@await ViewBag.Root" class="TtBxTt15" style="min-width:170px;">
+                <option value="">Select Root</option>
+            </select>
+
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_KdRoot_Name"></span></div>
+</div>
+
+<div class="MnTp7 MnBm15 FxRw ">
+    <div class="FxGw1">
+        <button type="button" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="AddState('KdRoot')"><i class="UT-AddFile"></i>&nbsp;Add State</button>
+    </div>
+    <div>
+        <button type="button" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="AddCity('KdRoot')"><i class="UT-AddFile"></i>&nbsp;Add City</button>
+    </div>
+</div>
+<div id="KdRoot">
+
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdSuffix_Name)</div>
+            <select asp-for="Fk_KdSuffix_Name" asp-items="@await ViewBag.Suffix" class="TtBxTt15" style="min-width:170px;">
+                <option value="">Select Suffix</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_KdSuffix_Name"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm15 FxRw ">
+    <div class="FxGw1">
+        <button type="button" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="AddState('KdSuffix')"><i class="UT-AddFile"></i>&nbsp;Add State</button>
+    </div>
+    <div>
+        <button type="button" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="AddCity('KdSuffix')"><i class="UT-AddFile"></i>&nbsp;Add City</button>
+    </div>
+</div>
+<div id="KdSuffix">
+
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOTitle) &nbsp;<span> Max Char 70(__variable) </span> <span id="SeotitleSID" class="CrBdRd70 CrWe BrRs3"></span><span style="color:red;"> *</span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" asp-for="SEOTitle" autocomplete="off" required onkeyup="CrCtIt('SEOTitle','SeotitleSID',70)"></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEOTitle"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEODescription) &nbsp;<span> Max Char 170 (__variable) </span> <span id="SeoDescSID" class="CrBdRd70 CrWe BrRs3"></span><span style="color:red;"> *</span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" asp-for="SEODescription" autocomplete="off" required onkeyup="CrCtIt('SEODescription','SeoDescSID',170)"></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEODescription"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOKeywords)<span>(__variable) </span><span style="color:red;"> *</span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" asp-for="SEOKeywords" autocomplete="off" required></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEOKeywords"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
+</div>

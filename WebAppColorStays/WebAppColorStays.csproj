@@ -403,6 +403,15 @@
     <None Include="Areas\ColorStays\Views\KdCnForm\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\KdCnForm\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\KdCnForm\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\KdCnSingleForm\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\KdCnSingleForm\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\KdCnSingleForm\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\KdCnSingleForm\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\KdCnSingleForm\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\KdCnSingleForm\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\KdCnSingleForm\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\KdCnSingleForm\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\KdCnSingleForm\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\KdGenerated\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\KdGenerated\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\KdGenerated\Index.cshtml" />
