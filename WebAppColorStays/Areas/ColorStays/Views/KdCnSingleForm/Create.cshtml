@@ -73,10 +73,13 @@
         document.getElementById(InputId).value = event.target.Value;
     }
 
-    function AddState(ContainerId) {
+    function AddPreState(containerId) {
+        let button = document.getElementById("PrefixSeBn");
+        let stateCounter = button.getAttribute("SePreBnVl");
         // Create main div
         let mainDiv = document.createElement("div");
         mainDiv.className = "MnTp7 MnBm7";
+        mainDiv.id = `stateContainer-${stateCounter}`;
 
         // Create TtBxFlStDiv
         let inputWrapper = document.createElement("div");
@@ -89,22 +92,24 @@
         // Create label
         let label = document.createElement("div");
         label.className = "TtBxFlStLl15";
-        label.innerHTML = "State Name<span style='color:red;'> *</span>";
+        label.innerHTML = `State Name<span style='color:red;'> * </span>`;
 
         // Create text input
         let textInput = document.createElement("input");
         textInput.className = "TtBxTt14";
         textInput.type = "text";
-        textInput.id = "SearchState";
+        textInput.id = `SearchState1[${stateCounter}]`;
+        textInput.name = `StateList1[${stateCounter}].Name`;
         textInput.placeholder = "State Name";
         textInput.autocomplete = "off";
         textInput.required = true;
-        textInput.setAttribute("onchange", "ClearData('SearchState','Fk_State_Name')");
+        textInput.setAttribute("onchange", `ClearData('SearchState1[${stateCounter}]','SearchState1[${stateCounter}].Idtxt')`);
 
         // Create hidden input
         let hiddenInput = document.createElement("input");
         hiddenInput.type = "hidden";
-        hiddenInput.id = "Fk_State_Name";
+        hiddenInput.id = `SearchState1[${stateCounter}].Idtxt`;
+        hiddenInput.name = `StateList1[${ stateCounter }].Id`;
         hiddenInput.required = true;
 
         // Append elements
@@ -118,20 +123,43 @@
         let validationDiv = document.createElement("div");
         validationDiv.className = "VnRd";
         let validationSpan = document.createElement("span");
-        validationSpan.id = "validation-Fk_State_Name";
+        validationSpan.id = `validation-StateList1[${ stateCounter }].Id`;
         validationDiv.appendChild(validationSpan);
         mainDiv.appendChild(validationDiv);
 
-        // Append to specified container
-        document.getElementById(ContainerId).appendChild(mainDiv);
-        StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
+        // Create remove button
+        const removeIcon = document.createElement("i");
+        removeIcon.classList.add("UT-DeletePageSolid");
+        removeIcon.onclick = function () {
+            document.getElementById(`stateContainer-${stateCounter}`).remove();
+            let currentValue = parseInt(button.getAttribute("SePreBnVl"), 10) || 0;
+            let newValue = currentValue - 1;
 
+            // Set the new value back to the attribute
+            button.setAttribute("SePreBnVl", newValue);
+        };
+
+        inputContainer.appendChild(removeIcon);
+
+        // Append to specified container
+
+        document.getElementById(containerId).appendChild(mainDiv);
+        StartSuggestionBox(2, `SearchState1[${stateCounter}]`, '/ColorStays/State/SuggestState', '', '', AoCeState);
+        // Increment the value
+        let currentValue = parseInt(button.getAttribute("SePreBnVl"), 10) || 0;
+        let newValue = currentValue + 1;
+
+        // Set the new value back to the attribute
+        button.setAttribute("SePreBnVl", newValue);
     }
 
-    function AddCity(ContainerId) {
+    function AddPreCity(containerId) {
+        let button = document.getElementById("PrefixCyBn");
+        let cityCounter = button.getAttribute("CyPreBnVl");
         // Create main div
         let mainDiv = document.createElement("div");
         mainDiv.className = "MnTp7 MnBm7";
+        mainDiv.id = `cityContainer-${cityCounter}`;
 
         // Create TtBxFlStDiv
         let inputWrapper = document.createElement("div");
@@ -144,22 +172,24 @@
         // Create label
         let label = document.createElement("div");
         label.className = "TtBxFlStLl15";
-        label.innerHTML = "City Name<span style='color:red;'> *</span>";
+        label.innerHTML = `City Name<span style='color:red;'> * </span>`;
 
         // Create text input
         let textInput = document.createElement("input");
         textInput.className = "TtBxTt14";
         textInput.type = "text";
-        textInput.id = "SearchCity";
+        textInput.id = `SearchCity1[${cityCounter}]`;
+        textInput.name = `CityList1[${cityCounter}].Name`;
         textInput.placeholder = "City Name";
         textInput.autocomplete = "off";
         textInput.required = true;
-        textInput.setAttribute("onchange", "ClearData('SearchCity','Fk_City_Name')");
+        textInput.setAttribute("onchange", `ClearData('SearchCity1[${cityCounter}]','SearchCity1[${cityCounter}].Idtxt')`);
 
         // Create hidden input
         let hiddenInput = document.createElement("input");
         hiddenInput.type = "hidden";
-        hiddenInput.id = "Fk_City_Name";
+        hiddenInput.id = `SearchCity1[${cityCounter}].Idtxt`;
+        hiddenInput.name = `CityList1[${cityCounter}].Id`;
         hiddenInput.required = true;
 
         // Append elements
@@ -173,28 +203,371 @@
         let validationDiv = document.createElement("div");
         validationDiv.className = "VnRd";
         let validationSpan = document.createElement("span");
-        validationSpan.id = "validation-Fk_City_Name";
+        validationSpan.id = `validation-CityList1[${cityCounter}].Id`;
         validationDiv.appendChild(validationSpan);
         mainDiv.appendChild(validationDiv);
 
-        // Append to specified container
-        document.getElementById(ContainerId).appendChild(mainDiv);
-        StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
+        // Create remove button
+        const removeIcon = document.createElement("i");
+        removeIcon.classList.add("UT-DeletePageSolid");
+        removeIcon.onclick = function () {
+            document.getElementById(`cityContainer-${cityCounter}`).remove();
+            let currentValue = parseInt(button.getAttribute("CyPreBnVl"), 10) || 0;
+            let newValue = currentValue - 1;
 
+            // Set the new value back to the attribute
+            button.setAttribute("CyPreBnVl", newValue);
+        };
+
+        inputContainer.appendChild(removeIcon);
+
+        // Append to specified container
+
+        document.getElementById(containerId).appendChild(mainDiv);
+        StartSuggestionBox(2, `SearchCity1[${cityCounter}]`, '/ColorStays/City/SuggestCity', '', '', AoCeCity);
+        // Increment the value
+        let currentValue = parseInt(button.getAttribute("CyPreBnVl"), 10) || 0;
+        let newValue = currentValue + 1;
+
+        // Set the new value back to the attribute
+        button.setAttribute("CyPreBnVl", newValue);
     }
+
+    function AddRootState(containerId) {
+        let button = document.getElementById("RootSeBn");
+        let stateCounter = button.getAttribute("SeRootBnVl");
+        // Create main div
+        let mainDiv = document.createElement("div");
+        mainDiv.className = "MnTp7 MnBm7";
+        mainDiv.id = `stateContainer-${stateCounter}`;
+
+        // Create TtBxFlStDiv
+        let inputWrapper = document.createElement("div");
+        inputWrapper.className = "TtBxFlStDiv";
+
+        // Create TtBxFlSt
+        let inputContainer = document.createElement("div");
+        inputContainer.className = "TtBxFlSt";
+
+        // Create label
+        let label = document.createElement("div");
+        label.className = "TtBxFlStLl15";
+        label.innerHTML = `State Name<span style='color:red;'> * </span>`;
+
+        // Create text input
+        let textInput = document.createElement("input");
+        textInput.className = "TtBxTt14";
+        textInput.type = "text";
+        textInput.id = `SearchState2[${stateCounter}]`;
+        textInput.name = `StateList2[${stateCounter}].Name`;
+        textInput.placeholder = "State Name";
+        textInput.autocomplete = "off";
+        textInput.required = true;
+        textInput.setAttribute("onchange", `ClearData('SearchState2[${stateCounter}]','SearchState2[${stateCounter}].Idtxt')`);
+
+        // Create hidden input
+        let hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.id = `SearchState2[${stateCounter}].Idtxt`;
+        hiddenInput.name = `StateList2[${ stateCounter }].Id`;
+        hiddenInput.required = true;
+
+        // Append elements
+        inputContainer.appendChild(label);
+        inputContainer.appendChild(textInput);
+        inputContainer.appendChild(hiddenInput);
+        inputWrapper.appendChild(inputContainer);
+        mainDiv.appendChild(inputWrapper);
+
+        // Create validation span wrapper
+        let validationDiv = document.createElement("div");
+        validationDiv.className = "VnRd";
+        let validationSpan = document.createElement("span");
+        validationSpan.id = `validation-StateList2[${ stateCounter }].Id`;
+        validationDiv.appendChild(validationSpan);
+        mainDiv.appendChild(validationDiv);
+
+        // Create remove button
+        const removeIcon = document.createElement("i");
+        removeIcon.classList.add("UT-DeletePageSolid");
+        removeIcon.onclick = function () {
+            document.getElementById(`stateContainer-${stateCounter}`).remove();
+            let currentValue = parseInt(button.getAttribute("SeRootBnVl"), 10) || 0;
+            let newValue = currentValue - 1;
+
+            // Set the new value back to the attribute
+            button.setAttribute("SeRootBnVl", newValue);
+        };
+
+        inputContainer.appendChild(removeIcon);
+
+        // Append to specified container
+
+        document.getElementById(containerId).appendChild(mainDiv);
+        StartSuggestionBox(2, `SearchState2[${stateCounter}]`, '/ColorStays/State/SuggestState', '', '', AoCeState);
+        // Increment the value
+        let currentValue = parseInt(button.getAttribute("SeRootBnVl"), 10) || 0;
+        let newValue = currentValue + 1;
+
+        // Set the new value back to the attribute
+        button.setAttribute("SeRootBnVl", newValue);
+    }
+
+    function AddRootCity(containerId) {
+        let button = document.getElementById("RootCyBn");
+        let cityCounter = button.getAttribute("CyRootBnVl");
+        // Create main div
+        let mainDiv = document.createElement("div");
+        mainDiv.className = "MnTp7 MnBm7";
+        mainDiv.id = `cityContainer-${cityCounter}`;
+
+        // Create TtBxFlStDiv
+        let inputWrapper = document.createElement("div");
+        inputWrapper.className = "TtBxFlStDiv";
+
+        // Create TtBxFlSt
+        let inputContainer = document.createElement("div");
+        inputContainer.className = "TtBxFlSt";
+
+        // Create label
+        let label = document.createElement("div");
+        label.className = "TtBxFlStLl15";
+        label.innerHTML = `City Name<span style='color:red;'> * </span>`;
+
+        // Create text input
+        let textInput = document.createElement("input");
+        textInput.className = "TtBxTt14";
+        textInput.type = "text";
+        textInput.id = `SearchCity2[${cityCounter}]`;
+        textInput.name = `CityList2[${cityCounter}].Name`;
+        textInput.placeholder = "City Name";
+        textInput.autocomplete = "off";
+        textInput.required = true;
+        textInput.setAttribute("onchange", `ClearData('SearchCity2[${cityCounter}]','SearchCity2[${cityCounter}].Idtxt')`);
+
+        // Create hidden input
+        let hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.id = `SearchCity2[${cityCounter}].Idtxt`;
+        hiddenInput.name = `CityList2[${cityCounter}].Id`;
+        hiddenInput.required = true;
+
+        // Append elements
+        inputContainer.appendChild(label);
+        inputContainer.appendChild(textInput);
+        inputContainer.appendChild(hiddenInput);
+        inputWrapper.appendChild(inputContainer);
+        mainDiv.appendChild(inputWrapper);
+
+        // Create validation span wrapper
+        let validationDiv = document.createElement("div");
+        validationDiv.className = "VnRd";
+        let validationSpan = document.createElement("span");
+        validationSpan.id = `validation-CityList2[${cityCounter}].Id`;
+        validationDiv.appendChild(validationSpan);
+        mainDiv.appendChild(validationDiv);
+
+        // Create remove button
+        const removeIcon = document.createElement("i");
+        removeIcon.classList.add("UT-DeletePageSolid");
+        removeIcon.onclick = function () {
+            document.getElementById(`cityContainer-${cityCounter}`).remove();
+            let currentValue = parseInt(button.getAttribute("CyRootBnVl"), 10) || 0;
+            let newValue = currentValue - 1;
+
+            // Set the new value back to the attribute
+            button.setAttribute("CyRootBnVl", newValue);
+        };
+
+        inputContainer.appendChild(removeIcon);
+
+        // Append to specified container
+
+        document.getElementById(containerId).appendChild(mainDiv);
+        StartSuggestionBox(2, `SearchCity2[${cityCounter}]`, '/ColorStays/City/SuggestCity', '', '', AoCeCity);
+        // Increment the value
+        let currentValue = parseInt(button.getAttribute("CyRootBnVl"), 10) || 0;
+        let newValue = currentValue + 1;
+
+        // Set the new value back to the attribute
+        button.setAttribute("CyRootBnVl", newValue);
+    }
+
+    function AddSufState(containerId) {
+        let button = document.getElementById("SuffixSeBn");
+        let stateCounter = button.getAttribute("SeSufBnVl");
+        // Create main div
+        let mainDiv = document.createElement("div");
+        mainDiv.className = "MnTp7 MnBm7";
+        mainDiv.id = `stateContainer-${stateCounter}`;
+
+        // Create TtBxFlStDiv
+        let inputWrapper = document.createElement("div");
+        inputWrapper.className = "TtBxFlStDiv";
+
+        // Create TtBxFlSt
+        let inputContainer = document.createElement("div");
+        inputContainer.className = "TtBxFlSt";
+
+        // Create label
+        let label = document.createElement("div");
+        label.className = "TtBxFlStLl15";
+        label.innerHTML = `State Name<span style='color:red;'> * </span>`;
+
+        // Create text input
+        let textInput = document.createElement("input");
+        textInput.className = "TtBxTt14";
+        textInput.type = "text";
+        textInput.id = `SearchState3[${stateCounter}]`;
+        textInput.name = `StateList3[${stateCounter}].Name`;
+        textInput.placeholder = "State Name";
+        textInput.autocomplete = "off";
+        textInput.required = true;
+        textInput.setAttribute("onchange", `ClearData('SearchState3[${stateCounter}]','SearchState3[${stateCounter}].Idtxt')`);
+
+        // Create hidden input
+        let hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.id = `SearchState3[${stateCounter}].Idtxt`;
+        hiddenInput.name = `StateList3[${ stateCounter }].Id`;
+        hiddenInput.required = true;
+
+        // Append elements
+        inputContainer.appendChild(label);
+        inputContainer.appendChild(textInput);
+        inputContainer.appendChild(hiddenInput);
+        inputWrapper.appendChild(inputContainer);
+        mainDiv.appendChild(inputWrapper);
+
+        // Create validation span wrapper
+        let validationDiv = document.createElement("div");
+        validationDiv.className = "VnRd";
+        let validationSpan = document.createElement("span");
+        validationSpan.id = `validation-StateList3[${ stateCounter }].Id`;
+        validationDiv.appendChild(validationSpan);
+        mainDiv.appendChild(validationDiv);
+
+        // Create remove button
+        const removeIcon = document.createElement("i");
+        removeIcon.classList.add("UT-DeletePageSolid");
+        removeIcon.onclick = function () {
+            document.getElementById(`stateContainer-${stateCounter}`).remove();
+            let currentValue = parseInt(button.getAttribute("SeSufBnVl"), 10) || 0;
+            let newValue = currentValue - 1;
+
+            // Set the new value back to the attribute
+            button.setAttribute("SeSufBnVl", newValue);
+        };
+
+        inputContainer.appendChild(removeIcon);
+
+        // Append to specified container
+
+        document.getElementById(containerId).appendChild(mainDiv);
+        StartSuggestionBox(2, `SearchState3[${stateCounter}]`, '/ColorStays/State/SuggestState', '', '', AoCeState);
+        // Increment the value
+        let currentValue = parseInt(button.getAttribute("SeSufBnVl"), 10) || 0;
+        let newValue = currentValue + 1;
+
+        // Set the new value back to the attribute
+        button.setAttribute("SeSufBnVl", newValue);
+    }
+
+    function AddSufCity(containerId) {
+        let button = document.getElementById("SuffixCyBn");
+        let cityCounter = button.getAttribute("CySufBnVl");
+        // Create main div
+        let mainDiv = document.createElement("div");
+        mainDiv.className = "MnTp7 MnBm7";
+        mainDiv.id = `cityContainer-${cityCounter}`;
+
+        // Create TtBxFlStDiv
+        let inputWrapper = document.createElement("div");
+        inputWrapper.className = "TtBxFlStDiv";
+
+        // Create TtBxFlSt
+        let inputContainer = document.createElement("div");
+        inputContainer.className = "TtBxFlSt";
+
+        // Create label
+        let label = document.createElement("div");
+        label.className = "TtBxFlStLl15";
+        label.innerHTML = `City Name<span style='color:red;'> * </span>`;
+
+        // Create text input
+        let textInput = document.createElement("input");
+        textInput.className = "TtBxTt14";
+        textInput.type = "text";
+        textInput.id = `SearchCity3[${cityCounter}]`;
+        textInput.name = `CityList3[${cityCounter}].Name`;
+        textInput.placeholder = "City Name";
+        textInput.autocomplete = "off";
+        textInput.required = true;
+        textInput.setAttribute("onchange", `ClearData('SearchCity3[${cityCounter}]','SearchCity3[${cityCounter}].Idtxt')`);
+
+        // Create hidden input
+        let hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.id = `SearchCity3[${cityCounter}].Idtxt`;
+        hiddenInput.name = `CityList3[${cityCounter}].Id`;
+        hiddenInput.required = true;
+
+        // Append elements
+        inputContainer.appendChild(label);
+        inputContainer.appendChild(textInput);
+        inputContainer.appendChild(hiddenInput);
+        inputWrapper.appendChild(inputContainer);
+        mainDiv.appendChild(inputWrapper);
+
+        // Create validation span wrapper
+        let validationDiv = document.createElement("div");
+        validationDiv.className = "VnRd";
+        let validationSpan = document.createElement("span");
+        validationSpan.id = `validation-CityList3[${cityCounter}].Id`;
+        validationDiv.appendChild(validationSpan);
+        mainDiv.appendChild(validationDiv);
+
+        // Create remove button
+        const removeIcon = document.createElement("i");
+        removeIcon.classList.add("UT-DeletePageSolid");
+        removeIcon.onclick = function () {
+            document.getElementById(`cityContainer-${cityCounter}`).remove();
+            let currentValue = parseInt(button.getAttribute("CySufBnVl"), 10) || 0;
+            let newValue = currentValue - 1;
+
+            // Set the new value back to the attribute
+            button.setAttribute("CySufBnVl", newValue);
+        };
+
+        inputContainer.appendChild(removeIcon);
+
+        // Append to specified container
+
+        document.getElementById(containerId).appendChild(mainDiv);
+        StartSuggestionBox(2, `SearchCity3[${cityCounter}]`, '/ColorStays/City/SuggestCity', '', '', AoCeCity);
+        // Increment the value
+        let currentValue = parseInt(button.getAttribute("CySufBnVl"), 10) || 0;
+        let newValue = currentValue + 1;
+
+        // Set the new value back to the attribute
+        button.setAttribute("CySufBnVl", newValue);
+    }
+
 
     //Autocomplete Item
     function AoCeCity(event) {
         var InputId = event.target.InputID;
         SuggestionClose(InputId);
-        document.getElementById('Fk_City_Name').value = event.target.Id;
+        var txt = InputId + '.Idtxt';
+        document.getElementById(txt).value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
     }
     //Autocomplete State
     function AoCeState(event) {
         var InputId = event.target.InputID;
         SuggestionClose(InputId);
-        document.getElementById('Fk_State_Name').value = event.target.Id;
+        var txt = InputId + '.Idtxt';
+        document.getElementById(txt).value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
     }
 
