@@ -1,0 +1,11 @@
+﻿@model WebAppColorStays.Models.ViewModel.CsKdCnSingleForm
+
+@{
+    Layout = null;
+    ViewData["Action"] = "KdCnSingleForm";
+}
+
+@if (Model != null)
+{
+    @Html.EditorFor(model => model.CheckCityList.CheckCity, new { htmlAttributes = new { @checked = false } })
+}

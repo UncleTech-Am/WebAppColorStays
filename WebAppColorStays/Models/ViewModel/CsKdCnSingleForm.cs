@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using WebAppColorStays.Areas.ColorStays.CommonMethods;
@@ -18,32 +19,15 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_Country_Name { get; set; }
         [NotMapped]
         public string? Country { get; set; }
-        [DisplayName("State")]
-        public string? Fk_State_Name { get; set; }
-        [NotMapped]
-        public string? State { get; set; }
+        [StringLength(450)]
+        [Required(ErrorMessage = "Please enter Name.")]
+        [Remote("CheckDuplicationKdGenerated", "KdGenerated", AdditionalFields = ("NameAction, Id"))]
+        public string Name { get; set; }
         [DisplayName("Category")]
         public string? Fk_KdCnCategory_Name { get; set; }
-        [DisplayName("Keyword Root")]
-        public string? Fk_KdRoot_Name { get; set; }
-        [NotMapped]
-        public string? Root { get; set; }
-        [DisplayName("Keyword Prefix")]
-        public string? Fk_KdPrefix_Name { get; set; }
-        [DisplayName("Keyword Suffix")]
-        public string? Fk_KdSuffix_Name { get; set; }
-        [NotMapped]
-        public string? VariablePosition { get; set; }
-        public bool IsVeWdBeforePrefix { get; set; }
-        public bool IsVeWdBeforeSuffix { get; set; }
-        public bool IsVeWdBeforeRoot { get; set; }
-        public bool IsVeWdAfterRoot { get; set; }
-        public bool IsVeWdAfterPrefix { get; set; }
-        public bool IsVeWdAfterSuffix { get; set; }
-        public bool IsURLHavingState { get; set; }
-        public bool IsURLHavingCountry { get; set; }
-        public bool IsStateKeyword { get; set; }
-        public bool IsCountryKeyword { get; set; }
+        public string? Fk_KdCnSingleForm_Name { get; set; }
+        public string? URL { get; set; }
+        public string? Description { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]
@@ -75,19 +59,9 @@ namespace WebAppColorStays.Models.ViewModel
         public byte[]? RowVersion { get; set; }
 
         [NotMapped]
-        public List<CsState>? StateList1 { get; set; }
+        public KeywordCityCheckbox? CheckCityList { get; set; }
         [NotMapped]
-        public List<CsState>? StateList2 { get; set; }
-        [NotMapped]
-        public List<CsState>? StateList3 { get; set; }
-        [NotMapped]
-        public List<CsCity>? CityList1 { get; set; }
-        [NotMapped]
-        public List<CsCity>? CityList2 { get; set; }
-        [NotMapped]
-        public List<CsCity>? CityList3 { get; set; }
-
-
+        public KeywordStateCheckbox? CheckStateList { get; set; }
 
     }
 }

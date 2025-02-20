@@ -12,6 +12,7 @@ namespace WebAppColorStays.Models.ViewModel
         [StringLength(450)]
         public string? Fk_KdGenerated_Name { get; set; }
         public string? Fk_KdCnForm_Name { get; set; }
+        public string? Fk_KdCnSingleForm_Name { get; set; }
         public string? Fk_City_Name { get; set; }
         public string? Fk_State_Name { get; set; }
         public string? Fk_Country_Name { get; set; }

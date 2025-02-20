@@ -39,84 +39,76 @@
     <div class="VnRd"><span asp-validation-for="Fk_Country_Name"></span></div>
 </div>
 
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Name"></span></div>
+</div>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdPrefix_Name)</div>
-            <select asp-for="Fk_KdPrefix_Name" asp-items="@await ViewBag.Prefix" class="TtBxTt15" style="min-width:170px;">
-                <option value="">Select Prefix</option>
-            </select>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.URL)</div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.URL)" asp-for="URL" autocomplete="off" />
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Fk_KdPrefix_Name"></span></div>
+    <div class="VnRd"><span asp-validation-for="URL"></span></div>
 </div>
 
-<div class="MnTp7 MnBm15 FxRw ">
-    <div class="FxGw1">
-        <button type="button" id="PrefixSeBn" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" SePreBnVl="0" onclick="AddPreState('KdPrefix')"><i class="UT-AddFile"></i>&nbsp;Add State</button>
+@if (Model != null)
+{
+    <div class="MnTp7 MnBm7">
+        <div>
+            <div id="StateListCheck" class="FxGw1 TtBxFlStDiv" TtBx="TtBxMe">
+                @await Html.PartialAsync("_StateCheckBox", Model.CheckStateList)
+            </div>
+        </div>
     </div>
-    <div>
-        <button type="button" id="PrefixCyBn" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" CyPreBnVl="0" onclick="AddPreCity('KdPrefix')"><i class="UT-AddFile"></i>&nbsp;Add City</button>
+}
+else
+{
+    <div class="MnTp7 MnBm7">
+        <div>
+            <div id="StateListCheck" class="FxGw1 TtBxFlStDiv" TtBx="TtBxMe">
+            </div>
+        </div>
     </div>
-</div>
-<div id="KdPrefix">
-    
-</div>
+}
+
+@if (Model != null)
+{
+    <div class="MnTp7 MnBm7">
+        <div>
+            <div id="CityListCheck" class="FxGw1 TtBxFlStDiv" TtBx="TtBxMe">
+                @await Html.PartialAsync("_CityCheckBox", Model.CheckCityList)
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="MnTp7 MnBm7">
+        <div>
+            <div id="CityListCheck" class="FxGw1 TtBxFlStDiv" TtBx="TtBxMe">
+            </div>
+        </div>
+    </div>
+}
 
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdRoot_Name)<span style="color:red;"> *</span></div>
-            <select asp-for="Fk_KdRoot_Name" asp-items="@await ViewBag.Root" class="TtBxTt15" style="min-width:170px;">
-                <option value="">Select Root</option>
-            </select>
-
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Description)</div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.Description)" asp-for="Description" autocomplete="off" ></textarea>
         </div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Fk_KdRoot_Name"></span></div>
+    <div class="VnRd"><span asp-validation-for="Description"></span></div>
 </div>
-
-<div class="MnTp7 MnBm15 FxRw ">
-    <div class="FxGw1">
-        <button type="button" id="RootSeBn" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" SeRootBnVl="0" onclick="AddRootState('KdRoot')"><i class="UT-AddFile"></i>&nbsp;Add State</button>
-    </div>
-    <div>
-        <button type="button" id="RootCyBn" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" CyRootBnVl="0" onclick="AddRootCity('KdRoot')"><i class="UT-AddFile"></i>&nbsp;Add City</button>
-    </div>
-</div>
-<div id="KdRoot">
-
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_KdSuffix_Name)</div>
-            <select asp-for="Fk_KdSuffix_Name" asp-items="@await ViewBag.Suffix" class="TtBxTt15" style="min-width:170px;">
-                <option value="">Select Suffix</option>
-            </select>
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Fk_KdSuffix_Name"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm15 FxRw ">
-    <div class="FxGw1">
-        <button type="button" id="SuffixSeBn" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" SeSufBnVl="0" onclick="AddSufState('KdSuffix')"><i class="UT-AddFile"></i>&nbsp;Add State</button>
-    </div>
-    <div>
-        <button type="button" id="SuffixCyBn" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" CySufBnVl="0" onclick="AddSufCity('KdSuffix')"><i class="UT-AddFile"></i>&nbsp;Add City</button>
-    </div>
-</div>
-<div id="KdSuffix">
-
-</div>
-
-
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">

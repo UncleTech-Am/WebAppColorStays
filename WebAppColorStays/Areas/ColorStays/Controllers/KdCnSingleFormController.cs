@@ -724,5 +724,65 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
+
+
+
+        //Package Inclusion
+        [HttpGet]
+        public async Task<IActionResult> KeywordStateList(string CyId, string FmId)
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+            KeywordStateCheckbox facilityList = new KeywordStateCheckbox();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("State/KeywordStateList/" + CyId + "/" + FmId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    facilityList = await System.Text.Json.JsonSerializer.DeserializeAsync<KeywordStateCheckbox>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            CsKdCnSingleForm a = new CsKdCnSingleForm();
+            a.CheckStateList = facilityList;
+            return View("_StateCheckBox", a);
+        }
+
+        //Package Inclusion
+        [HttpGet]
+        public async Task<IActionResult> KeywordCityList(string SeId, string FmId)
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+            KeywordCityCheckbox facilityList = new KeywordCityCheckbox();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("City/KeywordCityList/" + SeId + "/" + FmId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    facilityList = await System.Text.Json.JsonSerializer.DeserializeAsync<KeywordCityCheckbox>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            CsKdCnSingleForm a = new CsKdCnSingleForm();
+            a.CheckCityList = facilityList;
+            return View("_CityCheckBox", a);
+        }
+
+
     }
 }

@@ -1,0 +1,10 @@
+﻿@model WebAppColorStays.Areas.ColorStays.CommonMethods.KeywordStateCheckbox
+<div class="checkbox-container">
+    @Html.HiddenFor(x => x.State)
+    <input type="hidden" asp-for="Fk_State_Name" class="fk-state-name" />
+    <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
+        @Html.CheckBoxFor(x => x.IsSelected, htmlAttributes: new { id = "IsSelected", @Class = "SeIt1o14", onchange = "handleCheckboxChange(this)" })
+    </span>
+    @Html.LabelFor(x => x.IsSelected, Model.State)
+    <br />
+</div>
