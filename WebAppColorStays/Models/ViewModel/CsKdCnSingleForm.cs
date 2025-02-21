@@ -15,17 +15,16 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SEOTitle { get; set; }
         public string? SEODescription { get; set; }
         public string? SEOKeywords { get; set; }
-        [DisplayName("Country")]
+        [ForeignKey("TblCountry")]
         public string? Fk_Country_Name { get; set; }
         [NotMapped]
         public string? Country { get; set; }
-        [StringLength(450)]
-        [Required(ErrorMessage = "Please enter Name.")]
-        [Remote("CheckDuplicationKdGenerated", "KdGenerated", AdditionalFields = ("NameAction, Id"))]
-        public string Name { get; set; }
         [DisplayName("Category")]
         public string? Fk_KdCnCategory_Name { get; set; }
-        public string? Fk_KdCnSingleForm_Name { get; set; }
+        [StringLength(450)]
+        [Required(ErrorMessage = "Please enter Name.")]
+        [Remote("CheckDuplicationKdCnSingleForm", "KdCnSingleForm", AdditionalFields = ("NameAction, Id"))]
+        public string? Name { get; set; }
         public string? URL { get; set; }
         public string? Description { get; set; }
         public bool FreezeStatus { get; set; }

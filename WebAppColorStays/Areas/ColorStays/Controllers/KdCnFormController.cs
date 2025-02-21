@@ -925,7 +925,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //Package Inclusion
         [HttpGet]
-        public async Task<IActionResult> KeywordCityList(string SeId, string FmId)
+        public async Task<IActionResult> KeywordCityList(string SeId, string FmId, string FormType)
         {
             Title();
             ViewData["AnName"] = "Create";
@@ -940,7 +940,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("City/KeywordCityList/" + SeId + "/" + FmId + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("City/KeywordCityList/" + SeId + "/" + FmId + "/" + FormType + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     facilityList = await System.Text.Json.JsonSerializer.DeserializeAsync<KeywordCityCheckbox>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });

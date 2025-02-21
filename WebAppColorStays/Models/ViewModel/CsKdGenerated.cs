@@ -18,6 +18,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_KdCnForm_Name { get; set; }
         [DisplayName("Category")]
         public string? Fk_KdCnCategory_Name { get; set; }
+        public string? Fk_KdCnSingleForm_Name { get; set; }
         public string? URL { get; set; }
         [NotMapped]
         public string? OldURL { get; set; }

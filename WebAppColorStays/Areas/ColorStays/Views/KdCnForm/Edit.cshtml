@@ -66,7 +66,7 @@
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
         StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
-        getUT('/ColorStays/KdCnForm/KeywordCityList?SeId=@Model.Fk_State_Name&FmId=@Model.Id', function (data) {
+        getUT('/ColorStays/KdCnForm/KeywordCityList?SeId=@Model.Fk_State_Name&FmId=@Model.Id&FormType=Bulk', function (data) {
             document.getElementById('CityListCheck').innerHTML = "";
             document.getElementById('CityListCheck').innerHTML = data;
             HideLoader();
@@ -93,7 +93,7 @@
         SuggestionClose(InputId);
         document.getElementById('Fk_State_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
-        getUT('/ColorStays/KdCnForm/KeywordCityList?SeId=' + event.target.Id +'&FmId=@Model.Id', function (data) {
+        getUT('/ColorStays/KdCnForm/KeywordCityList?SeId=' + event.target.Id + '&FmId=@Model.Id&FormType=Bulk', function (data) {
             document.getElementById('CityListCheck').innerHTML = "";
             document.getElementById('CityListCheck').innerHTML = data;
             HideLoader();

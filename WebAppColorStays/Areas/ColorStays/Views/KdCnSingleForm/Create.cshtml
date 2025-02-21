@@ -56,7 +56,6 @@
     $(document).ready(function () {
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
-
     });
 
     //Clear Autocompete data
@@ -71,7 +70,7 @@
         SuggestionClose(InputId);
         document.getElementById('Fk_Country_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
-        getUT('/ColorStays/KdCnSingleForm/KeywordStateList?CyId=' + event.target.Id + '&FmId=NoId', function (data) {
+        getUT('/ColorStays/KdCnSingleForm/KeywordStateList?CyId=' + event.target.Id + '&FmId=NoId&FormType=Single', function (data) {
             document.getElementById('StateListCheck').innerHTML = "";
             document.getElementById('StateListCheck').innerHTML = data;
             HideLoader();
@@ -88,7 +87,7 @@
         var cityListDiv = document.getElementById('CityListCheck');
 
         if (checkbox.checked) {
-            getUT('/ColorStays/KdCnSingleForm/KeywordCityList?SeId=' + SeId + '&FmId=NoId', function (data) {
+            getUT('/ColorStays/KdCnSingleForm/KeywordCityList?SeId=' + SeId + '&FmId=NoId&FormType=Single', function (data) {
                 if (cityListDiv) {
                     let newDiv = document.createElement('div');
                     newDiv.classList.add('city-list-item'); // Class for tracking
@@ -111,9 +110,11 @@
     }
 
 
-
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
+        document.getElementById('StateListCheck').innerHTML = null;
+        document.getElementById('CityListCheck').innerHTML = null;
+
         //Here we get the pageno,pagesize and listcount
         var doc = new DOMParser().parseFromString(data, "text/html");
         var pageinfo = doc.getElementById("PaginationAt");
