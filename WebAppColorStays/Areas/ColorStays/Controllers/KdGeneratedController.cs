@@ -13,6 +13,7 @@ using System.Security.Claims;
 using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
 using WebAppColorStays.Areas.ColorStays.CommonMethods;
+using LibCommon.APICommonMethods;
 
 
 
@@ -24,10 +25,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class KdGeneratedController : Controller
     {
         private readonly Paging paging;
+        private readonly RyCSImage ryCsImage;
 
         public KdGeneratedController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
@@ -43,17 +46,22 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             string URLRoot = "KdRoot/DropDown/" + CompId;
             string URLPrefix = "KdPrefix/DropDown/" + CompId;
             string URLSuffix = "KdSuffix/DropDown/" + CompId;
+            string URLContinent = "PackageType/DropDown/" + CompId;
+
             try
             {
                 Task<List<SelectListItem>> Category = ry.DDColorStaysAPI(URLCategory, Token);
                 Task<List<SelectListItem>> Root = ry.DDColorStaysAPI(URLRoot, Token);
                 Task<List<SelectListItem>> Prefix = ry.DDColorStaysAPI(URLPrefix, Token);
                 Task<List<SelectListItem>> Suffix = ry.DDColorStaysAPI(URLSuffix, Token);
-                Task.WaitAll(Category, Root, Prefix, Suffix);
+                Task<List<SelectListItem>> PackageType = ry.DDColorStaysAPI(URLContinent, Token);
+
+                Task.WaitAll(Category, Root, Prefix, Suffix, PackageType);
                 ViewBag.Category = Category;
                 ViewBag.Root = Root;
                 ViewBag.Prefix = Prefix;
                 ViewBag.Suffix = Suffix;
+                ViewBag.PackageType = PackageType;
             }
             catch (Exception ex) { }
 
@@ -443,11 +451,31 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             CsKdGenerated.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
             CsKdGenerated data = new CsKdGenerated();
+            var files = HttpContext.Request.Form.Files;
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    foreach (var file in files)
+                    {
+                        var fileName = file.FileName;
+
+                        if ("CoverImage" == file.Name)
+                        {
+                            CsKdGenerated.CoverImage = fileName;
+                        }
+
+                        if (file.Length > 0)
+                        {
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "KdGenBanner");
+                            Task.WaitAll(TImgUpload);
+                            if (TImgUpload.Result == "Error")
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsKdGenerated), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("KdGenerated/create", content))
                     {
@@ -540,14 +568,38 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             DropDown(CompID, TokenKey);
             ViewData["ResponseName"] = "ShowValidation";
             CsKdGenerated.CompId = CompID;
-            CsKdGenerated.ModifiedBy = UserID;   
+            CsKdGenerated.ModifiedBy = UserID;
+            var files = HttpContext.Request.Form.Files;
+            if (CsKdGenerated.CoverImageName != null)
+            {
+                CsKdGenerated.CoverImage = CsKdGenerated.CoverImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        foreach (var file in files)
+                        {
+                            var fileName = file.FileName;
+
+                            CsKdGenerated.CoverImage = fileName;
+                            //Delete the Images from the folder
+                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsKdGenerated.CoverImageName, TokenKey, "KdGenBanner");
+                            Task.WaitAll(TDeleteImage);
+                            
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "KdGenBanner");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                         using (var response = await client.PostAsJsonAsync<CsKdGenerated>("KdGenerated/edit", CsKdGenerated))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
@@ -592,6 +644,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            CsKdGenerated csKd = new CsKdGenerated();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("KdGenerated/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csKd = await System.Text.Json.JsonSerializer.DeserializeAsync<CsKdGenerated>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+
+            Task<string> TDeleteImage3 = ryCsImage.DeleteImage(csKd.CoverImageName, TokenKey, "KdGenBanner");
+            Task.WaitAll(TDeleteImage3);
+            if (TDeleteImage3.Result == "Error")
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);

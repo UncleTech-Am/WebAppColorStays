@@ -15,6 +15,12 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SEOTitle { get; set; }
         public string? SEODescription { get; set; }
         public string? SEOKeywords { get; set; }
+        [DisplayName("PackageType")]
+        public string? Fk_PackageType_Name { get; set; }
+        public string? CoverImage { get; set; }
+        public string? CoverAltTag { get; set; }
+        [NotMapped]
+        public string? CoverImageName { get; set; }
         [ForeignKey("TblCountry")]
         public string? Fk_Country_Name { get; set; }
         [NotMapped]

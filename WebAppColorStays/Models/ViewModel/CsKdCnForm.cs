@@ -15,6 +15,8 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SEOTitle { get; set; }
         public string? SEODescription { get; set; }
         public string? SEOKeywords { get; set; }
+        [DisplayName("PackageType")]
+        public string? Fk_PackageType_Name { get; set; }
         [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
         [NotMapped]

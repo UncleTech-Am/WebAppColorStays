@@ -15,6 +15,12 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationKdGenerated", "KdGenerated", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
+        [DisplayName("PackageType")]
+        public string? Fk_PackageType_Name { get; set; }
+        public string? CoverImage { get; set; }
+        public string? CoverAltTag { get; set; }
+        [NotMapped]
+        public string? CoverImageName { get; set; }
         public string? Fk_KdCnForm_Name { get; set; }
         [DisplayName("Category")]
         public string? Fk_KdCnCategory_Name { get; set; }

@@ -44,17 +44,22 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             string URLRoot = "KdRoot/DropDown/" + CompId;
             string URLPrefix = "KdPrefix/DropDown/" + CompId;
             string URLSuffix = "KdSuffix/DropDown/" + CompId;
+            string URLContinent = "PackageType/DropDown/" + CompId;
+
             try
             {
                 Task<List<SelectListItem>> Category = ry.DDColorStaysAPI(URLCategory, Token);
                 Task<List<SelectListItem>> Root = ry.DDColorStaysAPI(URLRoot, Token);
                 Task<List<SelectListItem>> Prefix = ry.DDColorStaysAPI(URLPrefix, Token);
                 Task<List<SelectListItem>> Suffix = ry.DDColorStaysAPI(URLSuffix, Token);
-                Task.WaitAll(Category, Root, Prefix, Suffix);
+                Task<List<SelectListItem>> PackageType = ry.DDColorStaysAPI(URLContinent, Token);
+
+                Task.WaitAll(Category, Root, Prefix, Suffix, PackageType);
                 ViewBag.Category = Category;
                 ViewBag.Root = Root;
                 ViewBag.Prefix = Prefix;
                 ViewBag.Suffix = Suffix;
+                ViewBag.PackageType = PackageType;
             }
             catch (Exception ex) { }
 
