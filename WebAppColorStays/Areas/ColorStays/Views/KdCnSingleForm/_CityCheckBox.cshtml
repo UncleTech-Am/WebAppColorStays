@@ -5,7 +5,9 @@
     ViewData["Action"] = "KdCnSingleForm";
 }
 
-@if (Model != null)
-{
-    @Html.EditorFor(model => model.CheckCityList.CheckCity, new { htmlAttributes = new { @checked = false } })
-}
+<div class="TtBxFlStDiv Pg5">
+    @if (Model != null)
+    {
+        @Html.EditorFor(model => model.CheckCityList.CheckCity, new { htmlAttributes = new { @checked = false } })
+    }
+</div>

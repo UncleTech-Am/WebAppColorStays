@@ -5,7 +5,10 @@
     ViewData["Action"] = "KdCnSingleForm";
 }
 
-@if (Model != null)
-{
-    @Html.EditorFor(model => model.CheckStateList.CheckState, new { htmlAttributes = new { @checked = false } })
-}
+<div class="TtBxFlStDiv Pg5">
+    @if (Model != null)
+    {
+        @Html.EditorFor(model => model.CheckStateList.CheckState, new { htmlAttributes = new { @checked = false } })
+    }
+</div>
+

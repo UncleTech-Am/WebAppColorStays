@@ -42,8 +42,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Name)" asp-for="Name" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Name"></span></div>
@@ -52,8 +52,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.URL)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.URL)" asp-for="URL" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.URL)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.URL)" asp-for="URL" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="URL"></span></div>
@@ -63,7 +63,7 @@
 {
     <div class="MnTp7 MnBm7">
         <div>
-            <div id="StateListCheck" class="FxGw1 TtBxFlStDiv" TtBx="TtBxMe">
+            <div id="StateListCheck" class="FxGw1" TtBx="TtBxMe">
                 @await Html.PartialAsync("_StateCheckBox", Model.CheckStateList)
             </div>
         </div>
@@ -73,7 +73,7 @@ else
 {
     <div class="MnTp7 MnBm7">
         <div>
-            <div id="StateListCheck" class="FxGw1 TtBxFlStDiv" TtBx="TtBxMe">
+            <div id="StateListCheck" class="FxGw1" TtBx="TtBxMe">
             </div>
         </div>
     </div>
@@ -83,7 +83,7 @@ else
 {
     <div class="MnTp7 MnBm7">
         <div>
-            <div id="CityListCheck" class="FxGw1 TtBxFlStDiv" TtBx="TtBxMe">
+            <div id="CityListCheck" class="FxGw1" TtBx="TtBxMe">
                 @await Html.PartialAsync("_CityCheckBox", Model.CheckCityList)
             </div>
         </div>
@@ -93,7 +93,7 @@ else
 {
     <div class="MnTp7 MnBm7">
         <div>
-            <div id="CityListCheck" class="FxGw1 TtBxFlStDiv" TtBx="TtBxMe">
+            <div id="CityListCheck" class="FxGw1" TtBx="TtBxMe">
             </div>
         </div>
     </div>
