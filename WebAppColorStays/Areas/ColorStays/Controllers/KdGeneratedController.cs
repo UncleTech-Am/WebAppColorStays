@@ -583,11 +583,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                         foreach (var file in files)
                         {
                             var fileName = file.FileName;
-
                             CsKdGenerated.CoverImage = fileName;
-                            //Delete the Images from the folder
-                            Task<string> TDeleteImage = ryCsImage.DeleteImage(CsKdGenerated.CoverImageName, TokenKey, "KdGenBanner");
-                            Task.WaitAll(TDeleteImage);
+                            if (CsKdGenerated.CoverImageName != null)
+                            {
+                               
+                                //Delete the Images from the folder
+                                Task<string> TDeleteImage = ryCsImage.DeleteImage(CsKdGenerated.CoverImageName, TokenKey, "KdGenBanner");
+                                Task.WaitAll(TDeleteImage);
+                            }
+                            
                             
                             if (file.Length > 0)
                             {
