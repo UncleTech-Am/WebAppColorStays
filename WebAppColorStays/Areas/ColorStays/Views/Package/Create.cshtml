@@ -277,6 +277,8 @@
         
     }
 
+
+
     tinymce.init({
         selector: '#Overview, #PackageHighlight, #NeedToKonw',
         plugins: `a11ychecker advcode advlist advtable anchor autocorrect autosave editimage image link linkchecker lists media mediaembed pageembed powerpaste searchreplace table template tinymcespellchecker visualblocks wordcount`,
@@ -796,6 +798,12 @@
         
     };
     //Ends
+
+    //add required in Itinerary alt tag 
+    function SetRquAlt(id2) {
+        document.getElementById(id2).setAttribute("required", "true");
+    }
+
 
     //Get the discounted price
     function GetPrice(discount){

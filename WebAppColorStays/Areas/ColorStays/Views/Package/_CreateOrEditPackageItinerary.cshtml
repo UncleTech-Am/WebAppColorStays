@@ -175,7 +175,7 @@ else
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Photo1)</div>
-            <input asp-for="Photo1" type="file" />
+            <input asp-for="Photo1" type="file" onchange="SetRquAlt('AltTag1')" />
             <input asp-for="Photo1" type="hidden" />
         </div>
     </div>

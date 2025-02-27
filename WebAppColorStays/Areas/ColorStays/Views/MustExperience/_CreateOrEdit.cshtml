@@ -84,8 +84,8 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag)" asp-for="AltTag" autocomplete="off" />
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.AltTag)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.AltTag)" asp-for="AltTag" autocomplete="off" required/>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="AltTag"></span></div>
