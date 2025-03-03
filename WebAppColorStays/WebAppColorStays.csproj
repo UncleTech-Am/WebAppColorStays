@@ -1249,7 +1249,7 @@
     <None Include="Areas\Developer\Views\_ViewStart.cshtml" />
     <None Include="Areas\ColorStays\Views\Shared\EditorTemplates\OfferHotelPackage.cshtml" />
     <None Include="wwwroot\ColorStaysIcons\demo-files\demo.js" />
-    <None Include="wwwroot\ColorStaysIcons\fonts\Colorstays.svg" />
+    <None Include="wwwroot\ColorStaysIcons\fonts\ColorStaysIcons.svg" />
     <None Include="wwwroot\CTIcons-v1.0\demo-files\demo.js" />
     <None Include="wwwroot\CTIcons-v1.0\fonts\CTIcons.svg" />
     <None Include="wwwroot\js\tinymce_6.2.0\tinymce\CHANGELOG.md" />
@@ -1291,6 +1291,8 @@
     <None Include="wwwroot\js\tinymce_6.2.0\tinymce\js\tinymce\plugins\wordcount\plugin.min.js" />
     <None Include="wwwroot\js\tinymce_6.2.0\tinymce\js\tinymce\themes\silver\theme.min.js" />
     <None Include="wwwroot\js\tinymce_6.2.0\tinymce\js\tinymce\tinymce.min.js" />
+    <None Include="wwwroot\UTIcons-v1.0\demo-files\demo.js" />
+    <None Include="wwwroot\UTIcons-v1.0\fonts\UTIcons.svg" />
   </ItemGroup>
 
   <ItemGroup>

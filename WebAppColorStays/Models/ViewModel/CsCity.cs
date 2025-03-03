@@ -24,9 +24,10 @@ namespace WebAppColorStays.Models.ViewModel
         public string? State { get; set; }
         [DisplayName("Country")]
         [StringLength(450, ErrorMessage = "You can enter only 450 characters long!")]
-
         public string? Fk_Country_Name { get; set; }
         public string? URL { get; set; }
+        [Remote("CheckDuplicationCityPlaceURL", "City", AdditionalFields = ("NameAction, Fk_Country_Name, Id"))]
+        public string? VisitPlaceURL { get; set; }
         [Remote("CheckDuplicationCity", "City", AdditionalFields = ("NameAction, Id, Fk_State_Name"))]
         [Required(ErrorMessage = "Please enter Name.")]
         [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]
