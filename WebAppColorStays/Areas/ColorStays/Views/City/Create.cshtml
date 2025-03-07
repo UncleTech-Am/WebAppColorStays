@@ -331,5 +331,22 @@
         
     };
         //Ends
+
+    function SetReqSEO() {
+        var visitPlaceURL = document.getElementById("VisitPlaceURL");
+        var seoTitle = document.getElementById("SEOTitleVisitPlace");
+        var seoDescription = document.getElementById("SEODescriptionVisitPlace");
+
+        if (visitPlaceURL && seoTitle && seoDescription) {
+            if (visitPlaceURL.value.trim() !== "") {
+                seoTitle.setAttribute("required", "required");
+                seoDescription.setAttribute("required", "required");
+            } else {
+                seoTitle.removeAttribute("required");
+                seoDescription.removeAttribute("required");
+            }
+        }
+    }
+
 </script>
 

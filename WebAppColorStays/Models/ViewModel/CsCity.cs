@@ -28,6 +28,10 @@ namespace WebAppColorStays.Models.ViewModel
         public string? URL { get; set; }
         [Remote("CheckDuplicationCityPlaceURL", "City", AdditionalFields = ("NameAction, Fk_Country_Name, Id"))]
         public string? VisitPlaceURL { get; set; }
+        [StringLength(70, ErrorMessage = "You can enter only 70 characters long!")]
+        public string? SEOTitleVisitPlace { get; set; }
+        [StringLength(170, ErrorMessage = "You can enter only 170 characters long!")]
+        public string? SEODescriptionVisitPlace { get; set; }
         [Remote("CheckDuplicationCity", "City", AdditionalFields = ("NameAction, Id, Fk_State_Name"))]
         [Required(ErrorMessage = "Please enter Name.")]
         [StringLength(250, ErrorMessage = "You can enter only 250 characters long!")]

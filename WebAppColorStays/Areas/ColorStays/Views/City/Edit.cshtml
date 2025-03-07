@@ -143,7 +143,7 @@
         ShowLoader();
         TabsUT('UTabs1', 0, [1, 2], []);
         TabsUT('UTabs2', 0, null, []);
-
+        
         //Show Image
         var CityId = $("#Id").val();
         getUT('/ColorStays/Photo/Index?CountryId=null' + '&StateId=null' + '&CityId=' + CityId + '&PlaceId=null' + '&FolderName=City', function (data) {
@@ -158,6 +158,7 @@
             HideLoader();
         });
         //Ends
+        SetReqSEO();
         StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
         MaxMin();
     });
@@ -336,5 +337,23 @@
         
     };
             //Ends
+
+    //Add required in visit place seo title and Description
+    function SetReqSEO() {
+        var visitPlaceURL = document.getElementById("VisitPlaceURL");
+        var seoTitle = document.getElementById("SEOTitleVisitPlace");
+        var seoDescription = document.getElementById("SEODescriptionVisitPlace");
+
+        if (visitPlaceURL && seoTitle && seoDescription) {
+            if (visitPlaceURL.value.trim() !== "") {
+                seoTitle.setAttribute("required", "required");
+                seoDescription.setAttribute("required", "required");
+            } else {
+                seoTitle.removeAttribute("required");
+                seoDescription.removeAttribute("required");
+            }
+        }
+    }
+
 </script>
 

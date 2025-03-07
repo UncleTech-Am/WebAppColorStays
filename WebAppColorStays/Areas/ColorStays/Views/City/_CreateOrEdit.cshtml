@@ -55,12 +55,31 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.VisitPlaceURL)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.VisitPlaceURL)" asp-for="VisitPlaceURL" autocomplete="off" />
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.VisitPlaceURL)" asp-for="VisitPlaceURL" autocomplete="off" onchange="SetReqSEO()" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="VisitPlaceURL"></span></div>
 </div>
 
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOTitleVisitPlace) &nbsp;<span> Max Char 70 </span> <span id="Seotitle1SID" class="CrBdRd70 CrWe BrRs3"></span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEOTitleVisitPlace)" asp-for="SEOTitleVisitPlace" autocomplete="off" onkeyup="CrCtIt('SEOTitleVisitPlace','Seotitle1SID',70)"></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEOTitleVisitPlace"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEODescriptionVisitPlace) &nbsp;<span> Max Char 170 </span> <span id="SeoDesc1SID" class="CrBdRd70 CrWe BrRs3"></span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEODescriptionVisitPlace)" asp-for="SEODescriptionVisitPlace" autocomplete="off" onkeyup="CrCtIt('SEODescriptionVisitPlace','SeoDesc1SID',170)"></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="SEODescriptionVisitPlace"></span></div>
+</div>
 
 
 <div class="MnTp7 MnBm7">
