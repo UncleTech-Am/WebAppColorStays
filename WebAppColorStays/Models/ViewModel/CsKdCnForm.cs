@@ -47,6 +47,19 @@ namespace WebAppColorStays.Models.ViewModel
         public bool IsURLHavingCountry { get; set; }
         public bool IsStateKeyword { get; set; }
         public bool IsCountryKeyword { get; set; }
+        [DisplayName("No_Of_Nights")]
+        public int? Duration { get; set; }
+        public bool Breakfast { get; set; }
+        public bool Lunch { get; set; }
+        public bool Dinner { get; set; }
+        public bool Bus { get; set; }
+        public bool Cab { get; set; }
+        public bool Airplane { get; set; }
+        public bool Train { get; set; }
+        public int? NoOfPerson { get; set; }
+        public double? FromPrice { get; set; }
+        public double? ToPrice { get; set; }
+        public bool IsStartingFrom { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]

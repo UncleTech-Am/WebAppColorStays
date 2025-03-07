@@ -49,6 +49,10 @@ namespace WebAppColorStays.Models.ViewModel
         public bool Breakfast { get; set; }
         public bool Lunch { get; set; }
         public bool Dinner { get; set; }
+        public bool Bus { get; set; }
+        public bool Cab { get; set; }
+        public bool Airplane { get; set; }
+        public bool Train { get; set; }
         public string? LocationDuration { get; set; }
         public string? Description { get; set; }
         [AllowHtml]

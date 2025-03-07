@@ -205,6 +205,146 @@ else
     </div>
 }
 
+
+<div class="FxRw">
+    <div class="Fx50 Pg1 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FromPrice)<span style="color:red;"> *</span></div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FromPrice)" asp-for="FromPrice" autocomplete="off" required />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="FromPrice"></span></div>
+    </div>
+
+    <div class=" Fx50 Pg1 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ToPrice) Rate %</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ToPrice)" asp-for="ToPrice" autocomplete="off" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="ToPrice"></span></div>
+    </div>
+</div>
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Duration)<span style="color:red;"> *</span></div>
+                <input  class="TtBxTt15" placeholder="No Of Night" asp-for="Duration" autocomplete="off" required/>
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Duration"></span></div>
+    </div>
+     <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.NoOfPerson)<span style="color:red;"> *</span></div>
+                <input class="TtBxTt15" placeholder="No Of Person" asp-for="NoOfPerson" autocomplete="off" required/>
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="NoOfPerson"></span></div>
+    </div>
+
+</div>
+
+<div class="FxRw">
+    <div class="Fx25 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Breakfast)</div>*@
+                <input class="SeIt1o15" type="checkbox" asp-for="Breakfast" />
+                &nbsp;Breakfast
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Breakfast"></span></div>
+    </div>
+
+
+    <div class="Fx25 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Lunch)</div>*@
+                <input class="SeIt1o15" type="checkbox" asp-for="Lunch" />
+                &nbsp;Lunch
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Lunch"></span></div>
+    </div>
+
+
+    <div class="Fx25 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Dinner)</div>*@
+                <input class="SeIt1o15" type="checkbox" asp-for="Dinner" />
+                &nbsp;Dinner
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Dinner"></span></div>
+    </div>
+
+    <div class="Fx25 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Dinner)</div>*@
+                <input class="SeIt1o15" type="checkbox" asp-for="IsStartingFrom" />
+                &nbsp;StartingFrom City
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsStartingFrom"></span></div>
+    </div>
+</div>
+
+<div class="FxRw">
+    <div class="Fx25 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="Bus" />
+                &nbsp;Bus
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Bus"></span></div>
+    </div>
+
+
+    <div class="Fx25 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Lunch)</div>*@
+                <input class="SeIt1o15" type="checkbox" asp-for="Cab" />
+                &nbsp;Cab
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Cab"></span></div>
+    </div>
+
+
+    <div class="Fx25 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Dinner)</div>*@
+                <input class="SeIt1o15" type="checkbox" asp-for="Airplane" />
+                &nbsp;Airplane
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Airplane"></span></div>
+    </div>
+
+    <div class="Fx25 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Dinner)</div>*@
+                <input class="SeIt1o15" type="checkbox" asp-for="Train" />
+                &nbsp;Train
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Train"></span></div>
+    </div>
+</div>
+
+
 <div class="FxRw">
     <div class="Fx50 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
