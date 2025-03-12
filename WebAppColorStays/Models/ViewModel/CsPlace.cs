@@ -22,6 +22,8 @@ namespace WebAppColorStays.Models.ViewModel
         [Required(ErrorMessage = "Please enter Name.")]
         [Remote("CheckDuplicationPlace", "Place", AdditionalFields = ("NameAction, Id, Fk_City_Name"))]
         public string? Name { get; set; }
+        [StringLength(100, ErrorMessage = "You can enter only 100 characters long!")]
+        public string? TagLine { get; set; }
         public string? StructuredData { get; set; }
         public string? Image { get; set; }
         [NotMapped]
