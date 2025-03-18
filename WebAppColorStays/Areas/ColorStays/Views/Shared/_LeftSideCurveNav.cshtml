@@ -70,6 +70,7 @@
     string PackageType = " ";
     string PackageOfferType = " ";
     string PackageOffer = " ";
+    string PackageFAQ = " ";
     string PackageTypeCountryMap = " ";
     string PackageTypeStateMap = " ";
     string MainLink6 = " ";
@@ -228,6 +229,7 @@
         case "CancellationPolicyType": CancellationPolicyType = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "SEOPackageHyperLink": SEOPackageHyperLink = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
         case "TermsAndCondition": TermsAndCondition = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
+        case "PackageFAQ": PackageFAQ = "SideSubLinkActive"; MainLink4 = "SideNavActive"; DrownLink4 = "SideSubNavActive"; break;
 
         case "Restaurant": Restaurant = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
         case "RestaurantFoodType": RestaurantFoodType = "SideSubLinkActive"; MainLink5 = "SideNavActive"; DrownLink5 = "SideSubNavActive"; break;
@@ -1233,6 +1235,15 @@
                     </div>
                     <a href="~/ColorStays/PackageType/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/PackageType/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @PackageFAQ">
+                        <a href="~/ColorStays/PackageFAQ/Create">PackageFAQ</a>
+                    </div>
+                    <a href="~/ColorStays/PackageFAQ/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/PackageFAQ/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
 

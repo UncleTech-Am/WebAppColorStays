@@ -522,6 +522,15 @@
     <None Include="Areas\ColorStays\Views\PackageExclusion\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageExclusion\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageExclusion\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageFAQ\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageFAQ\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageFAQ\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageFAQ\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageFAQ\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageFAQ\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageFAQ\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageFAQ\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\PackageFAQ\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageInclusionMap\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageInclusionMap\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageInclusionMap\Index.cshtml" />

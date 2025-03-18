@@ -109,6 +109,7 @@ namespace WebAppColorStays.Models.ViewModel
 
         public string? OurTips5 { get; set; }
         public int? TelephoneCode { get; set; }
+        [DisplayName("ThingsToDo")]
         [AllowHtml]
         public string? TopThingsToKnow { get; set; }
         public string? Itinerary { get; set; }

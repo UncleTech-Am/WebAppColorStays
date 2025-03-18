@@ -29,17 +29,6 @@
     <div class="VnRd"><span asp-validation-for="Fk_KdCnCategory_Name"></span></div>
 </div>
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_PackageType_Name)</div>
-            <select asp-for="Fk_PackageType_Name" asp-items="@await ViewBag.PackageType" class="TtBxTt15">
-                <option value="">Select Package Type</option>
-            </select>
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Fk_PackageType_Name"></span></div>
-</div>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -81,39 +70,6 @@
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_KdSuffix_Name"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOTitle) &nbsp;<span> Max Char 70(__variable) </span> <span id="SeotitleSID" class="CrBdRd70 CrWe BrRs3"></span><span style="color:red;"> *</span></div>
-            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" asp-for="SEOTitle" autocomplete="off" required onkeyup="CrCtIt('SEOTitle','SeotitleSID',70)"></textarea>
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="SEOTitle"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEODescription) &nbsp;<span> Max Char 170 (__variable) </span> <span id="SeoDescSID" class="CrBdRd70 CrWe BrRs3"></span><span style="color:red;"> *</span></div>
-            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" asp-for="SEODescription" autocomplete="off" required onkeyup="CrCtIt('SEODescription','SeoDescSID',170)"></textarea>
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="SEODescription"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOKeywords)<span>(__variable) </span><span style="color:red;"> *</span></div>
-            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" asp-for="SEOKeywords" autocomplete="off" required></textarea>
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="SEOKeywords"></span></div>
 </div>
 
 
@@ -185,16 +141,6 @@
 
 </div>
 
-<div class=" MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Dinner)</div>*@
-            <input class="SeIt1o15" type="checkbox" asp-for="IsStartingFrom" />
-            &nbsp;Is Keyword For Starting City
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="IsStartingFrom"></span></div>
-</div>
 
 
 @if (Model != null)
@@ -217,6 +163,99 @@ else
     </div>
 }
 
+
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="BeforePrefix">
+                &nbsp;Is Variable BeforePrefix
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
+    </div>
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="AfterPrefix">
+                &nbsp;Is Variable AfterPrefix
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
+    </div>
+</div>
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="BeforeRoot">
+                &nbsp;Is Variable BeforeRoot
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
+    </div>
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="AfterRoot">
+                &nbsp;Is Variable AfterRoot
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
+    </div>
+</div>
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="BeforeSuffix">
+                &nbsp;Is Variable BeforeSuffix
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
+    </div>
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="AfterSuffix">
+                &nbsp;Is Variable AfterSuffix
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
+    </div>
+</div>
+
+
+<div class="MnTp7 MnBm10 TtAnCr FtSz18 FtWt600 CrBdTe">
+    Filters
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_PackageType_Name)</div>
+            <select asp-for="Fk_PackageType_Name" asp-items="@await ViewBag.PackageType" class="TtBxTt15">
+                <option value="">Select Package Type</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_PackageType_Name"></span></div>
+</div>
+
+<div class=" MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Dinner)</div>*@
+            <input class="SeIt1o15" type="checkbox" asp-for="IsStartingFrom" />
+            &nbsp;Is Keyword For Starting From City
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="IsStartingFrom"></span></div>
+</div>
 
 <div class="FxRw">
     <div class="Fx50 Pg1 MnTp7 MnBm7">
@@ -346,68 +385,36 @@ else
 </div>
 
 
-<div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="BeforePrefix">
-                &nbsp;Is Variable BeforePrefix
-            </div>
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOTitle) &nbsp;<span> Max Char 70(__variable) </span> <span id="SeotitleSID" class="CrBdRd70 CrWe BrRs3"></span><span style="color:red;"> *</span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" asp-for="SEOTitle" autocomplete="off" required onkeyup="CrCtIt('SEOTitle','SeotitleSID',70)"></textarea>
         </div>
-        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
     </div>
-
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="AfterPrefix">
-                &nbsp;Is Variable AfterPrefix
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
-    </div>
+    <div class="VnRd"><span asp-validation-for="SEOTitle"></span></div>
 </div>
-<div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="BeforeRoot">
-                &nbsp;Is Variable BeforeRoot
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
-    </div>
 
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="AfterRoot">
-                &nbsp;Is Variable AfterRoot
-            </div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEODescription) &nbsp;<span> Max Char 170 (__variable) </span> <span id="SeoDescSID" class="CrBdRd70 CrWe BrRs3"></span><span style="color:red;"> *</span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" asp-for="SEODescription" autocomplete="off" required onkeyup="CrCtIt('SEODescription','SeoDescSID',170)"></textarea>
         </div>
-        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
     </div>
+    <div class="VnRd"><span asp-validation-for="SEODescription"></span></div>
 </div>
-<div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="BeforeSuffix">
-                &nbsp;Is Variable BeforeSuffix
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
-    </div>
 
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <input class="SeIt1o15" type="radio" asp-for="VariablePosition" value="AfterSuffix">
-                &nbsp;Is Variable AfterSuffix
-            </div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.SEOKeywords)<span>(__variable) </span><span style="color:red;"> *</span></div>
+            <textarea class="TtAaTt15" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" asp-for="SEOKeywords" autocomplete="off" required></textarea>
         </div>
-        <div class="VnRd"><span asp-validation-for="VariablePosition"></span></div>
     </div>
+    <div class="VnRd"><span asp-validation-for="SEOKeywords"></span></div>
 </div>
 
 
