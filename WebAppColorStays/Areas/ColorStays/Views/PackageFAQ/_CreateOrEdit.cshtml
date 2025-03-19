@@ -16,6 +16,31 @@
 @Html.HiddenFor(model => model.CreatedOn)
 @Html.HiddenFor(model => model.CompId)
 
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_PackageType_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_PackageType_Name" asp-items="@await ViewBag.PackageType" class="TtBxTt15" required>
+                <option value="">Select Package Type</option>
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_PackageType_Name"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_City_Name)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt14" placeholder="City Name" type="text" id="SearchCity" asp-for="City" autocomplete="off" required onchange="ClearData('SearchCity','Fk_City_Name', 'Fk_State_Name', 'Fk_Country_Name')" />
+            <input type="hidden" asp-for="Fk_City_Name" required />
+            <input type="hidden" asp-for="Fk_State_Name" required />
+            <input type="hidden" asp-for="Fk_Country_Name" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_City_Name"></span></div>
+</div>
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -38,67 +63,9 @@
     <div class="VnRd"><span asp-validation-for="Answer"></span></div>
 </div>
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_PackageType_Name)<span style="color:red;"> *</span></div>
-            <select asp-for="Fk_PackageType_Name" asp-items="@await ViewBag.PackageType" class="TtBxTt15" required>
-                <option value="">Select Package Type</option>
-            </select>
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Fk_PackageType_Name"></span></div>
-</div>
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Place_Name)</div>
-            <input class="TtBxTt14" placeholder="Place Name" type="text" id="SearchPlace" asp-for="Place" autocomplete="off" onchange="ClearData('SearchPlace', 'Fk_Place_Name')" />
-            <input type="hidden" asp-for="Fk_Place_Name" required />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Fk_Place_Name"></span></div>
-</div>
 
 
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_City_Name)</div>
-            <input class="TtBxTt14" placeholder="City Name" type="text" id="SearchCity" asp-for="City" autocomplete="off" onchange="ClearData('SearchCity','Fk_City_Name')" />
-            <input type="hidden" asp-for="Fk_City_Name" required />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Fk_City_Name"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_State_Name)</div>
-            <input class="TtBxTt14" placeholder="State Name" type="text" id="SearchState" asp-for="State" autocomplete="off" onchange="ClearData('SearchState','Fk_State_Name')" />
-            <input type="hidden" asp-for="Fk_State_Name" required />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Fk_State_Name"></span></div>
-</div>
-
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Country_Name)</div>
-            <input class="TtBxTt14" placeholder="Country Name" type="text" id="SearchCountry" asp-for="Country" autocomplete="off" onchange="ClearData('SearchCountry','Fk_Country_Name')" />
-            <input type="hidden" asp-for="Fk_Country_Name" required />
-        </div>
-    </div>
-    <div class="VnRd"><span asp-validation-for="Fk_Country_Name"></span></div>
-</div>
-
-
-<div class="FxRw">
+@* <div class="FxRw">
     <div class="Fx33 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
@@ -130,9 +97,7 @@
         </div>
         <div class="VnRd"><span asp-validation-for="Shared"></span></div>
     </div>
-</div>
-
-
+</div> *@
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
