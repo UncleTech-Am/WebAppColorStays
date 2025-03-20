@@ -53,6 +53,7 @@ namespace WebAppColorStays.Models.ViewModel
         public int? InternationalAirportCount { get; set; }
         public int? DomesticAirportCount { get; set; }
         public int? RailwayStationCount { get; set; }
+        [AllowHtml]
         public string? BestTimeToVisit { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }

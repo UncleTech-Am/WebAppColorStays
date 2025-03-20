@@ -60,6 +60,16 @@
     <div class="VnRd"><span asp-validation-for="URL"></span></div>
 </div>
 
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Heading)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Heading)" asp-for="Heading" autocomplete="off" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Heading"></span></div>
+</div>
+
 @if (Model != null)
 {
     @if (Model.CoverImage != null)
@@ -199,7 +209,7 @@ else
 </div>
 
 <div class="FxRw">
-    <div class="Fx33 Pg2 MnTp7 MnBm7">
+    <div class="Fx25 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Breakfast)</div>*@
@@ -211,7 +221,7 @@ else
     </div>
 
 
-    <div class="Fx33 Pg2 MnTp7 MnBm7">
+    <div class="Fx20 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Lunch)</div>*@
@@ -223,7 +233,7 @@ else
     </div>
 
 
-    <div class="Fx33 Pg2 MnTp7 MnBm7">
+    <div class="Fx25 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
                 @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Dinner)</div>*@
@@ -233,6 +243,18 @@ else
         </div>
         <div class="VnRd"><span asp-validation-for="Dinner"></span></div>
     </div>
+
+    <div class="Fx30 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                @*<div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Dinner)</div>*@
+                <input class="SeIt1o15" type="checkbox" asp-for="IsVideoShoot" />
+                &nbsp;Videoshoot
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsVideoShoot"></span></div>
+    </div>
+
 </div>
 
 <div class="FxRw">

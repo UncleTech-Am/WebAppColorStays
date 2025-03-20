@@ -113,6 +113,7 @@ namespace WebAppColorStays.Models.ViewModel
         [AllowHtml]
         public string? TopThingsToKnow { get; set; }
         public string? Itinerary { get; set; }
+        [AllowHtml]
         public string? BestTimeToVisit { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
