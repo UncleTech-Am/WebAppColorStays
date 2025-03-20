@@ -44,6 +44,7 @@ namespace WebAppColorStays.Models.ViewModel
         public int? ImageCount { get; set; }
         [NotMapped]
         public int? InclusionCount { get; set; }
+        public string? PackageCategory { get; set; }
         [DisplayName("No_Of_Nights")]
         public int? Duration { get; set; }
         public bool IsVideoShoot { get; set; }
