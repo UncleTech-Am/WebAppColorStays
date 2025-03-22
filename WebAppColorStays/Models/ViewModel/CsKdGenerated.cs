@@ -52,6 +52,7 @@ namespace WebAppColorStays.Models.ViewModel
         public bool IsURlChange { get; set; }
         [DisplayName("No_Of_Nights")]
         public int? Duration { get; set; }
+        [DisplayName("Heading H1")]
         public string? Heading { get; set; }
         public bool IsVideoShoot { get; set; }
         public bool Breakfast { get; set; }

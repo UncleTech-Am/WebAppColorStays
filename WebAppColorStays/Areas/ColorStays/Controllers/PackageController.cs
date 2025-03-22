@@ -1674,6 +1674,33 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 return View("Error");
             }
         }
-       
+
+        //This method is to check duplicate values for specific columns......
+        public async Task<JsonResult> CheckDuplicationPackageRank(int Rank, string NameAction, string Fk_Country_Name, string Id)
+        {
+            bool Success = false;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            if (Id == null) { Id = "No"; }
+            if (Fk_Country_Name == null) { Fk_Country_Name = "No"; }
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Package/CheckDuplicationPackageRank/" + Rank + "/" + NameAction + "/" + Fk_Country_Name + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Success = true;
+                    }
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        return Json("Sorry, this " + Rank + " already exists");
+                    }
+                }
+            }
+            if (Success == true) { return Json(true); }
+            else { return Json("Some Error!"); }
+        }
+
     }
 }

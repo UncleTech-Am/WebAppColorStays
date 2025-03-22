@@ -16,6 +16,9 @@ namespace WebAppColorStays.Models.ViewModel
         public string? SEODescription { get; set; }
         [StringLength(1000, ErrorMessage = "You can enter only 1000 characters long!")]
         public string? SEOKeywords { get; set; }
+        public string? RankLabel { get; set; }
+        [Remote("CheckDuplicationPackageRank", "Package", AdditionalFields = ("NameAction, Fk_Country_Name, Id"))]
+        public int? Rank { get; set; }
         [DisplayName("Currency")]
         public string? Fk_Currency_Name { get; set; }
         [NotMapped]
