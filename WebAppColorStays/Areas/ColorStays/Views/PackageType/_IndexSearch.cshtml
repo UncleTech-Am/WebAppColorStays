@@ -69,6 +69,21 @@
                     </td>
 
                     <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" name="SEOTitle" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEODescription)" name="SEODescription" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" name="SEOKeywords" autocomplete="off" />
+                    </td>
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.StructuredData)" name="StructuredData" autocomplete="off" />
+                    </td>
+                    <td>
                         <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Remarks)" name="Remarks" autocomplete="off" />
                     </td>
 
@@ -146,6 +161,10 @@
                     <th> @Html.DisplayNameFor(model => model.BigImage) </th>
                     <th> @Html.DisplayNameFor(model => model.AltTag1) </th>
                     <th> @Html.DisplayNameFor(model => model.EndPrice) </th>
+                    <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOTitle) </th>
+                    <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEODescription) </th>
+                    <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOKeywords) </th>
+                    <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.StructuredData) </th>
                     <th> @Html.DisplayNameFor(model => model.Remarks) </th>
                     <th> @Html.DisplayNameFor(model => model.FreezeStatus) </th>
                     <th> @Html.DisplayNameFor(model => model.FreezedBy) </th>
@@ -171,4 +190,15 @@
         </table>
     </div>
 </div>
-
+<script>
+    function ShowData(element) {
+        var popup = document.getElementById('PopUpScript');
+        popup.style.minHeight = "50%";
+        popup.style.left = "25%";
+        popup.style.top = "18%";
+        popup.style.width = "50%";
+        popup.style.overflowX = "auto";
+        document.getElementById('PopUpScript').style.display = 'block';
+        document.getElementById('PopUpScriptDetailContentID').innerHTML = element.innerHTML;
+    }
+</script>

@@ -34,7 +34,11 @@
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.URL)" name="URL" autocomplete="off"/>
                         </td>
-                        
+
+                    <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.Heading)" name="Heading" autocomplete="off" />
+                    </td>
+
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOTitle)" name="SEOTitle" autocomplete="off"/>
                         </td>
@@ -45,6 +49,9 @@
                         
                         <td>
                             <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.SEOKeywords)" name="SEOKeywords" autocomplete="off"/>
+                        </td>
+                         <td>
+                        <input class="TtBxTt15" type="text" placeholder="@Html.DisplayNameFor(model => model.StructuredData)" name="StructuredData" autocomplete="off" />
                         </td>
 
                         <td>
@@ -126,9 +133,11 @@
                     </th>
                                         <th> @Html.DisplayNameFor(model => model.Name) </th>       
                                         <th> @Html.DisplayNameFor(model => model.URL) </th>
+                                        <th> @Html.DisplayNameFor(model => model.Heading) </th>
                                         <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
                                         <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEODescription) </th>       
                                         <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOKeywords) </th> 
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.StructuredData) </th> 
                                         <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.DescriptionGenerated) </th>       
                                         <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.DescriptionManual) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Remarks) </th>       
@@ -157,3 +166,15 @@
     </div>
 </div>
 
+<script>
+    function ShowData(element) {
+        var popup = document.getElementById('PopUpScript');
+        popup.style.minHeight = "50%";
+        popup.style.left = "25%";
+        popup.style.top = "18%";
+        popup.style.width = "50%";
+        popup.style.overflowX = "auto";
+        document.getElementById('PopUpScript').style.display = 'block';
+        document.getElementById('PopUpScriptDetailContentID').innerHTML = element.innerHTML;
+    }
+</script>
