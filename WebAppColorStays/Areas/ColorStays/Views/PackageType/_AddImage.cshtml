@@ -10,7 +10,7 @@
 
 
 @*@Html.HiddenFor(model => model.Id)*@
-<input type="hidden" id="AId" asp-for="Id" />
+<input type="hidden" id="PId" asp-for="Id" />
 @Html.HiddenFor(model => model.RowVersion)
 @Html.HiddenFor(model => model.CreatedBy)
 @Html.HiddenFor(model => model.CreatedOn)
@@ -25,6 +25,11 @@
 @Html.HiddenFor(model => model.BigImage)
 @Html.HiddenFor(model => model.AltTag1)
 @Html.HiddenFor(model => model.URL)
+@Html.HiddenFor(model => model.SEODescription)
+@Html.HiddenFor(model => model.SEOKeywords)
+@Html.HiddenFor(model => model.SEOTitle)
+@Html.HiddenFor(model => model.StructuredData)
+@Html.HiddenFor(model => model.IsCompleteURL)
 
 @if (Model.ImageName == null)
 {

@@ -12,6 +12,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Label { get; set; }
         public string? Name { get; set; }
         public string? URL { get; set; }
+        public bool IsCompleteURL { get; set; }
         [StringLength(60, ErrorMessage = "You can enter only 70 characters long!")]
         public string? SEOTitle { get; set; }
         [StringLength(155, ErrorMessage = "You can enter only 170 characters long!")]

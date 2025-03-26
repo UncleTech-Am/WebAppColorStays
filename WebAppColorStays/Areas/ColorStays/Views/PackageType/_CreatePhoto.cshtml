@@ -31,6 +31,11 @@
         @Html.HiddenFor(model => model.ImageName)
         @Html.HiddenFor(model => model.BigImage)
         @Html.HiddenFor(model => model.URL)
+        @Html.HiddenFor(model => model.IsCompleteURL)
+        @Html.HiddenFor(model => model.SEODescription)
+        @Html.HiddenFor(model => model.SEOKeywords)
+        @Html.HiddenFor(model => model.SEOTitle)
+        @Html.HiddenFor(model => model.StructuredData)
 
         @if (Model.ImageName != null)
         {

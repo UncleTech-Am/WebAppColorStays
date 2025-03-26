@@ -207,6 +207,7 @@
     function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Detail");
         ShowImage(document.getElementById('PTId').value);
+        ShowUploads();
         ActiveTabUt('UTabs2', 0);
         HideLoader();
     }
