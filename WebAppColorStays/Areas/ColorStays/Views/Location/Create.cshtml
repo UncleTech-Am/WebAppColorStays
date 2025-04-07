@@ -57,6 +57,8 @@
         IntializeTableSearch();
         StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
         StartSuggestionBox(2, 'SearchPlace', '/ColorStays/Place/SuggestPlace', '', '', AoCePlace);
+        StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
+        StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
     });
 
     //Autocomplete City
@@ -85,7 +87,7 @@
         document.getElementById('Fk_State_Name').value = event.target.Text2;
         document.getElementById('Fk_Country_Name').value = event.target.Text3;
     }
-    function ClearData(UrNe, UrId, Text1, Text2, Text3) {
+    function ClearData1(UrNe, UrId, Text1, Text2, Text3) {
         document.getElementById(UrNe).value = '';
         document.getElementById(UrId).value = '';
         document.getElementById(Text1).value = '';
@@ -93,10 +95,42 @@
         document.getElementById(Text3).value = '';
     }
 
+    //Clear Autocompete data
+    function ClearData2(UrNe, UrId, Test1) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+        document.getElementById(Test1).value = '';
+    }
+
+    //Autocomplete Item
+    function AoCeState(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_State_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+        document.getElementById('Fk_Country_Name').value = event.target.Text;
+    }
+
+    //Clear Autocompete data
+    function ClearData3(UrNe, UrId) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+    }
+
+    //Autocomplete Item
+    function AoCeCountry(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Country_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
     function ShowLocation(type) {
         if (type == "Place") {
             document.getElementById('Place').style.display = 'block';
             document.getElementById('City').style.display = 'none';
+            document.getElementById('State').style.display = 'none';
+            document.getElementById('Country').style.display = 'none';
             document.getElementById('SearchPlace').value = '';
             document.getElementById('Fk_Place_Name').value = '';
             document.getElementById('Fk_City_Name').value = '';
@@ -107,12 +141,35 @@
         if (type == "City") {
             document.getElementById('City').style.display = 'block';
             document.getElementById('Place').style.display = 'none';
+            document.getElementById('State').style.display = 'none';
+            document.getElementById('Country').style.display = 'none';
             document.getElementById('SearchCity').value = '';
             document.getElementById('Fk_City_NameC').value = '';
             document.getElementById('Fk_State_NameC').value = '';
             document.getElementById('Fk_Country_NameC').value = '';
             document.getElementById('Submitbutton').style.display = 'block';
         }
+         if (type == "State") {
+            document.getElementById('City').style.display = 'none';
+            document.getElementById('Place').style.display = 'none';
+            document.getElementById('State').style.display = 'block';
+            document.getElementById('Country').style.display = 'none';
+            document.getElementById('SearchState').value = '';
+            document.getElementById('Fk_State_NameS').value = '';
+            document.getElementById('Fk_Country_NameS').value = '';
+            document.getElementById('Submitbutton').style.display = 'block';
+        }
+         if (type == "Country") {
+            document.getElementById('City').style.display = 'none';
+            document.getElementById('Place').style.display = 'none';
+            document.getElementById('State').style.display = 'none';
+            document.getElementById('Country').style.display = 'block';
+            document.getElementById('SearchCountry').value = '';
+            document.getElementById('Fk_Country_NameCy').value = '';
+            document.getElementById('Submitbutton').style.display = 'block';
+        }
+
+
     }
 
 
