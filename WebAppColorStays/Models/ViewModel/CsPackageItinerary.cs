@@ -25,6 +25,7 @@ namespace WebAppColorStays.Models.ViewModel
         [DisplayName("Heading1")]
         public string? DayActivity1 { get; set; }
         public bool Sightseen { get; set; }
+        [Remote("CheckDuplicationPackageItineraryImg1", "PackageItinerary", AdditionalFields = ("NameAction, Id"))]
         public string? Photo1 { get; set; }
         public string? AltTag1 { get; set; }
         public string? Description1 { get; set; }
@@ -38,15 +39,19 @@ namespace WebAppColorStays.Models.ViewModel
         public string? ImageUrl4 { get; set; }
         [NotMapped]
         public string? ImageUrl5 { get; set; }
+        [Remote("CheckDuplicationPackageItineraryImg2", "PackageItinerary", AdditionalFields = ("NameAction, Id"))]
         public string? Photo2 { get; set; }
         public string? AltTag2 { get; set; }
         public string? Description2 { get; set; }
+        [Remote("CheckDuplicationPackageItineraryImg3", "PackageItinerary", AdditionalFields = ("NameAction, Id"))]
         public string? Photo3 { get; set; }
         public string? AltTag3 { get; set; }
         public string? Description3 { get; set; }
+        [Remote("CheckDuplicationPackageItineraryImg4", "PackageItinerary", AdditionalFields = ("NameAction, Id"))]
         public string? Photo4 { get; set; }
         public string? AltTag4 { get; set; }
         public string? Description4 { get; set; }
+        [Remote("CheckDuplicationPackageItineraryImg5", "PackageItinerary", AdditionalFields = ("NameAction, Id"))]
         public string? Photo5 { get; set; }
         public string? AltTag5 { get; set; }
         public string? Description5 { get; set; }

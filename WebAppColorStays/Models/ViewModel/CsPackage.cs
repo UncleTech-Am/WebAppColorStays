@@ -59,6 +59,7 @@ namespace WebAppColorStays.Models.ViewModel
         public bool Airplane { get; set; }
         public bool Train { get; set; }
         public string? LocationDuration { get; set; }
+        [StringLength(800, ErrorMessage = "You can enter only 800 characters long!")]
         public string? Description { get; set; }
         [AllowHtml]
         public string? NeedToKonw { get; set; }
