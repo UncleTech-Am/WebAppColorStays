@@ -601,11 +601,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 var extension = Path.GetExtension(file.FileName);
                 var size = file.Length;
 
-                if (!extension.ToLower().Equals(".jpg") && !extension.ToLower().Equals(".png") && !extension.ToLower().Equals(".jpeg"))
+                if (!extension.ToLower().Equals(".jpg") && !extension.ToLower().Equals(".png") && !extension.ToLower().Equals(".jpeg") && !extension.ToLower().Equals(".webp"))
                 {
                     ModelState.AddModelError("ImageUrl", "Only jpg,png & jpeg Accepted");
                 }
-                if (extension.ToLower().Equals(".jpg") || extension.ToLower().Equals(".png") || extension.ToLower().Equals(".jpeg"))
+                if (extension.ToLower().Equals(".jpg") || extension.ToLower().Equals(".png") || extension.ToLower().Equals(".jpeg") || extension.ToLower().Equals(".webp"))
                 {
                     fileName = (CsBlogAuthor.Name + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5) + "_" + Path.GetExtension(file.FileName)).Replace(" ", "_");
                     CsBlogAuthor.ImageUrl = fileName;
@@ -617,6 +617,16 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             {
                 try
                 {
+                    foreach (var file in Request.Form.Files)
+                    {
+                        //Save the Images in the Folder
+                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "BlogAuthor");
+                        Task.WaitAll(TImgUpload);
+                        if (TImgUpload.Result == "Error")
+                        {
+                            return View("Error");
+                        }
+                    }
                     using (HttpClient client = APIColorStays.Initial())
                     {
 						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
@@ -626,19 +636,6 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                             if (!response.IsSuccessStatusCode)
                             {
                                 Tuple<CsBlogAuthor, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsBlogAuthor,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                                if (response.IsSuccessStatusCode)
-                                {
-                                    foreach (var file in Request.Form.Files)
-                                    {
-                                        //Save the Images in the Folder
-                                        Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "BlogAuthor");
-                                        Task.WaitAll(TImgUpload);
-                                        if (TImgUpload.Result == "Error")
-                                        {
-                                            return View("Error");
-                                        }
-                                    }
-                                }
                                 if (data.Item2 != null)
                                 {
                                     if (data.Item2.Message == "Duplicate")

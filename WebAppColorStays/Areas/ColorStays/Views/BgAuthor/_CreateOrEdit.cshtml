@@ -44,6 +44,7 @@
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ImageUrl) &nbsp;Max file size is 5MB</div>
             <input class="BnRd14 CrTeTtLT HrTmSeo94" value="Choose File" type="file" id="myFile" multiple size="50" onchange="myFunction()">
+            <input asp-for="ImageName" type="hidden" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="ImageUrl"></span></div>
