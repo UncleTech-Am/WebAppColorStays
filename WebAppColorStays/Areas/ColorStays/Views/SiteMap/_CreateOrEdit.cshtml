@@ -16,17 +16,58 @@
 @Html.HiddenFor(model => model.CreatedOn)
 @Html.HiddenFor(model => model.CompId)
 
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Link)<span style="color:red;"> *</span></div>
-            <input class="TtBxTt14" placeholder="Link" type="text" id="Link" asp-for="Link" autocomplete="off" required onchange="ClearData('Link','Fk_Map_Name')" />
-            <input type="hidden" asp-for="Fk_Map_Name" required />
+@if (Model != null)
+{
+    if (Model.Fk_Map_Name != null)
+    {
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Link)</div>
+                    <input class="TtBxTt14" placeholder="Link" type="text" id="Link" asp-for="Link" autocomplete="off" onchange="ClearData('Link','Fk_Map_Name')" />
+                    <input type="hidden" asp-for="Fk_Map_Name" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="Link"></span></div>
         </div>
+    }
+    else
+    {
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">Manual Link<span style="color:red;"> *</span></div>
+                    <input class="TtBxTt14" placeholder="Link" type="text" id="ManualLink" asp-for="Link" autocomplete="off" required />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="Link"></span></div>
+        </div>
+    }
+}
+else
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">Manual Link<span style="color:red;"> *</span></div>
+                <input class="TtBxTt14" placeholder="Link" type="text" id="ManualLink" asp-for="Link" autocomplete="off" required />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Link"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Link"></span></div>
-</div>
+
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Link)</div>
+                <input class="TtBxTt14" placeholder="Link" type="text" id="Link" asp-for="Link" autocomplete="off" onchange="ClearData('Link','Fk_Map_Name')" />
+                <input type="hidden" asp-for="Fk_Map_Name" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Link"></span></div>
+    </div>
+}
+
 
 
 <div class="MnTp7 MnBm7">

@@ -72,14 +72,20 @@
     function ClearData(UrNe, UrId) {
         document.getElementById(UrNe).value = '';
         document.getElementById(UrId).value = '';
+        document.getElementById(UrNe).setAttribute("required", "false");
+        document.getElementById(UrId).setAttribute("required", "false");
+        document.getElementById("ManualLink").setAttribute("required", "true");
     }
 
     //Autocomplete Item
-    function AoCeCountry(event) {
+    function AoCeLink(event) {
         var InputId = event.target.InputID;
         SuggestionClose(InputId);
         document.getElementById('Fk_Map_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
+        document.getElementById('Fk_Map_Name').setAttribute("required", "true");
+        document.getElementById(InputId).setAttribute("required", "true");
+        document.getElementById("ManualLink").setAttribute("required", "false");
     }
 
     function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
