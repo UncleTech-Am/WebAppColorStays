@@ -24,6 +24,7 @@
                 <div>Itinerary</div>
                 <div> Add Image</div>
                 <div>Set Up</div>
+                <div>FAQ</div>
             </div>
 
 
@@ -203,12 +204,47 @@
                     <div id="AddImgDetail" style="height: 400px;overflow: auto;"></div>
                     <div class="Pg10 FxRw">
                         <div class="FxGw1">
-                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Package/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
+                            <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetFAQ()"><i class="UT-ArrowRightCircleLine FtWt800"></i>&nbsp;Next</button>
                         </div>
                         <div>
                             <button type="button" class="BnRd15 CrBdTeBnPs CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 4)"><i class="UT-CancelCircleLine"></i>&nbsp;Back</button>
                         </div>
                     </div>
+                </div>
+                <div id="UTabs1Cont7">
+                    <form id="CreateFAQ" name="CreateFAQ"
+                          data-ajax="true"
+                          data-ajax-url="/ColorStays/Package/CreateFAQ"
+                          data-ajax-method="POST"
+                          data-ajax-loading="#loader"
+                          enctype="multipart/form-data"
+                          data-ajax-success="SuccessFAQ(data, status, xhr,'CreateFAQ','CreateOrEditFAQ')"
+                          data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateFAQ')">
+
+                        @Html.AntiForgeryToken()
+
+                        <div id="CreateOrEditFAQ"></div>
+
+                        <div class="MnTp7 MnBm7 FxRw">
+                            <div class="FxGw1">
+                                <button type="submit" class="BnRd15 CrBdTeBnAd CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94"><i class="UT-AddFile"></i>&nbsp;Add</button>
+                            </div>
+                            <div>
+                                <button type="button" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="GetFAQ()"><i class="UT-AddLine"></i>&nbsp;New Entry</button>
+                            </div>
+                            <div class="Pg10 FxRw">
+                                <div class="FxGw1">
+                                    <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="location.href='/ColorStays/Package/Create'"><i class="UT-SmileyThumbUp FtWt800"></i>&nbsp;Finish</button>
+
+                                </div>
+                                <div>
+                                    <button type="button" class="BnRd15 CrBdTeBnNt CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="ActiveTabUt('UTabs1', 6)"><i class="UT-ArrowLeftCircleLine FtWt800"></i>&nbsp;Back</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -220,6 +256,7 @@
                 <div>Exclusion</div>
                 <div>Itinerary</div>
                 <div>Image</div>
+                <div>FAQ</div>
             </div>
             <div class="BrTp3_Cr Br1_Cr CrBrTe BrRs5 ">
                 <div id="UTabs2Cont0">
@@ -243,8 +280,26 @@
                 <div id="UTabs2Cont5">
                     <div id="Images"></div>
                 </div>
+                <div id="UTabs2Cont6">
+                    <div id="FAQs"></div>
+                </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="PopUpTop BrRs10  Br1_Cr CrBrTe SwBxIt1Dv-Vn1 " id="PopUpTopDelete">
+    <div class="Wh100p TtAnCr">
+        <div class="LineDiv"></div>
+        <h2 class="PgBm10">Are you Sure?</h2>
+        <h3 class="PgBm10">To Delete This Entry ! </h3>
+    </div>
+    <input type="hidden" name="DeleteUrl" id="DeleteUrl" />
+    <!--<div id="DeleteUrl" style="display:none;"></div>-->@*Store the Path of the DeleteConfirmed Action*@
+    <div id="ListUrl" style="display:none;"></div>@*Store the Path of the List Action*@
+    <div class="DyFx FxJyCtCr Gp10 Wh100p PgTp20">
+        <div><button class="BnRd14 CrBdGy60 HrCrTe" onclick="DeleteConfirmedPackage();"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>  </div>
+        <div><button class="BnRd14 CrBdRd40 HrCrTe" onclick='HidePopUpTop()'><i class="UT-CrossLine"></i>&nbsp;Cancel</button></div>
     </div>
 </div>
 
@@ -262,6 +317,7 @@
         TabsUT('UTabs2', 0, null, []);
         //Show Image
         var PackageId = $("#Id").val();
+        var PeTeId = $("#Fk_PackageType_Name").val();
         getUT('/ColorStays/PackageImage/Index?PackageId=' + PackageId, function (data) {
             document.getElementById('Images').innerHTML = "";
             document.getElementById('Images').innerHTML = data;
@@ -357,6 +413,17 @@
         });
 
 
+        getUT('/ColorStays/PackageFAQ/PackageIndex?PeId=' + PackageId, function (data) {
+            document.getElementById('FAQs').innerHTML = "";
+            document.getElementById('FAQs').innerHTML = data;
+        });
+      
+        getUT('/ColorStays/Package/CreateFAQ?PeId=' + PackageId + '&PeTeId=' + PeTeId, function (data) {
+            var container = document.getElementById('CreateOrEditFAQ');
+            container.innerHTML = data;
+            HideLoader();
+        });
+      
         getUT('/ColorStays/Package/GetPackageExclusion?PeId=' + PackageId, function (data) {
             document.getElementById('Exclusion').innerHTML = "";
             document.getElementById('Exclusion').innerHTML = data;
@@ -796,7 +863,6 @@
         });
     }
 
-
     function GetItineraryList() {
         var PackageId = $("#Id").val();
         getUT('/ColorStays/PackageItinerary/Index?PeId=' + PackageId, function (data) {
@@ -932,6 +998,56 @@
             disPrice = price;
         }
         document.getElementById('PriceAfterDiscount').value = disPrice;
+    }
+
+    //Here get the FAQ Create
+    function GetFAQ() {
+        var id = $("#Id").val();
+        var Ptid = $("#Fk_PackageType_Name").val();
+        ActiveTabUt('UTabs1', 7);
+        getUT('/ColorStays/Package/CreateFAQ?PeId=' + id + '&PeTeId=' + Ptid, function (data) {
+            var container = document.getElementById('CreateOrEditFAQ');
+            container.innerHTML = data;
+            HideLoader();
+        });
+    }
+
+    function EditFAQ(id) {
+        ActiveTabUt('UTabs1', 7);
+        getUT('/ColorStays/Package/EditFAQ?id=' + id, function (data) {
+            var container = document.getElementById('CreateOrEditFAQ');
+            container.innerHTML = data;
+            HideLoader();
+        });
+    }
+
+
+    function SuccessFAQ(data, status, xhr, FormID) {
+        var FormFieldID = "CreateOrEditFAQ";
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "FAQs");
+        //GetItineraryList();
+        var id = document.getElementById('FaqId').value;
+        if (id != null && id != "") {
+            EditFAQ(id);
+        }
+        else {
+            ActiveTabUt('UTabs1', 7);
+        }
+
+        ActiveTabUt('UTabs2', 6);
+
+        document.getElementById('PeId').value = document.getElementById('PeId').value;
+    }
+    function DeleteConfirmedPackage(Id) {
+        var PeId = $("#Id").val();
+        alert(PeId);
+        ShowLoader();
+        getUT('/ColorStays/PackageFAQ/DeleteConfirmedPackage?Id=' + Id + '&PeId=' + PeId, function (data) {
+            document.getElementById('FAQs').innerHTML = "";
+            document.getElementById('FAQs').innerHTML = data;
+            HidePopUp();
+            HideLoader();
+        });
     }
 </script>
 

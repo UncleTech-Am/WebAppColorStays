@@ -31,6 +31,12 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Country { get; set; }
         [DisplayName("PackageType")]
         public string? Fk_PackageType_Name { get; set; }
+        [NotMapped]
+        public string? PackageType { get; set; }
+        [ForeignKey("TblPackage")]
+        public string? Fk_Package_Name { get; set; }
+        [NotMapped]
+        public string? Package { get; set; }
         public int? Liked { get; set; }
         public int? Disliked { get; set; }
         public int? Shared { get; set; }

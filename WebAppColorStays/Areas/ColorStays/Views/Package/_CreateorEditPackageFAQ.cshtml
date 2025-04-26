@@ -1,0 +1,50 @@
+﻿@model WebAppColorStays.Models.ViewModel.CsFAQ
+
+
+@{
+    Layout = null;
+    ViewData["Action"] = "Package";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+@if (Model.Id == null)
+{
+    <input type="hidden" name="NameAction" id="NameAction" value="C" />
+}
+else
+{
+    <input type="hidden" name="NameAction" id="NameAction" value="E" />
+}
+
+<input type="hidden" id="FaqId" asp-for="Id" />
+@Html.HiddenFor(model => model.RowVersion)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedOn)
+@Html.HiddenFor(model => model.CompId)
+
+<input type="hidden" id="PgFqId" asp-for="Fk_Package_Name" />
+<input type="hidden" id="PgTyFqId" asp-for="Fk_PackageType_Name" />
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Question)<span style="color:red;"> *</span></div>
+            <textarea class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Question)" asp-for="Question" autocomplete="off" required></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Question"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Answer)<span style="color:red;"> *</span></div>
+            <textarea class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Answer)" asp-for="Answer" autocomplete="off" required></textarea>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Answer"></span></div>
+</div>

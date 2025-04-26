@@ -406,7 +406,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //GET:/Package/
         [HttpGet]
-        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string? Id)
+        public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall, string? Id, string? PTId)
         {         
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -428,6 +428,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
                 ViewData["PId"] = Id;
+                ViewData["PTId"] = PTId;
                 if (PageCall == "ShowIxSh") { return View("_IndexSearch", ReturnDataList.Result.Item2); }
 
                 if (PageCall != null) { return View("_IndexData", ReturnDataList.Result.Item2); }
@@ -763,7 +764,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 if (Success == true)
                 {
                     data.Id = Base64UrlEncoder.Encode(Process.Encrypt(data.Id));
-                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id });
+                    return RedirectToAction("Index", new { PageCall = "ShowIxSh", data.Id, CsPackage.Fk_PackageType_Name });
                 }
                 else { return View("_CreateOrEdit", CsPackage); }
             }
@@ -1700,6 +1701,157 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
+        }
+
+
+
+        //GET: /PackageFaq/Create
+        [HttpGet]
+        public async Task<IActionResult> CreateFAQ(string PeId, string PeTeId)
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+
+            CsFAQ csFAQ = new CsFAQ();
+            csFAQ.Fk_Package_Name = PeId;
+            csFAQ.Fk_PackageType_Name = PeTeId;
+            return View("_CreateorEditPackageFAQ", csFAQ);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateFAQ(CsFAQ csFAQ, IFormCollection fc)
+        {
+            Title();
+            ViewData["AnName"] = "Create";
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            bool Success = false;
+            csFAQ.CompId = CompID;
+            csFAQ.ModifiedBy = UserID;
+            ViewData["ResponseName"] = "ShowValidation";
+            CsFAQ data = new CsFAQ();
+
+
+            if (ModelState.IsValid)
+            {
+                using (HttpClient client = APIColorStays.Initial())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    if (csFAQ.Id == null)
+                    {
+                        csFAQ.Id = Guid.NewGuid().ToString();
+                        csFAQ.CreatedBy = UserID;
+
+                        StringContent content = new StringContent(JsonSerializer.Serialize(csFAQ), Encoding.UTF8, "application/json");
+                        using (var response = await client.PostAsync("PackageFAQ/create", content))
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            if (response.IsSuccessStatusCode)
+                            {
+                                data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsFAQ>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Success = true;
+                            }
+                            else
+                            {
+                                Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                if (responsemsg != null && responsemsg.Message == "Duplicate")
+                                {   //Here Replace the ID With The Key Name That has to Be checked for the duplication.
+                                    ModelState.AddModelError("Name", "Duplicate Value, Already Exists !");
+                                }
+                                Success = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        using (var response = await client.PostAsJsonAsync<CsFAQ>("PackageFAQ/edit", csFAQ))
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            Success = true;
+
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                Tuple<CsFAQ, Response> data1 = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsFAQ, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+
+                                if (data1.Item2 != null)
+                                {
+                                    if (data1.Item2.Message == "GlobalItem")
+                                    {
+                                        ViewBag.Message = "Sytem Entry, Can't Change !";
+                                    }
+                                    if (data1.Item2.Message == "Verified")
+                                    {
+                                        ViewBag.Message = "You can not Edit Verified Entry !";
+                                    }
+                                }
+                                Success = false;
+                            }
+                        }
+                    }
+                }
+                if (Success == true)
+                {
+                    return RedirectToAction("PackageIndex", "PackageFAQ", new { PeId = csFAQ.Fk_Package_Name });
+                }
+                else { return View("_CreateOrEditPackageFAQ", csFAQ); }
+            }
+            return View("_CreateOrEditPackageFAQ", csFAQ);
+        }
+
+
+        //GET: /PackageFAQ/Edit/5
+        [HttpGet]
+        public async Task<ActionResult> EditFAQ(string id)
+        {
+            Title();
+            ViewData["AnName"] = "Edit";
+            ViewData["Id"] = id;
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (id == null)
+            {
+                ViewBag.Message = "Not Founded";
+                return View();
+            }
+
+            ViewData["ActionName"] = "Index";
+            ViewData["FormID"] = "NoSearchID";
+            ViewData["SearchType"] = "NoSearch";
+
+            CsFAQ csFAQ = new CsFAQ();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageFAQ/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        csFAQ = await System.Text.Json.JsonSerializer.DeserializeAsync<CsFAQ>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+
+                    }
+                    else
+                    {
+                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        if (responsemsg.Message == "NotFound")
+                        { ViewBag.Message = "Entry Not Exits!"; }
+                        if (responsemsg.Message == "GlobalItem")
+                        { ViewBag.Message = "Sytem Entry, Can't Change !"; }
+                    }
+                }
+            }
+            return View("_CreateorEditPackageFAQ", csFAQ);
         }
 
     }

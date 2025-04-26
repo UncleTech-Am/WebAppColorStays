@@ -206,7 +206,13 @@
     <div class="DyFx FxJyCtSt Gp10 Wh100p">
         @if (Model.VerifiedStatus == false && Model.ActiveStatus == false && Model.GlobalStatus == false)
         {
-            <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/PackageFAQ/DeleteConfirmed?Id=@Model.Id','/ColorStays/PackageFAQ');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+            @if (Model.Fk_Package_Name != null)
+            {
+                <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="DeleteConfirmedPackage('@Model.Id')"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+            } 
+            else{
+                <button type="button" class="BnRd15 CrBdTeBnDe CrTtTeBnLt SwBxIt2TtBx-Vn1 HrTmSeo94" onclick="Delete('/ColorStays/PackageFAQ/DeleteConfirmed?Id=@Model.Id','/ColorStays/PackageFAQ');"><i class="UT-DeletePageSolid"></i>&nbsp;Delete</button>
+            }
         }
 
         @if (User.IsInRole("GlobalVerifier") || User.IsInRole("Owner") || User.IsInRole("Administrator"))
