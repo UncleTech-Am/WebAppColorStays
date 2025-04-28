@@ -11,6 +11,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? URL { get; set; }
         public bool? IsVideo { get; set; }
         public bool? IsURL { get; set; }
+        public bool IsCoverImage { get; set; }
         public string? Label { get; set; }
         public string? AltTag { get; set; }
         public bool? FreezeStatus { get; set; }

@@ -1040,7 +1040,6 @@
     }
     function DeleteConfirmedPackage(Id) {
         var PeId = $("#Id").val();
-        alert(PeId);
         ShowLoader();
         getUT('/ColorStays/PackageFAQ/DeleteConfirmedPackage?Id=' + Id + '&PeId=' + PeId, function (data) {
             document.getElementById('FAQs').innerHTML = "";

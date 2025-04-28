@@ -27,6 +27,8 @@
         @Html.HiddenFor(model => model.CompId)
         @Html.HiddenFor(model => model.Label)
         @Html.HiddenFor(model => model.URL)
+        @Html.HiddenFor(model => model.IsVideo)
+        @Html.HiddenFor(model => model.IsURL)
 
         <div class="MnTp7 MnBm7">
             <div class="TtBxFlStDiv">
@@ -46,6 +48,16 @@
                 </div>
             </div>
             <div class="VnRd"><span asp-validation-for="AltTag"></span></div>
+        </div>
+        
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsCoverImage)</div>
+                    <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsCoverImage)" asp-for="IsCoverImage" autocomplete="off" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="IsCoverImage"></span></div>
         </div>
 
     </div>

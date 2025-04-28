@@ -1,4 +1,4 @@
-@model IEnumerable<WebAppColorStays.Models.ViewModel.CsFAQ>
+﻿@model IEnumerable<WebAppColorStays.Models.ViewModel.CsFAQ>
 
 @{
     Layout = null;
@@ -16,7 +16,7 @@
             @if (item.SelectStatus == true)
             {
                 <span class="BnInSe14  CrBdTeBn HrTmSeo94 Cr-uPr">
-                    <input type="checkbox" ClipStatus ="Selected" id="@item.Id" value="@item.Id" name="@item.Question" class="AmIndexCheckbox SeIt1o14" />
+                    <input type="checkbox" ClipStatus="Selected" id="@item.Id" value="@item.Id" name="@item.Question" class="AmIndexCheckbox SeIt1o14" />
                 </span>
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-uPr" href="#" data-toggle="tooltip" data-placement="bottom" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','@item.Id', '@item.Question','/ColorStays/PackageFAQ')"><i class="UT-StarSolid"> </i> </a>
             }
@@ -33,56 +33,68 @@
                 <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" onclick="EditFAQ('@item.Id')"> <i class="UT-EditFileLine FtWt800"></i> </a>
             }
         </td>
-         
-	    <td>@item.Question</td>
-         
-	    <td>@item.Answer</td>
-                  
-	    <td>@item.Fk_City_Name</td>
-         
-	    <td>@item.Fk_State_Name</td>
-         
-	    <td>@item.Fk_Country_Name</td>
-         
-	    <td>@item.Fk_PackageType_Name</td>
-         
-	    <td>@item.Liked</td>
-         
-	    <td>@item.Disliked</td>
-         
-	    <td>@item.Shared</td>
-         
-	    <td>@item.Remarks</td>
-         
-	    <td>@item.FreezeStatus</td>
-         
-	    <td>@item.FreezedBy</td>
-        	    <td>@if(item.VerifiedStatus == true){<span>Verified</span>}else{ <span>Pending-Verify</span>}</td>              
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.VerifiedOn)</td>
-         
-	    <td>@item.VerifiedBy</td>
-            
-	    <td>@if(item.ActiveStatus == true){<span>Activated</span>}else{ <span>Inactive</span>}</td>   
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ActivatedOn)</td>
-         
-	    <td>@item.ActivatedBy</td>
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.CreatedOn)</td>
-         
-	    <td>@item.CreatedBy</td>
-         
-	    <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ModifiedOn)</td>
-         
-	    <td>@item.ModifiedBy</td>
-         
-	    <td>@item.ModificationFrequency</td>
-         
-	    <td>@item.GCompId</td>
-         
-	    <td>@item.CompId</td>
-            </tr>
+
+        <td>@item.Question</td>
+
+        <td>@item.Answer</td>
+
+        <td>@item.Fk_City_Name</td>
+
+        <td>@item.Fk_State_Name</td>
+
+        <td>@item.Fk_Country_Name</td>
+
+        <td>@item.Fk_PackageType_Name</td>
+
+        <td>@item.Liked</td>
+
+        <td>@item.Disliked</td>
+
+        <td>@item.Shared</td>
+
+        <td>@item.Remarks</td>
+
+        <td>@item.FreezeStatus</td>
+
+        <td>@item.FreezedBy</td>
+        <td>@if (item.VerifiedStatus == true)
+            {
+                <span>Verified</span>
+            }
+            else
+            {
+                <span>Pending-Verify</span>
+            }</td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.VerifiedOn)</td>
+
+        <td>@item.VerifiedBy</td>
+
+        <td>@if (item.ActiveStatus == true)
+            {
+                <span>Activated</span>
+            }
+            else
+            {
+                <span>Inactive</span>
+            }</td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ActivatedOn)</td>
+
+        <td>@item.ActivatedBy</td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.CreatedOn)</td>
+
+        <td>@item.CreatedBy</td>
+
+        <td>@String.Format("{0:dd MMMM,yyyy hh:mm tt}", item.ModifiedOn)</td>
+
+        <td>@item.ModifiedBy</td>
+
+        <td>@item.ModificationFrequency</td>
+
+        <td>@item.GCompId</td>
+
+        <td>@item.CompId</td>
+    </tr>
 }
-
-

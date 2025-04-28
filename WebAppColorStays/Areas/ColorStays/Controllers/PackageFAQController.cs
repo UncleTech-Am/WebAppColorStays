@@ -199,7 +199,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewData["FormID"] = "NoSearchID";
                 ViewData["SearchType"] = "NoSearch";
 
-                return View("_IndexSearchPack", list.Item2);
+                return View("_IndexSearchPackage", list.Item2);
 
             }
             catch (Exception ex)
