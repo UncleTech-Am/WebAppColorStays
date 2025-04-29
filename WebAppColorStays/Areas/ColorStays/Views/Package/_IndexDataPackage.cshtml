@@ -2,12 +2,10 @@
 
 @{
     Layout = null;
-    ViewData["Action"] = "PackageFAQ";
-    int PageNoSelect = Convert.ToInt32(ViewData["PageNumberSelected"]);
-    int PageSize = Convert.ToInt32(ViewData["PageRecordSize"]);
+    ViewData["Action"] = "Package";
 }
 
-<b style="display:none" id="PaginationAt" pagenumber="@PageNoSelect" pagesize="@PageSize" netrecord="@ViewData["NetRecords"]">responseformUT SuccessPop</b>
+<b style="display:none">responseformUT SuccessPop</b>
 
 @foreach (var item in Model)
 {

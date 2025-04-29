@@ -529,7 +529,7 @@
     <None Include="Areas\ColorStays\Views\PackageFAQ\_CreateOrEdit.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageFAQ\_DetailOrDelete.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageFAQ\_IndexData.cshtml" />
-    <None Include="Areas\ColorStays\Views\PackageFAQ\_IndexDataPackage.cshtml" />
+    <None Include="Areas\ColorStays\Views\Package\_IndexDataPackage.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageFAQ\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageFAQ\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\PackageFAQ\_SearchData.cshtml" />

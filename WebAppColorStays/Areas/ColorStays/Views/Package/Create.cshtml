@@ -218,7 +218,7 @@
                           data-ajax-method="POST"
                           data-ajax-loading="#loader"
                           enctype="multipart/form-data"
-                          data-ajax-success="SuccessFAQ(data, status, xhr,'CreateFAQ','CreateOrEditFAQ')"
+                          data-ajax-success="SuccessFAQs(data, status, xhr,'CreateFAQ','CreateOrEditFAQ')"
                           data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateFAQ')">
 
                         @Html.AntiForgeryToken()
@@ -888,9 +888,9 @@
     }
 
 
-    function SuccessFAQ(data, status, xhr, FormID) {
+    function SuccessFAQs(data, status, xhr, FormID) {
         var FormFieldID = "CreateOrEditFAQ";
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "FAQs");
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "FAQ");
         //GetItineraryList();
         var id = document.getElementById('FaqId').value;
         if (id != null && id != "") {
@@ -906,7 +906,7 @@
     }
     function DeleteConfirmedPackage(Id, PeId) {
         ShowLoader();
-        getUT('/ColorStays/PackageFAQ/DeleteConfirmedPackage?Id=' + Id + '&PeId=' + PeId, function (data) {
+        getUT('/ColorStays/Package/DeleteConfirmedPackage?Id=' + Id + '&PeId=' + PeId, function (data) {
             document.getElementById('FAQs').innerHTML = "";
             document.getElementById('FAQs').innerHTML = data;
             HidePopUp();

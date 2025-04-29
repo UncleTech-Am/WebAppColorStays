@@ -3,7 +3,7 @@
 
 @{
     Layout = null;
-    ViewData["Action"] = "PackageFAQ";
+    ViewData["Action"] = "Package";
 }
 
 <div style="color:red; font-weight:bold; font-size:15px;"> @ViewBag.Message</div>
@@ -137,8 +137,8 @@
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark UnStar" onclick="MultiButtonFunc('UnStar','','','/ColorStays/PackageFAQ')"><i class="UT-UnstarSolid"></i></a>
                         <a class="BnInSe17  CrBdTeBn HrTmSeo94 Cr-1Pr" href="#" title="Mark Star" onclick="MultiButtonFunc('Star','','','/ColorStays/PackageFAQ')"> <i class="UT-StarSolid"></i></a>
                     </th>
-                    <th> @Html.DisplayNameFor(model => model.Question) </th>
-                    <th> @Html.DisplayNameFor(model => model.Answer) </th>
+                    <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.Question) </th>
+                    <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.Answer) </th>
                     <th> @Html.DisplayNameFor(model => model.Fk_City_Name) </th>
                     <th> @Html.DisplayNameFor(model => model.Fk_State_Name) </th>
                     <th> @Html.DisplayNameFor(model => model.Fk_Country_Name) </th>

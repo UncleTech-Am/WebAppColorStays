@@ -165,7 +165,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> PackageIndex(string PeId)
+        public async Task<IActionResult> IndexPackage(string PeId)
         {
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
@@ -665,7 +665,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        return RedirectToAction("PackageIndex", new { PeId = PeId });
+                        return RedirectToAction("IndexPackage", new { PeId = PeId });
                     }
                     else
                     {

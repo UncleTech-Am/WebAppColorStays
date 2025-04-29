@@ -1800,7 +1800,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 {
-                    return RedirectToAction("PackageIndex", "PackageFAQ", new { PeId = csFAQ.Fk_Package_Name });
+                    return RedirectToAction("PackageFAQs", new {PeId = csFAQ.Fk_Package_Name });
                 }
                 else { return View("_CreateOrEditPackageFAQ", csFAQ); }
             }
@@ -1854,5 +1854,74 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             return View("_CreateorEditPackageFAQ", csFAQ);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> PackageFAQs(string PeId)
+        {
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Title();
+
+            //Display the Dropdown of the Table fields in Search Data Popup
+            GetClassMember<CsFAQ> getClassMember = new GetClassMember<CsFAQ>();
+            CsFAQ CsFAQ = new CsFAQ();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsFAQ), "Value", "DisplayName");
+            //Ends
+            Tuple<int, List<CsFAQ>> list;
+
+            try //Pagination and List of data Code
+            {
+                using (HttpClient client = APIColorStays.Initial())
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    using (var response = await client.GetAsync("PackageFAQ/packageindex/" + CompID + "/" + PeId, HttpCompletionOption.ResponseHeadersRead))
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var apiResponse = await response.Content.ReadAsStreamAsync();
+                            list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsFAQ>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        }
+                        else { list = null; }
+                    }
+                }
+
+                ViewData["ActionName"] = "Index";
+                ViewData["FormID"] = "NoSearchID";
+                ViewData["SearchType"] = "NoSearch";
+
+                return View("_IndexSearchPackage", list.Item2);
+
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+        }
+        //POST: /PackageFAQ/Delete/5
+        [HttpGet]
+        public async Task<IActionResult> DeleteConfirmedPackage(string id, string PeId)
+        {
+            Title();
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("PackageFAQ/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("PackageFAQs", new { PeId = PeId });
+                    }
+                    else
+                    {
+                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        if (responsemsg.Message == "DeleteStop") { ViewData["ErrorMessage"] = "Sytem Entry, Can't be Del !"; return View("_ErrorGeneric"); }
+                        else { return View("Error"); }
+                    }
+                }
+            }
+        }
     }
 }

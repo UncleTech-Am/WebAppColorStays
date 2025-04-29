@@ -218,7 +218,7 @@
                           data-ajax-method="POST"
                           data-ajax-loading="#loader"
                           enctype="multipart/form-data"
-                          data-ajax-success="SuccessFAQ(data, status, xhr,'CreateFAQ','CreateOrEditFAQ')"
+                          data-ajax-success="SuccessFAQs(data, status, xhr,'CreateFAQ','CreateOrEditFAQ')"
                           data-ajax-failure="FormAjaxFail(xhr, status, error,'CreateFAQ')">
 
                         @Html.AntiForgeryToken()
@@ -281,7 +281,7 @@
                     <div id="Images"></div>
                 </div>
                 <div id="UTabs2Cont6">
-                    <div id="FAQs"></div>
+                    <div id="FAQ"></div>
                 </div>
             </div>
         </div>
@@ -413,9 +413,9 @@
         });
 
 
-        getUT('/ColorStays/PackageFAQ/PackageIndex?PeId=' + PackageId, function (data) {
-            document.getElementById('FAQs').innerHTML = "";
-            document.getElementById('FAQs').innerHTML = data;
+        getUT('/ColorStays/Package/PackageFAQs?PeId=' + PackageId, function (data) {
+            document.getElementById('FAQ').innerHTML = "";
+            document.getElementById('FAQ').innerHTML = data;
         });
       
         getUT('/ColorStays/Package/CreateFAQ?PeId=' + PackageId + '&PeTeId=' + PeTeId, function (data) {
@@ -1022,9 +1022,9 @@
     }
 
 
-    function SuccessFAQ(data, status, xhr, FormID) {
+    function SuccessFAQs(data, status, xhr, FormID) {
         var FormFieldID = "CreateOrEditFAQ";
-        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "FAQs");
+        FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "FAQ");
         //GetItineraryList();
         var id = document.getElementById('FaqId').value;
         if (id != null && id != "") {
@@ -1041,9 +1041,9 @@
     function DeleteConfirmedPackage(Id) {
         var PeId = $("#Id").val();
         ShowLoader();
-        getUT('/ColorStays/PackageFAQ/DeleteConfirmedPackage?Id=' + Id + '&PeId=' + PeId, function (data) {
-            document.getElementById('FAQs').innerHTML = "";
-            document.getElementById('FAQs').innerHTML = data;
+        getUT('/ColorStays/Package/DeleteConfirmedPackage?Id=' + Id + '&PeId=' + PeId, function (data) {
+            document.getElementById('FAQ').innerHTML = "";
+            document.getElementById('FAQ').innerHTML = data;
             HidePopUp();
             HideLoader();
         });
