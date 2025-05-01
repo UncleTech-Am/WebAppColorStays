@@ -819,6 +819,57 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            CsReviewPost CsReview = new CsReviewPost();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Review/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        CsReview = await System.Text.Json.JsonSerializer.DeserializeAsync<CsReviewPost>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    }
+                    else
+                    {
+                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        if (responsemsg.Message == "NotFound")
+                        { ViewBag.Message = "Entry Not Exits!"; }
+                        if (responsemsg.Message == "GlobalItem")
+                        { ViewBag.Message = "Sytem Entry, Can't Change !"; }
+                    }
+                }
+            }
+            List<CsReviewPhotoVideo> photolist = new List<CsReviewPhotoVideo>();
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("ReviewPhotoVideo/index/" + CsReview.Label + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    photolist = await System.Text.Json.JsonSerializer.DeserializeAsync<List<CsReviewPhotoVideo>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            //Delete the Images from the folder
+            List<string> image = new List<string>();
+            foreach (var item in photolist)
+            {
+                string img;
+                img = item.Name;
+                image.Add(img);
+            }
+            if (image.Count > 0)
+            {
+                Task<string> TDeleteImage = ryCsImage.DeleteMultiImage(image, "Review", TokenKey);
+                Task.WaitAll(TDeleteImage);
+
+                if (TDeleteImage.Result == "Error")
+                {
+                    ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                }
+            }
+
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
