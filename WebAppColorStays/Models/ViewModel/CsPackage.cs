@@ -21,6 +21,8 @@ namespace WebAppColorStays.Models.ViewModel
         public int? Rank { get; set; }
         [DisplayName("Currency")]
         public string? Fk_Currency_Name { get; set; }
+        [DisplayName("Website")]
+        public string? Fk_Website_Name { get; set; }
         [NotMapped]
         public string? Currency { get; set; }
         public bool Sightseeing { get; set; }

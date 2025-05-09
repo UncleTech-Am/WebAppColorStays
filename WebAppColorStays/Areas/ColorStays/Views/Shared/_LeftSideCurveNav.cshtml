@@ -153,6 +153,11 @@
     string KdSuffix = " ";
     string KdCnSingleForm = " ";
 
+    string MainLink11 = " ";
+    string DrownLink11 = " ";
+    string WebSite = " ";
+
+
     switch (Action)
     {
         case "CompanyNav": CompanyNav = "SideNavActive"; break;
@@ -282,6 +287,8 @@
         case "KdRoot": KdRoot = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
         case "KdSuffix": KdSuffix = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
         case "KdCnSingleForm": KdCnSingleForm = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
+
+        case "WebSite": WebSite = "SideSubLinkActive"; MainLink11 = "SideNavActive"; DrownLink11 = "SideSubNavActive"; break;
 
         default: break;
     }
@@ -1478,7 +1485,30 @@
             </div>
         </div>
     </div>
+    <div class="SideNavContainer">
+        <div class="SideNavLinkDiv">
+            <div class="SideNavLink @MainLink11">
+                <i class="UT-BlogCircleLine FtSz20 "></i>
+                <div class="SideNavLinkText">
+                    <a href=#>WebSite</a>
+                </div>
+                <a href=#><i class="UT-ArrowDownCircleSolid"></i></a>
 
+            </div>
+        </div>
+        <div class="SideSubNavContainer @DrownLink11">
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @WebSite">
+                        <a href="~/ColorStays/Website/Create">WebSite</a>
+                    </div>
+                    <a href="~/ColorStays/Website/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/Website/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="SideNavContainer">

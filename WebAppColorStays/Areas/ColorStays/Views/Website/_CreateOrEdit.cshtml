@@ -1,0 +1,134 @@
+@model WebAppColorStays.Models.ViewModel.CsWebsite
+
+
+@{ 
+    Layout = null; 
+    ViewData["Action"] = "Website";
+}
+
+<div style="display:none">responseformUT @ViewData["ResponseName"]</div>
+
+<h3 class="MnBm10"><span style="color:red">@ViewBag.Message</span></h3>
+
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.RowVersion)
+@Html.HiddenFor(model => model.CreatedBy)
+@Html.HiddenFor(model => model.CreatedOn)
+@Html.HiddenFor(model => model.CompId)
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.WebsiteName)<span style="color:red;"> *</span></div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.WebsiteName)" asp-for="WebsiteName" autocomplete="off" required/>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="WebsiteName"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Domain)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Domain)" asp-for="Domain" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Domain"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.HostingName)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.HostingName)" asp-for="HostingName" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="HostingName"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.HostNumber)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.HostNumber)" asp-for="HostNumber" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="HostNumber"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FtpuserName)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FtpuserName)" asp-for="FtpuserName" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="FtpuserName"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Ftppassword)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Ftppassword)" asp-for="Ftppassword" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Ftppassword"></span></div>
+</div>
+
+@if (Model != null)
+{
+    if (Model.HostingExpireOn != null)
+    {
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.HostingExpireOn)</div>
+                    <input class="TtBxTt15" placeholder="HostingExpire Date" name="HostingExpireOn" id="HostingExpireOn" type="text" autocomplete="off" readonly value="@String.Format("{0:dd MMMM,yyyy}", Model.HostingExpireOn)" />
+                    <div class="PgRt5 Cr-uPr" onclick="Empty('HostingExpireOn')"><i class="UT-DeletePageSolid"></i></div>
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="HostingExpireOn"></span></div>
+        </div>
+    }
+}
+else
+{
+    <div class="MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.HostingExpireOn)</div>
+                <input class="TtBxTt15" placeholder="HostingExpire Date" name="HostingExpireOn" id="HostingExpireOn" type="text" autocomplete="off" readonly />
+                <div class="PgRt5 Cr-uPr" onclick="Empty('HostingExpireOn')"><i class="UT-DeletePageSolid"></i></div>
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="HostingExpireOn"></span></div>
+    </div>
+}
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.WebsiteProtocol)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.WebsiteProtocol)" asp-for="WebsiteProtocol" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="WebsiteProtocol"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Remarks)</div>
+            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Remarks)" asp-for="Remarks" autocomplete="off" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Remarks"></span></div>
+</div>

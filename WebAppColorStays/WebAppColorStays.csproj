@@ -1240,6 +1240,15 @@
     <None Include="Areas\ColorStays\Views\Video\_IndexSearch.cshtml" />
     <None Include="Areas\ColorStays\Views\Video\_Pagination.cshtml" />
     <None Include="Areas\ColorStays\Views\Video\_SearchData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Website\Create.cshtml" />
+    <None Include="Areas\ColorStays\Views\Website\Edit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Website\Index.cshtml" />
+    <None Include="Areas\ColorStays\Views\Website\_CreateOrEdit.cshtml" />
+    <None Include="Areas\ColorStays\Views\Website\_DetailOrDelete.cshtml" />
+    <None Include="Areas\ColorStays\Views\Website\_IndexData.cshtml" />
+    <None Include="Areas\ColorStays\Views\Website\_IndexSearch.cshtml" />
+    <None Include="Areas\ColorStays\Views\Website\_Pagination.cshtml" />
+    <None Include="Areas\ColorStays\Views\Website\_SearchData.cshtml" />
     <None Include="Areas\ColorStays\Views\WhyUs\Create.cshtml" />
     <None Include="Areas\ColorStays\Views\WhyUs\Edit.cshtml" />
     <None Include="Areas\ColorStays\Views\WhyUs\Index.cshtml" />

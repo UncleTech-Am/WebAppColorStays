@@ -47,16 +47,19 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             string URLContinent = "PackageType/DropDown/" + CompId;
             string URLCancellation = "CancellationPolicyType/DropDown/" + CompId;
             string URLTerms = "TermsAndCondition/DropDown/" + CompId;
+            string URLWebsite = "Website/DropDown/" + CompId;
             try
             {
                 Task<List<SelectListItem>> PackageType = ry.DDColorStaysAPI(URLContinent, Token);
                 Task<List<SelectListItem>> PolicyType = ry.DDColorStaysAPI(URLCancellation, Token);
                 Task<List<SelectListItem>> Terms = ry.DDColorStaysAPI(URLTerms, Token);
+                Task<List<SelectListItem>> Websites = ry.DDColorStaysAPI(URLWebsite, Token);
 
-                Task.WaitAll(PackageType, PolicyType, Terms);
+                Task.WaitAll(PackageType, PolicyType, Terms, Websites);
                 ViewBag.PackageType = PackageType;
                 ViewBag.PolicyType = PolicyType;
                 ViewBag.Terms = Terms;
+                ViewBag.Website = Websites;
             }
             catch (Exception ex) { }
 

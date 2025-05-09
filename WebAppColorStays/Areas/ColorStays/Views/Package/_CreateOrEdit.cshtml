@@ -21,6 +21,18 @@
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_Website_Name)<span style="color:red;"> *</span></div>
+            <select asp-for="Fk_Website_Name" asp-items="@await ViewBag.Website" class="TtBxTt15" required>
+                <option value="">Select Website</option>
+            </select>        
+            </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="Fk_Website_Name"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_PackageType_Name)<span style="color:red;"> *</span></div>
             <select asp-for="Fk_PackageType_Name" asp-items="@await ViewBag.PackageType" class="TtBxTt15" required>
                 <option value="">Select Package Type</option>
