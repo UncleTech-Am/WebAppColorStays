@@ -543,6 +543,29 @@
         StartTableSearch('TeUT', SkipRow, SkipCol);
     }
 
+
+    //check image size and type
+    document.getElementById("coverImageInput").addEventListener("change", function () {
+        const file = this.files[0];
+
+        if (!file) return;
+
+        const maxSize = 150 * 1024; // 150KB
+
+        if (file.type !== "image/webp") {
+            alert("Only .webp images are allowed.");
+            this.value = "";
+            return;
+        }
+
+        if (file.size > maxSize) {
+            alert("File must be less than 150KB.");
+            this.value = "";
+            return;
+        }
+    });
+
+
     Dropzone.autoDiscover = false;
 
     //Upload the Images
@@ -553,7 +576,8 @@
         uploadMultiple: true,
         parallelUploads: 5,
         maxFiles: 10,
-        acceptedFiles: 'image/*',
+        maxFilesize: 0.146, // 150KB (in MB)
+        acceptedFiles: 'image/webp',
         addRemoveLinks: true,
         error: function (file, response) {
             if ($.type(response) === "string")
@@ -590,7 +614,22 @@
             this.on("success", function () {
                 ShowUploads();
             });
+            // Validate file type and size manually as an extra guard
+            this.on("addedfile", function (file) {
+                const maxBytes = 150 * 1024; // 150KB
 
+                // Extra check for webp MIME type and file size
+                if (file.type !== "image/webp") {
+                    this.removeFile(file);
+                    alert("Only .webp images are allowed.");
+                    return;
+                }
+
+                if (file.size > maxBytes) {
+                    this.removeFile(file);
+                    alert("Image must be less than 150KB.");
+                }
+            });
         }
     });
 

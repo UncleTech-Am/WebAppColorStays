@@ -124,7 +124,7 @@
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.CoverImage) (265 X 345)</div>
-            <input asp-for="CoverImage" type="file" />
+            <input asp-for="CoverImage" type="file" accept=".webp,image/webp" id="coverImageInput" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="CoverImage"></span></div>

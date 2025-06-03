@@ -14,6 +14,7 @@ namespace WebAppColorStays.Models.ViewModel
         [Remote("CheckDuplicationKdPrefix", "KdPrefix", AdditionalFields = ("NameAction, Id"))]
         public string Name { get; set; }
         public string? Description { get; set; }
+        public bool IsHotel { get; set; }
         public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]
