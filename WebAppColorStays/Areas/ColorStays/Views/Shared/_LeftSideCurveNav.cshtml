@@ -146,12 +146,22 @@
     string MainLink10 = " ";
     string DrownLink10 = " ";
     string KdCnCategory = " ";
-    string KdCnForm = " ";
-    string KdGenerated = " ";
     string KdPrefix = " ";
     string KdRoot = " ";
     string KdSuffix = " ";
+
+    string MainLink12 = " ";
+    string DrownLink12 = " ";
+    string KdCnForm = " ";
+    string KdGenerated = " ";
     string KdCnSingleForm = " ";
+
+    
+    string MainLink13 = " ";
+    string DrownLink13 = " ";
+    string KdCnHlForm = " ";
+    string KdHlGenerated = " ";
+    string KdCnHlSingleForm = " ";
 
     string MainLink11 = " ";
     string DrownLink11 = " ";
@@ -281,12 +291,15 @@
         case "Enquiry": Enquiry = "SideSubLinkActive"; MainLink9 = "SideNavActive"; DrownLink9 = "SideSubNavActive"; break;
 
         case "KdCnCategory": KdCnCategory = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
-        case "KdCnForm": KdCnForm = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
-        case "KdGenerated": KdGenerated = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
         case "KdPrefix": KdPrefix = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
         case "KdRoot": KdRoot = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
         case "KdSuffix": KdSuffix = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
-        case "KdCnSingleForm": KdCnSingleForm = "SideSubLinkActive"; MainLink10 = "SideNavActive"; DrownLink10 = "SideSubNavActive"; break;
+        case "KdCnSingleForm": KdCnSingleForm = "SideSubLinkActive"; MainLink12 = "SideNavActive"; DrownLink12 = "SideSubNavActive"; break;
+        case "KdCnForm": KdCnForm = "SideSubLinkActive"; MainLink12 = "SideNavActive"; DrownLink12 = "SideSubNavActive"; break;
+        case "KdGenerated": KdGenerated = "SideSubLinkActive"; MainLink12 = "SideNavActive"; DrownLink12 = "SideSubNavActive"; break;
+        case "KdCnHlSingleForm": KdCnHlSingleForm = "SideSubLinkActive"; MainLink13 = "SideNavActive"; DrownLink13 = "SideSubNavActive"; break;
+        case "KdCnHlForm": KdCnHlForm = "SideSubLinkActive"; MainLink13 = "SideNavActive"; DrownLink13 = "SideSubNavActive"; break;
+        case "KdHlGenerated": KdHlGenerated = "SideSubLinkActive"; MainLink13 = "SideNavActive"; DrownLink13 = "SideSubNavActive"; break;
 
         case "WebSite": WebSite = "SideSubLinkActive"; MainLink11 = "SideNavActive"; DrownLink11 = "SideSubNavActive"; break;
 
@@ -1516,7 +1529,7 @@
             <div class="SideNavLink @MainLink10">
                 <i class="UT-CategoryLine  FtSz20"></i>
                 <div class="SideNavLinkText">
-                    <a href=#>Package Keyword</a>
+                    <a href=#>Keyword SetUp</a>
                 </div>
                 <a href=#><i class="UT-ArrowDownCircleSolid"></i></a>
 
@@ -1563,7 +1576,20 @@
                     <a href="~/ColorStays/KdSuffix/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="SideNavContainer">
+        <div class="SideNavLinkDiv">
+            <div class="SideNavLink @MainLink12">
+                <i class="UT-CategoryLine  FtSz20"></i>
+                <div class="SideNavLinkText">
+                    <a href=#>Package Keyword</a>
+                </div>
+                <a href=#><i class="UT-ArrowDownCircleSolid"></i></a>
 
+            </div>
+        </div>
+        <div class="SideSubNavContainer @DrownLink12">
             <div class="SideNavSubLinkDiv">
                 <div class="SideNavSubLink ">
                     <div class="SideNavLinkText @KdCnForm">
@@ -1590,6 +1616,50 @@
                     </div>
                     <a href="~/ColorStays/KdGenerated/Create"><i class="UT-AddFile"></i></a>
                     <a href="~/ColorStays/KdGenerated/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="SideNavContainer">
+        <div class="SideNavLinkDiv">
+            <div class="SideNavLink @MainLink13">
+                <i class="UT-CategoryLine  FtSz20"></i>
+                <div class="SideNavLinkText">
+                    <a href=#>Hotel Keyword</a>
+                </div>
+                <a href=#><i class="UT-ArrowDownCircleSolid"></i></a>
+
+            </div>
+        </div>
+        <div class="SideSubNavContainer @DrownLink13">
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @KdCnHlForm">
+                        <a href="~/ColorStays/KdCnHlForm/Create">Hotel Keyword Form</a>
+                    </div>
+                    <a href="~/ColorStays/KdCnHlForm/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/KdCnHlForm/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+             <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @KdCnHlSingleForm">
+                        <a href="~/ColorStays/KdCnHlSingleForm/Create">Hotel Single Keyword Form</a>
+                    </div>
+                    <a href="~/ColorStays/KdCnHlSingleForm/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/KdCnHlSingleForm/Index"><i class="UT-List-OLine"></i></a>
+                </div>
+            </div>
+
+            <div class="SideNavSubLinkDiv">
+                <div class="SideNavSubLink ">
+                    <div class="SideNavLinkText @KdHlGenerated">
+                        <a href="~/ColorStays/KdHlGenerated/Create">Hotel Keyword Generated</a>
+                    </div>
+                    <a href="~/ColorStays/KdHlGenerated/Create"><i class="UT-AddFile"></i></a>
+                    <a href="~/ColorStays/KdHlGenerated/Index"><i class="UT-List-OLine"></i></a>
                 </div>
             </div>
 

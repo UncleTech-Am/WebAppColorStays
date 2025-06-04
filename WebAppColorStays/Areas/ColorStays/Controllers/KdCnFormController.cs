@@ -40,11 +40,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         public async void DropDown(string CompId, string Token)
         {
             RyCrSsDropDown ry = new RyCrSsDropDown();
-            string URLCategory = "KdCnCategory/DropDown/" + CompId;
-            string URLRoot = "KdRoot/DropDown/" + CompId;
-            string URLPrefix = "KdPrefix/DropDown/" + CompId;
-            string URLSuffix = "KdSuffix/DropDown/" + CompId;
-            string URLContinent = "PackageType/DropDown/" + CompId;
+            string URLCategory = "KdCnCategory/DropDown/" + CompId+"/" + false;
+            string URLRoot = "KdRoot/DropDown/" + CompId + "/" + false;
+            string URLPrefix = "KdPrefix/DropDown/" + CompId + "/" + false;
+            string URLSuffix = "KdSuffix/DropDown/" + CompId + "/" + false;
+            string URLPackageType = "PackageType/DropDown/" + CompId;
 
             try
             {
@@ -52,7 +52,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 Task<List<SelectListItem>> Root = ry.DDColorStaysAPI(URLRoot, Token);
                 Task<List<SelectListItem>> Prefix = ry.DDColorStaysAPI(URLPrefix, Token);
                 Task<List<SelectListItem>> Suffix = ry.DDColorStaysAPI(URLSuffix, Token);
-                Task<List<SelectListItem>> PackageType = ry.DDColorStaysAPI(URLContinent, Token);
+                Task<List<SelectListItem>> PackageType = ry.DDColorStaysAPI(URLPackageType, Token);
 
                 Task.WaitAll(Category, Root, Prefix, Suffix, PackageType);
                 ViewBag.Category = Category;

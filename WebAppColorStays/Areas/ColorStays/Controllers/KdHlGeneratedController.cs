@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-
 using LibCommon.DataTransfer;
 using LibCompanyService.Models.ViewCompany;
 using Microsoft.AspNetCore.Authorization;
@@ -14,17 +13,16 @@ using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
 
 
-
 namespace WebAppColorStays.Areas.ColorStays.Controllers
 {   
     [Area("ColorStays")]
     [SessionCheck]
     [Authorize]
-    public class KdCnCategoryController : Controller
+    public class KdHlGeneratedController : Controller
     {
         private readonly Paging paging;
 
-        public KdCnCategoryController()
+        public KdHlGeneratedController()
         {
             paging = new Paging();
         }
@@ -32,7 +30,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "Keyword Category";
+            ViewBag.Title = "KdHlGenerated";
         }
         //Ends
 
@@ -91,21 +89,21 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
         //Give the list of the data
-        public async Task<Tuple<int, List<CsKdCnCategory>>> AllDataList(int? PgSize, int? PgSelectedNum)
+        public async Task<Tuple<int, List<CsKdHlGenerated>>> AllDataList(int? PgSize, int? PgSelectedNum)
         {
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Tuple<int, List<CsKdCnCategory>> list;
+            Tuple<int, List<CsKdHlGenerated>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("KdCnCategory/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("KdHlGenerated/index/" + CompID + "/" + PgSize + "/" + PgSelectedNum + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsKdCnCategory>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsKdHlGenerated>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else{ list = null; }
                 }
@@ -115,7 +113,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET:/KdCnCategory/
+        //GET:/KdHlGenerated/
         [HttpGet]
         public async Task<IActionResult> Index(int? PgSelectedNum, int? PgSize, string PageCall)
         {         
@@ -124,15 +122,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
 
             //Display the Dropdown of the Table fields in Search Data Popup
-            GetClassMember<CsKdCnCategory> getClassMember = new GetClassMember<CsKdCnCategory>();
-            CsKdCnCategory CsKdCnCategory = new CsKdCnCategory();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsKdCnCategory), "Value", "DisplayName");
+            GetClassMember<CsKdHlGenerated> getClassMember = new GetClassMember<CsKdHlGenerated>();
+            CsKdHlGenerated CsKdHlGenerated = new CsKdHlGenerated();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsKdHlGenerated), "Value", "DisplayName");
             //Ends
 
             try //Pagination and List of data Code
             {
                 Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
-                Task<Tuple<int, List<CsKdCnCategory>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                Task<Tuple<int, List<CsKdHlGenerated>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                 PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
 
                 ViewData["ActionName"] = "Index";
@@ -172,15 +170,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 cIndex.PageSize = pagedata.Item1;
                 cIndex.PageSelectedNum = pagedata.Item2;
                 cIndex.CompId = CompID;
-                Tuple<int, List<CsKdCnCategory>> list;
+                Tuple<int, List<CsKdHlGenerated>> list;
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     //Get the List of data
-                    using (var response = await client.PostAsJsonAsync("KdCnCategory/DateSearch/", cIndex))
+                    using (var response = await client.PostAsJsonAsync("KdHlGenerated/DateSearch/", cIndex))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsKdCnCategory>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsKdHlGenerated>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else{ Success = false; }
@@ -206,7 +204,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         //Search the Data according to the table fileds in the Index
         [HttpPost]
-        public async Task<IActionResult> TableSearch(CsKdCnCategory CsKdCnCategory, IFormCollection fc)
+        public async Task<IActionResult> TableSearch(CsKdHlGenerated CsKdHlGenerated, IFormCollection fc)
         {
             bool Success = false;
             int PgSelectedNum = Convert.ToInt32(fc["PageNoSelected"]);
@@ -219,18 +217,18 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsKdCnCategory>> list;
+            Tuple<int, List<CsKdHlGenerated>> list;
 
             using (HttpClient client = APIColorStays.Initial())
             {
-                CsKdCnCategory.CreatedBy = UserID;
-                CsKdCnCategory.CompId = CompID;
+                CsKdHlGenerated.CreatedBy = UserID;
+                CsKdHlGenerated.CompId = CompID;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                StringContent content = new StringContent(JsonSerializer.Serialize(CsKdCnCategory), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("KdCnCategory/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
+                StringContent content = new StringContent(JsonSerializer.Serialize(CsKdHlGenerated), Encoding.UTF8, "application/json");
+                using (var response = await client.PostAsync("KdHlGenerated/TableSearch/?PageSelectedNum=" + pagedata.Item2 + "&PageSize=" + pagedata.Item1, content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsKdCnCategory>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsKdHlGenerated>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -253,11 +251,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         [HttpPost]
         public async Task<IActionResult> FilterSearch(CIndexSearchFilter indexsearchfilter, IFormCollection fc)
         {
-            GetClassMember<CsKdCnCategory> getClassMember = new GetClassMember<CsKdCnCategory>();
-            CsKdCnCategory CsKdCnCategory = new CsKdCnCategory();
-            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsKdCnCategory), "Value", "DisplayName");
+            GetClassMember<CsKdHlGenerated> getClassMember = new GetClassMember<CsKdHlGenerated>();
+            CsKdHlGenerated CsKdHlGenerated = new CsKdHlGenerated();
+            ViewBag.List = new SelectList(getClassMember.GetPropertyDisplayName(CsKdHlGenerated), "Value", "DisplayName");
             //Creating Search Filter List with class member Property Name
-            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsKdCnCategory);
+            Dictionary<string, string> fields = getClassMember.GetPropertyName(CsKdHlGenerated);
             foreach (var item in indexsearchfilter.IndexSearchList)
             { item.Name = fields[item.Name]; }
             //Ends
@@ -273,7 +271,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             Tuple<int, int> pagedata = await paging.PaginationData(PgSize, PgSelectedNum);//Give the Page Size and Page No
 
-            Tuple<int, List<CsKdCnCategory>> list;
+            Tuple<int, List<CsKdHlGenerated>> list;
             using (HttpClient client = APIColorStays.Initial())
             {
                indexsearchfilter.CurrentUserId = UserID;
@@ -282,10 +280,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 indexsearchfilter.PageSize = pagedata.Item1;
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                 StringContent content = new StringContent(JsonSerializer.Serialize(indexsearchfilter), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("KdCnCategory/FilterSearch", content))
+                using (var response = await client.PostAsync("KdHlGenerated/FilterSearch", content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
-                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsKdCnCategory>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<int, List<CsKdHlGenerated>>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     if (response.IsSuccessStatusCode)
                     { Success = true; }
                     else { Success = false; }
@@ -305,28 +303,28 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         //Ends
 
 
-        //GET: /KdCnCategory/Details/5
+        //GET: /KdHlGenerated/Details/5
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            CsKdCnCategory CsKdCnCategory = new CsKdCnCategory();
+            CsKdHlGenerated CsKdHlGenerated = new CsKdHlGenerated();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("KdCnCategory/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("KdHlGenerated/details/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
                     {
-                        CsKdCnCategory = await System.Text.Json.JsonSerializer.DeserializeAsync<CsKdCnCategory>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
-                        return View("_DetailOrDelete",CsKdCnCategory);
+                        CsKdHlGenerated = await System.Text.Json.JsonSerializer.DeserializeAsync<CsKdHlGenerated>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        return View("_DetailOrDelete",CsKdHlGenerated);
                     }
                     else
                     {
-                        Tuple<CsKdCnCategory, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsKdCnCategory, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        Tuple<CsKdHlGenerated, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsKdHlGenerated, Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (data.Item2 != null && data.Item2.Message == "GlobalItem")
                         {
                             ViewBag.Message = "Sytem Entry, Can't be Changed !";
@@ -340,7 +338,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
 
-        //GET: /KdCnCategory/CreateOrEdit
+        //GET: /KdHlGenerated/CreateOrEdit
         [HttpGet]
         [ResponseCache(Duration = 0)]
         public async Task<IActionResult> CreateOrEdit(string Id)
@@ -352,14 +350,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Id != null)
             {
                 bool Success = false;
-                var data = new CsKdCnCategory();
+                var data = new CsKdHlGenerated();
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("KdCnCategory/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync("KdHlGenerated/edit/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
-                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsKdCnCategory>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsKdHlGenerated>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                         if (response.IsSuccessStatusCode)
                         { Success = true; }
                         else { Success = false; }
@@ -378,7 +376,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
         }
         
-        //GET: /KdCnCategory/Create
+        //GET: /KdHlGenerated/Create
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -393,17 +391,17 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["SearchType"] = "NoSearch";
 
             Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-            Task<Tuple<int, List<CsKdCnCategory>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+            Task<Tuple<int, List<CsKdHlGenerated>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
             PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
             ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;
             return View();
         } 
         
 
-        //POST: /KdCnCategory/Create
+        //POST: /KdHlGenerated/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create(CsKdCnCategory CsKdCnCategory)
+		public async Task<IActionResult> Create(CsKdHlGenerated CsKdHlGenerated)
         {       
             Title();
             ViewData["AnName"] = "Create";
@@ -411,24 +409,24 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
-            CsKdCnCategory.CompId = CompID;
-            CsKdCnCategory.CreatedBy = UserID;
-            CsKdCnCategory.ModifiedBy = UserID;
-            CsKdCnCategory.Id = Guid.NewGuid().ToString();
+            CsKdHlGenerated.CompId = CompID;
+            CsKdHlGenerated.CreatedBy = UserID;
+            CsKdHlGenerated.ModifiedBy = UserID;
+            CsKdHlGenerated.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
-            CsKdCnCategory data = new CsKdCnCategory();
+            CsKdHlGenerated data = new CsKdHlGenerated();
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
 				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    StringContent content = new StringContent(JsonSerializer.Serialize(CsKdCnCategory), Encoding.UTF8, "application/json");
-                    using (var response = await client.PostAsync("KdCnCategory/create", content))
+                    StringContent content = new StringContent(JsonSerializer.Serialize(CsKdHlGenerated), Encoding.UTF8, "application/json");
+                    using (var response = await client.PostAsync("KdHlGenerated/create", content))
                     {
                         var apiResponse = await response.Content.ReadAsStreamAsync();
                         if (response.IsSuccessStatusCode)
                         {
-                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsKdCnCategory>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                            data = await System.Text.Json.JsonSerializer.DeserializeAsync<CsKdHlGenerated>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                             Success = true;
                         }
                         else
@@ -444,13 +442,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 }
                 if (Success == true)
                 { return RedirectToAction("Index", new { PageCall = "Show" }); }
-                else { return View("_CreateOrEdit", CsKdCnCategory); }
+                else { return View("_CreateOrEdit", CsKdHlGenerated); }
             }
-            return View("_CreateorEdit",CsKdCnCategory);                
+            return View("_CreateorEdit",CsKdHlGenerated);                
          }
 
 
-        //GET: /KdCnCategory/Edit/5
+        //GET: /KdHlGenerated/Edit/5
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
@@ -471,20 +469,20 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
 
-            CsKdCnCategory CsKdCnCategory = new CsKdCnCategory();
+            CsKdHlGenerated CsKdHlGenerated = new CsKdHlGenerated();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("KdCnCategory/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("KdHlGenerated/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     Tuple<int, int> pagedata = await paging.PaginationData(null, null);//Give the Page Size and Page No
-                    Task<Tuple<int, List<CsKdCnCategory>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
+                    Task<Tuple<int, List<CsKdHlGenerated>>> ReturnDataList = AllDataList(pagedata.Item1, pagedata.Item2);//Give the List of data
                     PaginationViewData(pagedata.Item2, ReturnDataList.Result.Item1, pagedata.Item1);//Give the ViewData value for Pagination
                     ViewData["EnteredDetails"] = ReturnDataList.Result.Item2;                   
                     if (response.IsSuccessStatusCode)
                     {
-                        CsKdCnCategory = await System.Text.Json.JsonSerializer.DeserializeAsync<CsKdCnCategory>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        CsKdHlGenerated = await System.Text.Json.JsonSerializer.DeserializeAsync<CsKdHlGenerated>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                     }
                     else
                     {
@@ -496,14 +494,14 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     }
                 }
             }
-            return View(CsKdCnCategory);
+            return View(CsKdHlGenerated);
         }
 
                 
-        //POST: /KdCnCategory/Edit/5
+        //POST: /KdHlGenerated/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CsKdCnCategory CsKdCnCategory)
+        public async Task<IActionResult> Edit(CsKdHlGenerated CsKdHlGenerated)
         {
             Title();
             ViewData["AnName"] = "Edit";
@@ -512,8 +510,8 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
             ViewData["ResponseName"] = "ShowValidation";
-            CsKdCnCategory.CompId = CompID;
-            CsKdCnCategory.ModifiedBy = UserID;   
+            CsKdHlGenerated.CompId = CompID;
+            CsKdHlGenerated.ModifiedBy = UserID;   
             if (ModelState.IsValid)
             {
                 try
@@ -521,12 +519,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     using (HttpClient client = APIColorStays.Initial())
                     {
 						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                        using (var response = await client.PostAsJsonAsync<CsKdCnCategory>("KdCnCategory/edit", CsKdCnCategory))
+                        using (var response = await client.PostAsJsonAsync<CsKdHlGenerated>("KdHlGenerated/edit", CsKdHlGenerated))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
                             if (!response.IsSuccessStatusCode)
                             {
-                                Tuple<CsKdCnCategory, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsKdCnCategory,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                                Tuple<CsKdHlGenerated, Response> data = await System.Text.Json.JsonSerializer.DeserializeAsync<Tuple<CsKdHlGenerated,Response>>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
                                 if (data.Item2 != null)
                                 {
                                     if (data.Item2.Message == "Duplicate")
@@ -554,11 +552,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                     return View("_CreateorEdit");
                 }
             }
-            return View("_CreateorEdit",CsKdCnCategory);
+            return View("_CreateorEdit",CsKdHlGenerated);
         }
         
        
-        //POST: /KdCnCategory/Delete/5
+        //POST: /KdHlGenerated/Delete/5
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
@@ -568,7 +566,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("KdCnCategory/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("KdHlGenerated/deleteconfirmed/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (response.IsSuccessStatusCode)
@@ -599,12 +597,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             model.CompId = CompID;
             if (model.ActionName == "Verify" || model.ActionName == "UnVerify") { model.VerifiedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
             if (model.ActionName == "Activate" || model.ActionName == "Inactivate") { model.ActivatedBy = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); }
-			CsKdCnCategory CsKdCnCategory = new CsKdCnCategory();
+			CsKdHlGenerated CsKdHlGenerated = new CsKdHlGenerated();
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
 				StringContent content = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
-                using (var response = await client.PostAsync("KdCnCategory/verifydata/" , content))
+                using (var response = await client.PostAsync("KdHlGenerated/verifydata/" , content))
                 {
                     var apiResponse = await response.Content.ReadAsStreamAsync();
                     if (!response.IsSuccessStatusCode)
@@ -632,7 +630,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             starUnstar.Id = Id;
             starUnstar.Host = Request.Scheme + "://" + Request.Host;
             starUnstar.AreaName = "ColorStays";
-            starUnstar.ControllerName = "KdCnCategory";
+            starUnstar.ControllerName = "KdHlGenerated";
             starUnstar.CreatedBy = UserId;
             using (HttpClient client = APIComp.Initial())
             {
@@ -674,7 +672,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         }
 
          //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationKdCnCategory(string Name, string NameAction, string Id)
+        public async Task<JsonResult> CheckDuplicationKdHlGenerated(string Name, string NameAction, string Id)
         {
             bool Success = false;
             var TokenKey = Request.Cookies["JWToken"];
@@ -683,7 +681,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("KdCnCategory/CheckDuplicationKdCnCategory/" + Name + "/" + NameAction + "/" + Id+"/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                using (var response = await client.GetAsync("KdHlGenerated/CheckDuplicationKdHlGenerated/" + Name + "/" + NameAction + "/" + Id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
                 {
                     if (response.IsSuccessStatusCode)
                     {
@@ -698,34 +696,5 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
-
-         //This method is to check duplicate values for specific columns......
-        public async Task<JsonResult> CheckDuplicationKdCnCategoryRank(int Rank, string NameAction, string Id, bool IsHotel)
-        {
-            bool Success = false;
-            var TokenKey = Request.Cookies["JWToken"];
-            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-            if (Id == null) { Id = "No"; }
-            using (HttpClient client = APIColorStays.Initial())
-            {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var response = await client.GetAsync("KdCnCategory/CheckDuplicationKdCnCategoryRank/" + Rank + "/" + NameAction + "/" + Id+"/"+IsHotel + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
-                {
-                    if (response.IsSuccessStatusCode)
-                    {
-                        Success = true;
-                    }
-                    if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-                    {
-                        return Json("Sorry, this " + Rank + " already exists");
-                    }
-                }
-            }
-            if (Success == true) { return Json(true); }
-            else { return Json("Some Error!"); }
-        }
-
-
-
     }
 }

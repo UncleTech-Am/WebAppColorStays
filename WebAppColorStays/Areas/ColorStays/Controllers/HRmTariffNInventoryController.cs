@@ -46,7 +46,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 using (HttpClient client = APIColorStays.Initial())
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                    using (var response = await client.GetAsync("Hotel/Index/" + CompID + "/" + 0 + "/" + 0 + "/" + UserID, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync("Hotel/Index/" + CompID + "/" + 0 + "/" + 0 + "/" + UserID+"/"+false, HttpCompletionOption.ResponseHeadersRead))
                     {
                         if (response.IsSuccessStatusCode)
                         {

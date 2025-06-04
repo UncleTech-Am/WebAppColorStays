@@ -3,14 +3,14 @@
 
 @{
     Layout = null;
-    ViewData["Action"] = "KdCnForm";
+    ViewData["Action"] = "KdCnHlForm";
 }
 
 
 
 <form id="CreatePrefix"
       data-ajax="true"
-      data-ajax-url="/ColorStays/KdCnForm/CreatePrefix"
+      data-ajax-url="/ColorStays/KdCnHlForm/CreatePrefix"
       data-ajax-method="POST"
       data-ajax-loading="#loader"
       data-ajax-success="SuccessPrefix(data, status, xhr,'CreatePrefix','CreateOrEditPrefix')"
@@ -34,7 +34,7 @@
         @Html.HiddenFor(model => model.CreatedBy)
         @Html.HiddenFor(model => model.CreatedOn)
         @Html.HiddenFor(model => model.CompId)
-        <input type="hidden" asp-for="IsHotel" value="false" />
+        <input type="hidden" asp-for="IsHotel" value="true" />
 
 
         <div class="MnTp7 MnBm7">
