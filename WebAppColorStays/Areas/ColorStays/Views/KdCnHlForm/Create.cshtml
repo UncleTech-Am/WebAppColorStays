@@ -79,15 +79,142 @@
         SuggestionClose(InputId);
         document.getElementById('Fk_State_Name').value = event.target.Id;
         document.getElementById(InputId).value = event.target.Value;
-        getUT('/ColorStays/KdCnForm/KeywordCityList?SeId=' + event.target.Id + '&FmId=NoId&FormType=Bulk', function (data) {
+        getUT('/ColorStays/KdCnHlForm/KeywordCityList?SeId=' + event.target.Id + '&FmId=NoId&FormType=Bulk', function (data) {
             document.getElementById('CityListCheck').innerHTML = "";
             document.getElementById('CityListCheck').innerHTML = data;
             HideLoader();
         });
     }
 
+
+    //Get the create view for root prefix suffix
+    function CreatePrefixRootSuffix(URL) {
+        var loader = document.getElementById("loader");
+
+        var GetMethod = new XMLHttpRequest();
+        loader.style.display = "flex";
+        GetMethod.open('GET', URL, true);
+        GetMethod.onload = function () {
+            var content = GetMethod.responseText;
+            document.getElementById('PopUpScript').style.display = "block";
+            document.getElementById('PopUpScriptDetailContentID').innerHTML = "";
+            document.getElementById('PopUpScriptDetailContentID').innerHTML = content;
+            document.getElementById('PopUpOkBtn').style.display = "none";
+            HideLoader();
+        };
+        GetMethod.send(null);
+    }
+
+
+    function StOnRemove(IdStg) {
+        var St = document.getElementById(IdStg);
+        var i, L = St.options.length - 1;
+        for (i = L; i >= 1; i--) {
+            St.remove(i);
+        }
+    }
+
+    //success function for Root
+    function SuccessRoot(data, status, xhr, FormID, FormFieldID) {
+        if (data.includes("ShowValidation")) {
+            var popup = document.getElementById("PopUp");
+            popup.style.width = "30%";
+            popup.style.left = "35%";
+            popup.style.top = "15%";
+            popup.style.zIndex = "99999999999999";
+            popup.style.maxHeight = "35%";
+            popup.style.minHeight = "35%";
+            document.getElementById("PopUpDetailID").style.display = "block";
+            document.getElementById("PopUpDetailContentID").style.textAlign = "center";
+            document.getElementById("PopUpDetailContentID").style.fontSize = "30px";
+            document.getElementById('PopUpDetailContentID').innerHTML = "Duplicate Value!! Please Enter Some Another Value.";
+            document.getElementById("PopUp").style.display = "block";
+            HideLoader();
+        }
+        if (data.includes("SuccessPop")) {
+            FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "");
+            StOnRemove('Fk_KdRoot_Name');
+            StOnSe = document.getElementById('Fk_KdRoot_Name');
+            getUT('/ColorStays/KdRoot/DropDownRoot', function (data) {
+                var json = JSON.parse(data);
+                for (var i = 0; i < json.length; i++) {
+                    var obj = json[i];
+                    var newOption = new Option(obj.Text, obj.Value);
+                    StOnSe.add(newOption, undefined);
+                }
+                HidePopUpScript();
+            });
+        }
+
+    }
+
+    //success function for Prefix
+    function SuccessPrefix(data, status, xhr, FormID, FormFieldID) {
+        if (data.includes("ShowValidation")) {
+            var popup = document.getElementById("PopUp");
+            popup.style.width = "30%";
+            popup.style.left = "35%";
+            popup.style.top = "15%";
+            popup.style.zIndex = "99999999999999";
+            popup.style.maxHeight = "35%";
+            popup.style.minHeight = "35%";
+            document.getElementById("PopUpDetailID").style.display = "block";
+            document.getElementById("PopUpDetailContentID").style.textAlign = "center";
+            document.getElementById("PopUpDetailContentID").style.fontSize = "30px";
+            document.getElementById('PopUpDetailContentID').innerHTML = "Duplicate Value!! Please Enter Some Another Value.";
+            document.getElementById("PopUp").style.display = "block";
+            HideLoader();
+        }
+        if (data.includes("SuccessPop")) {
+            FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "");
+            StOnRemove('Fk_KdPrefix_Name');
+            StOnSe = document.getElementById('Fk_KdPrefix_Name');
+            getUT('/ColorStays/KdPrefix/DropDownPrefix', function (data) {
+                var json = JSON.parse(data);
+                for (var i = 0; i < json.length; i++) {
+                    var obj = json[i];
+                    var newOption = new Option(obj.Text, obj.Value);
+                    StOnSe.add(newOption, undefined);
+                }
+            });
+        }
+    }
+
+    //success function for Suffix
+    function SuccessSuffix(data, status, xhr, FormID, FormFieldID) {
+        if (data.includes("ShowValidation")) {
+            var popup = document.getElementById("PopUp");
+            popup.style.width = "30%";
+            popup.style.left = "35%";
+            popup.style.top = "15%";
+            popup.style.zIndex = "99999999999999";
+            popup.style.maxHeight = "35%";
+            popup.style.minHeight = "35%";
+            document.getElementById("PopUpDetailID").style.display = "block";
+            document.getElementById("PopUpDetailContentID").style.textAlign = "center";
+            document.getElementById("PopUpDetailContentID").style.fontSize = "30px";
+            document.getElementById('PopUpDetailContentID').innerHTML = "Duplicate Value!! Please Enter Some Another Value.";
+            document.getElementById("PopUp").style.display = "block";
+            HideLoader();
+        }
+        if (data.includes("SuccessPop")) {
+            FormAjaxSuccess(data, FormID, FormFieldID, "UpdateNothing", "");
+            StOnRemove('Fk_KdSuffix_Name');
+            StOnSe = document.getElementById('Fk_KdSuffix_Name');
+            getUT('/ColorStays/KdSuffix/DropDownSuffix', function (data) {
+                var json = JSON.parse(data);
+                for (var i = 0; i < json.length; i++) {
+                    var obj = json[i];
+                    var newOption = new Option(obj.Text, obj.Value);
+                    StOnSe.add(newOption, undefined);
+                }
+            });
+        }
+    }
+
     function Success(data, status, xhr, FormID, FormFieldID) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateDiv", "Def");
+        document.getElementById('CityListCheck').innerHTML = null;
         //Here we get the pageno,pagesize and listcount
         var doc = new DOMParser().parseFromString(data, "text/html");
         var pageinfo = doc.getElementById("PaginationAt");

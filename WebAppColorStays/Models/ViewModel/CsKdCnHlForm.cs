@@ -28,7 +28,7 @@ namespace WebAppColorStays.Models.ViewModel
         public bool Dinner { get; set; }
         public bool FromPrice { get; set; }
         public bool ToPrice { get; set; }
-        public bool NoOfPerson { get; set; }
+        public int? NoOfPerson { get; set; }
         public bool BudgetHotels { get; set; }
         public bool LuxuryHotels { get; set; }
         public bool PremiumHotels { get; set; }
