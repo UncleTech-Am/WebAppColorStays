@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-
 using LibCommon.DataTransfer;
 using LibCompanyService.Models.ViewCompany;
 using Microsoft.AspNetCore.Authorization;

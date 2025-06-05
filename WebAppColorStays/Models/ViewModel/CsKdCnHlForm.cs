@@ -26,17 +26,23 @@ namespace WebAppColorStays.Models.ViewModel
         public bool Breakfast { get; set; }
         public bool Lunch { get; set; }
         public bool Dinner { get; set; }
-        public bool FromPrice { get; set; }
-        public bool ToPrice { get; set; }
+        public double? FromPrice { get; set; }
+        public double? ToPrice { get; set; }
         public int? NoOfPerson { get; set; }
+        [NotMapped]
+        public string? HotelCategory { get; set; }
         public bool BudgetHotels { get; set; }
         public bool LuxuryHotels { get; set; }
         public bool PremiumHotels { get; set; }
+        [NotMapped]
+        public string? Terms { get; set; }
         public bool IsFreeCancellation { get; set; }
         public bool IsBookWithoutCreditCard { get; set; }
         public bool IsNoPrePayment { get; set; }
         public bool IsFeaturedProperty { get; set; }
         public string DistanceFromCityCenter { get; set; }
+        [NotMapped]
+        public string? IsAmenity { get; set; }
         [NotMapped]
         public string? VariablePosition { get; set; }
         public bool IsVeWdBeforePrefix { get; set; }
@@ -83,5 +89,7 @@ namespace WebAppColorStays.Models.ViewModel
         public byte[]? RowVersion { get; set; }
         [NotMapped]
         public KeywordCityCheckbox? CheckCityList { get; set; }
+        public string[]? Amenity { get; set; }
+
     }
 }

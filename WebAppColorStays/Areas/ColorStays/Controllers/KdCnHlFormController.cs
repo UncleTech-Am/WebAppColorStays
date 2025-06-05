@@ -58,10 +58,32 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 ViewBag.Prefix = Prefix;
                 ViewBag.Suffix = Suffix;
                 ViewBag.HotelType = HotelType;
+                List<SelectListItem> list = new List<SelectListItem>();
+                ViewBag.AmenityList = list;
             }
             catch (Exception ex) { }
 
         }
+
+
+        public async Task<List<SelectListItem>> DpDnAmenity()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var dresp = await client.GetAsync("HotelFacility/DropdownAmenityList/" + CompID))
+                {
+                    var dapiResp = await dresp.Content.ReadAsStreamAsync();
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<SelectListItem>>(dapiResp, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            return list;
+        }
+
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)

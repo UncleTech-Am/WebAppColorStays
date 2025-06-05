@@ -40,7 +40,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
         public async void DropDown(string CompId, string Token)
         {
             RyCrSsDropDown ry = new RyCrSsDropDown();
-            string URLCategory = "KdCnCategory/DropDown/" + CompId+"/" + false;
+            string URLCategory = "KdCnCategory/DropDown/" + CompId + "/" + false;
             string URLRoot = "KdRoot/DropDown/" + CompId + "/" + false;
             string URLPrefix = "KdPrefix/DropDown/" + CompId + "/" + false;
             string URLSuffix = "KdSuffix/DropDown/" + CompId + "/" + false;

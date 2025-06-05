@@ -37,7 +37,7 @@
             <select asp-for="Fk_KdRoot_Name" asp-items="@await ViewBag.Root" class="TtBxTt15" style="min-width:170px;">
                 <option value="">Select Root</option>
             </select>
-            <i class="UT-PlusLine MnRt7 Cr-uPr" onclick="CreatePrefixRootSuffix('/ColorStays/KdCnForm/CreateRoot')"></i>
+            <i class="UT-PlusLine MnRt7 Cr-uPr" onclick="CreatePrefixRootSuffix('/ColorStays/KdCnHlForm/CreateRoot')"></i>
 
         </div>
     </div>
@@ -52,7 +52,7 @@
             <select asp-for="Fk_KdPrefix_Name" asp-items="@await ViewBag.Prefix" class="TtBxTt15" style="min-width:170px;">
                 <option value="">Select Prefix</option>
             </select>
-            <i class="UT-PlusLine MnRt7 Cr-uPr" onclick="CreatePrefixRootSuffix('/ColorStays/KdCnForm/CreatePrefix')"></i>
+            <i class="UT-PlusLine MnRt7 Cr-uPr" onclick="CreatePrefixRootSuffix('/ColorStays/KdCnHlForm/CreatePrefix')"></i>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_KdPrefix_Name"></span></div>
@@ -66,7 +66,7 @@
             <select asp-for="Fk_KdSuffix_Name" asp-items="@await ViewBag.Suffix" class="TtBxTt15" style="min-width:170px;">
                 <option value="">Select Suffix</option>
             </select>
-            <i class="UT-PlusLine MnRt7 Cr-uPr" onclick="CreatePrefixRootSuffix('/ColorStays/KdCnForm/CreateSuffix')"></i>
+            <i class="UT-PlusLine MnRt7 Cr-uPr" onclick="CreatePrefixRootSuffix('/ColorStays/KdCnHlForm/CreateSuffix')"></i>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_KdSuffix_Name"></span></div>
@@ -228,29 +228,47 @@ else
 </div>
 
 
+
+<div class="MnTp7 MnBm10 TtAnCr FtSz18 FtWt600 CrBdTe">
+    Filters
+</div>
+
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Fk_HotelType_Name)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Fk_HotelType_Name)" asp-for="Fk_HotelType_Name" autocomplete="off" />
+            <select asp-for="Fk_HotelType_Name" asp-items="@await ViewBag.HotelType" class="TtBxTt15">
+                <option value="">Select Hotel Type</option>
+            </select>
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="Fk_HotelType_Name"></span></div>
 </div>
 
-
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Heading)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Heading)" asp-for="Heading" autocomplete="off" />
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FromPrice)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FromPrice)" asp-for="FromPrice" autocomplete="off" />
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="FromPrice"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Heading"></span></div>
+
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ToPrice)</div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ToPrice)" asp-for="ToPrice" autocomplete="off" />
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="ToPrice"></span></div>
+    </div>
 </div>
 
-
-<div class="FxRw">
+@* <div class="FxRw">
     <div class="Fx33 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
@@ -283,122 +301,119 @@ else
         <div class="VnRd"><span asp-validation-for="Dinner"></span></div>
     </div>
 </div>
+ *@
+
+<div class="FxRw">
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                 <input class="SeIt1o15" type="radio" asp-for="HotelCategory" value="BudgetHotels">
+                &nbsp;Budget Hotel
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="HotelCategory"></span></div>
+    </div>
+
+
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                 <input class="SeIt1o15" type="radio" asp-for="HotelCategory" value="LuxuryHotels">
+                &nbsp;Luxury Hotel
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="HotelCategory"></span></div>
+    </div>
+
+
+    <div class="Fx33 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="HotelCategory" value="PremiumHotels">
+                &nbsp;Premium           
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="HotelCategory"></span></div>
+    </div>
+</div>
 
 <div class="FxRw">
     <div class="Fx50 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.FromPrice)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.FromPrice)" asp-for="FromPrice" autocomplete="off" />
+                <input class="SeIt1o15" type="radio" asp-for="Terms" value="IsFreeCancellation">
+                &nbsp;Free Cancellation
             </div>
         </div>
-        <div class="VnRd"><span asp-validation-for="FromPrice"></span></div>
+        <div class="VnRd"><span asp-validation-for="Terms"></span></div>
     </div>
 
 
     <div class="Fx50 Pg2 MnTp7 MnBm7">
         <div class="TtBxFlStDiv">
             <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.ToPrice)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.ToPrice)" asp-for="ToPrice" autocomplete="off" />
+                <input class="SeIt1o15" type="radio" asp-for="Terms" value="IsBookWithoutCreditCard">
+                &nbsp;BookWithout CreditCard
             </div>
         </div>
-        <div class="VnRd"><span asp-validation-for="ToPrice"></span></div>
+        <div class="VnRd"><span asp-validation-for="Terms"></span></div>
     </div>
 </div>
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="Terms" value="IsNoPrePayment">
+                &nbsp;No Pre Payment
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Terms"></span></div>
+    </div>
 
+
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="radio" asp-for="Terms" value="IsFeaturedProperty">
+                &nbsp;Featured Property
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="Terms"></span></div>
+    </div>
+</div>
 
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsAmenity)</div>
+            <input class="SeIt1o15" type="checkbox" asp-for="IsAmenity" onchange="GetAmenityList()"/>
+            &nbsp;Is Amenity
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="IsAmenity"></span></div>
+</div>
+
+<div class="MnTp7 MnBm7" id="Amenities" style='display:none;'>
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">Select Amenity<span style="color:red;"> *</span></div>
+            <select name="Amenity" asp-items="@ViewBag.AmenityList" multiple class="js-example-basic-multiple TtBxTt15" id="Amenity">
+                       
+            </select>
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="IsAmenity"></span></div>
+</div>
+@* <div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.NoOfPerson)</div>
-            <input  class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.NoOfPerson)" asp-for="NoOfPerson" autocomplete="off" />
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.NoOfPerson)" asp-for="NoOfPerson" autocomplete="off" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="NoOfPerson"></span></div>
 </div>
-
-<div class="FxRw">
-    <div class="Fx33 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BudgetHotels)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.BudgetHotels)" asp-for="BudgetHotels" autocomplete="off" />
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="BudgetHotels"></span></div>
-    </div>
-
-
-    <div class="Fx33 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.LuxuryHotels)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.LuxuryHotels)" asp-for="LuxuryHotels" autocomplete="off" />
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="LuxuryHotels"></span></div>
-    </div>
-
-
-    <div class="Fx33 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.PremiumHotels)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.PremiumHotels)" asp-for="PremiumHotels" autocomplete="off" />
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="PremiumHotels"></span></div>
-    </div>
-</div>
-
-<div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsFreeCancellation)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsFreeCancellation)" asp-for="IsFreeCancellation" autocomplete="off" />
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsFreeCancellation"></span></div>
-    </div>
-
-
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsBookWithoutCreditCard)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsBookWithoutCreditCard)" asp-for="IsBookWithoutCreditCard" autocomplete="off" />
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsBookWithoutCreditCard"></span></div>
-    </div>
-</div>
-<div class="FxRw">
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsNoPrePayment)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsNoPrePayment)" asp-for="IsNoPrePayment" autocomplete="off" />
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsNoPrePayment"></span></div>
-    </div>
-
-
-    <div class="Fx50 Pg2 MnTp7 MnBm7">
-        <div class="TtBxFlStDiv">
-            <div class="TtBxFlSt">
-                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsFeaturedProperty)</div>
-                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsFeaturedProperty)" asp-for="IsFeaturedProperty" autocomplete="off" />
-            </div>
-        </div>
-        <div class="VnRd"><span asp-validation-for="IsFeaturedProperty"></span></div>
-    </div>
-</div>
-
-
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
@@ -408,7 +423,7 @@ else
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="DistanceFromCityCenter"></span></div>
-</div>
+</div> *@
 
 
 <div class="MnTp7 MnBm7">

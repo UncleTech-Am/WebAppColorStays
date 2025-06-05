@@ -86,6 +86,30 @@
         });
     }
 
+     
+    function GetAmenityList() {
+        var IsAminity = document.getElementById('IsAmenity');
+        //Remove Option
+        document.getElementById('Amenities').style.display='block';
+        StOnRemove('Amenity');
+        StOnTs = document.getElementById('Amenity');
+       
+        if(IsAminity.checked){
+             getUT('/ColorStays/KdCnHlForm/DpDnAmenity', function (data) {
+                var json = JSON.parse(data);
+                for (var i = 0; i < json.length; i++) {
+                    var obj = json[i];
+                    var newOption = new Option(obj.Text, obj.Value);
+                    StOnTs.add(newOption, undefined);
+                }
+                $('.js-example-basic-multiple').select2();
+            });
+        }
+        else{
+            document.getElementById('Amenities').style.display='none';
+        }
+    }
+
 
     //Get the create view for root prefix suffix
     function CreatePrefixRootSuffix(URL) {
