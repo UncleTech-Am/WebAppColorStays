@@ -14,8 +14,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? CoverImageName { get; set; }
         public string? URL { get; set; }
         public string? Fk_KdCnCategory_Name { get; set; }
-        public string? Fk_Country_Name { get; set; }
-        public string? Fk_State_Name { get; set; }
+        public string? Fk_KdCnHlForm_Name { get; set; }
         public string? Fk_HotelType_Name { get; set; }
         public string? Heading { get; set; }
         public bool? Breakfast { get; set; }

@@ -40,7 +40,7 @@ namespace WebAppColorStays.Models.ViewModel
         public bool IsBookWithoutCreditCard { get; set; }
         public bool IsNoPrePayment { get; set; }
         public bool IsFeaturedProperty { get; set; }
-        public string DistanceFromCityCenter { get; set; }
+        public string? DistanceFromCityCenter { get; set; }
         [NotMapped]
         public string? IsAmenity { get; set; }
         [NotMapped]
@@ -89,6 +89,7 @@ namespace WebAppColorStays.Models.ViewModel
         public byte[]? RowVersion { get; set; }
         [NotMapped]
         public KeywordCityCheckbox? CheckCityList { get; set; }
+        [NotMapped]
         public string[]? Amenity { get; set; }
 
     }

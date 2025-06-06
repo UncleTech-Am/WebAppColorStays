@@ -14,6 +14,7 @@ namespace WebAppColorStays.Areas.ColorStays.CommonMethods
         public string? Fk_State_Name { get; set; }
         public string? Fk_Country_Name { get; set; }
         public string? Fk_KdGenerated_Name { get; set; }
+        public string? Fk_KdHlGenerated_Name { get; set; }
         public KeywordCityCheckbox()
         {
             CheckCity = new List<KeywordCityCheckbox>();
