@@ -42,7 +42,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             string URLRoot = "KdRoot/DropDown/" + CompId + "/" + true;
             string URLPrefix = "KdPrefix/DropDown/" + CompId + "/" + true;
             string URLSuffix = "KdSuffix/DropDown/" + CompId + "/" + true;
-            string URLHotelType = "PackageType/DropDown/" + CompId;
+            string URLHotelType = "HotelType/DropDown/" + CompId;
 
             try
             {
@@ -89,11 +89,11 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             List<SelectListItem> list = new List<SelectListItem>();
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
-
+            string IsForm = "IsForm";
             using (HttpClient client = APIColorStays.Initial())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
-                using (var dresp = await client.GetAsync("HotelFacility/DropdownAmenitySelectedList/" + CompID + "/" + KdId))
+                using (var dresp = await client.GetAsync("HotelFacility/DropdownAmenitySelectedList/" + CompID + "/" + KdId+"/"+ IsForm))
                 {
                     var dapiResp = await dresp.Content.ReadAsStreamAsync();
                     list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<SelectListItem>>(dapiResp, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });

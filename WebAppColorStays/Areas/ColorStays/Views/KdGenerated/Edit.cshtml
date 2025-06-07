@@ -65,9 +65,15 @@
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
-        StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
-        StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
-        StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
+        if ('@Model.City' !== '') {
+            StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
+        }
+        if ('@Model.State' !== '') {
+            StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
+        }
+        if ('@Model.Country' !== '') {
+            StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
+        }
     });
 
     //Clear Autocompete data

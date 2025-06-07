@@ -236,7 +236,7 @@
             FormFocus(FormID);
         };
         xhrget.send(null);
-        getUT('/ColorStays/KdCnForm/KeywordCityList?SeId=@Model.Fk_State_Name&FmId=@Model.Id', function (data) {
+        getUT('/ColorStays/KdCnForm/KeywordCityList?SeId=@Model.Fk_State_Name&FmId=@Model.Id&FormType=Bulk', function (data) {
             document.getElementById('CityListCheck').innerHTML = "";
             document.getElementById('CityListCheck').innerHTML = data;
             HideLoader();

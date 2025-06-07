@@ -9,9 +9,13 @@ namespace WebAppColorStays.Models.ViewModel
     {
         public string? Id { get; set; }
         public string? Label { get; set; }
+        [DisplayName("Root")]
         public string? Fk_KdRoot_Name { get; set; }
+        [DisplayName("Prefix")]
         public string? Fk_KdPrefix_Name { get; set; }
+        [DisplayName("Suffix")]
         public string? Fk_KdSuffix_Name { get; set; }
+        [DisplayName("Category")]
         public string? Fk_KdCnCategory_Name { get; set; }
         [DisplayName("Country")]
         public string? Fk_Country_Name { get; set; }
@@ -21,6 +25,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? Fk_State_Name { get; set; }
         [NotMapped]
         public string? State { get; set; }
+        [DisplayName("HotelType")]
         public string? Fk_HotelType_Name { get; set; }
         public string? Heading { get; set; }
         public bool Breakfast { get; set; }

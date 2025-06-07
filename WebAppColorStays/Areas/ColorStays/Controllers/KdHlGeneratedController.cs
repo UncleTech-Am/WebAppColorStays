@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using UncleTech.Encryption;
 using WebAppColorStays.Models.ViewModel;
+using LibCommon.APICommonMethods;
+using WebAppColorStays.Areas.ColorStays.CommonMethods;
 
 
 namespace WebAppColorStays.Areas.ColorStays.Controllers
@@ -21,18 +23,75 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
     public class KdHlGeneratedController : Controller
     {
         private readonly Paging paging;
-
+        private readonly RyCSImage ryCsImage;
         public KdHlGeneratedController()
         {
             paging = new Paging();
+            ryCsImage = new RyCSImage();
         }
 
         //Show the Title in View
         private void Title()
         {
-            ViewBag.Title = "KdHlGenerated";
+            ViewBag.Title = "Hotel Keyword Generated";
         }
         //Ends
+
+        public async void DropDown(string CompId, string Token)
+        {
+            RyCrSsDropDown ry = new RyCrSsDropDown();
+            string URLCategory = "KdCnCategory/DropDown/" + CompId + "/" + true;
+            string URLHotelType = "HotelType/DropDown/" + CompId;
+            try
+            {
+                Task<List<SelectListItem>> Category = ry.DDColorStaysAPI(URLCategory, Token);
+                Task<List<SelectListItem>> HotelType = ry.DDColorStaysAPI(URLHotelType, Token);
+                Task.WaitAll(Category, HotelType);
+
+                ViewBag.Category = Category;
+                ViewBag.HotelType = HotelType;
+                List<SelectListItem> list = new List<SelectListItem>();
+                ViewBag.AmenityList = list;
+            }
+            catch (Exception ex) { }
+
+        }
+
+        public async Task<List<SelectListItem>> DpDnAmenity()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var dresp = await client.GetAsync("HotelFacility/DropdownAmenityList/" + CompID))
+                {
+                    var dapiResp = await dresp.Content.ReadAsStreamAsync();
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<SelectListItem>>(dapiResp, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            return list;
+        }
+
+        public async Task<List<SelectListItem>> DropdownAmenitySelectedList(string KdId)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            string IsForm = "NoForm";
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var dresp = await client.GetAsync("HotelFacility/DropdownAmenitySelectedList/" + CompID + "/" + KdId +"/"+ IsForm))
+                {
+                    var dapiResp = await dresp.Content.ReadAsStreamAsync();
+                    list = await System.Text.Json.JsonSerializer.DeserializeAsync<List<SelectListItem>>(dapiResp, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+            return list;
+        }
 
         //Set the Pagination values to the ViewData
         private void PaginationViewData(int? PgSelectedNum, int? ListCount, int? PgSize)
@@ -347,6 +406,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             ViewData["ResponseName"] = "ShowValidation";
+            DropDown(CompID, TokenKey);
             if (Id != null)
             {
                 bool Success = false;
@@ -385,7 +445,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            DropDown(CompID, TokenKey);
             ViewData["ActionName"] = "Index";
             ViewData["FormID"] = "NoSearchID";
             ViewData["SearchType"] = "NoSearch";
@@ -409,17 +469,38 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
+            DropDown(CompID, TokenKey);
             CsKdHlGenerated.CompId = CompID;
             CsKdHlGenerated.CreatedBy = UserID;
             CsKdHlGenerated.ModifiedBy = UserID;
             CsKdHlGenerated.Id = Guid.NewGuid().ToString();
             ViewData["ResponseName"] = "ShowValidation";
             CsKdHlGenerated data = new CsKdHlGenerated();
+            var files = HttpContext.Request.Form.Files;
             if (ModelState.IsValid)
             {
                 using (HttpClient client = APIColorStays.Initial())
                 {
-				    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                    foreach (var file in files)
+                    {
+                        var fileName = file.FileName;
+
+                        if ("CoverImage" == file.Name)
+                        {
+                            CsKdHlGenerated.CoverImage = fileName;
+                        }
+
+                        if (file.Length > 0)
+                        {
+                            Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "KdGenHlBanner");
+                            Task.WaitAll(TImgUpload);
+                            if (TImgUpload.Result == "Error")
+                            {
+                                return View("Error");
+                            }
+                        }
+                    }
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                     StringContent content = new StringContent(JsonSerializer.Serialize(CsKdHlGenerated), Encoding.UTF8, "application/json");
                     using (var response = await client.PostAsync("KdHlGenerated/create", content))
                     {
@@ -458,7 +539,7 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             var TokenKey = Request.Cookies["JWToken"];
             var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            DropDown(CompID, TokenKey);
             if (id == null)
             {
                 ViewBag.Message = "Not Founded";
@@ -509,16 +590,45 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
             var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             bool Success = false;
+            DropDown(CompID, TokenKey);
             ViewData["ResponseName"] = "ShowValidation";
             CsKdHlGenerated.CompId = CompID;
-            CsKdHlGenerated.ModifiedBy = UserID;   
+            CsKdHlGenerated.ModifiedBy = UserID;
+            var files = HttpContext.Request.Form.Files;
+            if (CsKdHlGenerated.CoverImageName != null)
+            {
+                CsKdHlGenerated.CoverImage = CsKdHlGenerated.CoverImageName;
+            }
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (HttpClient client = APIColorStays.Initial())
                     {
-						client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                        foreach (var file in files)
+                        {
+                            var fileName = file.FileName;
+                            CsKdHlGenerated.CoverImage = fileName;
+                            if (CsKdHlGenerated.CoverImageName != null)
+                            {
+
+                                //Delete the Images from the folder
+                                Task<string> TDeleteImage = ryCsImage.DeleteImage(CsKdHlGenerated.CoverImageName, TokenKey, "KdGenHlBanner");
+                                Task.WaitAll(TDeleteImage);
+                            }
+
+
+                            if (file.Length > 0)
+                            {
+                                Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "KdGenHlBanner");
+                                Task.WaitAll(TImgUpload);
+                                if (TImgUpload.Result == "Error")
+                                {
+                                    return View("Error");
+                                }
+                            }
+                        }
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
                         using (var response = await client.PostAsJsonAsync<CsKdHlGenerated>("KdHlGenerated/edit", CsKdHlGenerated))
                         {
                             var apiResponse = await response.Content.ReadAsStreamAsync();
@@ -563,6 +673,23 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             Title();
             var TokenKey = Request.Cookies["JWToken"];
 			var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            CsKdHlGenerated csKd = new CsKdHlGenerated();
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("KdHlGenerated/edit/" + id + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    csKd = await System.Text.Json.JsonSerializer.DeserializeAsync<CsKdHlGenerated>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                }
+            }
+
+            Task<string> TDeleteImage3 = ryCsImage.DeleteImage(csKd.CoverImageName, TokenKey, "KdGenHlBanner");
+            Task.WaitAll(TDeleteImage3);
+            if (TDeleteImage3.Result == "Error")
+            {
+                ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+            }
             using (HttpClient client = APIColorStays.Initial())
             {
 				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);

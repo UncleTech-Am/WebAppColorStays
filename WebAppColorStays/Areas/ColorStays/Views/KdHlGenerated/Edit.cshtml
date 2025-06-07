@@ -16,7 +16,7 @@
 
 <div class="SwBx1Dv-Vn1 CrBdWe85 Pg7 BrRs15">
     <div class="FxRw FxAnImSh">
-        <div class="Fx35 Pg3">
+        <div class="Fx45 Pg3">
             <div class="BrTp3_Cr Br1_Cr BrRs10 CrBrTe CrBdTeBody Pg12">
                 <h3 class="MnTp7 MnBm14 Br2_Cr BrRs4 CrBrWe TtAnCr Pg5 HrCrTe">
                     <i class="UT-PenNibSmall"></i>
@@ -28,6 +28,7 @@
                       data-ajax-url="/ColorStays/KdHlGenerated/Edit"
                       data-ajax-method="POST"
                       data-ajax-loading="#loader"
+                      enctype="multipart/form-data"
                       data-ajax-success="Success(data, status, xhr,'Edit','CreateOrEdit','/ColorStays/KdHlGenerated/CreateOrEdit?id=@Model.Id')"
                       data-ajax-failure="FormAjaxFail(xhr, status, error,'Edit')">
 
@@ -55,7 +56,7 @@
             </div>
         </div>
 
-        <div class="Fx65 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
+        <div class="Fx55 Pg3 FormSideView" id="FormSideView" style="overflow:auto">
             @await Html.PartialAsync("_IndexSearch", (IEnumerable<WebAppColorStays.Models.ViewModel.CsKdHlGenerated>)ViewData["EnteredDetails"])
         </div>
     </div>
@@ -64,10 +65,155 @@
 <script>
     $(document).ready(function () {
         IntializeTableSearch();
+        if ('@Model.City' !== '') {
+            StartSuggestionBox(2, 'SearchCity', '/ColorStays/City/SuggestCity', '', '', AoCeCity);
+        }
+        if ('@Model.State' !== '') {
+            StartSuggestionBox(2, 'SearchState', '/ColorStays/State/SuggestState', '', '', AoCeState);
+        }
+        if ('@Model.Country' !== '') {
+            StartSuggestionBox(2, 'SearchCountry', '/ColorStays/Country/SuggestCountry', '', '', AoCeCountry);
+        }
+
+        var KdId = $("#Id").val();
+        //Show the Blog Tags
+        StOnTs = document.getElementById('Amenity');
+        getUT('/ColorStays/KdHlGenerated/DpDnAmenity', function (data) {
+            var json = JSON.parse(data);
+            var selectedtag = "";
+            getUT('/ColorStays/KdHlGenerated/DropdownAmenitySelectedList?KdId=' + KdId, function (data2) {
+                selectedtag = JSON.parse(data2);
+                if (selectedtag.length > 0) {
+                    var IsAminity = document.getElementById('IsAmenity');
+                    IsAminity.checked = true;
+                    document.getElementById('Amenities').style.display = 'block';
+                    for (var i = 0; i < json.length; i++) {
+                        var obj = json[i];
+                        var newOption = new Option(obj.Text, obj.Value);
+                        for (var j = 0; j < selectedtag.length; j++) {
+                            var val = selectedtag[j];
+                            if (val.Text == obj.Text) {
+                                newOption.selected = true;
+                            }
+                        }
+                        StOnTs.add(newOption, undefined);
+                    }
+                }
+            });
+            $('.js-example-basic-multiple').select2();
+        });
     });
+
+    //Clear Autocompete data
+    function ClearData(UrNe, UrId, Text1, Text2) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+        document.getElementById(Text1).value = '';
+        document.getElementById(Text2).value = '';
+    }
+
+    //Autocomplete Item
+    function AoCeCity(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_City_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+        document.getElementById('Fk_State_Name').value = event.target.Text1;
+        document.getElementById('Fk_Country_Name').value = event.target.Text2;
+    }
+
+    //Clear Autocompete data
+    function ClearDataState(UrNe, UrId, Test1) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+        document.getElementById(Test1).value = '';
+    }
+
+    //Autocomplete Item
+    function AoCeState(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_State_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+        document.getElementById('Fk_Country_Name').value = event.target.Text;
+    }
+    //Clear Autocompete data
+    function ClearDataCountry(UrNe, UrId) {
+        document.getElementById(UrNe).value = '';
+        document.getElementById(UrId).value = '';
+    }
+
+    //Autocomplete Item
+    function AoCeCountry(event) {
+        var InputId = event.target.InputID;
+        SuggestionClose(InputId);
+        document.getElementById('Fk_Country_Name').value = event.target.Id;
+        document.getElementById(InputId).value = event.target.Value;
+    }
+
+    function ShowAmenitySd() {
+        var IsAminity = document.getElementById('IsAmenity');
+        var KdId = $("#Id").val();
+        StOnTs = document.getElementById('Amenity');
+        getUT('/ColorStays/KdHlGenerated/DpDnAmenity', function (data) {
+            var json = JSON.parse(data);
+            var selectedtag = "";
+            getUT('/ColorStays/KdHlGenerated/DropdownAmenitySelectedList?KdId=' + KdId, function (data2) {
+                selectedtag = JSON.parse(data2);
+                if (selectedtag.length > 0) {
+                    IsAminity.checked = true;
+                    document.getElementById('Amenities').style.display = 'block';
+                    for (var i = 0; i < json.length; i++) {
+                        var obj = json[i];
+                        var newOption = new Option(obj.Text, obj.Value);
+                        for (var j = 0; j < selectedtag.length; j++) {
+                            var val = selectedtag[j];
+                            if (val.Text == obj.Text) {
+                                newOption.selected = true;
+                            }
+                        }
+                        StOnTs.add(newOption, undefined);
+                    }
+                }
+            });
+            $('.js-example-basic-multiple').select2();
+        });
+    }
+
+    function GetAmenityList() {
+        var IsAminity = document.getElementById('IsAmenity');
+        //Remove Option
+        document.getElementById('Amenities').style.display = 'block';
+        StOnRemove('Amenity');
+        StOnTs = document.getElementById('Amenity');
+
+        if (IsAminity.checked) {
+            getUT('/ColorStays/KdHlGenerated/DpDnAmenity', function (data) {
+                var json = JSON.parse(data);
+                for (var i = 0; i < json.length; i++) {
+                    var obj = json[i];
+                    var newOption = new Option(obj.Text, obj.Value);
+                    StOnTs.add(newOption, undefined);
+                }
+                $('.js-example-basic-multiple').select2();
+            });
+        }
+        else {
+            document.getElementById('Amenities').style.display = 'none';
+        }
+    }
+
+    function StOnRemove(IdStg) {
+        var St = document.getElementById(IdStg);
+        var i, L = St.options.length - 1;
+        for (i = L; i >= 1; i--) {
+            St.remove(i);
+        }
+    }
 
     function Success(data, status, xhr, FormID, FormFieldID, FormFieldURL) {
         FormAjaxSuccess(data, FormID, FormFieldID, "UpdateEditDiv", "Def", FormFieldURL);
+        ShowAmenitySd();
         //Here we get the pageno,pagesize and listcount
         var doc = new DOMParser().parseFromString(data, "text/html");
         var pageinfo = doc.getElementById("PaginationAt");

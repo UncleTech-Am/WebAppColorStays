@@ -130,12 +130,12 @@
 
     function ShowAmenitySd(){
         var IsAminity = document.getElementById('IsAmenity');
-        
+        var KdId = $("#Id").val();
         StOnTs = document.getElementById('Amenity');
         getUT('/ColorStays/KdCnHlForm/DpDnAmenity', function (data) {
             var json = JSON.parse(data);
             var selectedtag = "";
-            getUT('/ColorStays/Bg/DropdownAmenitySelectedList?BlogId=' + blogid, function (data2) {
+            getUT('/ColorStays/KdHlGenerated/DropdownAmenitySelectedList?KdId=' + KdId, function (data2) {
                 selectedtag = JSON.parse(data2);
                 if (selectedtag.length > 0) {
                     IsAminity.checked = true;
@@ -316,12 +316,41 @@
             FormFocus(FormID);
         };
         xhrget.send(null);
-        getUT('/ColorStays/KdCnHlForm/KeywordCityList?SeId=@Model.Fk_State_Name&FmId=@Model.Id', function (data) {
+
+        getUT('/ColorStays/KdCnHlForm/KeywordCityList?SeId=@Model.Fk_State_Name&FmId=@Model.Id&FormType=Bulk', function (data) {
             document.getElementById('CityListCheck').innerHTML = "";
             document.getElementById('CityListCheck').innerHTML = data;
             HideLoader();
         });
-        ShowAmenitySd();
+
+        var KdId = $("#Id").val();
+        //Show the Blog Tags
+        StOnTs = document.getElementById('Amenity');
+        getUT('/ColorStays/KdCnHlForm/DpDnAmenity', function (data) {
+            var json = JSON.parse(data);
+            var selectedtag = "";
+            getUT('/ColorStays/KdCnHlForm/DropdownAmenitySelectedList?KdId=' + KdId, function (data2) {
+                selectedtag = JSON.parse(data2);
+                if (selectedtag.length > 0) {
+                    var IsAminity = document.getElementById('IsAmenity');
+                    IsAminity.checked = true;
+                    document.getElementById('Amenities').style.display = 'block';
+                    for (var i = 0; i < json.length; i++) {
+                        var obj = json[i];
+                        var newOption = new Option(obj.Text, obj.Value);
+                        for (var j = 0; j < selectedtag.length; j++) {
+                            var val = selectedtag[j];
+                            if (val.Text == obj.Text) {
+                                newOption.selected = true;
+                            }
+                        }
+                        StOnTs.add(newOption, undefined);
+                    }
+                }
+            });
+            $('.js-example-basic-multiple').select2();
+        });
+       
         //Here we get the pageno,pagesize and listcount
         var doc = new DOMParser().parseFromString(data, "text/html");
         var pageinfo = doc.getElementById("PaginationAt");
