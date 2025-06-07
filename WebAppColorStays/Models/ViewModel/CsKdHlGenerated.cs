@@ -46,19 +46,19 @@ namespace WebAppColorStays.Models.ViewModel
         public string? HotelCategory { get; set; }
         [NotMapped]
         public string? IsAmenity { get; set; }
-        public bool? Breakfast { get; set; }
-        public bool? Lunch { get; set; }
-        public bool? Dinner { get; set; }
-        public bool? FromPrice { get; set; }
-        public bool? ToPrice { get; set; }
-        public bool? NoOfPerson { get; set; }
-        public bool? BudgetHotels { get; set; }
-        public bool? LuxuryHotels { get; set; }
-        public bool? PremiumHotels { get; set; }
-        public bool? IsFreeCancellation { get; set; }
-        public bool? IsBookWithoutCreditCard { get; set; }
-        public bool? IsNoPrePayment { get; set; }
-        public bool? IsFeaturedProperty { get; set; }
+        public bool Breakfast { get; set; }
+        public bool Lunch { get; set; }
+        public bool Dinner { get; set; }
+        public double? FromPrice { get; set; }
+        public double? ToPrice { get; set; }
+        public int? NoOfPerson { get; set; }
+        public bool BudgetHotels { get; set; }
+        public bool LuxuryHotels { get; set; }
+        public bool PremiumHotels { get; set; }
+        public bool IsFreeCancellation { get; set; }
+        public bool IsBookWithoutCreditCard { get; set; }
+        public bool IsNoPrePayment { get; set; }
+        public bool IsFeaturedProperty { get; set; }
         public string? DistanceFromCityCenter { get; set; }
         [StringLength(60, ErrorMessage = "You can enter only 70 characters long!")]
         public string? SEOTitle { get; set; }
@@ -69,7 +69,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? StructuredData { get; set; }
         [NotMapped]
         public bool IsURlChange { get; set; }
-        public bool? FreezeStatus { get; set; }
+        public bool FreezeStatus { get; set; }
         public string? FreezedBy { get; set; }
         [StringLength(450)]
         public string? Remarks { get; set; }
