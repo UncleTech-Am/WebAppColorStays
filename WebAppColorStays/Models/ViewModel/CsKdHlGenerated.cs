@@ -45,7 +45,7 @@ namespace WebAppColorStays.Models.ViewModel
         [NotMapped]
         public string? HotelCategory { get; set; }
         [NotMapped]
-        public string? IsAmenity { get; set; }
+        public bool IsAmenity { get; set; }
         public bool Breakfast { get; set; }
         public bool Lunch { get; set; }
         public bool Dinner { get; set; }

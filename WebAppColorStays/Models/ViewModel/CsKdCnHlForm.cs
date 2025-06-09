@@ -47,7 +47,7 @@ namespace WebAppColorStays.Models.ViewModel
         public bool IsFeaturedProperty { get; set; }
         public string? DistanceFromCityCenter { get; set; }
         [NotMapped]
-        public string? IsAmenity { get; set; }
+        public bool IsAmenity { get; set; }
         [NotMapped]
         public string? VariablePosition { get; set; }
         public bool IsVeWdBeforePrefix { get; set; }
