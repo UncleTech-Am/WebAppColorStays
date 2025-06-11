@@ -121,11 +121,53 @@
     <div class="VnRd"><span asp-validation-for="CoverAltTag"></span></div>
 </div>
 
+
+@if (Model != null)
+{
+    @if (Model.BannerImage != null)
+    {
+        <div class="MnTp7 MnBm7">
+            <div class="TtBxFlStDiv">
+                <div class="TtBxFlSt">
+                    <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BannerImage)</div>
+                    <img src="@Model.BannerImage" class="Wh60p" />
+                    <input asp-for="BannerImageName" type="hidden" />
+                </div>
+            </div>
+            <div class="VnRd"><span asp-validation-for="BannerImage"></span></div>
+        </div>
+    }
+}
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BannerImage) (1262 X 215)</div>
+            <input asp-for="BannerImage" type="file" />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="BannerImage"></span></div>
+</div>
+
+
+<div class="MnTp7 MnBm7">
+    <div class="TtBxFlStDiv">
+        <div class="TtBxFlSt">
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.BannerAltTag)<span style="color:red;"> *</span></div>
+            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.BannerAltTag)" asp-for="BannerAltTag" autocomplete="off" required />
+        </div>
+    </div>
+    <div class="VnRd"><span asp-validation-for="BannerAltTag"></span></div>
+</div>
+
+
+
+
 <div class="Pg2 MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
             <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.IsInBanner)</div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.IsInBanner)" asp-for="IsInBanner" autocomplete="off" />
+            <input class="TtBxTt15" placeholder="Show Hotel link in Main Drop Down" asp-for="IsInBanner" autocomplete="off" />
         </div>
     </div>
     <div class="VnRd"><span asp-validation-for="IsInBanner"></span></div>

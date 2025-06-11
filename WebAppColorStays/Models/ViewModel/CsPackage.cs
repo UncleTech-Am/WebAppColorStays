@@ -53,6 +53,7 @@ namespace WebAppColorStays.Models.ViewModel
         [DisplayName("No_Of_Nights")]
         public int? Duration { get; set; }
         public bool IsVideoShoot { get; set; }
+        public bool IsFooterLink { get; set; }
         public bool Breakfast { get; set; }
         public bool Lunch { get; set; }
         public bool Dinner { get; set; }

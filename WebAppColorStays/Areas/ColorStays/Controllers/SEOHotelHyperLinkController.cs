@@ -457,6 +457,10 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                         {
                             CsSEOHotelHyperLink.VideoImage = fileName;
                         }
+                        if ("BannerImage" == file.Name)
+                        {
+                            CsSEOHotelHyperLink.BannerImage = fileName;
+                        }
                         if (file.Length > 0)
                         {
                             Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "HotelBanner");
@@ -569,7 +573,12 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             }
             if (CsSEOHotelHyperLink.VideoImageName != null)
             {
-                CsSEOHotelHyperLink.VideoImageName = CsSEOHotelHyperLink.VideoImageName;
+                CsSEOHotelHyperLink.VideoImage = CsSEOHotelHyperLink.VideoImageName;
+            }
+            
+            if (CsSEOHotelHyperLink.BannerImageName != null)
+            {
+                CsSEOHotelHyperLink.BannerImage = CsSEOHotelHyperLink.BannerImageName;
             }
 
             if (ModelState.IsValid)
@@ -596,7 +605,13 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                                 Task<string> TDeleteImage1 = ryCsImage.DeleteImage(CsSEOHotelHyperLink.VideoImageName, TokenKey, "HotelBanner");
                                 Task.WaitAll(TDeleteImage1);
                             }
-
+                            if ("BannerImage" == file.Name)
+                            {
+                                CsSEOHotelHyperLink.BannerImage = fileName;
+                                //Delete the Images from the folder
+                                Task<string> TDeleteImage1 = ryCsImage.DeleteImage(CsSEOHotelHyperLink.BannerImageName, TokenKey, "HotelBanner");
+                                Task.WaitAll(TDeleteImage1);
+                            }
                             if (file.Length > 0)
                             {
                                 Task<string> TImgUpload = ryCsImage.UploadWebImages(file, fileName, TokenKey, "HotelBanner");
@@ -668,6 +683,15 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
                 if (photo.VideoImageName != null)
                 {
                     Task<string> TDeleteImage3 = ryCsImage.DeleteImage(photo.VideoImageName, TokenKey, "HotelBanner");
+                    Task.WaitAll(TDeleteImage3);
+                    if (TDeleteImage3.Result == "Error")
+                    {
+                        ViewData["ErrorMessage"] = "Try Again!"; return View("_ErrorGeneric");
+                    }
+                }
+                if (photo.BannerImageName != null)
+                {
+                    Task<string> TDeleteImage3 = ryCsImage.DeleteImage(photo.BannerImageName, TokenKey, "HotelBanner");
                     Task.WaitAll(TDeleteImage3);
                     if (TDeleteImage3.Result == "Error")
                     {

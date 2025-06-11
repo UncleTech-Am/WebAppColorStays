@@ -130,14 +130,26 @@
     </div>
     <div class="VnRd"><span asp-validation-for="PackageCategory"></span></div>
 </div>
-<div class="MnTp7 MnBm7">
-    <div class="TtBxFlStDiv">
-        <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rank)<span style="color:red;"> *</span></div>
-            <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Rank)" asp-for="Rank" autocomplete="off" required />
+
+<div class="FxRw">
+    <div class="Fx50 Pg2 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.Rank)<span style="color:red;"> *</span></div>
+                <input class="TtBxTt15" placeholder="@Html.DisplayNameFor(model => model.Rank)" asp-for="Rank" autocomplete="off" required />
+            </div>
         </div>
+        <div class="VnRd"><span asp-validation-for="Rank"></span></div>
     </div>
-    <div class="VnRd"><span asp-validation-for="Rank"></span></div>
+     <div class="Fx50 Pg1 MnTp7 MnBm7">
+        <div class="TtBxFlStDiv">
+            <div class="TtBxFlSt">
+                <input class="SeIt1o15" type="checkbox" asp-for="IsFooterLink"/>
+                &nbsp;Display Package Livk in Footer
+            </div>
+        </div>
+        <div class="VnRd"><span asp-validation-for="IsFooterLink"></span></div>
+    </div>
 </div>
 
 @* <div class="MnTp7 MnBm7">

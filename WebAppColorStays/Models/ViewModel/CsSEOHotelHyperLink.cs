@@ -35,6 +35,10 @@ namespace WebAppColorStays.Models.ViewModel
         public string? CoverAltTag { get; set; }
         [NotMapped]
         public string? CoverImageName { get; set; }
+        public string? BannerImage { get; set; }
+        public string? BannerAltTag { get; set; }
+        [NotMapped]
+        public string? BannerImageName { get; set; }
         public string? TagLine { get; set; }
         [AllowHtml]
         public string? OtherDes { get; set; }
