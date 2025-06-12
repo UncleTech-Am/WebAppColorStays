@@ -65,6 +65,54 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
 
         }
 
+
+        //Get Status
+        [HttpGet]
+        public async Task<IActionResult> Status(string id)
+        {
+            Title();
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            var UserID = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            CsPackage csPe = new CsPackage();
+            csPe.Id = id;
+
+            return View("_PeStatus", csPe);
+        }
+
+        //End
+
+        //Edit Status
+        [HttpPost]
+        public async Task<IActionResult> ChangeStatus(string id, bool Status)
+        {
+            Title();
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("Package/ChangeStatus/" + id + "/" + Status + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Index", new { PageCall = "ShowIxSh", Id = id });
+                    }
+
+                    else
+                    {
+                        Response responsemsg = await JsonSerializer.DeserializeAsync<Response>(apiResponse, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        if (responsemsg.Message == "NotFound")
+                        { ViewBag.Message = "Entry Not Exits!"; }
+                        return View("Error");
+                    }
+                }
+            }
+        }
+        //End
+
+
         [HttpGet]
         public async Task<IActionResult> PackageCity(string PeId)
         {

@@ -35,6 +35,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? CoverAltTag { get; set; }
         [NotMapped]
         public string? CoverImageName { get; set; }
+        [DisplayName("MiniBannerIamge")]
         public string? BannerImage { get; set; }
         public string? BannerAltTag { get; set; }
         [NotMapped]

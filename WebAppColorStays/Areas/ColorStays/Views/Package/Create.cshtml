@@ -727,7 +727,6 @@
             document.getElementById('Itinerary').innerHTML = "";
             document.getElementById('Itinerary').innerHTML = data;
         });
-
     }
 
 
@@ -913,5 +912,20 @@
             HideLoader();
         });
     }
+
+    //Edit Status
+    function ChangeStatus(Id) {
+        ShowLoader();
+        
+        postUT('/Colorstays/Package/ChangeStatus?Id=' + Id + '&Status=' + status1, function (data) {
+            document.getElementById("Detail").innerHTML = "";
+            document.getElementById("Detail").innerHTML = data;
+            HidePopUpTop();//Hide the TopPopUp
+            HidePopUp();//Hide the Main PopUp
+            HideLoader();
+
+        });
+    }
+    //End
 </script>
 
