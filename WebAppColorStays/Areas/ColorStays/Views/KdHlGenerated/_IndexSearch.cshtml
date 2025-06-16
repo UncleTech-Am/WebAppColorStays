@@ -227,10 +227,10 @@
                                         <th> @Html.DisplayNameFor(model => model.URL) </th>       
                                         <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.DescriptionGenerated) </th>       
                                         <th style="min-width: 400px;"> @Html.DisplayNameFor(model => model.DescriptionManual) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.StructuredData) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEODescription) </th>       
-                                        <th> @Html.DisplayNameFor(model => model.SEOKeywords) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.StructuredData) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOTitle) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEODescription) </th>       
+                                        <th style="min-width: 300px;"> @Html.DisplayNameFor(model => model.SEOKeywords) </th>       
                                         <th> @Html.DisplayNameFor(model => model.Remarks) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezeStatus) </th>       
                                         <th> @Html.DisplayNameFor(model => model.FreezedBy) </th>       
@@ -257,3 +257,15 @@
     </div>
 </div>
 
+<script>
+    function ShowData(element) {
+        var popup = document.getElementById('PopUpScript');
+        popup.style.minHeight = "50%";
+        popup.style.left = "25%";
+        popup.style.top = "18%";
+        popup.style.width = "50%";
+        popup.style.overflowX = "auto";
+        document.getElementById('PopUpScript').style.display = 'block';
+        document.getElementById('PopUpScriptDetailContentID').innerHTML = element.innerHTML;
+    }
+</script>
