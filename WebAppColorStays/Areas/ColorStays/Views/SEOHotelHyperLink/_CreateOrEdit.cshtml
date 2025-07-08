@@ -97,6 +97,9 @@
             </div>
             <div class="VnRd"><span asp-validation-for="CoverImage"></span></div>
         </div>
+        <div class="MnTp5 MnBm5 TtAnCr">
+            <input type="button" value="Delete Image!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="DeleteCoverImg('@Model.CoverImageName', 'CoverImage')" />
+        </div>
     }
 }
 
@@ -135,6 +138,9 @@
                 </div>
             </div>
             <div class="VnRd"><span asp-validation-for="BannerImage"></span></div>
+        </div>
+        <div class="MnTp5 MnBm5 TtAnCr">
+            <input type="button" value="Delete Image!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="DeleteCoverImg('@Model.BannerImageName', 'BannerImage')" />
         </div>
     }
 }
@@ -197,13 +203,16 @@
             </div>
             <div class="VnRd"><span asp-validation-for="VideoImage"></span></div>
         </div>
+        <div class="MnTp5 MnBm5 TtAnCr">
+            <input type="button" value="Delete Image!" class="BnRd15 CrBdTeBnCl CrTtTeBnLt SwBxIt1Dv-Vn1 HrTmSeo94" onclick="DeleteCoverImg('@Model.VideoImageName', 'VideoImage')" />
+        </div>
     }
 }
 
 <div class="MnTp7 MnBm7">
     <div class="TtBxFlStDiv">
         <div class="TtBxFlSt">
-            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.VideoImage)</div>
+            <div class="TtBxFlStLl15">@Html.DisplayNameFor(model => model.VideoImage) (630 X 335)</div>
             <input asp-for="VideoImage" type="file" />
         </div>
     </div>

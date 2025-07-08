@@ -838,5 +838,37 @@ namespace WebAppColorStays.Areas.ColorStays.Controllers
             if (Success == true) { return Json(true); }
             else { return Json("Some Error!"); }
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteImg(string id, string CoverImg, string FieldName)
+        {
+            Title();
+            var TokenKey = Request.Cookies["JWToken"];
+            var CompID = Process.Decrypt(Base64UrlEncoder.Decode(Request.Cookies["CompanyID"]));
+            using (HttpClient client = APIColorStays.Initial())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TokenKey);
+                using (var response = await client.GetAsync("SEOHotelHyperLink/DeleteImg/" + id + "/" + FieldName + "/" + CompID, HttpCompletionOption.ResponseHeadersRead))
+                {
+                    var apiResponse = await response.Content.ReadAsStreamAsync();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        //Delete the Images from the folder
+                        Task<string> TDeleteImage = ryCsImage.DeleteImage(CoverImg, TokenKey, "HotelBanner");
+                        Task.WaitAll(TDeleteImage);
+
+                        return RedirectToAction("CreateOrEdit", new { Id = id });
+                    }
+                    else
+                    {
+                        Response responsemsg = await System.Text.Json.JsonSerializer.DeserializeAsync<Response>(apiResponse, new System.Text.Json.JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                        if (responsemsg.Message == "DeleteStop") { ViewData["ErrorMessage"] = "Sytem Entry, Can't be Del !"; return View("_ErrorGeneric"); }
+                        else { return View("Error"); }
+                    }
+                }
+            }
+        }
+
     }
 }

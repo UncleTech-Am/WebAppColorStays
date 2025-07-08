@@ -182,5 +182,18 @@
         var SkipCol = [0];
         StartTableSearch('TeUT', SkipRow, SkipCol);
     }
+
+    //Delete the Image
+    function DeleteCoverImg(img, fieldname) {
+        ShowLoader();
+        getUT('/ColorStays/SEOHotelHyperLink/DeleteImg?id=' + '@Model.Id' + '&CoverImg=' + img + '&FieldName=' + fieldname, function (data) {
+            document.getElementById('CreateOrEdit').innerHTML = "";
+            document.getElementById('CreateOrEdit').innerHTML = data;
+            document.getElementById('CreateOrEdit').innerHTML = data;
+            HideLoader();
+
+        });
+    }
+    //Ends
 </script>
 

@@ -40,6 +40,7 @@ namespace WebAppColorStays.Models.ViewModel
         public string? BannerAltTag { get; set; }
         [NotMapped]
         public string? BannerImageName { get; set; }
+        [DisplayName("H1")]
         public string? TagLine { get; set; }
         [AllowHtml]
         public string? OtherDes { get; set; }
